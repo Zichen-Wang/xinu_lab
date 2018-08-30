@@ -83,6 +83,9 @@ void	nulluser()
 
 	//net_init();
 
+	/* Display the welcome message */
+	welcome();
+
 	/* Create a process to finish startup and start main */
 
 	resume(create((void *)startup, INITSTK, INITPRIO,
