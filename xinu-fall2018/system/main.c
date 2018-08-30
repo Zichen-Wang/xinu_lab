@@ -4,7 +4,8 @@
 
 process	main(void)
 {
-    
+    /* Move the welcome message to a function welcome() */
+    /*
     	kprintf("\nHello World!\n");
     	kprintf("\nI'm the first XINU app and running function main() in system/main.c.\n");
     	kprintf("\nI was created by nulluser() in system/initialize.c using create().\n");
@@ -12,6 +13,7 @@ process	main(void)
     	kprintf("\nI will create a second XINU app that runs shell() in shell/shell.c as an example.\n");
     	kprintf("\nYou can do something else, or do nothing; it's completely up to you.\n");
     	kprintf("\n...creating a shell\n");
+    */
 
 	/* Run the Xinu shell */
 
