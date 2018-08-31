@@ -625,8 +625,8 @@ extern	long	revbyteorder(long);
 /* in file revbyteorder_inline.c */
 extern	long	revbyteorder_inline(long);
 
-/* in file revbyteorder.c */
-extern	long	revbyteorder_c(long);
+/* in file revbyteorder_cfun.c */
+extern	long	revbyteorder_cfun(long);
 
 
 

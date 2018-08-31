@@ -1,12 +1,12 @@
-/* revbyteorder.c - revbyteorder_c */
+/* revbyteorder_cfun.c - revbyteorder_cfun */
 
 #include <xinu.h>
 /*---------------------------------------------------------------------------------
- * revbytorder  -  reverses the byte order of argument x (C function version)
+ * revbytorder_cfun  -  reverses the byte order of argument x (C function version)
  *---------------------------------------------------------------------------------
  */
 
-long revbyteorder_c(long x)
+long revbyteorder_cfun(long x)
 {
     long a, b, c, d;
     a = x & 255;
