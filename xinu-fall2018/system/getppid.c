@@ -20,7 +20,7 @@ syscall getppid(void)
     prptr = &proctab[currpid];  /* Retrieve the process table of the current process    */
     ppid = prptr -> prparent;   /* Get the parent process PID   */
 
-    prptr = &protcab[ppid]; /* Retrieve the process table of the parent process    */
+    prptr = &proctab[ppid]; /* Retrieve the process table of the parent process    */
 
     if (prptr -> prstate == PR_FREE) {  /* Check whether the parent process has terminated. */
         ppid = -1;
