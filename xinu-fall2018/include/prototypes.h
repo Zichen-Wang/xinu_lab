@@ -616,6 +616,9 @@ extern	syscall	yield(void);
 /* in file xuptime.c */
 extern	syscall xuptime(xminsec_t *);
 
+/* in file getppid.c */
+extern	syscall getppid(void);
+
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))
 #define	htonl(x)  ((((x)>>24) & 0x000000ff) | (((x)>> 8) & 0x0000ff00) | \
