@@ -27,7 +27,7 @@ process	main(void)
 	kprintf("\noriginal: %d\n", x);
 	kprintf("version 1: %d\n", revbyteorder(x));
 	kprintf("version 2: %d\n", revbyteorder_inline(x));
-	kprintf("version 3: %d\n", revbyteorder_c(x));
+	kprintf("version 3: %d\n", revbyteorder_cfun(x));
 
 
 	/* Run the Xinu shell */
