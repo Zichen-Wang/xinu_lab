@@ -20,11 +20,11 @@ revbyteorder:
     movb    %al, %cl        # save the third byte of x to %cl
     movb    %ah, %ch        # save the fourth (highest) byte of x to %ch
 
-    movb    %bh, %al        # put %bl and %bh to the third and fourth byte of x
+    movb    %bh, %al        # put %bl and %bh to the fourth and third byte of x
     movb    %bl, %ah
     shll    $2, %eax
 
-    movb    %ch, %al        # put %cl and %ch to the third and fourth byte of x
+    movb    %ch, %al        # put %cl and %ch to the second and first byte of x
     movb    %cl, %ah
                             # now %eax holds the return value
 
