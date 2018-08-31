@@ -24,7 +24,10 @@ process	main(void)
 
     /* Test of function revbyteorder */
     long x = 10;
-	kprintf("\noriginal: %d; reversed %d\n", x, revbyteorder_inline(x));
+	kprintf("\noriginal: %d\n", x)
+	kprintf("version 1: %d\n", x, revbyteorder(x));
+	kprintf("version 2: %d\n", x, revbyteorder_inline(x));
+	kprintf("version 3: %d\n", x, revbyteorder_c(x));
 
 
 	/* Run the Xinu shell */

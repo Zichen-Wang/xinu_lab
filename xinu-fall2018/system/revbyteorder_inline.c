@@ -1,13 +1,17 @@
 /* revbyteorder_inline.c - revbyteorder_inline */
 
 #include <xinu.h>
+/*---------------------------------------------------------------------------------
+ * revbytorder  -  reverses the byte order of argument x (in-line assembly version)
+ *---------------------------------------------------------------------------------
+ */
 
 long revbyteorder_inline(long x)
 {
     asm volatile(
-            "bswapl  %1\n\t"
+            "bswapl  %0\n\t"
+            :"+r"(x)
             :
-            :"r"(x)
             :
             );
 

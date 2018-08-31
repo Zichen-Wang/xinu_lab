@@ -2,9 +2,9 @@
 
     .text
     .globl  revbyteorder
-/*------------------------------------------------------------------------
- * revbytorder  -  reverses the byte order of argument x (x86 version)
- *------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------
+ * revbytorder  -  reverses the byte order of argument x (x86 assembly version)
+ *-----------------------------------------------------------------------------
  */
 revbyteorder:
     pushl   %ebp            # save the value of %ebp
