@@ -12,7 +12,7 @@ revbyteorder:
 
     movl    8(%ebp), %eax   # save the argument x to %eax
 
-    addl    $10, $eax
+    addl    $10, %eax
 
 #   movb    %al, %bl        # save the first (lowest) byte of x to %bl
 #   movb    %ah, %bh        # save the second byte to %bh
