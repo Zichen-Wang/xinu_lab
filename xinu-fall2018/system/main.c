@@ -22,10 +22,6 @@ process	main(void)
     xuptime(&uptime);
     kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
 
-    /* Get the PID of the main process's parent */
-    pid32 ppid = getppid();
-	kprintf("\nI was created by nulluser() in system/initialize.c using create(), and my parent PID is %d.\n", ppid);
-
 
 	/* Run the Xinu shell */
 

@@ -95,6 +95,9 @@ process	shell (
 
 	fprintf(dev, "%s\n\n", SHELL_STRTMSG);
 
+	/* Print the Pid of the shell's parent process */
+	fprintf(dev, "This shell's parent process ID is %d.\n\n", getppid());
+
 	/* Continually prompt the user, read input, and execute command	*/
 
 	while (TRUE) {
