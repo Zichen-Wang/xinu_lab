@@ -7,11 +7,13 @@
  *------------------------------------------------------------------------
  */
 
-syscall xuptime(xminsec *p) /* a pointer to a xminsec struct */
+syscall xuptime(xminsec *p) /* p is a pointer to a xminsec struct */
 {
 
     intmask mask;   /* Saved interrupt mask		*/
-    mask = disable();   /* Disable interrupts */
+    mask = disable();   /* Disable interrupts   */
+
+    /* Calculate upmin and upsec by clktime */
 
     p -> upmin = clktime / 60;
     p -> upsec = clktime % 60;
