@@ -15,16 +15,16 @@ revbyteorder:
 
     movb    %al, -1(%ebp)
     movb    %ah, -2(%ebp)
-    shrl    $2, %eax
+    shrl    $16, %eax
     movb    %al, -3(%ebp)
     movb    %ah, -4(%ebp)
 
     movb    -1(%ebp), %ah
     movb    -2(%ebp), %al
-    shll    $2, %eax
+    shll    $16, %eax
     movb    -3(%ebp), %ah
     movb    -4(%ebp), %al
-
+    
     movl    %ebp, %esp      # restore %esp to its old value
     popl    %ebp            # restore the old value of %ebp to its old value
     ret                     # return to the calling function
