@@ -1,1 +1,0 @@
-/* revbyteorder.c - revbytorder */
