@@ -24,7 +24,7 @@ process	main(void)
 
     /* Test of function revbyteorder */
     long x = 10;
-	kprintf("\noriginal: %d\n", x)
+	kprintf("\noriginal: %d\n", x);
 	kprintf("version 1: %d\n", revbyteorder(x));
 	kprintf("version 2: %d\n", revbyteorder_inline(x));
 	kprintf("version 3: %d\n", revbyteorder_c(x));
