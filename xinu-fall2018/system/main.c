@@ -18,8 +18,9 @@ process	main(void)
     /* Retrieve and display the uptime in minutes and seconds */
 
     xminsec_t uptime;
+
     xuptime(&uptime);
-    kprintf("\nThe uptime since XINU was bootstrapped:\n %d min, %d sec\n", uptime.upmin, uptime.upsec);
+    kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
 
 
 	/* Run the Xinu shell */
@@ -32,6 +33,10 @@ process	main(void)
 	while (TRUE) {
 		receive();
 		sleepms(200);
+
+		xuptime(&uptime);
+		kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
+
 		kprintf("\n\nMain process recreating shell\n\n");
 		resume(create(shell, 4096, 20, "shell", 1, CONSOLE));
 	}
