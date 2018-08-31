@@ -8,7 +8,8 @@ long revbyteorder_inline(long x)
             "bswapl  %1\n\t"
             :
             :"r"(x)
+            :
             );
-    
+
     return x;
 }

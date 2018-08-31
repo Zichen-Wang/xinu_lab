@@ -620,10 +620,10 @@ extern	syscall xuptime(xminsec_t *);
 extern	syscall getppid(void);
 
 /* in file revbyteorder.S */
-extern	long	revbyteorder(long x);
+extern	long	revbyteorder(long);
 
 /* in file revbyteorder_inline.c */
-extern	long	revbyteorder_inline(long x);
+extern	long	revbyteorder_inline(long);
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))
