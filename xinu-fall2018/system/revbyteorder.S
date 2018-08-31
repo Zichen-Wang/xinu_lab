@@ -12,20 +12,22 @@ revbyteorder:
 
     movl    8(%ebp), %eax   # save the argument x to %eax
 
-    movb    %al, %bl        # save the first (lowest) byte of x to %bl
-    movb    %ah, %bh        # save the second byte to %bh
+    addl    $10, $eax
 
-    shrl    $2, %eax        # shift right %eax 2 bytes
+#   movb    %al, %bl        # save the first (lowest) byte of x to %bl
+#   movb    %ah, %bh        # save the second byte to %bh
 
-    movb    %al, %cl        # save the third byte of x to %cl
-    movb    %ah, %ch        # save the fourth (highest) byte of x to %ch
+#   shrl    $2, %eax        # shift right %eax 2 bytes
 
-    movb    %bh, %al        # put %bl and %bh to the fourth and third byte of x
-    movb    %bl, %ah
-    shll    $2, %eax
+#   movb    %al, %cl        # save the third byte of x to %cl
+#   movb    %ah, %ch        # save the fourth (highest) byte of x to %ch
 
-    movb    %ch, %al        # put %cl and %ch to the second and first byte of x
-    movb    %cl, %ah
+#   movb    %bh, %al        # put %bl and %bh to the fourth and third byte of x
+#   movb    %bl, %ah
+#   shll    $2, %eax
+
+#   movb    %ch, %al        # put %cl and %ch to the second and first byte of x
+#   movb    %cl, %ah
                             # now %eax holds the return value
 
     movl    %ebp, %esp      # restore %esp to its old value
