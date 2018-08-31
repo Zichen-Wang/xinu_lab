@@ -12,7 +12,7 @@ revbyteorder:
 
     movl    8(%ebp), %eax   # put the value of argument x to %eax
 
-    bswap   %eax            # reverse the byte of %eax
+    bswapl   %eax            # reverse the byte of %eax
 
     movl    %ebp, %esp      # restore %esp to its old value
     popl    %ebp            # restore the old value of %ebp to its old value

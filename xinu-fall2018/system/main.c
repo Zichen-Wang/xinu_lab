@@ -23,7 +23,7 @@ process	main(void)
     kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
 
     /* Test of function revbyteorder */
-    long x = 348304;
+    long x = 10;
 	kprintf("\noriginal: %d; reversed %d\n", x, revbyteorder(x));
 
 
