@@ -11,7 +11,7 @@ revbyteorder:
     movl    %esp, %ebp      # %ebp now points to the bottom of the stack
     subl    $4, %esp
 
-    movl    %eax, 8(%ebp)   # put the value of argument x to %eax
+    movl    8(%ebp), %eax   # put the value of argument x to %eax
 
     movb    %al, -1(%ebp)
     movb    %ah, -2(%ebp)
