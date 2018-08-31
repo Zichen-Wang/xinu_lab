@@ -1,7 +1,7 @@
 /* revbyteorder.S - revbytorder (x86) */
 
     .text
-    .globa  revbyteorder
+    .globl  revbyteorder
 /*------------------------------------------------------------------------
  * revbytorder  -  reverses the byte order of argument x (x86 version)
  *------------------------------------------------------------------------
