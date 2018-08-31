@@ -622,6 +622,9 @@ extern	syscall getppid(void);
 /* in file revbyteorder.S */
 extern	long	revbyteorder(long x);
 
+/* in file revbyteorder_inline.c */
+extern	long	revbyteorder_inline(long x);
+
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))
 #define	htonl(x)  ((((x)>>24) & 0x000000ff) | (((x)>> 8) & 0x0000ff00) | \
