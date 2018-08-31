@@ -7,7 +7,7 @@
  *------------------------------------------------------------------------
  */
 
-syscall xuptime(xminsec *p) /* p is a pointer to a xminsec struct */
+syscall xuptime(xminsec_t *p) /* p is a pointer to a xminsec struct */
 {
 
     intmask mask;   /* Saved interrupt mask		*/
