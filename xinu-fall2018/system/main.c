@@ -22,6 +22,9 @@ process	main(void)
     xuptime(&uptime);
     kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
 
+    /* Test of function revbyteorder */
+	kprintf("\noriginal: %d; reversed %d\n", x, revbyteorder(x));
+
 
 	/* Run the Xinu shell */
 

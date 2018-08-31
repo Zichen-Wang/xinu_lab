@@ -617,7 +617,10 @@ extern	syscall	yield(void);
 extern	syscall xuptime(xminsec_t *);
 
 /* in file getppid.c */
-extern	syscall getppid(void );
+extern	syscall getppid(void);
+
+/* in file revbyteorder.S */
+extern	long	revbyteorder(long x);
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))
