@@ -8,20 +8,20 @@
  */
 revbyteorder:
     pushl   %ebp            # save the value of %ebp
-    movl    %esp, %ebp      # %ebp now points to the top of the stack
+    movl    %esp, %ebp      # %ebp now points to the bottom of the stack
     subl    $4, %esp
 
     movl    %eax, 8(%ebp)   # put the value of argument x to %eax
 
     movb    %al, -1(%ebp)
     movb    %ah, -2(%ebp)
-    shr     $2, %eax
+    shrl    $2, %eax
     movb    %al, -3(%ebp)
     movb    %ah, -4(%ebp)
 
     movb    -1(%ebp), %ah
     movb    -2(%ebp), %al
-    shl     $2, %eax
+    shll    $2, %eax
     movb    -3(%ebp), %ah
     movb    -4(%ebp), %al
 
