@@ -4,6 +4,10 @@
 
 process	main(void)
 {
+	xminsec_t uptime;
+	long x;
+	pid32 pid;
+
     /* Move the welcome message to a function welcome() */
     /*
     	kprintf("\nHello World!\n");
@@ -16,22 +20,41 @@ process	main(void)
     */
 
     /* Retrieve and display the uptime in minutes and seconds */
-
-    xminsec_t uptime;
-
     xuptime(&uptime);
     kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
+	kprintf("\n\n");
+
 
     /* Test of function revbyteorder */
-    long x = 10;
+    x = 10;
 	kprintf("\noriginal: %d\n", x);
 	kprintf("version 1: %d\n", revbyteorder(x));
 	kprintf("version 2: %d\n", revbyteorder_inline(x));
 	kprintf("version 3: %d\n", revbyteorder_cfun(x));
     kprintf("version 4: %d\n", revbyteorder_gcc(x));
+	kprintf("\n\n");
+
 
     /* Test of the addresses of the end of text, data and bss segments	*/
 	printsegaddress();
+	kprintf("\n\n");
+
+
+	/* Test of the address of the top of run-time stack	*/
+	pid = getpid();
+	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
+	kprintf("\nBefore myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
+			(uint32)proctab[pid].prstkptr);
+	kprintf("Its content is 0x%02X\n", (byte)*(proctab[pid].prstkptr));
+	kprintf("\n\n");
+
+	kprintf("\nCreating myprogA...\n");
+	resume(create(myprogA, 1024, 20, "myprogA", 0));
+
+	kprintf("\nAfter myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
+			(uint32)proctab[pid].prstkptr);
+	kprintf("Its content is 0x%02X\n", (byte)*(proctab[pid].prstkptr));
+	kprintf("\n\n");
 
 	/* Run the Xinu shell */
 
@@ -47,6 +70,7 @@ process	main(void)
 		/* Retrieve and display the uptime in minutes and seconds when recreating shell	*/
 		xuptime(&uptime);
 		kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
+		kprintf("\n\n");
 
 		kprintf("\n\nMain process recreating shell\n\n");
 		resume(create(shell, 4096, 20, "shell", 1, CONSOLE));

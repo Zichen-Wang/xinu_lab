@@ -632,7 +632,10 @@ extern	long	revbyteorder_cfun(long);
 extern	long	revbyteorder_gcc(long);
 
 /* in file printsegaddress.c */
-extern void printsegaddress(void);
+extern	void	printsegaddress(void);
+
+/* in file myprogA.c */
+extern	process	myprogA(void);
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
