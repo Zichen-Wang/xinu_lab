@@ -9,7 +9,8 @@
 
 void printsegaddress()
 {
-    int i, *p;
+    uint32 i;
+    char *p;
     //kprintf("\nThe address of the begin of text segment is [0x%08X].\n",
     //      (uint32)&text);
     kprintf("\nThe address of the end   of text segment is [0x%08X].\n",
