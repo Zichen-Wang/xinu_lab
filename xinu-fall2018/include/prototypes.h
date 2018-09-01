@@ -628,7 +628,8 @@ extern	long	revbyteorder_inline(long);
 /* in file revbyteorder_cfun.c */
 extern	long	revbyteorder_cfun(long);
 
-
+/* in file revbyteorder_gcc.c */
+extern	long	revbyteorder_gcc(long);
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */

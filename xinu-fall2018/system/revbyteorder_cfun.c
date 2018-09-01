@@ -1,6 +1,5 @@
 /* revbyteorder_cfun.c - revbyteorder_cfun */
 
-#include <xinu.h>
 /*---------------------------------------------------------------------------------
  * revbytorder_cfun  -  reverses the byte order of argument x (C function version)
  *---------------------------------------------------------------------------------

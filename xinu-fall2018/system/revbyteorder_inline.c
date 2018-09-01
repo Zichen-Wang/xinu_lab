@@ -1,6 +1,5 @@
 /* revbyteorder_inline.c - revbyteorder_inline */
 
-#include <xinu.h>
 /*---------------------------------------------------------------------------------
  * revbytorder  -  reverses the byte order of argument x (in-line assembly version)
  *---------------------------------------------------------------------------------
