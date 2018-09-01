@@ -9,7 +9,7 @@
 
 void printsegaddress()
 {
-    uint32 i;
+    byte i;
     char *p;
     //kprintf("\nThe address of the begin of text segment is [0x%08X].\n",
     //      (uint32)&text);
@@ -24,19 +24,19 @@ void printsegaddress()
     kprintf("\nThe address of the end   of bss  segment is [0x%08X].\n",
             (uint32)&ebss - 1);
 
-    p = &etext;
+    p = (char *)&etext;
     kprintf("\nThe 6 bytes preceding the end of the text segment are:");
     for (i = 6; i >= 1; i--)
         kprintf(" 0x%02X", *(p - i));
     kprintf("\n");
 
-    p = &edata;
+    p = (char *)&edata;
     kprintf("\nThe 6 bytes preceding the end of the data segment are:");
     for (i = 6; i >= 1; i--)
         kprintf(" 0x%02X", *(p - i));
     kprintf("\n");
 
-    p = &ebss;
+    p = (char *)&ebss;
     kprintf("\nThe 6 bytes preceding the end of the bss  segment are:");
     for (i = 6; i >= 1; i--)
         kprintf(" 0x%02X", *(p - i));
@@ -44,19 +44,19 @@ void printsegaddress()
 
     kprintf("---------------------------------------------------------");
 
-    p = &etext;
+    p = (char *)&etext;
     kprintf("\nThe 6 bytes following the end of the text segment are:");
     for (i = 0; i < 6; i++)
         kprintf(" 0x%02X", *(p + i));
     kprintf("\n");
 
-    p = &edata;
+    p = (char *)&edata;
     kprintf("\nThe 6 bytes following the end of the data segment are:");
     for (i = 0; i < 6; i++)
         kprintf(" 0x%02X", *(p + i));
     kprintf("\n");
 
-    p = &ebss;
+    p = (char *)&ebss;
     kprintf("\nThe 6 bytes following the end of the bss  segment are:");
     for (i = 0; i < 6; i++)
         kprintf(" 0x%02X", *(p + i));
