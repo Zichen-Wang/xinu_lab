@@ -45,7 +45,7 @@ process	main(void)
 	/* Test of the address of the top of run-time stack	*/
 	pid = getpid();
 	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
-	kprintf("\nBefore myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
+	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)proctab[pid].prstkptr);
 	kprintf("Its content is 0x%02X\n", (byte)*(proctab[pid].prstkptr));
 	kprintf("\n\n");
@@ -58,7 +58,8 @@ process	main(void)
 	receive();											/* wait for "myprogA" to exit	*/
 	sleepms(200);
 
-	kprintf("\nAfter myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
+	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
+	kprintf("After myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)proctab[pid].prstkptr);
 	kprintf("Its content is 0x%02X\n", (byte)*(proctab[pid].prstkptr));
 	kprintf("\n\n");
