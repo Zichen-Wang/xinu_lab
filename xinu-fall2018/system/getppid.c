@@ -3,7 +3,7 @@
 #include <xinu.h>
 
 /*------------------------------------------------------------------------
- * getppid  -  returns the PID of the calling process's parent process.
+ * getppid  -  Return the PID of the calling process's parent process.
  *------------------------------------------------------------------------
  */
 

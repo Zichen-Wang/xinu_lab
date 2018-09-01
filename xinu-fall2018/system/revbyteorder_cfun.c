@@ -1,7 +1,7 @@
 /* revbyteorder_cfun.c - revbyteorder_cfun */
 
 /*---------------------------------------------------------------------------------
- * revbytorder_cfun  -  reverses the byte order of argument x (C function version)
+ * revbytorder_cfun  -  Reverse the byte order of argument x (C function version)
  *---------------------------------------------------------------------------------
  */
 

@@ -3,7 +3,7 @@
 #include <xinu.h>
 
 /*--------------------------------------------------------------------------------------------------
- * xuptime  -  returns the uptime in minutes and seconds since XINU was bootstrapped on a backend.
+ * xuptime  -  Return the uptime in minutes and seconds since XINU was bootstrapped on a backend.
  *--------------------------------------------------------------------------------------------------
  */
 
