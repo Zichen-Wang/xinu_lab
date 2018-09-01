@@ -30,6 +30,9 @@ process	main(void)
 	kprintf("version 3: %d\n", revbyteorder_cfun(x));
     kprintf("version 4: %d\n", revbyteorder_gcc(x));
 
+    /* Test of the addresses of the end of text, data and bss	*/
+	printsegaddress();
+
 	/* Run the Xinu shell */
 
 	recvclr();
