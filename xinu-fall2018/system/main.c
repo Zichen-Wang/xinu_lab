@@ -40,6 +40,8 @@ process	main(void)
 	kprintf("\n\n");
 
 
+
+
 	/* Test of the address of the top of run-time stack	*/
 	pid = getpid();
 	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
@@ -49,12 +51,20 @@ process	main(void)
 	kprintf("\n\n");
 
 	kprintf("\nCreating myprogA...\n");
-	resume(create(myprogA, 1024, 20, "myprogA", 0));
+
+	recvclr();
+	resume(create(myprogA, 1024, 20, "myprogA", 0));	/* create the "myprogA" process	*/
+
+	receive();											/* wait for "myprogA" to exit	*/
+	sleepms(200);
 
 	kprintf("\nAfter myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)proctab[pid].prstkptr);
 	kprintf("Its content is 0x%02X\n", (byte)*(proctab[pid].prstkptr));
 	kprintf("\n\n");
+
+
+
 
 	/* Run the Xinu shell */
 
