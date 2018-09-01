@@ -9,7 +9,10 @@
 
 void printsegaddress()
 {
+    kprintf("\nThe address of the begin of text segment is [0x%08X].\n", (uint32)&text);
     kprintf("\nThe address of the end of text segment is [0x%08X].\n", (uint32)&etext - 1);
-    kprintf("\nThe address of the end of data segment is [0x%08X].\n", (uint32)&bss - 1);
+    kprintf("\nThe address of the begin of data segment is [0x%08X].\n", (uint32)&data);
+    kprintf("\nThe address of the end of data segment is [0x%08X].\n", (uint32)&edata - 1);
+    kprintf("\nThe address of the begin of bss segment is [0x%08X].\n", (uint32)&bss);
     kprintf("\nThe address of the end of bss  segment is [0x%08X].\n", (uint32)&ebss - 1);
 }
