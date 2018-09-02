@@ -11,18 +11,19 @@ process myprogA(void) {
     pid32 pid;
 
     x = 10;
-    /* Get the address and content of the top of the run-time stack */
+    /* Get the address and content of the top of the run-time stack (stack pointer) */
 
     asm volatile ("movl %%esp, %0\n\t"
                   "movl (%%esp), %1\n\t"
                 : "=r" (esp), "=r" (content));
+
+    pid = getpid();
 
     /* 5.3 Print the address of the top of run-time stack   */
     /* Call myfuncA */
     /*
     y = myfuncA(x);
 
-    pid = getpid();
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("Before myfuncA() is called, the address of the top of the run-time stack is [0x%08X].\n",
             (uint32)esp);
