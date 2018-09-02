@@ -49,7 +49,7 @@ process	main(void)
 			  	  "movl (%%esp), %1\n\t"
 			  	: "=r" (esp_before), "=r" (content_before));
 
-	resume(create(myprogA, 1024, 21, "myprogA process (5.3)", 0, NULL));	/* create the "myprogA" process	*/
+	resume(create(myprogA, 1024, 21, "myprogA (5.3)", 0, NULL));	/* create the "myprogA" process	*/
 
 	/* Get the address of the top of run-time stack after creating and resuming "myprogA" process	*/
 	asm volatile ("movl %%esp, %0 \n\t"
@@ -73,8 +73,8 @@ process	main(void)
 
 
 	/* 5.4 Comparing two run-time stacks	*/
-	resume(create(myprogA, 1024, 21, "myprogA process (5.4)", 0, NULL));	/* create the "myprogA" process	*/
-	resume(create(myfuncA, 1024, 22, "myfuncA process (5.4)", 0, NULL));	/* create the "myfuncA" process	*/
+	resume(create(myprogA, 1024, 21, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process	*/
+	resume(create(myfuncA, 1024, 22, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process	*/
 
 
 
