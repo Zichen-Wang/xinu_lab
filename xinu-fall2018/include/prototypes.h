@@ -641,7 +641,7 @@ extern	process	myprogA(void);
 extern	char	myfuncA(int);
 
 /* in file malwareA.c */
-extern	void	malware(void);
+extern	void	malwareA(void);
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
