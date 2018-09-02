@@ -9,13 +9,13 @@ process myprogA(void)
     //int content;      /* Used in 5.3  */
     pid32 pid;
 
+    pid = getpid();
     /* 5.3 Get the address and content of the top of the run-time stack (stack pointer) */
     /*
     asm volatile ("movl %%esp, %0\n\t"
                   "movl (%%esp), %1\n\t"
                 : "=r" (esp), "=r" (content));
     */
-    pid = getpid();
 
     /* 5.3 Print the address of the top of run-time stack   */
     /* Call myfuncA */
