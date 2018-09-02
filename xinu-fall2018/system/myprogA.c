@@ -31,6 +31,7 @@ process myprogA(void) {
     */
 
     /* 5.4 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("stack base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
     kprintf("stack size: %d bytes\n", (uint32)(proctab[pid].prstkbase - esp + 4));
@@ -40,8 +41,8 @@ process myprogA(void) {
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
 
-    /* To suppress the warning    */
-    kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
+    /* To suppress the warning in 5.3    */
+    // kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
 
     return 0;
 }
