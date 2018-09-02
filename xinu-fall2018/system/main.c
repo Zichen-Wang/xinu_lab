@@ -28,7 +28,7 @@ process	main(void)
 	kprintf("\n\n");
     
 
-    /* 5.1 Test of function revbyteorder */
+    /* 5.1 Changing byte order using assembly code */
     x = 10;
 	kprintf("\noriginal: %d\n", x);
 	kprintf("version 1: %d\n", revbyteorder(x));
@@ -38,14 +38,14 @@ process	main(void)
 	kprintf("\n\n");
     
 
-    /* 5.2 Test of the addresses of the end of text, data and bss segments	*/
+    /* 5.2 Checking segment boundaries	*/
     printsegaddress();
 	kprintf("\n\n");
     
 
 
 
-	/* 5.3 Test of the address of the top of run-time stack	*/
+	/* 5.3 Run-time stack: process creation and function call	*/
 	/* Get the address of the top of run-time stack before creating "myprogA" process	*/
 	/*
 	asm volatile ("movl %%esp, %0\n\t"
@@ -81,11 +81,15 @@ process	main(void)
 
 
 	/* 5.4 Comparing two run-time stacks	*/
-	resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process	*/
-	resume(create(myfuncA, 1024, 18, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process	*/
+	// resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process		*/
+	// resume(create(myfuncA, 1024, 18, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process		*/
+	// sleepms(200);												/* Main wait for these two process	*/
 
-	sleepms(200);
 
+
+	/* 6 Hijacking a process via stack smashing	*/
+	resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* create the "myprogA" process		*/
+	sleepms(1000);												/* Main wait for "myfunA" process	*/
 
 	/* Run the Xinu shell */
 
