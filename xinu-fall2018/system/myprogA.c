@@ -44,8 +44,7 @@ process myprogA(void)
     // kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
 
     /* 6 Spawn a process running myfuncA() with priority 20.    */
-    resume(create(myfunA, 1024, 20, "myfuncA (6)", 0, NULL));
-
+    resume(create(myfuncA, 1024, 20, "myfuncA (6)", 0, NULL));
     sleepms(3000);  /* myprogA() sleeps for 3 seconds   */
 
     /* 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
