@@ -11,13 +11,15 @@ process	main(void)
 	pid32 pid;
 
     /* 3.2 Move the welcome message to a function welcome() */
-    	kprintf("\nHello World!\n");
-    	kprintf("\nI'm the first XINU app and running function main() in system/main.c.\n");
-    	kprintf("\nI was created by nulluser() in system/initialize.c using create().\n");
-    	kprintf("\nMy creator will turn itself into the do-nothing null process.\n");
-    	kprintf("\nI will create a second XINU app that runs shell() in shell/shell.c as an example.\n");
-    	kprintf("\nYou can do something else, or do nothing; it's completely up to you.\n");
-    	kprintf("\n...creating a shell\n");
+    /*
+    kprintf("\nHello World!\n");
+    kprintf("\nI'm the first XINU app and running function main() in system/main.c.\n");
+    kprintf("\nI was created by nulluser() in system/initialize.c using create().\n");
+    kprintf("\nMy creator will turn itself into the do-nothing null process.\n");
+    kprintf("\nI will create a second XINU app that runs shell() in shell/shell.c as an example.\n");
+    kprintf("\nYou can do something else, or do nothing; it's completely up to you.\n");
+    kprintf("\n...creating a shell\n");
+    */
 
 
     /* 4.1 Retrieve and display the uptime in minutes and seconds */
@@ -45,18 +47,23 @@ process	main(void)
 
 	/* 5.3 Test of the address of the top of run-time stack	*/
 	/* Get the address of the top of run-time stack before creating "myprogA" process	*/
+	/*
 	asm volatile ("movl %%esp, %0\n\t"
 			  	  "movl (%%esp), %1\n\t"
 			  	: "=r" (esp_before), "=r" (content_before));
+	*/
 
-	resume(create(myprogA, 1024, 21, "myprogA (5.3)", 0, NULL));	/* create the "myprogA" process	*/
+	// resume(create(myprogA, 1024, 21, "myprogA (5.3)", 0, NULL));	/* create the "myprogA" process	*/
 
 	/* Get the address of the top of run-time stack after creating and resuming "myprogA" process	*/
+	/*
 	asm volatile ("movl %%esp, %0 \n\t"
 			      "movl (%%esp), %1 \n\t"
 				: "=r" (esp_after), "=r" (content_after));
+	*/
 
 	/* Print the address of the top of run-time stack before and after creating "myprogA" process	*/
+	/*
 	pid = getpid();
 	kprintf("\nProcess Name: %s\n", proctab[pid].prname);
 	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
@@ -68,13 +75,14 @@ process	main(void)
 			(uint32)esp_after);
 	kprintf("Its content is %d.\n", content_after);
 	kprintf("\n\n");
+	*/
 
 
 
 
 	/* 5.4 Comparing two run-time stacks	*/
 	resume(create(myprogA, 1024, 21, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process	*/
-	resume(create(myfuncA, 1024, 22, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process	*/
+	resume(create(myfuncA, 1024, 21, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process	*/
 
 
 
