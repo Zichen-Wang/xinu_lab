@@ -637,6 +637,9 @@ extern	void	printsegaddress(void);
 /* in file myprogA.c */
 extern	process	myprogA(void);
 
+/* in file myfuncA.c */
+extern	char	myfuncA(int);
+
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))

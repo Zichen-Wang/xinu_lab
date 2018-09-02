@@ -3,7 +3,8 @@
     .text
     .globl  revbyteorder
 /*-----------------------------------------------------------------------------
- * revbytorder  -  Reverse the byte order of argument x (x86 assembly version)
+ * revbytorder  -  Reverse the byte order of argument x (x86 assembly version);
+                   the call is revbyteorder(long x)
  *-----------------------------------------------------------------------------
  */
 revbyteorder:

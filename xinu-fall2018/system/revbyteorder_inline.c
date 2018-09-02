@@ -9,10 +9,8 @@ long revbyteorder_inline(long x)
 {
     /*  use extended inline assembly format */
     asm volatile(
-            "bswapl  %0\n\t"
-            :"+r"(x)
-            :
-            :
+            "bswapl  %0 \n\t"
+            :"+r" (x)
             );
 
     return x;

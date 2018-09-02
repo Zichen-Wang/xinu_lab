@@ -6,6 +6,7 @@ process	main(void)
 {
 	xminsec_t uptime;
 	long x;
+	int *esp;
 	pid32 pid;
 
     /* Move the welcome message to a function welcome() */
@@ -45,9 +46,11 @@ process	main(void)
 	/* Test of the address of the top of run-time stack	*/
 	pid = getpid();
 	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
+	asm volatile("movl %%esp, %0 \n\t"
+				:"=m" (esp));
 	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
-			(uint32)proctab[pid].prstkptr);
-	kprintf("Its content is 0x%02X.\n", (byte)*(proctab[pid].prstkptr));
+			(uint32)esp);
+	kprintf("Its content is %d.\n", *esp);
 	kprintf("\n\n");
 
 	kprintf("\nCreating myprogA process...\n");
@@ -55,9 +58,11 @@ process	main(void)
 	resume(create(myprogA, 1024, 21, "myprogA process", 0));	/* create the "myprogA" process	*/
 
 	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
+	asm volatile("movl %%esp, %0 \n\t"
+				:"=m" (esp));
 	kprintf("After myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
-			(uint32)proctab[pid].prstkptr);
-	kprintf("Its content is 0x%02X.\n", (byte)*(proctab[pid].prstkptr));
+			(uint32)esp);
+	kprintf("Its content is %d.\n", *esp);
 	kprintf("\n\n");
 
 
