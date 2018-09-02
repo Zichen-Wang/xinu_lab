@@ -81,8 +81,8 @@ process	main(void)
 
 
 	/* 5.4 Comparing two run-time stacks	*/
-	resume(create(myprogA, 1024, 21, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process	*/
-	resume(create(myfuncA, 1024, 21, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process	*/
+	resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process	*/
+	resume(create(myfuncA, 1024, 19, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process	*/
 
 
 
