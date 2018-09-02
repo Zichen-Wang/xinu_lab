@@ -8,7 +8,7 @@ process	main(void)
 	long x;
 	//char *esp_before, *esp_after;			/* Used in 5.3  */
 	//int content_before, content_after;	/* Used in 5.3  */
-	pid32 pid;
+	//pid32 pid;							/* Used in 5.3  */
 
     /* 3.2 Move the welcome message to a function welcome() */
     /*
