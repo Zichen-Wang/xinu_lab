@@ -84,7 +84,7 @@ process	main(void)
 	resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process	*/
 	resume(create(myfuncA, 1024, 19, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process	*/
 
-
+	sleepms(200);
 
 
 	/* Run the Xinu shell */
