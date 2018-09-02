@@ -47,21 +47,17 @@ process	main(void)
 	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
 	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)proctab[pid].prstkptr);
-	kprintf("Its content is 0x%02X\n", (byte)*(proctab[pid].prstkptr));
+	kprintf("Its content is 0x%02X.\n", (byte)*(proctab[pid].prstkptr));
 	kprintf("\n\n");
 
-	kprintf("\nCreating myprogA...\n");
+	kprintf("\nCreating myprogA process...\n");
 
-	recvclr();
-	resume(create(myprogA, 1024, 20, "myprogA", 0));	/* create the "myprogA" process	*/
-
-	receive();											/* wait for "myprogA" to exit	*/
-	sleepms(200);
+	resume(create(myprogA, 1024, 21, "myprogA process", 0));	/* create the "myprogA" process	*/
 
 	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
 	kprintf("After myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)proctab[pid].prstkptr);
-	kprintf("Its content is 0x%02X\n", (byte)*(proctab[pid].prstkptr));
+	kprintf("Its content is 0x%02X.\n", (byte)*(proctab[pid].prstkptr));
 	kprintf("\n\n");
 
 
