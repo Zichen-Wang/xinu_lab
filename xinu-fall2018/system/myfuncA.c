@@ -4,9 +4,10 @@
 
 char myfuncA(int x)
 {
-    //char *esp;      /* Used in 5.3  */
-    //int content;    /* Used in 5.3  */
+    //char *esp;        /* Used in 5.3  */
+    //int content;      /* Used in 5.3  */
     pid32 pid;
+    pid32 ppid;         /* Used in 6    */
 
     /* 5.3 Get the address and content of the top of the run-time stack (stack pointer) */
     /*
@@ -25,15 +26,20 @@ char myfuncA(int x)
     kprintf("\n\n");
     */
 
-    /* 5.4 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+    /* 5.4 & 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
-    kprintf("stack base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
-    kprintf("stack size: %d bytes\n", (uint32)(proctab[pid].prstkbase - proctab[pid].prstkptr + 4));
-    kprintf("stack limit: %d bytes\n", proctab[pid].prstklen);
-    kprintf("stack pointer: [0x%08X]\n", (uint32)proctab[pid].prstkptr);
+    kprintf("Stack Base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
+    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - proctab[pid].prstkptr + 4));
+    kprintf("Stack Limit: %d bytes\n", proctab[pid].prstklen);
+    kprintf("Stack Pointer: [0x%08X]\n", (uint32)proctab[pid].prstkptr);
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
+
+    /* 6 Overwrite the return address of myprogA with the address of malwareA.  */
+    ppid = getppid();                           /* The parent process should be the process to be attacked.  */
+    *(proctab[pid].prstkbase + 8) = malwareA;   /* Overwrite the return address of myprogA  */
+
 
     return (char)('a' + x % 26);
 }

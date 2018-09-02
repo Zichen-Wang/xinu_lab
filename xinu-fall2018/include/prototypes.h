@@ -640,6 +640,9 @@ extern	process	myprogA(void);
 /* in file myfuncA.c */
 extern	char	myfuncA(int);
 
+/* in file malwareA.c */
+extern	void	malware(void);
+
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))

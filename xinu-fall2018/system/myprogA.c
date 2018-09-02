@@ -32,10 +32,10 @@ process myprogA(void)
     /* 5.4 & 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
 
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
-    kprintf("stack base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
-    kprintf("stack size: %d bytes\n", (uint32)(proctab[pid].prstkbase - proctab[pid].prstkptr + 4));
-    kprintf("stack limit: %d bytes\n", proctab[pid].prstklen);
-    kprintf("stack pointer: [0x%08X]\n", (uint32)proctab[pid].prstkptr);
+    kprintf("Stack Base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
+    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - proctab[pid].prstkptr + 4));
+    kprintf("Stack Limit: %d bytes\n", proctab[pid].prstklen);
+    kprintf("Stack Pointer: [0x%08X]\n", (uint32)proctab[pid].prstkptr);
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
@@ -49,10 +49,10 @@ process myprogA(void)
 
     /* 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
-    kprintf("stack base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
-    kprintf("stack size: %d bytes\n", (uint32)(proctab[pid].prstkbase - proctab[pid].prstkptr + 4));
-    kprintf("stack limit: %d bytes\n", proctab[pid].prstklen);
-    kprintf("stack pointer: [0x%08X]\n", (uint32)proctab[pid].prstkptr);
+    kprintf("Stack Base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
+    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - proctab[pid].prstkptr + 4));
+    kprintf("Stack Limit: %d bytes\n", proctab[pid].prstklen);
+    kprintf("Stack Pointer: [0x%08X]\n", (uint32)proctab[pid].prstkptr);
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
