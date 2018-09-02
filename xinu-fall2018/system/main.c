@@ -6,11 +6,11 @@ process	main(void)
 {
 	xminsec_t uptime;
 	long x;
-	int *esp_before, *esp_after;
+	char *esp_before, *esp_after;
 	int content_before, content_after;
 	pid32 pid;
 
-    /* Move the welcome message to a function welcome() */
+    /* 3.2 Move the welcome message to a function welcome() */
     	kprintf("\nHello World!\n");
     	kprintf("\nI'm the first XINU app and running function main() in system/main.c.\n");
     	kprintf("\nI was created by nulluser() in system/initialize.c using create().\n");
@@ -20,13 +20,13 @@ process	main(void)
     	kprintf("\n...creating a shell\n");
 
 
-    /* Retrieve and display the uptime in minutes and seconds */
+    /* 4.1 Retrieve and display the uptime in minutes and seconds */
     xuptime(&uptime);
     kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
 	kprintf("\n\n");
     
 
-    /* Test of function revbyteorder */
+    /* 5.1 Test of function revbyteorder */
     x = 10;
 	kprintf("\noriginal: %d\n", x);
 	kprintf("version 1: %d\n", revbyteorder(x));
@@ -36,20 +36,20 @@ process	main(void)
 	kprintf("\n\n");
     
 
-    /* Test of the addresses of the end of text, data and bss segments	*/
+    /* 5.2 Test of the addresses of the end of text, data and bss segments	*/
     printsegaddress();
 	kprintf("\n\n");
     
 
 
 
-	/* Test of the address of the top of run-time stack	*/
+	/* 5.3 Test of the address of the top of run-time stack	*/
 	/* Get the address of the top of run-time stack before creating "myprogA" process	*/
 	asm volatile ("movl %%esp, %0\n\t"
 			  	  "movl (%%esp), %1\n\t"
 			  	: "=r" (esp_before), "=r" (content_before));
 
-	resume(create(myprogA, 1024, 21, "myprogA process", 0));	/* create the "myprogA" process	*/
+	resume(create(myprogA, 1024, 21, "myprogA process (5.3)", 0, NULL));	/* create the "myprogA" process	*/
 
 	/* Get the address of the top of run-time stack after creating and resuming "myprogA" process	*/
 	asm volatile ("movl %%esp, %0 \n\t"
@@ -72,6 +72,13 @@ process	main(void)
 
 
 
+	/* 5.4 Comparing two run-time stacks	*/
+	resume(create(myprogA, 1024, 21, "myprogA process (5.4)", 0, NULL));	/* create the "myprogA" process	*/
+	resume(create(myfuncA, 1024, 22, "myfuncA process (5.4)", 0, NULL));	/* create the "myfuncA" process	*/
+
+
+
+
 	/* Run the Xinu shell */
 
 	recvclr();
@@ -83,7 +90,7 @@ process	main(void)
 		receive();
 		sleepms(200);
 
-		/* Retrieve and display the uptime in minutes and seconds when recreating shell	*/
+		/* 4.1 Retrieve and display the uptime in minutes and seconds when recreating shell	*/
 		xuptime(&uptime);
 		kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
 		kprintf("\n\n");
