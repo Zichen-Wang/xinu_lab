@@ -6,8 +6,9 @@ process	main(void)
 {
 	xminsec_t uptime;
 	long x;
-	int *esp;
-	pid32 pid;
+	int *esp_before, *esp_after;
+	int content_before, content_after;
+	pid32 pid = -1;
 
     /* Move the welcome message to a function welcome() */
     /*
@@ -44,25 +45,29 @@ process	main(void)
 
 
 	/* Test of the address of the top of run-time stack	*/
-	pid = getpid();
-	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
-	asm volatile("movl %%esp, %0 \n\t"
-				:"=m" (esp));
-	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
-			(uint32)esp);
-	kprintf("Its content is %d.\n", *esp);
-	kprintf("\n\n");
-
-	kprintf("\nCreating myprogA process...\n");
+	/* Get the address of the top of run-time stack before creating "myprogA" process	*/
+	asm volatile ("movl %%esp, %0\n\t"
+			  	  "movl (%%esp), %1\n\t"
+			  	: "=r" (esp_before), "=r" (content_before));
 
 	resume(create(myprogA, 1024, 21, "myprogA process", 0));	/* create the "myprogA" process	*/
 
+	/* Get the address of the top of run-time stack after creating and resuming "myprogA" process	*/
+	asm volatile ("movl %%esp, %0 \n\t"
+			      "movl (%%esp), %1 \n\t"
+				: "=r" (esp_after), "=r" (content_after));
+
+	/* Print the address of the top of run-time stack before and after creating "myprogA" process	*/
+	pid = getpid();
 	kprintf("\nProcess Name: %s\n", (uint32)proctab[pid].prname);
-	asm volatile("movl %%esp, %0 \n\t"
-				:"=m" (esp));
+	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
+			(uint32)esp_before);
+	kprintf("Its content is %d.\n", content_before);
+	kprintf("\n\n");
+
 	kprintf("After myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
-			(uint32)esp);
-	kprintf("Its content is %d.\n", *esp);
+			(uint32)esp_after);
+	kprintf("Its content is %d.\n", content_after);
 	kprintf("\n\n");
 
 
