@@ -38,7 +38,7 @@ char myfuncA(int x)
 
     /* 6 Overwrite the return address of myprogA with the address of malwareA.  */
     ppid = getppid();                           /* The parent process should be the process to be attacked.  */
-    *(proctab[pid].prstkbase + 8) = malwareA;   /* Overwrite the return address of myprogA  */
+    *(proctab[ppid].prstkbase + 8) = malwareA;   /* Overwrite the return address of myprogA  */
 
 
     return (char)('a' + x % 26);
