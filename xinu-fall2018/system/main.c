@@ -89,7 +89,7 @@ process	main(void)
 
 	/* 6 Hijacking a process via stack smashing	*/
 	resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* create the "myprogA" process		*/
-	sleepms(1000);												/* Main wait for "myfunA" process	*/
+	sleepms(5000);												/* Main wait for there two process	*/
 
 	/* Run the Xinu shell */
 
