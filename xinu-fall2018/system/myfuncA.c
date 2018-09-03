@@ -27,22 +27,21 @@ char myfuncA(int x)
     */
 
     /* 5.4 & 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+    asm volatile ("movl %%esp, %0\n\t"
+                : "=r" (esp));
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("Stack Base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
-    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - proctab[pid].prstkptr + 4));
+    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - esp + 4));
     kprintf("Stack Limit: %d bytes\n", proctab[pid].prstklen);
-    kprintf("Stack Pointer: [0x%08X]\n", (uint32)proctab[pid].prstkptr);
+    kprintf("Stack Pointer: [0x%08X]\n", (uint32)esp);
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
 
     /* 6 Overwrite the return address of myprogA with the address of malwareA.  */
-    ppid = getppid();                           /* The parent process should be the process to be attacked.  */
-    asm volatile ("movl %%esp, %0\n\t"
-                : "=r" (esp));
-    sleepms(1);
+    //ppid = getppid();                           /* The parent process should be the process to be attacked.  */
     /* Overwrite the return address of myprogA  */
-    *(proctab[ppid].prstkptr + (esp - proctab[pid].prstkptr) + 4) = (uint32)malwareA;
+    //*(proctab[ppid].prstkptr + (esp - proctab[pid].prstkptr) - 4) = (uint32)malwareA;
 
 
     return (char)('a' + x % 26);

@@ -5,7 +5,7 @@
 process myprogA(void)
 {
     //char y;           /* Used in 5.3  */
-    //char *esp;        /* Used in 5.3  */
+    char *esp;          /* Used in 5.3 & 5.4 & 6 */
     //int content;      /* Used in 5.3  */
     pid32 pid;
 
@@ -30,12 +30,14 @@ process myprogA(void)
     */
 
     /* 5.4 & 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+    asm volatile ("movl %%esp, %0\n\t"
+                : "=r" (esp));
 
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("Stack Base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
-    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - proctab[pid].prstkptr + 4));
+    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - esp + 4));
     kprintf("Stack Limit: %d bytes\n", proctab[pid].prstklen);
-    kprintf("Stack Pointer: [0x%08X]\n", (uint32)proctab[pid].prstkptr);
+    kprintf("Stack Pointer: [0x%08X]\n", (uint32)esp);
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
@@ -45,14 +47,23 @@ process myprogA(void)
 
     /* 6 Spawn a process running myfuncA() with priority 20.    */
     resume(create(myfuncA, 1024, 20, "myfuncA (6)", 0, NULL));
+
+    /* Record the stack pointer before sleeping   */
+    asm volatile ("movl %%esp, %0\n\t"
+                : "=r" (esp));
     sleepms(3000);  /* myprogA() sleeps for 3 seconds   */
 
+    /* Print the stack pointer before creating a new process    */
+    kprintf("\nStack Pointer before sleeping: [0x%08X]\n", (uint32)esp);
+
     /* 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+    asm volatile ("movl %%esp, %0\n\t"
+                : "=r" (esp));
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("Stack Base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
-    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - proctab[pid].prstkptr + 4));
+    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - esp + 4));
     kprintf("Stack Limit: %d bytes\n", proctab[pid].prstklen);
-    kprintf("Stack Pointer: [0x%08X]\n", (uint32)proctab[pid].prstkptr);
+    kprintf("Stack Pointer: [0x%08X]\n", (uint32)esp);
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
