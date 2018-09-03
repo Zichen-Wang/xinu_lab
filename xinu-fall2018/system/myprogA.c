@@ -48,13 +48,8 @@ process myprogA(void)
     /* 6 Spawn a process running myfuncA() with priority 20.    */
     resume(create(myfuncA, 1024, 20, "myfuncA (6)", 0, NULL));
 
-    /* Record the stack pointer before sleeping   */
-    asm volatile ("movl %%esp, %0\n\t"
-                : "=r" (esp));
     sleepms(3000);  /* myprogA() sleeps for 3 seconds   */
 
-    /* Print the stack pointer before creating a new process    */
-    kprintf("\nStack Pointer before sleeping: [0x%08X]\n", (uint32)esp);
 
     /* 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
     asm volatile ("movl %%esp, %0\n\t"
