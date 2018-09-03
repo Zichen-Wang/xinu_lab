@@ -4,20 +4,21 @@
 
 char myfuncA(int x)
 {
-    char *esp;        /* Used in 5.3 & 5.4 & 6 */
-    //int content;      /* Used in 5.3  */
+    char *esp;        /* Stack pointer; used in 5.3 & 5.4 & 6 */
+    //int content;      /* The content of stack pointer; used in 5.3  */
+    //int i;
     pid32 pid;
     pid32 ppid;         /* Used in 6    */
 
     pid = getpid();
-    /* 5.3 Get the address and content of the top of the run-time stack (stack pointer) */
+    /* 5.3: Get the address and content of the top of the run-time stack (stack pointer) */
     /*
     asm volatile ("movl %%esp, %0\n\t"
                   "movl (%%esp), %1\n\t"
                 : "=r" (esp), "=r" (content));
     */
 
-    /* 5.3 Print the address of the top of run-time stack   */
+    /* 5.3: Print the address of the top of run-time stack   */
     /*
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("After myfuncA() is called, the address of the top of the run-time stack is [0x%08X].\n",
@@ -38,24 +39,30 @@ char myfuncA(int x)
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
 
-    /* 6 Overwrite the return address of myprogA with the address of malwareA.  */
+    /* 6: Overwrite the return address of myprogA with the address of malwareA.  */
     ppid = getppid();                           /* The parent process should be the process to be attacked.  */
     /* Overwrite the return address of myprogA  */
     
     /* Print the stack of myprogA to find the return address    */
     /*
-    for (int i = 0; i <= 100; i += 4) {
+    for (i = 0; i <= 100; i += 4) {
         kprintf("*** %d [0x%08X] 0x%08X ***\n",
                 i, (uint32)(proctab[ppid].prstkbase - i), *(int*)(proctab[ppid].prstkbase - i));
     }
     */
-    /* The return address of sleepms should just follow the argument '3000'(0xBB4)  */
+    /* The return address of 'sleepms' should just follow the argument '3000'(0xBB4)  */
     
     /* In this case, the return address is 'prstkbase - 52' */
-    *(int*)(proctab[ppid].prstkbase - 52) = (uint32)malwareA;
+    //*(int*)(proctab[ppid].prstkbase - 52) = (uint32)malwareA;
 
     /* Save the INITRET address preceding the return address in order that myprogA can exit normally   */
-    *(int*)(proctab[ppid].prstkbase - 48) = *(int*)(proctab[ppid].prstkbase - 4);
+    //*(int*)(proctab[ppid].prstkbase - 48) = *(int*)(proctab[ppid].prstkbase - 4);
+
+
+
+    /* Bonus: Overwrite the return address of myprogA with the address of malwareB without any disruption on myprogA    */
+    *(int*)(proctab[ppid].prstkbase - 48) = *(int*)(proctab[ppid].prstkbase - 52);
+    *(int*)(proctab[ppid].prstkbase - 52) = (uint32)malwareB;
 
     return (char)('a' + x % 26);
 }

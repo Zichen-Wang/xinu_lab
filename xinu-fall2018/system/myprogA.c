@@ -10,14 +10,14 @@ process myprogA(void)
     pid32 pid;
 
     pid = getpid();
-    /* 5.3 Get the address and content of the top of the run-time stack (stack pointer) */
+    /* 5.3: Get the address and content of the top of the run-time stack (stack pointer) */
     /*
     asm volatile ("movl %%esp, %0\n\t"
                   "movl (%%esp), %1\n\t"
                 : "=r" (esp), "=r" (content));
     */
 
-    /* 5.3 Print the address of the top of run-time stack   */
+    /* 5.3: Print the address of the top of run-time stack   */
     /* Call myfuncA */
     /*
     y = myfuncA(10);
@@ -29,7 +29,7 @@ process myprogA(void)
     kprintf("\n\n");
     */
 
-    /* 5.4 & 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+    /* 5.4 & 6: Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
 
@@ -51,7 +51,7 @@ process myprogA(void)
     sleepms(3000);  /* myprogA() sleeps for 3 seconds   */
 
 
-    /* 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+    /* 6: Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);

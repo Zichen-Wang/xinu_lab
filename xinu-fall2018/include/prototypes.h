@@ -643,6 +643,9 @@ extern	char	myfuncA(int);
 /* in file malwareA.c */
 extern	void	malwareA(void);
 
+/* in file malwareB.c */
+extern	void	malwareB(void);
+
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))
