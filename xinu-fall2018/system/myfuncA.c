@@ -6,7 +6,7 @@ char myfuncA(int x)
 {
     char *esp;        /* Stack pointer; used in 5.3 & 5.4 & 6 */
     //int content;      /* The content of stack pointer; used in 5.3  */
-    //int i;
+    uint32 i;
     pid32 pid;
     pid32 ppid;         /* Used in 6    */
 
@@ -44,12 +44,11 @@ char myfuncA(int x)
     /* Overwrite the return address of myprogA  */
     
     /* Print the stack of myprogA to find the return address    */
-    /*
-    for (i = 0; i <= 100; i += 4) {
-        kprintf("*** %d [0x%08X] 0x%08X ***\n",
-                i, (uint32)(proctab[ppid].prstkbase - i), *(int*)(proctab[ppid].prstkbase - i));
+
+    for (i = (uint32)proctab[ppid].prstkbase; i >= (uint32)proctab[ppid].prstkptr; i -= 4) {
+        kprintf("*** [0x%08X] 0x%08X ***\n", i, *(int *)i);
     }
-    */
+
     /* The return address of 'sleepms' should just follow the argument '3000'(0xBB4)  */
     
     /* In this case, the return address is 'prstkbase - 52' */
