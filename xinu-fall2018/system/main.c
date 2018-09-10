@@ -23,8 +23,9 @@ process	main(void)
     */
 
     /* 4.2 Test of print parent process id.	*/
+    sleepms(10);
     ppid = getppid();
-    kprintf("\n The ppid of main process is %d\n\n", ppid);
+    kprintf("\nThe ppid of main process is %d\n\n", ppid);
 
 
     /* 4.1 Retrieve and display the uptime in minutes and seconds */
@@ -94,7 +95,7 @@ process	main(void)
 
 	/* 6 Hijacking a process via stack smashing	*/
 	resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* create the "myprogA" process		*/
-	sleepms(5000);												/* Main wait for there two process	*/
+	sleepms(5000);												/* Main wait for these two process	*/
 
 	/* Run the Xinu shell */
 
