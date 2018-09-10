@@ -6,6 +6,7 @@ process	main(void)
 {
 	xminsec_t uptime;
 	long x;
+	pid32 ppid;								/* Used in 4.2	*/
 	//char *esp_before, *esp_after;			/* Used in 5.3  */
 	//int content_before, content_after;	/* Used in 5.3  */
 	//pid32 pid;							/* Used in 5.3  */
@@ -20,6 +21,10 @@ process	main(void)
     kprintf("\nYou can do something else, or do nothing; it's completely up to you.\n");
     kprintf("\n...creating a shell\n");
     */
+
+    /* 4.2 Test of print parent process id.	*/
+    ppid = getppid();
+    kprintf("\n The ppid of main process is %d\n\n", ppid);
 
 
     /* 4.1 Retrieve and display the uptime in minutes and seconds */
