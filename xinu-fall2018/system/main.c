@@ -6,7 +6,6 @@ process	main(void)
 {
 	xminsec_t uptime;
 	long x;
-	pid32 ppid;								/* Used in 4.2	*/
 	//char *esp_before, *esp_after;			/* Used in 5.3  */
 	//int content_before, content_after;	/* Used in 5.3  */
 	//pid32 pid;							/* Used in 5.3  */
@@ -23,14 +22,13 @@ process	main(void)
     */
 
     /* 4.2 Test of print parent process id.	*/
-    sleepms(10);
-    ppid = getppid();
-    kprintf("\nThe ppid of main process is %d\n\n", ppid);
+    sleepms(10);	/* Let main sleep for 10ms in order that startup process exits	*/
+    kprintf("\nThe ppid of main process is %d\n\n.", getppid());
 
 
     /* 4.1 Retrieve and display the uptime in minutes and seconds */
     xuptime(&uptime);
-    kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
+    kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec.\n", uptime.upmin, uptime.upsec);
 	kprintf("\n\n");
     
 
@@ -95,7 +93,7 @@ process	main(void)
 
 	/* 6 Hijacking a process via stack smashing	*/
 	resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* create the "myprogA" process		*/
-	sleepms(5000);												/* Main wait for these two process	*/
+	sleepms(5000);												/* Main wait for "mygrogA" process	*/
 
 	/* Run the Xinu shell */
 
@@ -110,7 +108,7 @@ process	main(void)
 
 		/* 4.1 Retrieve and display the uptime in minutes and seconds when recreating shell	*/
 		xuptime(&uptime);
-		kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec\n", uptime.upmin, uptime.upsec);
+		kprintf("\nThe uptime since XINU was bootstrapped:\n%d min, %d sec.\n", uptime.upmin, uptime.upsec);
 		kprintf("\n\n");
 
 		kprintf("\n\nMain process recreating shell\n\n");
