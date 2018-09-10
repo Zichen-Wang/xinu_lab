@@ -23,7 +23,7 @@ process	main(void)
 
     /* 4.2 Test of print parent process id.	*/
     sleepms(10);	/* Let main sleep for 10ms in order that startup process exits	*/
-    kprintf("\nThe ppid of main process is %d\n\n.", getppid());
+    kprintf("\nThe ppid of main process is %d.\n\n", getppid());
 
 
     /* 4.1 Retrieve and display the uptime in minutes and seconds */
@@ -33,12 +33,12 @@ process	main(void)
     
 
     /* 5.1 Changing byte order using assembly code */
-    x = 10;
-	kprintf("\noriginal: %d\n", x);
-	kprintf("version 1: %d\n", revbyteorder(x));
-	kprintf("version 2: %d\n", revbyteorder_inline(x));
-	kprintf("version 3: %d\n", revbyteorder_cfun(x));
-    kprintf("version 4: %d\n", revbyteorder_gcc(x));
+    x = 0x0123ABCD;
+	kprintf("\noriginal: 0x%08X\n", x);
+	kprintf("version 1: 0x%08X\n", revbyteorder(x));
+	kprintf("version 2: 0x%08X\n", revbyteorder_inline(x));
+	kprintf("version 3: 0x%08X\n", revbyteorder_cfun(x));
+    kprintf("version 4: 0x%08X\n", revbyteorder_gcc(x));
 	kprintf("\n\n");
     
 
