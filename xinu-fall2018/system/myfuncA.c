@@ -6,7 +6,7 @@ char myfuncA(int x)
 {
     char *esp;        /* Stack pointer; used in 5.3 & 5.4 & 6 */
     //int content;      /* The content of stack pointer; used in 5.3  */
-    uint32 i;
+    //uint32 i;
     pid32 pid;
     pid32 ppid;         /* Used in 6    */
 
