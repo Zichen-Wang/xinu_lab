@@ -43,7 +43,7 @@ process myprogA(void)
     */
 
     /* To suppress the warning in 5.3    */
-    // kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
+    kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
 
     /* 6 Spawn a process running myfuncA() with priority 20.    */
     //resume(create(myfuncA, 1024, 20, "myfuncA (6)", 0, NULL));
