@@ -48,24 +48,25 @@ char myfuncA(int x)
     
     /* Print the stack of myprogA to find the return address    */
 
+    kprintf("\nThe whole stack frame of myprogA() process from the bottom to the top:\n");
     for (i = (uint32)proctab[ppid].prstkbase; i >= (uint32)proctab[ppid].prstkptr; i -= 4) {
         kprintf("[0x%08X] 0x%08X\n", i, *(int *)i);
     }
 
 
-    /* The return address of 'sleepms' should just follow the argument '3000'(0xBB4)  */
+    /* The return address of 'sleepms' should just follow the argument '3000'(0x00000BB8)  */
     
     /* In this case, the return address is 'prstkbase - 52' */
-    *(int *)(proctab[ppid].prstkbase - 52) = (uint32)malwareA;
+    //*(int *)(proctab[ppid].prstkbase - 52) = (uint32)malwareA;
 
     /* Save the INITRET address preceding the return address in order that myprogA can exit normally   */
-    *(int *)(proctab[ppid].prstkbase - 48) = *(int *)(proctab[ppid].prstkbase - 4);
+    //*(int *)(proctab[ppid].prstkbase - 48) = *(int *)(proctab[ppid].prstkbase - 4);
 
 
 
     /* Bonus: Overwrite the return address of myprogA with the address of malwareB without any disruption on myprogA    */
-    //*(int *)(proctab[ppid].prstkbase - 48) = *(int *)(proctab[ppid].prstkbase - 52);
-    //*(int *)(proctab[ppid].prstkbase - 52) = (uint32)malwareB;
+    *(int *)(proctab[ppid].prstkbase - 48) = *(int *)(proctab[ppid].prstkbase - 52);
+    *(int *)(proctab[ppid].prstkbase - 52) = (uint32)malwareB;
 
     return (char)('a' + x % 26);
 }
