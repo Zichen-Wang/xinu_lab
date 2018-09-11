@@ -6,8 +6,8 @@ process	main(void)
 {
 	xminsec_t uptime;
 	long x;
-	int *esp_before, *esp_after;		/* Used in 5.3  */
-	pid32 pid;							/* Used in 5.3  */
+	//int *esp_before, *esp_after;		/* Used in 5.3  */
+	//pid32 pid;							/* Used in 5.3  */
 
     /* 3.2 Move the welcome message to a function welcome() */
     /*
@@ -50,21 +50,21 @@ process	main(void)
 
 	/* 5.3 Run-time stack: process creation and function call	*/
 	/* Get the address of the top of run-time stack before creating "myprogA" process	*/
-
+	/*
 	asm volatile ("movl %%esp, %0\n\t"
 			  	: "=r" (esp_before));
-
+	*/
 
 	resume(create(myprogA, 1024, 21, "myprogA (5.3)", 0, NULL));	/* create the "myprogA" process	*/
 
 	/* Get the address of the top of run-time stack after creating and resuming "myprogA" process	*/
-
+	/*
 	asm volatile ("movl %%esp, %0 \n\t"
 				: "=r" (esp_after));
-
+	*/
 
 	/* Print the address of the top of run-time stack before and after creating "myprogA" process	*/
-
+	/*
 	pid = getpid();
 	kprintf("\nProcess Name: %s\n", proctab[pid].prname);
 	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
@@ -95,15 +95,15 @@ process	main(void)
 	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 7), *(esp_after + 7));
 	kprintf("\n\n");
 	kprintf("\n\n");
-
+	*/
 
 
 
 
 	/* 5.4 Comparing two run-time stacks	*/
-	// resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process		*/
-	// resume(create(myfuncA, 1024, 18, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process		*/
-	// sleepms(200);												/* Main wait for these two process	*/
+	resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process		*/
+	resume(create(myfuncA, 1024, 18, "myfuncA (5.4)", 0, NULL));	/* create the "myfuncA" process		*/
+	sleepms(200);													/* Main wait for these two process	*/
 
 
 

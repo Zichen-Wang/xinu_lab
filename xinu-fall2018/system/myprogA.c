@@ -4,20 +4,20 @@
 
 process myprogA(void)
 {
-    char y;           /* Used in 5.3  */
+    //char y;           /* Used in 5.3  */
     int *esp;          /* Used in 5.3 & 5.4 & 6 */
     pid32 pid;
 
     pid = getpid();
     /* 5.3: Get the address and content of the top of the run-time stack (stack pointer) */
-
+    /*
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
-
+    */
 
     /* 5.3: Print the address of the top of run-time stack   */
     /* Call myfuncA */
-
+    /*
     y = myfuncA(10);
 
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
@@ -29,10 +29,10 @@ process myprogA(void)
     kprintf("[0x%08X] 0x%08X\n", (uint32)(esp + 2), *(esp + 2));
     kprintf("[0x%08X] 0x%08X\n", (uint32)(esp + 3), *(esp + 3));
     kprintf("\n\n");
-
+    */
 
     /* 5.4 & 6: Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
-    /*
+
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
 
@@ -44,10 +44,10 @@ process myprogA(void)
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
-    */
+
 
     /* To suppress the warning in 5.3    */
-    kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
+    //kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
 
     /* 6 Spawn a process running myfuncA() with priority 20.    */
     //resume(create(myfuncA, 1024, 20, "myfuncA (6)", 0, NULL));
