@@ -101,15 +101,15 @@ process	main(void)
 
 
 	/* 5.4 Comparing two run-time stacks	*/
-	resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process		*/
-	resume(create(myfuncA, 1024, 18, "myfuncA (5.4)", 1, 10));	/* create the "myfuncA" process		*/
-	sleepms(200);													/* Main wait for these two process	*/
+	resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* create the "myprogA" process			*/
+	resume(create(myfuncA, 1024, 18, "myfuncA (5.4)", 1, 10));		/* create the "myfuncA" process			*/
+	sleepms(200);													/* "Main" wait for these two processes	*/
 
 
 
 	/* 6 Hijacking a process via stack smashing	*/
-	//resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* create the "myprogA" process		*/
-	//sleepms(5000);												/* Main wait for "mygrogA" process	*/
+	//resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* create the "myprogA" process			*/
+	//sleepms(5000);												/* "Main" wait for "mygrogA" process	*/
 
 	/* Run the Xinu shell */
 

@@ -50,13 +50,13 @@ process myprogA(void)
     //kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
 
     /* 6: Spawn a process running myfuncA() with priority 20.    */
-    //resume(create(myfuncA, 1024, 20, "myfuncA (6)", 0, NULL));
+    resume(create(myfuncA, 1024, 20, "myfuncA (6)", 1, 10));
 
-    //sleepms(3000);  /* myprogA() sleeps for 3 seconds   */
+    sleepms(3000);  /* myprogA() sleeps for 3 seconds   */
 
 
     /* 6: Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
-    /*
+
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
@@ -67,7 +67,7 @@ process myprogA(void)
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
-    */
+
 
     return 0;
 }
