@@ -7,7 +7,7 @@
                    the call is revbyteorder(long x)
  *-----------------------------------------------------------------------------
  */
-revbyteorder:
+revbyteorder_asm:
     pushl   %ebp            # save the value of %ebp
     movl    %esp, %ebp      # %ebp now points to the bottom of the stack
 
