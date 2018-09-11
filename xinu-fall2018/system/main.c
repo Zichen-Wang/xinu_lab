@@ -55,7 +55,7 @@ process	main(void)
 			  	: "=r" (esp_before));
 	*/
 
-	resume(create(myprogA, 1024, 21, "myprogA (5.3)", 0, NULL));	/* create the "myprogA" process	*/
+	//resume(create(myprogA, 1024, 21, "myprogA (5.3)", 0, NULL));	/* create the "myprogA" process	*/
 
 	/* Get the address of the top of run-time stack after creating and resuming "myprogA" process	*/
 	/*
