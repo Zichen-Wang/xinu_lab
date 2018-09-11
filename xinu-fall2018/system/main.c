@@ -6,7 +6,7 @@ process	main(void)
 {
 	xminsec_t uptime;
 	long x;
-	int *esp_before, *esp_after;			/* Used in 5.3  */
+	int *esp_before, *esp_after;		/* Used in 5.3  */
 	pid32 pid;							/* Used in 5.3  */
 
     /* 3.2 Move the welcome message to a function welcome() */
@@ -33,11 +33,11 @@ process	main(void)
 
     /* 5.1 Changing byte order using assembly code */
     x = 0x0123ABCD;
-	kprintf("\noriginal: 0x%08X\n", x);
-	kprintf("version 1: 0x%08X\n", revbyteorder_asm(x));
-	kprintf("version 2: 0x%08X\n", revbyteorder_inline(x));
-	kprintf("version 3: 0x%08X\n", revbyteorder(x));
-    kprintf("version 4: 0x%08X\n", revbyteorder_gcc(x));
+	kprintf("The number to be reversed byte: 0x%08X\n", x);
+	kprintf("Version 1: 0x%08X\n", revbyteorder_asm(x));
+	kprintf("Version 2: 0x%08X\n", revbyteorder_inline(x));
+	kprintf("Version 3: 0x%08X\n", revbyteorder(x));
+    kprintf("Version 4: 0x%08X\n", revbyteorder_gcc(x));
 	kprintf("\n\n");
     
 
@@ -69,18 +69,28 @@ process	main(void)
 	kprintf("\nProcess Name: %s\n", proctab[pid].prname);
 	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)esp_before);
-	kprintf("[0x%08X] 0x%08X.\n", (uint32)esp_before, *esp_before);
-	kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp_before + 1), *(esp_before + 1));
-	kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp_before + 2), *(esp_before + 2));
-	kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp_before + 3), *(esp_before + 3));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)esp_before, *esp_before);
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 1), *(esp_before + 1));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 2), *(esp_before + 2));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 3), *(esp_before + 3));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 4), *(esp_before + 4));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 5), *(esp_before + 5));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 6), *(esp_before + 6));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 7), *(esp_before + 7));
+
 	kprintf("\n\n");
 
+	kprintf("\nProcess Name: %s\n", proctab[pid].prname);
 	kprintf("After myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)esp_after);
-	kprintf("[0x%08X] 0x%08X.\n", (uint32)esp_after, *esp_after);
-	kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp_after + 1), *(esp_after + 1));
-	kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp_after + 2), *(esp_after + 2));
-	kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp_after + 3), *(esp_after + 3));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)esp_after, *esp_after);
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 1), *(esp_after + 1));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 2), *(esp_after + 2));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 3), *(esp_after + 3));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 4), *(esp_after + 4));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 5), *(esp_after + 5));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 6), *(esp_after + 6));
+	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 7), *(esp_after + 7));
 	kprintf("\n\n");
 	kprintf("\n\n");
 
