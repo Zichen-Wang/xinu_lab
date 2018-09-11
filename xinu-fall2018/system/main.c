@@ -69,7 +69,7 @@ process	main(void)
 	kprintf("\nProcess Name: %s\n", proctab[pid].prname);
 	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)esp_before);
-	kprintf("Its content is %d.\n", *esp_before);
+	kprintf("Its content is 0x%08X.\n", *esp_before);
 	kprintf("\n\n");
 
 	kprintf("After myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
