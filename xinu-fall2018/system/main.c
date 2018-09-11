@@ -69,7 +69,8 @@ process	main(void)
 	kprintf("\nProcess Name: %s\n", proctab[pid].prname);
 	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)esp_before);
-	kprintf("[0x%08X] 0x%08X\n", (uint32)esp_before, *esp_before);
+	kprintf("------The 32 bytes preceding the top of the stack are as follows------\n");
+	kprintf("[0x%08X] 0x%08X (top)\n", (uint32)esp_before, *esp_before);
 	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 1), *(esp_before + 1));
 	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 2), *(esp_before + 2));
 	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_before + 3), *(esp_before + 3));
@@ -83,7 +84,8 @@ process	main(void)
 	kprintf("\nProcess Name: %s\n", proctab[pid].prname);
 	kprintf("After myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)esp_after);
-	kprintf("[0x%08X] 0x%08X\n", (uint32)esp_after, *esp_after);
+	kprintf("------The 32 bytes preceding the top of the stack are as follows------\n");
+	kprintf("[0x%08X] 0x%08X (top)\n", (uint32)esp_after, *esp_after);
 	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 1), *(esp_after + 1));
 	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 2), *(esp_after + 2));
 	kprintf("[0x%08X] 0x%08X\n", (uint32)(esp_after + 3), *(esp_after + 3));

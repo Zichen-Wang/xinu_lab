@@ -21,7 +21,8 @@ char myfuncA(int x)
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("After myfuncA() is called, the address of the top of the run-time stack is [0x%08X].\n",
             (uint32)esp);
-    kprintf("[0x%08X] 0x%08X\n", (uint32)esp, *esp);
+    kprintf("------The 16 bytes preceding the top of the stack are as follows------\n");
+    kprintf("[0x%08X] 0x%08X (top)\n", (uint32)esp, *esp);
     kprintf("[0x%08X] 0x%08X\n", (uint32)(esp + 1), *(esp + 1));
     kprintf("[0x%08X] 0x%08X\n", (uint32)(esp + 2), *(esp + 2));
     kprintf("[0x%08X] 0x%08X\n", (uint32)(esp + 3), *(esp + 3));
