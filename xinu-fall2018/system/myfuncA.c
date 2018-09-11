@@ -47,12 +47,12 @@ char myfuncA(int x)
     /* Overwrite the return address of myprogA  */
     
     /* Print the stack of myprogA to find the return address    */
-
+    /*
     kprintf("\nThe whole stack frame of myprogA() process from the bottom to the top:\n");
     for (i = (uint32)proctab[ppid].prstkbase; i >= (uint32)proctab[ppid].prstkptr; i -= 4) {
         kprintf("[0x%08X] 0x%08X\n", i, *(int *)i);
     }
-
+    */
 
     /* The return address of 'sleepms' should just follow the argument '3000'(0x00000BB8)  */
     
