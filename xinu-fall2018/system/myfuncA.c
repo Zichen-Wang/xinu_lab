@@ -5,29 +5,28 @@
 char myfuncA(int x)
 {
     char *esp;        /* Stack pointer; used in 5.3 & 5.4 & 6 */
-    //int content;      /* The content of stack pointer; used in 5.3  */
     //uint32 i;
     pid32 pid;
-    pid32 ppid;         /* Used in 6    */
+    //pid32 ppid;         /* Used in 6    */
 
     pid = getpid();
     /* 5.3: Get the address and content of the top of the run-time stack (stack pointer) */
-    /*
+
     asm volatile ("movl %%esp, %0\n\t"
-                  "movl (%%esp), %1\n\t"
-                : "=r" (esp), "=r" (content));
-    */
+                : "=r" (esp));
+
 
     /* 5.3: Print the address of the top of run-time stack   */
-    /*
+
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("After myfuncA() is called, the address of the top of the run-time stack is [0x%08X].\n",
             (uint32)esp);
-    kprintf("Its content is %d.\n", content);
+    kprintf("Its content is %d.\n", *esp);
     kprintf("\n\n");
-    */
+
 
     /* 5.4 & 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+    /*
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
@@ -38,9 +37,10 @@ char myfuncA(int x)
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
+    */
 
     /* 6: Overwrite the return address of myprogA with the address of malwareA.  */
-    ppid = getppid();                           /* The parent process should be the process to be attacked.  */
+    //ppid = getppid();                           /* The parent process should be the process to be attacked.  */
     /* Overwrite the return address of myprogA  */
     
     /* Print the stack of myprogA to find the return address    */
@@ -61,8 +61,8 @@ char myfuncA(int x)
 
 
     /* Bonus: Overwrite the return address of myprogA with the address of malwareB without any disruption on myprogA    */
-    *(int*)(proctab[ppid].prstkbase - 48) = *(int*)(proctab[ppid].prstkbase - 52);
-    *(int*)(proctab[ppid].prstkbase - 52) = (uint32)malwareB;
+    //*(int*)(proctab[ppid].prstkbase - 48) = *(int*)(proctab[ppid].prstkbase - 52);
+    //*(int*)(proctab[ppid].prstkbase - 52) = (uint32)malwareB;
 
     return (char)('a' + x % 26);
 }

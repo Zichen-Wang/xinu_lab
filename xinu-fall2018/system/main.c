@@ -6,9 +6,8 @@ process	main(void)
 {
 	xminsec_t uptime;
 	long x;
-	//char *esp_before, *esp_after;			/* Used in 5.3  */
-	//int content_before, content_after;	/* Used in 5.3  */
-	//pid32 pid;							/* Used in 5.3  */
+	int *esp_before, *esp_after;			/* Used in 5.3  */
+	pid32 pid;							/* Used in 5.3  */
 
     /* 3.2 Move the welcome message to a function welcome() */
     /*
@@ -51,35 +50,33 @@ process	main(void)
 
 	/* 5.3 Run-time stack: process creation and function call	*/
 	/* Get the address of the top of run-time stack before creating "myprogA" process	*/
-	/*
-	asm volatile ("movl %%esp, %0\n\t"
-			  	  "movl (%%esp), %1\n\t"
-			  	: "=r" (esp_before), "=r" (content_before));
-	*/
 
-	// resume(create(myprogA, 1024, 21, "myprogA (5.3)", 0, NULL));	/* create the "myprogA" process	*/
+	asm volatile ("movl %%esp, %0\n\t"
+			  	: "=r" (esp_before));
+
+
+	resume(create(myprogA, 1024, 21, "myprogA (5.3)", 0, NULL));	/* create the "myprogA" process	*/
 
 	/* Get the address of the top of run-time stack after creating and resuming "myprogA" process	*/
-	/*
+
 	asm volatile ("movl %%esp, %0 \n\t"
-			      "movl (%%esp), %1 \n\t"
-				: "=r" (esp_after), "=r" (content_after));
-	*/
+				: "=r" (esp_after));
+
 
 	/* Print the address of the top of run-time stack before and after creating "myprogA" process	*/
-	/*
+
 	pid = getpid();
 	kprintf("\nProcess Name: %s\n", proctab[pid].prname);
 	kprintf("Before myprogA() is created, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)esp_before);
-	kprintf("Its content is %d.\n", content_before);
+	kprintf("Its content is %d.\n", *esp_before);
 	kprintf("\n\n");
 
 	kprintf("After myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)esp_after);
-	kprintf("Its content is %d.\n", content_after);
+	kprintf("Its content is %d.\n", *esp_after);
 	kprintf("\n\n");
-	*/
+
 
 
 
@@ -92,8 +89,8 @@ process	main(void)
 
 
 	/* 6 Hijacking a process via stack smashing	*/
-	resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* create the "myprogA" process		*/
-	sleepms(5000);												/* Main wait for "mygrogA" process	*/
+	//resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* create the "myprogA" process		*/
+	//sleepms(5000);												/* Main wait for "mygrogA" process	*/
 
 	/* Run the Xinu shell */
 

@@ -4,32 +4,31 @@
 
 process myprogA(void)
 {
-    //char y;           /* Used in 5.3  */
-    char *esp;          /* Used in 5.3 & 5.4 & 6 */
-    //int content;      /* Used in 5.3  */
+    char y;           /* Used in 5.3  */
+    int *esp;          /* Used in 5.3 & 5.4 & 6 */
     pid32 pid;
 
     pid = getpid();
     /* 5.3: Get the address and content of the top of the run-time stack (stack pointer) */
-    /*
+
     asm volatile ("movl %%esp, %0\n\t"
-                  "movl (%%esp), %1\n\t"
-                : "=r" (esp), "=r" (content));
-    */
+                : "=r" (esp));
+
 
     /* 5.3: Print the address of the top of run-time stack   */
     /* Call myfuncA */
-    /*
+
     y = myfuncA(10);
 
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("Before myfuncA() is called, the address of the top of the run-time stack is [0x%08X].\n",
             (uint32)esp);
-    kprintf("Its content is %d.\n", content);
+    kprintf("Its content is %d.\n", *esp);
     kprintf("\n\n");
-    */
+
 
     /* 5.4 & 6: Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+    /*
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
 
@@ -41,17 +40,19 @@ process myprogA(void)
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
+    */
 
     /* To suppress the warning in 5.3    */
     // kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
 
     /* 6 Spawn a process running myfuncA() with priority 20.    */
-    resume(create(myfuncA, 1024, 20, "myfuncA (6)", 0, NULL));
+    //resume(create(myfuncA, 1024, 20, "myfuncA (6)", 0, NULL));
 
-    sleepms(3000);  /* myprogA() sleeps for 3 seconds   */
+    //sleepms(3000);  /* myprogA() sleeps for 3 seconds   */
 
 
     /* 6: Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
+    /*
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
@@ -62,6 +63,7 @@ process myprogA(void)
     kprintf("PID: %d\n", pid);
     kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
+    */
 
     return 0;
 }
