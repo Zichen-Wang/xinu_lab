@@ -74,7 +74,7 @@ process	main(void)
 
 	kprintf("After myprogA() has been created and resumed, the address of the top of the run-time stack is [0x%08X].\n",
 			(uint32)esp_after);
-	kprintf("Its content is %d.\n", *esp_after);
+	kprintf("Its content is 0x%08X.\n", *esp_after);
 	kprintf("\n\n");
 
 
