@@ -47,12 +47,12 @@ char myfuncA(int x)
     /* Overwrite the return address of myprogA  */
     
     /* Print the stack of myprogA to find the return address    */
-    /*
+
     kprintf("\nThe whole stack frame of myprogA() process from the bottom to the top:\n");
     for (i = (uint32)proctab[ppid].prstkbase; i >= (uint32)proctab[ppid].prstkptr; i -= 4) {
         kprintf("[0x%08X] 0x%08X\n", i, *(int *)i);
     }
-    */
+
 
     /* The return address of 'sleepms' should just follow the argument '3000'(0x00000BB8)  */
     
@@ -64,9 +64,9 @@ char myfuncA(int x)
 
 
 
-    /* Bonus: Overwrite the return address of myprogA with the address of malwareB without any disruption on myprogA    */
+    /* Bonus: temporarily save the true return address in 'prstkbase - 48' for malwareB().  */
     *(int *)(proctab[ppid].prstkbase - 48) = *(int *)(proctab[ppid].prstkbase - 52);
-    *(int *)(proctab[ppid].prstkbase - 52) = (uint32)malwareB;
+    *(int *)(proctab[ppid].prstkbase - 52) = (uint32)malwareB;  /* Change the return address as before. */
 
     return (char)('a' + x % 26);
 }
