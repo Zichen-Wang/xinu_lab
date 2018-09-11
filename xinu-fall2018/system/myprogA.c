@@ -38,7 +38,7 @@ process myprogA(void)
 
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("Stack Base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
-    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase - (uint32)(esp) + 4);
+    kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase) - (uint32)(esp) + 4);
     kprintf("Stack Limit: %d bytes\n", proctab[pid].prstklen);
     kprintf("Stack Pointer: [0x%08X]\n", (uint32)esp);
     kprintf("PID: %d\n", pid);
