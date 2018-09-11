@@ -6,7 +6,7 @@ char myfuncA(int x)
 {
     int *esp;        /* Stack pointer; used in 5.3 & 5.4 & 6 */
     uint32 i;         /* Used in 6    */
-    //pid32 pid;      /* Used in 5.3 & 5.4    */
+    pid32 pid;      /* Used in 5.3 & 5.4 & 6   */
     pid32 ppid;         /* Used in 6    */
 
     pid = getpid();
@@ -30,7 +30,6 @@ char myfuncA(int x)
     */
 
     /* 5.4 & 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
-
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
