@@ -50,7 +50,7 @@ char myfuncA(int x)
     /* Print the stack of myprogA to find the return address    */
     /*
     for (i = (uint32)proctab[ppid].prstkbase; i >= (uint32)proctab[ppid].prstkptr; i -= 4) {
-        kprintf("*** [0x%08X] 0x%08X ***\n", i, *(int *)i);
+        kprintf("[0x%08X] 0x%08X\n", i, *(int *)i);
     }
     */
 
