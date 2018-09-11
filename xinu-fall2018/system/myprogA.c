@@ -23,7 +23,10 @@ process myprogA(void)
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("Before myfuncA() is called, the address of the top of the run-time stack is [0x%08X].\n",
             (uint32)esp);
-    kprintf("Its content is 0x%08X.\n", *esp);
+    kprintf("[0x%08X] 0x%08X.\n", (uint32)esp, *esp);
+    kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp + 1), *(esp + 1));
+    kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp + 2), *(esp + 1));
+    kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp + 3), *(esp + 1));
     kprintf("\n\n");
 
 

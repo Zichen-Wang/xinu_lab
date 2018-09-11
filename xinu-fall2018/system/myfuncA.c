@@ -4,7 +4,7 @@
 
 char myfuncA(int x)
 {
-    char *esp;        /* Stack pointer; used in 5.3 & 5.4 & 6 */
+    int *esp;        /* Stack pointer; used in 5.3 & 5.4 & 6 */
     //uint32 i;
     pid32 pid;
     //pid32 ppid;         /* Used in 6    */
@@ -21,7 +21,10 @@ char myfuncA(int x)
     kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
     kprintf("After myfuncA() is called, the address of the top of the run-time stack is [0x%08X].\n",
             (uint32)esp);
-    kprintf("Its content is 0x%08X.\n", *esp);
+    kprintf("[0x%08X] 0x%08X.\n", (uint32)esp, *esp);
+    kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp + 1), *(esp + 1));
+    kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp + 2), *(esp + 1));
+    kprintf("[0x%08X] 0x%08X.\n", (uint32)(esp + 3), *(esp + 1));
     kprintf("\n\n");
 
 
