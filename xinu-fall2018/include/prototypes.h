@@ -619,14 +619,14 @@ extern	syscall xuptime(xminsec_t *);
 /* in file getppid.c */
 extern	syscall getppid(void);
 
-/* in file revbyteorder.S */
-extern	long	revbyteorder(long);
+/* in file revbyteorder_asm.S */
+extern	long	revbyteorder_asm(long);
 
 /* in file revbyteorder_inline.c */
 extern	long	revbyteorder_inline(long);
 
-/* in file revbyteorder_cfun.c */
-extern	long	revbyteorder_cfun(long);
+/* in file revbyteorder.c */
+extern	long	revbyteorder(long);
 
 /* in file revbyteorder_gcc.c */
 extern	long	revbyteorder_gcc(long);

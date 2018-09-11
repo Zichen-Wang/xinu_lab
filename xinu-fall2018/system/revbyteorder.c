@@ -1,11 +1,11 @@
-/* revbyteorder_cfun.c - revbyteorder_cfun */
+/* revbyteorder.c - revbyteorder */
 
 /*---------------------------------------------------------------------------------
- * revbytorder_cfun  -  Reverse the byte order of argument x (C function version)
+ * revbytorder  -  Reverse the byte order of argument x (C function version)
  *---------------------------------------------------------------------------------
  */
 
-long revbyteorder_cfun(long x)
+long revbyteorder(long x)
 {
     long a, b, c, d;    /* save four bytes of x in a, b, c and d        */
     a = x & 255;

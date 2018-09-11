@@ -1,9 +1,9 @@
-/* revbyteorder.S - revbytorder (x86) */
+/* revbyteorder_asm.S - revbytorder_asm (x86) */
 
     .text
-    .globl  revbyteorder
+    .globl  revbyteorder_asm
 /*-----------------------------------------------------------------------------
- * revbytorder  -  Reverse the byte order of argument x (x86 assembly version);
+ * revbytorder_asm  -  Reverse the byte order of argument x (x86 assembly version);
                    the call is revbyteorder(long x)
  *-----------------------------------------------------------------------------
  */

@@ -34,9 +34,9 @@ process	main(void)
     /* 5.1 Changing byte order using assembly code */
     x = 0x0123ABCD;
 	kprintf("\noriginal: 0x%08X\n", x);
-	kprintf("version 1: 0x%08X\n", revbyteorder(x));
+	kprintf("version 1: 0x%08X\n", revbyteorder_asm(x));
 	kprintf("version 2: 0x%08X\n", revbyteorder_inline(x));
-	kprintf("version 3: 0x%08X\n", revbyteorder_cfun(x));
+	kprintf("version 3: 0x%08X\n", revbyteorder(x));
     kprintf("version 4: 0x%08X\n", revbyteorder_gcc(x));
 	kprintf("\n\n");
     
