@@ -66,7 +66,7 @@ char myfuncA(int x)
 
     /* Bonus: temporarily save the true return address in 'prstkbase - 48' for malwareB().  */
     *(int *)(proctab[ppid].prstkbase - 48) = *(int *)(proctab[ppid].prstkbase - 52);
-    *(int *)(proctab[ppid].prstkbase - 52) = (uint32)malwareB;  /* Change the return address as before. */
+    *(int *)(proctab[ppid].prstkbase - 52) = (uint32)malwareB;  /* Change the return address as before */
 
     return (char)('a' + x % 26);
 }
