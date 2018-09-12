@@ -5,7 +5,7 @@
 char myfuncA(int x)
 {
     int *esp;        /* Stack pointer; used in 5.3 & 5.4 & 6 */
-    uint32 i;         /* Used in 6    */
+    uint32 i;         /* Loop variable; used in 6    */
     pid32 pid;      /* Used in 5.3 & 5.4 & 6   */
     pid32 ppid;         /* Used in 6    */
 
@@ -43,10 +43,10 @@ char myfuncA(int x)
 
 
     /* 6: Overwrite the return address of myprogA with the address of malwareA.  */
-    ppid = getppid();                           /* The parent process should be the process to be attacked.  */
-    /* Overwrite the return address of myprogA  */
+
+    ppid = getppid();                           /* 6: The parent process should be the process to be attacked.  */
     
-    /* Print the stack of myprogA to find the return address    */
+    /* 6: Print the stack of myprogA to find the return address    */
 
     kprintf("\nThe whole stack frame of myprogA() process from the bottom to the top:\n");
     for (i = (uint32)proctab[ppid].prstkbase; i >= (uint32)proctab[ppid].prstkptr; i -= 4) {
@@ -54,19 +54,19 @@ char myfuncA(int x)
     }
 
 
-    /* The return address of 'sleepms' should just follow the argument '3000'(0x00000BB8)  */
+    /* 6: The return address of 'sleepms' should just follow the argument '3000'(0x00000BB8)  */
     
-    /* In this case, the return address is 'proctab[ppid].prstkptr + 120' */
+    /* 6: In my case, the return address is 'proctab[ppid].prstkptr + 120' */
     //*(int *)(proctab[ppid].prstkptr + 120) = (uint32)malwareA;
 
-    /* Save the INITRET address preceding the return address in order that myprogA can exit normally   */
+    /* 6: Save the INITRET address preceding the return address in order that myprogA can exit normally   */
     //*(int *)(proctab[ppid].prstkptr + 124) = *(int *)(proctab[ppid].prstkbase - 4);
 
 
 
-    /* Bonus: temporarily save the true return address in 'proctab[ppid].prstkptr + 116' for malwareB().  */
+    /* Bonus: Temporarily save the true return address in 'proctab[ppid].prstkptr + 124' for malwareB().  */
     *(int *)(proctab[ppid].prstkptr + 124) = *(int *)(proctab[ppid].prstkptr + 120);
-    *(int *)(proctab[ppid].prstkptr + 120) = (uint32)malwareB;  /* Change the return address as before */
+    *(int *)(proctab[ppid].prstkptr + 120) = (uint32)malwareB;  /* Bonus: Change the return address to malwareB() */
 
     return (char)('a' + x % 26);
 }

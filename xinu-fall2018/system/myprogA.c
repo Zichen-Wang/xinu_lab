@@ -6,9 +6,9 @@ process myprogA(void)
 {
     //char y;           /* Used in 5.3  */
     int *esp;          /* Used in 5.3 & 5.4 & 6 */
-    pid32 pid;
+    pid32 pid;          /* Used in 5.3 & 5.4 & 6    */
 
-    pid = getpid();
+    pid = getpid();     /* Used in 5.3 & 5.4 & 6    */
     /* 5.3: Get the address and content of the top of the run-time stack (stack pointer) */
     /*
     asm volatile ("movl %%esp, %0\n\t"
@@ -16,7 +16,7 @@ process myprogA(void)
     */
 
     /* 5.3: Print the address of the top of run-time stack   */
-    /* Call myfuncA */
+    /* 5.3: Call myfuncA */
     /*
     y = myfuncA(10);
 
@@ -46,13 +46,13 @@ process myprogA(void)
     kprintf("\n\n");
 
 
-    /* To suppress the warning in 5.3    */
+    /* To suppress a warning in 5.3    */
     //kprintf("\nThe result of myfunA function call is '%c'\n\n\n", y);
 
     /* 6: Spawn a process running myfuncA() with priority 20.    */
     resume(create(myfuncA, 1024, 20, "myfuncA (6)", 1, 10));
 
-    sleepms(3000);  /* myprogA() sleeps for 3 seconds   */
+    sleepms(3000);  /* 6: myprogA() sleeps for 3 seconds   */
 
 
     /* 6: Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */

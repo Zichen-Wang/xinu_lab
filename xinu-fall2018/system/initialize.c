@@ -83,7 +83,7 @@ void	nulluser()
 
 	//net_init();
 
-	/* Display the welcome message */
+	/* 3.2 Display the welcome message */
 	welcome();
 
 	/* Create a process to finish startup and start main */
@@ -99,7 +99,7 @@ void	nulluser()
 //		;		/* Do nothing */
 //	}
 
-    /* An alternative way to do nothing forever. */
+    /* 3.1 An alternative way to do nothing forever. */
     halt();
 
 }
