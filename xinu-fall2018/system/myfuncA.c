@@ -60,12 +60,12 @@ char myfuncA(int x)
     *(int *)(proctab[ppid].prstkptr + 120) = (uint32)malwareA;
 
     /* Save the INITRET address preceding the return address in order that myprogA can exit normally   */
-    *(int *)(proctab[ppid].prstkptr + 116) = *(int *)(proctab[ppid].prstkbase - 4);
+    *(int *)(proctab[ppid].prstkptr + 124) = *(int *)(proctab[ppid].prstkbase - 4);
 
 
 
     /* Bonus: temporarily save the true return address in 'proctab[ppid].prstkptr + 116' for malwareB().  */
-    //*(int *)(proctab[ppid].prstkptr + 116) = *(int *)(proctab[ppid].prstkptr + 120);
+    //*(int *)(proctab[ppid].prstkptr + 124) = *(int *)(proctab[ppid].prstkptr + 120);
     //*(int *)(proctab[ppid].prstkptr + 120) = (uint32)malwareB;  /* Change the return address as before */
 
     return (char)('a' + x % 26);
