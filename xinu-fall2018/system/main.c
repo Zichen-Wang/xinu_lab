@@ -8,6 +8,7 @@ process	main(void)
 	//long x;								/* Used in Lab1 5.1	*/
 	//int *esp_before, *esp_after;		/* Used in Lab1 5.3  */
 	//pid32 pid;							/* Used in Lab1 5.3  */
+	pid32 z;							/* Used in Lab2 4	*/
 
     /* Lab1 3.2: Move the welcome message to a function welcome() */
     /*
@@ -21,9 +22,9 @@ process	main(void)
     */
 
     /* Lab1 4.2: Test of print parent process id.	*/
-    sleepms(10);	/* 4.2: Let main sleep for 10ms in order that startup process exits.	*/
+    //sleepms(10);	/* Lab1 4.2: Let main sleep for 10ms in order that startup process exits.	*/
 	/* Lab1 4.2 Print the PPID of the main process	*/
-    kprintf("\nThe ppid of the main process is %d.\n\n", getppid());
+    //kprintf("\nThe ppid of the main process is %d.\n\n", getppid());
 
 
     
@@ -125,6 +126,10 @@ process	main(void)
 	sleepms(2468);	/* Sleep a while just for test	*/
 	kprintf("\nThe uptime since XINU was bootstrapped in seconds: %ds.\n", clktime);
 	kprintf("\nThe uptime since XINU was bootstrapped in milliseconds: %dms.\n", clktimemilli);
+
+	/* Lab2 4: Test of print process id by igetpid()	*/
+	z = getpid();
+	kprintf("\nThe process id of main() is %d.\n", z);
 
 
 	/* Run the Xinu shell */

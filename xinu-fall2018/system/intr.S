@@ -427,10 +427,23 @@ _Xint32:
 	pushl	$32
 	jmp	Xtrap
 
+/*
+ * User: wang4113
+ * data: 09/19/2018
+ */
+/* Lab2 4: interrupt #33 used for system call   */
 	.globl  _Xint33			/* available for ext. interrupt	*/
 _Xint33:
 	pushl	%ebp
 	movl	%esp,%ebp
+
+	cmpl    %eax, $3
+	jne     Trap
+	call    getpid
+	movl    %ebp, %esp
+	popl    %ebp
+	iret
+Trap:
 	pushal
 	movl	%esp, %eax
 	pushl	%eax
