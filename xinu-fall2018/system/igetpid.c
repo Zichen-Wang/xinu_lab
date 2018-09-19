@@ -18,7 +18,7 @@ int igetpid(void)
 
     asm volatile ("movl   $3, %%eax\n\t"
                   "int    $0x21\n\t"
-                  "movl   %%eax, %1\n\t"
+                  "movl   %%eax, %0\n\t"
                   : "=r" (syscall_val));
 
     return syscall_val;
