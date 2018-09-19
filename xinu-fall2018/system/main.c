@@ -8,7 +8,6 @@ process	main(void)
 	//long x;								/* Used in Lab1 5.1	*/
 	//int *esp_before, *esp_after;		/* Used in Lab1 5.3  */
 	//pid32 pid;							/* Used in Lab1 5.3  */
-	pid32 z;							/* Used in Lab2 4	*/
 
     /* Lab1 3.2: Move the welcome message to a function welcome() */
     /*
@@ -22,9 +21,9 @@ process	main(void)
     */
 
     /* Lab1 4.2: Test of print parent process id.	*/
-    //sleepms(10);	/* Lab1 4.2: Let main sleep for 10ms in order that startup process exits.	*/
+    sleepms(10);	/* Lab1 4.2: Let main sleep for 10ms in order that startup process exits.	*/
 	/* Lab1 4.2 Print the PPID of the main process	*/
-    //kprintf("\nThe ppid of the main process is %d.\n\n", getppid());
+    kprintf("\nThe ppid of the main process is %d.\n\n", getppid());
 
 
     
@@ -127,9 +126,18 @@ process	main(void)
 	kprintf("\nThe uptime since XINU was bootstrapped in seconds: %ds.\n", clktime);
 	kprintf("\nThe uptime since XINU was bootstrapped in milliseconds: %dms.\n", clktimemilli);
 
+	/*
+	 * User: wang4113
+	 * data: 09/19/2018
+	 */
 	/* Lab2 4: Test of print process id by igetpid()	*/
-	z = igetpid();
-	kprintf("\nThe process id of main() is %d.\n", z);
+	/* Spawn several app processes to test igetpid()	*/
+	resume(create(myTestProc, 1024, 19, "myTestProc_0", 0, NULL));
+	resume(create(myTestProc, 1024, 18, "myTestProc_1", 0, NULL));
+	resume(create(myTestProc, 1024, 17, "myTestProc_2", 0, NULL));
+	resume(create(myTestProc, 1024, 16, "myTestProc_2", 0, NULL));
+
+	sleepms(1000);
 
 
 	/* Run the Xinu shell */

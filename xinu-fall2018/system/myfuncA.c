@@ -18,7 +18,7 @@ char myfuncA(int x)
 
     /* 5.3: Print the address of the top of run-time stack   */
     /*
-    kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
+    kprintf("Process Name: %s\n", proctab[pid].prname);
     kprintf("After myfuncA() is called, the address of the top of the run-time stack is [0x%08X].\n",
             (uint32)esp);
     kprintf("------The 16 bytes preceding the top of the stack are as follows------\n");
@@ -32,7 +32,7 @@ char myfuncA(int x)
     /* 5.4 & 6 Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
     asm volatile ("movl %%esp, %0\n\t"
                 : "=r" (esp));
-    kprintf("Process Name: %s\n", (uint32)proctab[pid].prname);
+    kprintf("Process Name: %s\n", proctab[pid].prname);
     kprintf("Stack Base: [0x%08X]\n", (uint32)proctab[pid].prstkbase);
     kprintf("Stack Size: %d bytes\n", (uint32)(proctab[pid].prstkbase) - (uint32)(esp) + 4);
     kprintf("Stack Limit: %d bytes\n", proctab[pid].prstklen);
