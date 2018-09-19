@@ -1,7 +1,7 @@
 /* revbyteorder_inline.c - revbyteorder_inline */
 
 /*---------------------------------------------------------------------------------
- * revbytorder  -  Reverse the byte order of argument x (in-line assembly version)
+ * revbytorder  -  Reverse the byte order of argument x (inline assembly version)
  *---------------------------------------------------------------------------------
  */
 

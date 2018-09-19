@@ -23,3 +23,10 @@ typedef struct xminsec {
     int upsec;
 
 } xminsec_t;
+
+/*
+ * User: wang4113
+ * data: 09/19/2018
+ */
+extern  uint32  clktimemilli;   /* Lab2 3.1: current time in milli-secs since boot  */
+extern  uint32  currproctime;   /* Lab2 3.2: current CPU usage in milli-secs        */

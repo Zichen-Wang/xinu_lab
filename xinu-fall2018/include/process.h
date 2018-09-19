@@ -52,6 +52,15 @@ struct procent {		/* Entry in the process table		*/
 	umsg32	prmsg;		/* Message sent to this process		*/
 	bool8	prhasmsg;	/* Nonzero iff msg is valid		*/
 	int16	prdesc[NDESC];	/* Device descriptors for process	*/
+
+	/*
+	 * User: wang4113
+	 * data: 09/19/2018
+	 */
+	uint32	pgrosscpu;	/* Lab2 3.2: To record the gross CPU usage of a process	*/
+	uint32	pwaittime;	/* Lab2 3.3: The tot waiting time of a process	*/
+	uint32	pwaitcount;	/* Lab2 3.3: The waiting count of a process	*/
+	uint32	pstartwait;	/* Lab2 3.3: The time stamp when a process becomes ready	*/
 };
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/

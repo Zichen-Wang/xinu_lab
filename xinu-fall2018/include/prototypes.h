@@ -643,8 +643,15 @@ extern	char	myfuncA(int);
 /* in file malwareA.c */
 extern	void	malwareA(void);
 
-/* in file malwareB.c */
+/* in file malwareB.c*/
 extern	void	malwareB(void);
+
+/*
+ * User: wang4113
+ * data: 09/19/2018
+ */
+/* in file igetpid.c */
+extern	int		igetpid(void);
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */

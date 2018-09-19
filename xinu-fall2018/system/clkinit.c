@@ -7,6 +7,13 @@ uint32	ctr1000 = 0;		/* Milliseconds since boot		*/
 qid16	sleepq;			/* Queue of sleeping processes		*/
 uint32	preempt;		/* Preemption counter			*/
 
+/*
+ * User: wang4113
+ * data: 09/19/2018
+ */
+uint32	clktimemilli;	/* Lab2 3.1: Milliseconds since boot	*/
+uint32	currproctime;	/* Lab2 3.2: CPU usage when a process becomes current	*/
+
 /*------------------------------------------------------------------------
  * clkinit  -  Initialize the clock and sleep queue at startup (x86)
  *------------------------------------------------------------------------
@@ -26,6 +33,16 @@ void	clkinit(void)
 	/* Initialize the time since boot to zero */
 
 	clktime = 0;
+
+	/*
+	 * User: wang4113
+	 * data: 09/19/2018
+	 */
+	/* Lab2 3.1: Initialize the time since boot to zero */
+	clktimemilli = 0;
+
+	/* Lab2 3.2: Initialize the CPU usage since boot to zero */
+	currproctime = 0;
 
 	/* Set interrupt vector for the clock to invoke clkdisp */
 

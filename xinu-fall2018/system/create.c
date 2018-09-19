@@ -93,6 +93,19 @@ pid32	create(
 	*--saddr = 0;			/* %esi */
 	*--saddr = 0;			/* %edi */
 	*pushsp = (unsigned long) (prptr->prstkptr = (char *)saddr);
+
+	/*
+	 * User: wang4113
+	 * data: 09/19/2018
+	 */
+	/* Lab2 3.2: Initialize the gross CPU usage of a process to zero	*/
+	prptr -> pgrosscpu = 0;
+
+	/* Lab2 3.3: Initialize the waiting count and waiting time of a process to zero	*/
+	prptr -> pwaittime = 0;
+	prptr -> pwaitcount = 0;
+	prptr -> pstartwait = 0;
+
 	restore(mask);
 	return pid;
 }

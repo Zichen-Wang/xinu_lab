@@ -23,6 +23,17 @@ void	clkhandler()
 		count1000 = 1000;
 	}
 
+	/*
+	 * User: wang4113
+	 * data: 09/19/2018
+	 */
+	/* Lab2 3.1: increment milliseconds count at each clock interrupt	*/
+	clktimemilli++;
+
+	/* Lab2 3.2: increment the CPU usage count at each clock interrupt	*/
+	currproctime++;
+
+
 	/* Handle sleeping processes if any exist */
 
 	if(!isempty(sleepq)) {
