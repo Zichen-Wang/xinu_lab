@@ -437,7 +437,7 @@ _Xint33:
 	pushl	%ebp
 	movl	%esp,%ebp
 
-	cmpl    %eax, $3
+	cmpl    $3, %eax
 	jne     Trap
 	call    getpid
 	movl    %ebp, %esp
