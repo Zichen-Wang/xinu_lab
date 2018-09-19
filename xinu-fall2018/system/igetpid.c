@@ -5,6 +5,8 @@
 
 /* igetpid.c - igetpid */
 
+#include <xinu.h>
+
 /*-----------------------------------------------------------
  * igetpid  -  The wrapper function of system call getpid()
  *-----------------------------------------------------------
