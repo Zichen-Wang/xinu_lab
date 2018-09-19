@@ -128,7 +128,7 @@ process	main(void)
 	kprintf("\nThe uptime since XINU was bootstrapped in milliseconds: %dms.\n", clktimemilli);
 
 	/* Lab2 4: Test of print process id by igetpid()	*/
-	z = getpid();
+	z = igetpid();
 	kprintf("\nThe process id of main() is %d.\n", z);
 
 
