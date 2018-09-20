@@ -653,6 +653,14 @@ extern	void	malwareB(void);
 /* in file igetpid.c */
 extern	int		igetpid(void);
 
+/*
+ * User: wang4113
+ * data: 09/19/2018
+ */
+/* in file myTestProc.c */
+extern	process	myTestProc(void);
+
+
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))
