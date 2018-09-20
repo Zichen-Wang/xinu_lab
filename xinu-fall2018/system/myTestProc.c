@@ -1,6 +1,6 @@
 /*
  * User: wang4113
- * data: 09/19/2018
+ * date: 09/19/2018
  */
 
 /*  myTestProc.c - myTestProc */
@@ -17,5 +17,5 @@ process myTestProc(void)
     kprintf("Process Name: %s\n", proctab[pid].prname);
     kprintf("\n");
 
-    return 0;
+    return OK;
 }

@@ -429,7 +429,7 @@ _Xint32:
 
 /*
  * User: wang4113
- * data: 09/19/2018
+ * date: 09/19/2018
  */
 /* Lab2 4: interrupt #33 is used as system call   */
 	.globl  _Xint33			/* available for ext. interrupt	*/

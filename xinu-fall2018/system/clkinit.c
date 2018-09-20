@@ -9,7 +9,7 @@ uint32	preempt;		/* Preemption counter			*/
 
 /*
  * User: wang4113
- * data: 09/19/2018
+ * date: 09/19/2018
  */
 uint32	clktimemilli;	/* Lab2 3.1: Milliseconds since boot	*/
 uint32	currproctime;	/* Lab2 3.2: CPU usage when a process becomes current	*/
@@ -36,7 +36,7 @@ void	clkinit(void)
 
 	/*
 	 * User: wang4113
-	 * data: 09/19/2018
+	 * date: 09/19/2018
 	 */
 	/* Lab2 3.1: Initialize the time since boot to zero */
 	clktimemilli = 0;

@@ -119,7 +119,7 @@ process	main(void)
 
 	/*
 	 * User: wang4113
-	 * data: 09/19/2018
+	 * date: 09/19/2018
 	 */
 	/* Lab2 3.1: Print the values of clktimemilli and clktime	*/
 	sleepms(2468);	/* Sleep a while just for test	*/
@@ -128,7 +128,7 @@ process	main(void)
 
 	/*
 	 * User: wang4113
-	 * data: 09/19/2018
+	 * date: 09/19/2018
 	 */
 	/* Lab2 4: Test of print process id by igetpid()	*/
 	/* Spawn several app processes to test igetpid()	*/

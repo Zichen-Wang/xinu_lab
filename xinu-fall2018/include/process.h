@@ -55,7 +55,7 @@ struct procent {		/* Entry in the process table		*/
 
 	/*
 	 * User: wang4113
-	 * data: 09/19/2018
+	 * date: 09/19/2018
 	 */
 	uint32	pgrosscpu;	/* Lab2 3.2: To record the gross CPU usage of a process	*/
 	uint32	pwaittime;	/* Lab2 3.3: The tot waiting time of a process	*/
@@ -69,3 +69,14 @@ struct procent {		/* Entry in the process table		*/
 extern	struct	procent proctab[];
 extern	int32	prcount;	/* Currently active processes		*/
 extern	pid32	currpid;	/* Currently executing process		*/
+
+/*
+* User: wang4113
+* date: 09/19/2018
+*/
+
+#define	IOPRIO		100		/* Lab2 5.3: the priority of a process which blocks.	*/
+#define	XINUSCHED	1		/* Lab2 5.4: in which mode the scheduler operates.
+							 * 0: legacy mode
+							 * 1: R3 mode
+							 */

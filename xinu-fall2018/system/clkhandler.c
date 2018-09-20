@@ -25,7 +25,7 @@ void	clkhandler()
 
 	/*
 	 * User: wang4113
-	 * data: 09/19/2018
+	 * date: 09/19/2018
 	 */
 	/* Lab2 3.1: increment milliseconds count at each clock interrupt	*/
 	clktimemilli++;
@@ -51,6 +51,17 @@ void	clkhandler()
 
 	if((--preempt) <= 0) {
 		preempt = QUANTUM;
+
+		/*
+		 * User: wang4113
+		 * date: 09/19/2018
+		 */
+		/* Lab2 5.4: In R3 mode, if a process consumes all of its time slice the CPU,
+         *   its priority is demoted to INITPRIO	*/
+		if (XINUSCHED == 1) {
+			proctab[currpid].prprio = INITPRIO;
+		}
+
 		resched();
 	}
 }

@@ -96,7 +96,7 @@ pid32	create(
 
 	/*
 	 * User: wang4113
-	 * data: 09/19/2018
+	 * date: 09/19/2018
 	 */
 	/* Lab2 3.2: Initialize the gross CPU usage of a process to zero	*/
 	prptr -> pgrosscpu = 0;
