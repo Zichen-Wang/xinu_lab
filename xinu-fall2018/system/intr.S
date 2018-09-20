@@ -436,10 +436,11 @@ _Xint32:
 _Xint33:
 	pushl	%ebp
 	movl	%esp,%ebp
-
-	cmpl    $3, %eax        /* check whether EAX (syscall number) equals 3 or not           */
+	cmpl    $3, %eax        /* check whether EAX (syscall number) equals 3 or not        */
 	jne     _Trap33         /* false: undefined syscall number; jump to _Trap33 and trap */
+    cli			            /* disable further interrupts   */
 	call    getpid          /* true:  call syscall handler getpid() which will save the current pid in EAX   */
+	sti			            /* restore interrupt status     */
 	movl    %ebp, %esp      /* restore stack point  */
 	popl    %ebp            /* restore stack frame  */
 	iret                    /* 'iret' is used to return from an interrupt   */
