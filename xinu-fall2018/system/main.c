@@ -135,7 +135,7 @@ process	main(void)
 	resume(create(myTestProc, 1024, 19, "myTestProc_0", 0, NULL));
 	resume(create(myTestProc, 1024, 18, "myTestProc_1", 0, NULL));
 	resume(create(myTestProc, 1024, 17, "myTestProc_2", 0, NULL));
-	resume(create(myTestProc, 1024, 16, "myTestProc_2", 0, NULL));
+	resume(create(myTestProc, 1024, 16, "myTestProc_3", 0, NULL));
 
 	sleepms(1000);
 
