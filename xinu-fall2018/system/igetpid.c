@@ -20,6 +20,7 @@ int igetpid(void)
                   "int    $0x21\n\t"
                   "movl   %%eax, %0\n\t"
                   : "=r" (syscall_val)
+                  :
                   : "%eax");
 
     return syscall_val;
