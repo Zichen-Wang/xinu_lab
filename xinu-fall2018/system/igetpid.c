@@ -16,12 +16,11 @@ int igetpid(void)
 {
     int syscall_val;
 
-    asm volatile ("pushl  %%eax\n\t"
-                  "movl   $3, %%eax\n\t"
+    asm volatile ("movl   $3, %%eax\n\t"
                   "int    $0x21\n\t"
                   "movl   %%eax, %0\n\t"
-                  "popl   %%eax\n\t"
-                  : "=r" (syscall_val));
+                  : "=r" (syscall_val)
+                  : "%eax");
 
     return syscall_val;
 }
