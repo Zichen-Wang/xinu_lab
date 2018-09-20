@@ -76,7 +76,7 @@ extern	pid32	currpid;	/* Currently executing process		*/
 */
 
 #define	IOPRIO		100		/* Lab2 5.3: the priority of a process which blocks.	*/
-#define	XINUSCHED	1		/* Lab2 5.4: in which mode the scheduler operates.
+#define	XINUSCHED	0		/* Lab2 5.4: in which mode the scheduler operates.
 							 * 0: legacy mode
 							 * 1: R3 mode
 							 */

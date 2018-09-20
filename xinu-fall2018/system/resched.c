@@ -65,7 +65,7 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 	 * User: wang4113
 	 * date: 09/19/2018
 	 */
-	/* Lab2 3.3: Set pwaittime of the new process	*/
+	/* Lab2 3.3: Add pwaittime to the new process	*/
 	ptnew -> pwaittime += clktimemilli - (ptold -> pstartwait);
 
 

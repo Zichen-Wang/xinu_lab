@@ -37,7 +37,7 @@ syscall	sleepms(
 	 * User: wang4113
 	 * date: 09/19/2018
 	 */
-	/* Lab2 5.4: In R3 mode, if a process voluntarily relinquish the CPU,
+	/* Lab2 5.4: In R3 mode, if a process voluntarily relinquishes the CPU,
 	 *   its priority is elevated to IOPRIO	*/
 	if (XINUSCHED == 1) {
 		proctab[currpid].prprio = IOPRIO;
