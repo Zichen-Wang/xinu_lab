@@ -438,7 +438,7 @@ _Xint33:
 	movl	%esp,%ebp
 
 	cmpl    $3, %eax        /* check whether EAX (syscall number) equals 3 or not           */
-	jne     Trap            /* false: undefined syscall number; jump to _Trap33 and trap */
+	jne     _Trap33         /* false: undefined syscall number; jump to _Trap33 and trap */
 	call    getpid          /* true:  call syscall handler getpid() which will save the current pid in EAX   */
 	movl    %ebp, %esp      /* restore stack point  */
 	popl    %ebp            /* restore stack frame  */
