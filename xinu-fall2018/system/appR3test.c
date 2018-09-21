@@ -27,6 +27,6 @@ void appR3test(int proctype)
     kprintf("Clktimemilli: %d ms\n", clktimemilli);
     kprintf("Gross CPU usage: %d ms\n", proctab[pid].pgrosscpu);
     kprintf("Average waiting time: %.2lf ms\n", proctab[pid].pwaittime / proctab[pid].pwaitcount);
-    krpintf("\n");
+    kprintf("\n");
 
 }
