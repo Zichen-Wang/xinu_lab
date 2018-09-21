@@ -8,7 +8,6 @@ process	main(void)
 	//long x;								/* Used in Lab1 5.1	*/
 	//int *esp_before, *esp_after;		/* Used in Lab1 5.3  */
 	//pid32 pid;							/* Used in Lab1 5.3  */
-	int i;                              /* Used in Lab2 5.5     */
 
     /* Lab1 3.2: Move the welcome message to a function welcome() */
     /*
@@ -133,38 +132,58 @@ process	main(void)
 	 */
 	/* Lab2 4: Test of print process id by igetpid()	*/
 	/* Spawn several app processes to test igetpid()	*/
-	/*
+
 	resume(create(myTestProc, 1024, 19, "myTestProc_0", 0, NULL));
 	resume(create(myTestProc, 1024, 18, "myTestProc_1", 0, NULL));
 	resume(create(myTestProc, 1024, 17, "myTestProc_2", 0, NULL));
 	resume(create(myTestProc, 1024, 16, "myTestProc_3", 0, NULL));
-	*/
-	//sleepms(1000);      /* Lab2 4: "Main" waits for these "myTestProc" processes		*/
+
+	sleepms(1000);      /* Lab2 4: "Main" waits for these "myTestProc" processes		*/
 
 
     /*
      * User: wang4113
      * date: 09/20/2018
      */
+    sleepms(10);    /* Lab2 5.5: Make sure "Main" process has the highest priority when creating apps		*/
     /* Lab2 5.5: Scenario 1: create 8 app processes that are all CPU-bound  */
     kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
-    for (i = 0; i < 8; i++)
-        resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+
+    sleepms(21000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
     /* Lab2 5.5: Scenario 2: create 8 app processes that are all IO-bound  */
     kprintf("\nScenario 2: create 8 app processes that are all IO-bound.\n");
-    for (i = 0; i < 8; i++)
-        resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
-    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+
+    sleepms(21000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
     /* Lab2 5.5: Scenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound  */
     kprintf("\nScenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound.\n");
-    for (i = 0; i < 4; i++)
-        resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    for (i = 0; i < 4; i++)
-        resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
-    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+
+    sleepms(21000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
 
 
