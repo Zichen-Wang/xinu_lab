@@ -66,7 +66,7 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 	 * date: 09/19/2018
 	 */
 	/* Lab2 3.3: Add pwaittime to the new process	*/
-	ptnew -> pwaittime += clktimemilli - (ptold -> pstartwait);
+	ptnew -> pwaittime += clktimemilli - (ptnew -> pstartwait);
 
 
 	preempt = QUANTUM;		/* Reset time slice for process	*/
