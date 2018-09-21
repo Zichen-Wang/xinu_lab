@@ -664,7 +664,7 @@ extern	process	myTestProc(void);
  * User: wang4113
  * date: 09/20/2018
  */
-/* in file myTestProc.c */
+/* in file appR3test.c */
 extern	void	appR3test(int);
 
 
