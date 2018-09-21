@@ -33,15 +33,6 @@ syscall	sleepms(
 		return SYSERR;
 	}
 
-	/*
-	 * User: wang4113
-	 * date: 09/19/2018
-	 */
-	/* Lab2 5.4: In R3 mode, if a process voluntarily relinquishes the CPU,
-	 *   its priority is elevated to IOPRIO	*/
-	if (XINUSCHED == 1) {
-		proctab[currpid].prprio = IOPRIO;
-	}
 
 	if (delay == 0) {
 		yield();
@@ -51,6 +42,17 @@ syscall	sleepms(
 	/* Delay calling process */
 
 	mask = disable();
+
+	/*
+	 * User: wang4113
+	 * date: 09/19/2018
+	 */
+	/* Lab2 5.4: In R3 mode, if a process voluntarily relinquishes the CPU,
+	 *   its priority is elevated to IOPRIO	*/
+	if (XINUSCHED == 1 && currpid > 0) {	/* The priority of prnull should remain zero	*/
+		proctab[currpid].prprio = IOPRIO;
+	}
+
 	if (insertd(currpid, sleepq, delay) == SYSERR) {
 		restore(mask);
 		return SYSERR;
