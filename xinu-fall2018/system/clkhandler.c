@@ -58,7 +58,7 @@ void	clkhandler()
 		 */
 		/* Lab2 5.4: In R3 mode, if a process consumes all of its time slice the CPU,
          *   its priority is demoted to INITPRIO	*/
-		if (XINUSCHED == 1 && currpit > 0) {		/* The priority of prnull should remain zero	*/
+		if (XINUSCHED == 1 && currpid > 0) {		/* The priority of prnull should remain zero	*/
 			proctab[currpid].prprio = INITPRIO;
 		}
 
