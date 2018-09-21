@@ -3,9 +3,9 @@
  * date: 09/19/2018
  */
 
-/*  myTestProc.c - myTestProc */
-
 #include <xinu.h>
+
+/*  myTestProc.c - myTestProc */
 
 process myTestProc(void)
 {

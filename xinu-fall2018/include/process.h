@@ -75,8 +75,16 @@ extern	pid32	currpid;	/* Currently executing process		*/
 * date: 09/19/2018
 */
 
-#define	IOPRIO		100		/* Lab2 5.3: the priority of a process which blocks.	*/
-#define	XINUSCHED	1		/* Lab2 5.4: in which mode the scheduler operates.
+#define	IOPRIO		100		/* Lab2 5.3: The priority of a process which blocks.	*/
+#define	XINUSCHED	1		/* Lab2 5.4: In which mode the scheduler operates.
 							 * 0: legacy mode
 							 * 1: R3 mode
 							 */
+/*
+* User: wang4113
+* date: 09/20/2018
+*/
+/* Lab2 5.5: The parameters of performance evaluation of R3*/
+#define IOSLEEP		100
+#define LOOP1		10000
+#define LOOP2		10000

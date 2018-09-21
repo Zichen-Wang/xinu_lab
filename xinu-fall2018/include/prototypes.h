@@ -660,6 +660,13 @@ extern	int		igetpid(void);
 /* in file myTestProc.c */
 extern	process	myTestProc(void);
 
+/*
+ * User: wang4113
+ * date: 09/20/2018
+ */
+/* in file myTestProc.c */
+extern	void	appR3test(int);
+
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */

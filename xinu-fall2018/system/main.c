@@ -8,6 +8,7 @@ process	main(void)
 	//long x;								/* Used in Lab1 5.1	*/
 	//int *esp_before, *esp_after;		/* Used in Lab1 5.3  */
 	//pid32 pid;							/* Used in Lab1 5.3  */
+	int i;                              /* Used in Lab2 5.5     */
 
     /* Lab1 3.2: Move the welcome message to a function welcome() */
     /*
@@ -100,15 +101,15 @@ process	main(void)
 
 
 	/* Lab1 5.4: Comparing two run-time stacks	*/
-	//resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* 5.4: create the "myprogA" process			*/
-	//resume(create(myfuncA, 1024, 18, "myfuncA (5.4)", 1, 10));		/* 5.4: create the "myfuncA" process			*/
-	//sleepms(200);													/* 5.4: "Main" waits for these two processes	*/
+	//resume(create(myprogA, 1024, 19, "myprogA (5.4)", 0, NULL));	/* Lab1 5.4: create the "myprogA" process			*/
+	//resume(create(myfuncA, 1024, 18, "myfuncA (5.4)", 1, 10));		/* Lab1 5.4: create the "myfuncA" process			*/
+	//sleepms(200);													/* Lab1 5.4: "Main" waits for these two processes	*/
 
 
 
 	/* Lab1 6: Hijacking a process via stack smashing	*/
-	//resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* 6: create the "myprogA" process			*/
-	//sleepms(5000);												/* 6: "Main" waits for the "mygrogA" process	*/
+	//resume(create(myprogA, 1024, 21, "myprogA (6)", 0, NULL));	/* Lab1 6: create the "myprogA" process			*/
+	//sleepms(5000);												/* Lab1 6: "Main" waits for the "mygrogA" process	*/
 
 
 
@@ -122,9 +123,9 @@ process	main(void)
 	 * date: 09/19/2018
 	 */
 	/* Lab2 3.1: Print the values of clktimemilli and clktime	*/
-	sleepms(2468);	/* Sleep a while just for test	*/
-	kprintf("\nThe uptime since XINU was bootstrapped in seconds: %ds.\n", clktime);
-	kprintf("\nThe uptime since XINU was bootstrapped in milliseconds: %dms.\n", clktimemilli);
+	//sleepms(2468);	/* Sleep a while just for test	*/
+	//kprintf("\nThe uptime since XINU was bootstrapped in seconds: %ds.\n", clktime);
+	//kprintf("\nThe uptime since XINU was bootstrapped in milliseconds: %dms.\n", clktimemilli);
 
 	/*
 	 * User: wang4113
@@ -132,12 +133,24 @@ process	main(void)
 	 */
 	/* Lab2 4: Test of print process id by igetpid()	*/
 	/* Spawn several app processes to test igetpid()	*/
+	/*
 	resume(create(myTestProc, 1024, 19, "myTestProc_0", 0, NULL));
 	resume(create(myTestProc, 1024, 18, "myTestProc_1", 0, NULL));
 	resume(create(myTestProc, 1024, 17, "myTestProc_2", 0, NULL));
 	resume(create(myTestProc, 1024, 16, "myTestProc_3", 0, NULL));
+	*/
+	//sleepms(1000);      /* Lab2 4: "Main" waits for these "myTestProc" processes		*/
 
-	sleepms(1000);
+
+    /*
+     * User: wang4113
+     * date: 09/20/2018
+     */
+    /* Lab2 5.5: Scenario 1: create 8 app processes that are all CPU-bound  */
+    for (i = 0; i < 8; i++)
+        resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+
 
 
 	/* Run the Xinu shell */
