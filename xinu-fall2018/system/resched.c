@@ -54,12 +54,14 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 	ptold -> pgrosscpu += currproctime;
 	currproctime = 0;
 
+	kprintf("Context switch from %d to ", currpid);
 
 	/* Force context switch to highest priority ready process */
 
 	currpid = dequeue(readylist);
 	ptnew = &proctab[currpid];
 	ptnew->prstate = PR_CURR;
+	kprintf("%d.\n", currpid);
 
 	/*
 	 * User: wang4113

@@ -86,5 +86,5 @@ extern	pid32	currpid;	/* Currently executing process		*/
 */
 /* Lab2 5.5: The parameters of performance evaluation of R3*/
 #define IOSLEEP		5
-#define LOOP1		10
-#define LOOP2		8000000
+#define LOOP1		100
+#define LOOP2		1000000
