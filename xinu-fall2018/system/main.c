@@ -145,6 +145,8 @@ process	main(void)
 	/* Lab2 3.3: Monitoring process waiting time */
 	resume(create(myTestProcB, 1024, 19, "myTestProcB_0", 0, NULL));
 	resume(create(myTestProcB, 1024, 18, "myTestProcB_1", 0, NULL));
+	kprintf("process gross CPU usage: %d ms\n",
+			proctab[6].pgrosscpu);
 	sleepms(2000);		/* Lab2 3.3: "Main" waits for these "myTestProcB" processes		*/
 
 	/*
