@@ -23,14 +23,14 @@ process myTestProc(void)
     for (i = 0; i < 1000000; i++)
         ;
 
-    sleepms(200);
+    //sleepms(200);
 
     kprintf("\n");
     kprintf("Process ID: %d\n", pid);
     kprintf("Process Name: %s\n", proctab[pid].prname);
     kprintf("Process Gross CPU Usage: %d ms\n", proctab[pid].pgrosscpu + currproctime);
-    kprintf("The time difference between time_stamp and now is %d. ", clktimemilli - time_stamp);
-    kprintf("It should be (usage - 200)ms\n");
+    kprintf("The time difference between time_stamp and now is %d ms. ", clktimemilli - time_stamp);
+    kprintf("It should be (Usage - 200) ms\n");
     kprintf("\n");
 
     return OK;
