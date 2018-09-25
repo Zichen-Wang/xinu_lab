@@ -19,18 +19,26 @@ process myTestProc(void)
     pid = igetpid();      /* Lab2 4: Get current process id by igetpid()  */
     int i;
 
+    kprintf("\n");
+    kprintf("Process ID: %d\n", pid);
+    kprintf("Process Name: %s\n", proctab[pid].prname);
+    kprintf("\n");
+
     /* A loop for test  */
     for (i = 0; i < 1000000; i++)
         ;
 
-    //sleepms(200);
+    kprintf("Process Gross CPU Usage before sleeping 200ms: %d (%d - %d) ms\n",
+            proctab[pid].pgrosscpu + currproctime, clktimemilli, time_stamp);
 
-    kprintf("\n");
-    kprintf("Process ID: %d\n", pid);
-    kprintf("Process Name: %s\n", proctab[pid].prname);
-    kprintf("Process Gross CPU Usage: %d ms\n", proctab[pid].pgrosscpu);
-    kprintf("The time difference between time_stamp and now is %d ms. ", clktimemilli - time_stamp);
-    kprintf("It should be (Usage - 200) ms\n");
+    sleepms(200);
+
+    /* A loop for test  */
+    for (i = 0; i < 1000000; i++)
+        ;
+
+    kprintf("Process Gross CPU Usage after sleeping 200ms: %d (%d - %d - 200 ms)\n",
+            proctab[pid].pgrosscpu + currproctime, clktimemilli, time_stamp);
     kprintf("\n");
 
     return OK;
