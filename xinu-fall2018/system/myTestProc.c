@@ -33,7 +33,7 @@ process myTestProc(void)
 
     sleepms(200);
 
-    kprintf("Process average waiting time after sleeping 200 ms: %lf ms\n",
+    kprintf("Process average waiting time after sleeping 200 ms: %f ms\n",
             1.0 * proctab[pid].pwaittime / proctab[pid].pwaitcount);
 
     /* A loop for test  */
