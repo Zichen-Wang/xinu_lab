@@ -35,6 +35,7 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 
 		ptold->prstate = PR_READY;
 
+		insert(currpid, readylist, ptold->prprio);
 		/*
 		 * User: wang4113
 		 * date: 09/19/2018
@@ -42,8 +43,6 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 		/* Lab2 3.3: Set pstartwait and pwaitcount of the old process	*/
 		ptold -> pstartwait = clktimemilli;
 		ptold -> pwaitcount++;
-
-		insert(currpid, readylist, ptold->prprio);
 	}
 
 	/*
