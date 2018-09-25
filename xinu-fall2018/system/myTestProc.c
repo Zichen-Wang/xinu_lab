@@ -28,7 +28,7 @@ process myTestProc(void)
     kprintf("\n");
     kprintf("Process ID: %d\n", pid);
     kprintf("Process Name: %s\n", proctab[pid].prname);
-    kprintf("Process Gross CPU Usage: %d ms\n", proctab[pid].pgrosscpu + currproctime);
+    kprintf("Process Gross CPU Usage: %d ms\n", proctab[pid].pgrosscpu);
     kprintf("The time difference between time_stamp and now is %d ms. ", clktimemilli - time_stamp);
     kprintf("It should be (Usage - 200) ms\n");
     kprintf("\n");
