@@ -28,7 +28,8 @@ process myTestProcA(void)
     for (i = 0; i < 10000000; i++)
         ;
 
-    kprintf("Process gross CPU usage before sleeping 200 ms: %d (%d - %d) ms\n",
+    kprintf("Process gross CPU usage before sleeping 200 ms:\n");
+    kprintf("%d (%d - %d) ms\n",
             proctab[pid].pgrosscpu + currproctime, clktimemilli, time_stamp);
 
     sleepms(200);
@@ -37,9 +38,9 @@ process myTestProcA(void)
     for (i = 0; i < 10000000; i++)
         ;
 
-    kprintf("Process gross CPU usage after sleeping 200 ms: %d (%d - %d - 200) ms\n",
+    kprintf("Process gross CPU usage after sleeping 200 ms:\n");
+    kprintf("%d (%d - %d - 200) ms\n\n",
             proctab[pid].pgrosscpu + currproctime, clktimemilli, time_stamp);
-    kprintf("\n");
 
     return OK;
 }
