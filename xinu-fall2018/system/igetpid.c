@@ -16,7 +16,7 @@ int igetpid(void)
 {
     int syscall_val;
 
-    asm volatile ("pushl  %%eax\n\t"        /* Save the old EAX value in stack  */
+    asm volatile ("pushl  %%eax\n\t"        /* Save the old EAX value in the user stack  */
                   "movl   $3, %%eax\n\t"    /* Set syscall #3 to EAX            */
                   "int    $0x21\n\t"        /* Trap to interrupt table #33      */
                   "movl   %%eax, %0\n\t"    /* Save the return value to the variable syscall_vall   */

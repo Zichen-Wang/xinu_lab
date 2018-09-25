@@ -3,9 +3,15 @@
  * date: 09/20/2018
  */
 
-#include "../include/xinu.h"
-
 /*  appR3test.c - appR3test */
+
+#include <xinu.h>
+
+/*------------------------------------------------------------------------
+ *  appR3test  -  The test application of R3 scheduling
+ *------------------------------------------------------------------------
+ */
+
 
 void appR3test(int proctype)
 {
