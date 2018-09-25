@@ -170,8 +170,8 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-
-    sleepms(25000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+	*/
+    //sleepms(25000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
     /* Lab2 5.5: Scenario 2: create 8 app processes that are all IO-bound  */
     sleepms(10);    /* Lab2 5.5: Make sure "Main" process has the highest priority when creating apps		*/
