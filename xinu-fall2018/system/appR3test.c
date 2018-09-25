@@ -31,7 +31,7 @@ void appR3test(int proctype)
     kprintf("Process ID: %d\n", pid);
     kprintf("Process Type: %s\n", (proctype == 0) ? "CPU-bound" : "IO-bound");
     kprintf("Clktimemilli: %d ms\n", clktimemilli);
-    kprintf("Gross CPU usage: %d ms\n", proctab[pid].pgrosscpu);
+    kprintf("Gross CPU usage: %d ms\n", proctab[pid].pgrosscpu + currproctime);
     kprintf("Average waiting time: %f ms\n", 1.0 * proctab[pid].pwaittime / proctab[pid].pwaitcount);
     kprintf("\n");
 

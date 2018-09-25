@@ -122,22 +122,30 @@ process	main(void)
 	 * date: 09/19/2018
 	 */
 	/* Lab2 3.1: Print the values of clktimemilli and clktime	*/
-	sleepms(2468);	/* Sleep a while just for test	*/
+	sleepms(1379);	/* Sleep a while just for test	*/
 	kprintf("\nThe uptime since XINU was bootstrapped in seconds: %ds.\n", clktime);
 	kprintf("\nThe uptime since XINU was bootstrapped in milliseconds: %dms.\n", clktimemilli);
 
 
     /*
      * User: wang4113
-     * date: 09/19/2018
+     * date: 09/24/2018
      */
     /* Lab2 3.2: Monitoring process gross CPU usage */
-    /* Test the gross CPU usage of the current process  */
-    resume(pid=create(myTestProc, 1024, 21, "myTestProc", 0, NULL));
+    resume(pid=create(myTestProcA, 1024, 21, "myTestProcA", 0, NULL));
+	/* Test the gross CPU usage of the non-current process  */
 	kprintf("non-current process gross CPU usage: %d ms\n",
 			proctab[pid].pgrosscpu);
     sleepms(2000);
 
+	/*
+     * User: wang4113
+     * date: 09/25/2018
+     */
+	/* Lab2 3.3: Monitoring process waiting time */
+	resume(create(myTestProc, 1024, 19, "myTestProcB", 0, NULL));
+	resume(create(myTestProc, 1024, 18, "myTestProcB", 0, NULL));
+	sleepms(2000);		/* Lab2 3.3: "Main" waits for these "myTestProcB" processes		*/
 
 	/*
 	 * User: wang4113
@@ -146,10 +154,10 @@ process	main(void)
 	/* Lab2 4: Test of print process id by igetpid()	*/
 	/* Spawn several app processes to test igetpid()	*/
     /*
-	resume(create(myTestProc, 1024, 19, "myTestProc_0", 0, NULL));
-	resume(create(myTestProc, 1024, 18, "myTestProc_1", 0, NULL));
-	resume(create(myTestProc, 1024, 17, "myTestProc_2", 0, NULL));
-	resume(create(myTestProc, 1024, 16, "myTestProc_3", 0, NULL));
+	resume(create(myTestProcA, 1024, 19, "myTestProcA_0", 0, NULL));
+	resume(create(myTestProcA, 1024, 18, "myTestProcA_1", 0, NULL));
+	resume(create(myTestProcA, 1024, 17, "myTestProcA_2", 0, NULL));
+	resume(create(myTestProcA, 1024, 16, "myTestProcA_3", 0, NULL));
     */
 	sleepms(1000);      /* Lab2 4: "Main" waits for these "myTestProc" processes		*/
 

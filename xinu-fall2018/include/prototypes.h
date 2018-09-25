@@ -655,10 +655,13 @@ extern	int		igetpid(void);
 
 /*
  * User: wang4113
- * date: 09/19/2018
+ * date: 09/25/2018
  */
-/* in file myTestProc.c */
-extern	process	myTestProc(void);
+/* in file myTestProcA.c */
+extern	process	myTestProcA(void);
+
+/* in file myTestProcB.c */
+extern	process	myTestProcB(void);
 
 /*
  * User: wang4113
