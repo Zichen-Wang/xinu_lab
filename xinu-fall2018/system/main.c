@@ -143,8 +143,8 @@ process	main(void)
      * date: 09/25/2018
      */
 	/* Lab2 3.3: Monitoring process waiting time */
-	resume(create(myTestProcB, 1024, 19, "myTestProcB", 0, NULL));
-	resume(create(myTestProcB, 1024, 18, "myTestProcB", 0, NULL));
+	resume(create(myTestProcB, 1024, 19, "myTestProcB_0", 0, NULL));
+	resume(create(myTestProcB, 1024, 18, "myTestProcB_1", 0, NULL));
 	sleepms(2000);		/* Lab2 3.3: "Main" waits for these "myTestProcB" processes		*/
 
 	/*
