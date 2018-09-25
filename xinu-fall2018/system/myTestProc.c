@@ -20,7 +20,7 @@ process myTestProc(void)
     int i;
 
     /* A loop for test  */
-    for (i = 0; i < 100000; i++)
+    for (i = 0; i < 1000000; i++)
         ;
 
     sleepms(200);
@@ -28,9 +28,9 @@ process myTestProc(void)
     kprintf("\n");
     kprintf("Process ID: %d\n", pid);
     kprintf("Process Name: %s\n", proctab[pid].prname);
-    kprintf("Process Gross CPU Usage:\n", proctab[pid].pgrosscpu + currproctime);
+    kprintf("Process Gross CPU Usage: %d ms\n", proctab[pid].pgrosscpu + currproctime);
     kprintf("The time difference between time_stamp and now is %d. ", clktimemilli - time_stamp);
-    kprintf("It should be usage - 200\n");
+    kprintf("It should be (usage - 200)ms\n");
     kprintf("\n");
 
     return OK;

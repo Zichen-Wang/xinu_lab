@@ -156,7 +156,7 @@ process	main(void)
      * User: wang4113
      * date: 09/20/2018
      */
-    kprintf("\nLab2 5.5:");
+    //kprintf("\nLab2 5.5:");
 
     sleepms(10);    /* Lab2 5.5: Make sure "Main" process has the highest priority when creating apps		*/
     /* Lab2 5.5: Scenario 1: create 8 app processes that are all CPU-bound  */
