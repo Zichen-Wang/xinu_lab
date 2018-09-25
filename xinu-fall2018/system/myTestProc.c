@@ -1,6 +1,6 @@
 /*
  * User: wang4113
- * date: 09/19/2018
+ * date: 09/25/2018
  */
 
 /*  myTestProc.c - myTestProc */
@@ -28,16 +28,19 @@ process myTestProc(void)
     for (i = 0; i < 10000000; i++)
         ;
 
-    kprintf("Process Gross CPU Usage before sleeping 200 ms: %d (%d - %d) ms\n",
+    kprintf("Process gross CPU usage before sleeping 200 ms: %d (%d - %d) ms\n",
             proctab[pid].pgrosscpu + currproctime, clktimemilli, time_stamp);
 
     sleepms(200);
+
+    kprintf("Process average waiting time after sleeping 200 ms: %lf ms\n",
+            1.0 * proctab[pid].pwaittime / proctab[pid].pwaitcount);
 
     /* A loop for test  */
     for (i = 0; i < 10000000; i++)
         ;
 
-    kprintf("Process Gross CPU Usage after sleeping 200 ms: %d (%d - %d - 200) ms\n",
+    kprintf("Process gross CPU usage after sleeping 200 ms: %d (%d - %d - 200) ms\n",
             proctab[pid].pgrosscpu + currproctime, clktimemilli, time_stamp);
     kprintf("\n");
 
