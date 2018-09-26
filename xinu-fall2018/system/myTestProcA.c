@@ -16,7 +16,7 @@ process myTestProcA(void)
 {
     uint32 time_stamp = clktimemilli; /* Used in Lab2 3.2 */
     pid32   pid;
-    pid = igetpid();            /* Used in Lab2 3.2 & 4 */
+    pid = igetpid();            /* Used in Lab2 3.2 */
     int i;
 
     kprintf("\n");

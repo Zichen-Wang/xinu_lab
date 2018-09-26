@@ -14,9 +14,8 @@
 
 process myTestProcB(void)
 {
-    pid32   pid;
-    pid = getpid();
-    int i;
+    pid32   pid = getpid();     /* Used in Lab2 3.3 */
+    int i;                      /* Used in Lab2 3.3 */
 
 
     /* A loop for test  */
