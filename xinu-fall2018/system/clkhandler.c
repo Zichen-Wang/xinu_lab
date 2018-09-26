@@ -50,8 +50,6 @@ void	clkhandler()
 	/*   remaining time reaches zero			     */
 
 	if((--preempt) <= 0) {
-		preempt = QUANTUM;
-
 		/*
 		 * User: wang4113
 		 * date: 09/19/2018
@@ -61,7 +59,7 @@ void	clkhandler()
 		if (XINUSCHED == 1 && currpid > 0) {		/* The priority of prnull should remain zero	*/
 			proctab[currpid].prprio = INITPRIO;
 		}
-
+		preempt = QUANTUM;
 		resched();
 	}
 }
