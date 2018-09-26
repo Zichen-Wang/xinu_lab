@@ -183,7 +183,6 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
 
     sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
-    kprintf("%d\n", clktimemilli);
 
     /* Lab2 5.5: Scenario 2: create 8 app processes that are all IO-bound  */
     kprintf("\nScenario 2: create 8 app processes that are all I/O-bound.\n");
@@ -200,7 +199,6 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
 
     sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
-    kprintf("%d\n", clktimemilli);
 
     /* Lab2 5.5: Scenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound  */
 
@@ -218,7 +216,6 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
 
     sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
-    kprintf("%d\n", clktimemilli);
 
 
 
