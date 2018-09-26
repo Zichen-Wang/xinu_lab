@@ -23,7 +23,7 @@ process myTestProcB(void)
     for (i = 0; i < 5000000; i++)
         ;
 
-    sleepms(50);
+    sleepms(10);
 
     for (i = 0; i < 5000000; i++)
         ;
