@@ -23,8 +23,6 @@ status	ready(
 	prptr = &proctab[pid];
 	prptr->prstate = PR_READY;
 
-	insert(pid, readylist, prptr->prprio);
-
 	/*
 	 * User: wang4113
 	 * date: 09/19/2018
@@ -32,6 +30,9 @@ status	ready(
 	/* Lab2 3.3: Set pstartwait and pwaitcount of the old process	*/
 	prptr -> pstartwait = clktimemilli;	/* Set start time of waiting by clktimemilli	*/
 	prptr -> pwaitcount++;				/* Increase waiting count by 1	*/
+
+	insert(pid, readylist, prptr->prprio);
+
 
 	resched();
 

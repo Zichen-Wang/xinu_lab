@@ -34,8 +34,6 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 
 
 		ptold->prstate = PR_READY;
-
-		insert(currpid, readylist, ptold->prprio);
 		/*
 		 * User: wang4113
 		 * date: 09/19/2018
@@ -43,6 +41,8 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 		/* Lab2 3.3: Set pstartwait and pwaitcount of the old process	*/
 		ptold -> pstartwait = clktimemilli;			/* Set start time of waiting by clktimemilli	*/
 		ptold -> pwaitcount++;						/* Increase waiting count by 1	*/
+
+		insert(currpid, readylist, ptold->prprio);
 	}
 
 	/*
@@ -58,14 +58,14 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 
 	currpid = dequeue(readylist);
 	ptnew = &proctab[currpid];
-	ptnew->prstate = PR_CURR;
-
 	/*
 	 * User: wang4113
 	 * date: 09/19/2018
 	 */
 	/* Lab2 3.3: Add pwaittime to the new process	*/
 	ptnew -> pwaittime += clktimemilli - (ptnew -> pstartwait);
+
+	ptnew->prstate = PR_CURR;
 
 
 	preempt = QUANTUM;		/* Reset time slice for process	*/
