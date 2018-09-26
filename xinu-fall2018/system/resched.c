@@ -51,7 +51,7 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 	 */
 	/* Lab2 3.2: Add currproctime to the pgrosscpu process table field of the old process	*/
 	ptold -> pgrosscpu += currproctime;
-	currproctime = 0;
+	currproctime = 0;	/* Reset to currproctime to zero	*/
 
 
 	/* Force context switch to highest priority ready process */
