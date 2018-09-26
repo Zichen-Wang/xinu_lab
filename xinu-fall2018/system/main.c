@@ -171,6 +171,7 @@ process	main(void)
     /* Lab2 5.5: Scenario 1: create 8 app processes that are all CPU-bound  */
     kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
     kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    kprintf("%d\n", clktimemilli);
     sleepms(5);    /* Lab2 5.5: Make sure "Main" process has the highest priority when creating apps		*/
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
@@ -181,12 +182,14 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
 
-    sleepms(25000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    kprintf("%d\n", clktimemilli);
 
     /* Lab2 5.5: Scenario 2: create 8 app processes that are all IO-bound  */
     kprintf("\nScenario 2: create 8 app processes that are all I/O-bound.\n");
     kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
     sleepms(5);    /* Lab2 5.5: Make sure "Main" process has the highest priority when creating apps		*/
+    kprintf("%d\n", clktimemilli);
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
@@ -196,13 +199,15 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
 
-    sleepms(25000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    kprintf("%d\n", clktimemilli);
 
     /* Lab2 5.5: Scenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound  */
 
     kprintf("\nScenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound.\n");
     kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
     sleepms(5);    /* Lab2 5.5: Make sure "Main" process has the highest priority when creating apps		*/
+    kprintf("%d\n", clktimemilli);
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
@@ -212,7 +217,8 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
 
-    sleepms(25000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    kprintf("%d\n", clktimemilli);
 
 
 
