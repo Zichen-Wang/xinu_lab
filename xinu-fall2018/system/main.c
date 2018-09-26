@@ -198,7 +198,7 @@ process	main(void)
     sleepms(25000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
     /* Lab2 5.5: Scenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound  */
-    /*
+
     kprintf("\nScenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound.\n");
     sleepms(5);    /* Lab2 5.5: Make sure "Main" process has the highest priority when creating apps		*/
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
@@ -209,8 +209,8 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
-	*/
-    //sleepms(25000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+
+    sleepms(25000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
 
 
