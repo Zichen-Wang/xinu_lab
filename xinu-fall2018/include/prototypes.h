@@ -663,6 +663,9 @@ extern	process	myTestProcA(void);
 /* in file myTestProcB.c */
 extern	process	myTestProcB(void);
 
+/* in file myTestProcC.c */
+extern	process	myTestProcC(void);
+
 /*
  * User: wang4113
  * date: 09/20/2018
