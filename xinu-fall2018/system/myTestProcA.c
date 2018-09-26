@@ -32,7 +32,7 @@ process myTestProcA(void)
     kprintf("%d (%d - %d) ms\n",
             proctab[pid].pgrosscpu + currproctime, clktimemilli, time_stamp);
 
-    sleepms(200);
+    sleepms(200);   /* Sleep for 200 ms to relinquish the CPU  */
 
     /* A loop for test  */
     for (i = 0; i < 10000000; i++)

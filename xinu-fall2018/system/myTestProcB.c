@@ -23,8 +23,9 @@ process myTestProcB(void)
     for (i = 0; i < 5000000; i++)
         ;
 
-    sleepms(10);
+    sleepms(10);    /* Sleep for 10 ms to test tot waiting time */
 
+    /* A loop for test  */
     for (i = 0; i < 5000000; i++)
         ;
 

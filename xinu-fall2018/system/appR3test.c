@@ -16,7 +16,7 @@
 void appR3test(int proctype)
 {
     int i, j;
-    pid32 pid = igetpid();
+    pid32 pid = igetpid();          /* Get the pid of current process   */
     for (i = 0; i < LOOP1; i++) { // Affects overall run-time of app.
         for (j = 0; j < LOOP2; j++) {
             // LOOP2 dictates CPU cycles consumed by the inner loop.

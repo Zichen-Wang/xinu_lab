@@ -14,7 +14,7 @@
 
 int igetpid(void)
 {
-    int syscall_val;
+    int syscall_val;        /* The return val for the system call   */
 
     asm volatile ("movl   $3, %%eax\n\t"    /* Set syscall #3 to EAX            */
                   "int    $0x21\n\t"        /* Trap to interrupt table #33      */
