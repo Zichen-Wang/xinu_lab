@@ -170,7 +170,7 @@ process	main(void)
 
     /* Lab2 5.5: Scenario 1: create 8 app processes that are all CPU-bound  */
     kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
-    kprintf("PID proctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
     sleepms(5);    /* Lab2 5.5: Make sure "Main" process has the highest priority when creating apps		*/
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
