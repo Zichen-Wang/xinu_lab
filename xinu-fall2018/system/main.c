@@ -194,7 +194,7 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
-    kprintf("T_T\n");
+    kprintf("**%d\n", proctab[4].prprio);
     sleepms(25000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
     /* Lab2 5.5: Scenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound  */
