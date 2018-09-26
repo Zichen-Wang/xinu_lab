@@ -65,8 +65,8 @@ extern	qid16	readylist;	/* global ID for list of ready processes*/
  * date: 09/19/2018
 */
 
-#define	QUANTUM	2		/* time slice in milliseconds		*/
-//#define QUANTUM 25      /* Lab2 5.5: set QUANTUM to 25 msec     */
+//#define	QUANTUM	2		/* time slice in milliseconds		*/
+#define QUANTUM 25      /* Lab2 5.5: set QUANTUM to 25 msec     */
 
 
 /* Size of the stack for the null process */
