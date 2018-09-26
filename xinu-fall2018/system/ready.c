@@ -30,8 +30,8 @@ status	ready(
 	 * date: 09/19/2018
 	 */
 	/* Lab2 3.3: Set pstartwait and pwaitcount of the old process	*/
-	prptr -> pstartwait = clktimemilli;
-	prptr -> pwaitcount++;
+	prptr -> pstartwait = clktimemilli;	/* Set start time of waiting by clktimemilli	*/
+	prptr -> pwaitcount++;				/* Increase waiting count by 1	*/
 
 	resched();
 

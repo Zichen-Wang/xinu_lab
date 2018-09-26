@@ -41,8 +41,8 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 		 * date: 09/19/2018
 		 */
 		/* Lab2 3.3: Set pstartwait and pwaitcount of the old process	*/
-		ptold -> pstartwait = clktimemilli;
-		ptold -> pwaitcount++;
+		ptold -> pstartwait = clktimemilli;			/* Set start time of waiting by clktimemilli	*/
+		ptold -> pwaitcount++;						/* Increase waiting count by 1	*/
 	}
 
 	/*
