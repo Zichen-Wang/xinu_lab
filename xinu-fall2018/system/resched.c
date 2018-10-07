@@ -46,13 +46,14 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 		 * User: wang4113
 		 * date: 10/07/2018
 		 */
-        /* Lab3 3.2: We need to update pvirtcpu table field if the old process has been preempted.  */
+        /* Lab3 3.2: If in CFS mode We need to update pvirtcpu table field if the old process has been preempted.  */
+		if (XINUSCHED == 2) {
+			/* Lab3 3.2: Add currproctime to the pvirtcpu table field of the old process   */
+			ptold->pvirtcpu += currproctime;
 
-        /* Lab3 3.2: Add currproctime to the pvirtcpu table field of the old process   */
-        ptold -> pvirtcpu += currproctime;
-
-        /* Update its priority  */
-        ptold -> prprio = MAXPRIO - ptold -> pvirtcpu;
+			/* Update its priority  */
+			ptold->prprio = MAXPRIO - ptold->pvirtcpu;
+		}
 
 		insert(currpid, readylist, ptold->prprio);
 	}
