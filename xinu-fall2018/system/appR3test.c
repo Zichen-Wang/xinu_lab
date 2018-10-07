@@ -25,11 +25,11 @@ void appR3test(int proctype)
      */
     if (proctype == 0) {
         LOOP1 = 10;
-        LOOP2 = 10000000;
+        LOOP2 = 9000000;
     }
     else if (proctype == 1) {
         LOOP1 = 150;
-        LOOP2 = 500000;
+        LOOP2 = 600000;
     }
 
     for (i = 0; i < LOOP1; i++) { // Affects overall run-time of app.
@@ -41,7 +41,7 @@ void appR3test(int proctype)
     }
     // Print PID, proctype, clktimemilli, gross CPU usage, and average time before terminating.
 
-    kprintf("%d\t%d\t\t%d\t\t\t%d\t\t\t%f\n",
+    kprintf("%d\t%d\t%d\t%d\t%f\n",
             pid, proctype, clktimemilli, proctab[pid].pgrosscpu + currproctime,
             1.0 * proctab[pid].pwaittime / proctab[pid].pwaitcount);
 
