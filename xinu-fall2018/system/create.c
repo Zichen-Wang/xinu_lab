@@ -25,6 +25,13 @@ pid32	create(
 	uint32		*a;		/* Points to list of args	*/
 	uint32		*saddr;		/* Stack address		*/
 
+	/*
+	 * User: wang4113
+	 * date: 10/07/2018
+	 */
+	qid16   curr;           /* Lab3 3.2: Runs through items in a queue   */
+	uint32  max_pvirtcpu;   /* Lab3 3.2: Maximum virtual CPU usage      */
+
 	mask = disable();
 	if (ssize < MINSTK)
 		ssize = MINSTK;
@@ -42,12 +49,30 @@ pid32	create(
 	prptr->prstate = PR_SUSP;	/* Initial state is suspended	*/
 	/*
 	 * User: wang4113
-	 * date: 10/03/2018
+	 * date: 10/07/2018
 	 */
 	if (XINUSCHED == 0)			/* Lab2 5.3: If in legacy mode, the priority is equal to the argument 'priority' */
 		prptr->prprio = priority;
 	else if (XINUSCHED == 1)	/* Lab2 5.3: If in R3 mode, the initial priority is equal to INITPRIO	*/
 		prptr->prprio = INITPRIO;
+	else if (XINUSCHED == 2) {
+		/* Lab3 3.2: If in CFS mode, set virtual CPU usage first, and set its priority	*/
+		/* Find maximum CPU usage across all ready/current processes */
+
+		/* Initialize max_pvirtcpu to current process virtual CPU usage */
+		max_pvirtcpu = proctab[currpid].pvirtcpu + currproctime;
+
+		/* Scan the ready list to find the process with maximum virtual CPU usage   */
+		curr = firstid(readylist);
+		while (curr != queuetail(q)) {
+			if (max_pvirtcpu < proctab[curr].pvirtcpu) {
+				max_pvirtcpu = proctab[curr].pvirtcpu;  /* Update the maximum virtual CPU usage */
+			}
+			curr = queuetab[curr].qnext;
+		}
+		prptr -> pvirtcpu = max_pvirtcpu			/* Set the virtual CPU usage of the new process    */
+		prptr -> prprio = MAXPRIO - max_pvirtcpu;   /* Set the priority of the new process    */
+	}
 
 
 	prptr->prstkbase = (char *)saddr;

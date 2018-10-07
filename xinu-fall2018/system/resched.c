@@ -42,6 +42,18 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 		ptold -> pstartwait = clktimemilli;			/* Set start time of waiting by clktimemilli	*/
 		ptold -> pwaitcount++;						/* Increase waiting count by 1	*/
 
+        /*
+		 * User: wang4113
+		 * date: 10/07/2018
+		 */
+        /* Lab3 3.2: We need to update pvirtcpu table field if the old process has been preempted.  */
+
+        /* Lab3 3.2: Add currproctime to the pvirtcpu table field of the old process   */
+        ptold -> pvirtcpu += currproctime;
+
+        /* Update its priority  */
+        ptold -> prprio = MAXPRIO - ptold -> pvirtcpu;
+
 		insert(currpid, readylist, ptold->prprio);
 	}
 
@@ -49,12 +61,15 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 	 * User: wang4113
 	 * date: 09/19/2018
 	 */
-	/* Lab2 3.2: Add currproctime to the pgrosscpu process table field of the old process	*/
+	/* Lab2 3.2: Add currproctime to the pgrosscpu table field of the old process	*/
 	ptold -> pgrosscpu += currproctime;
 	currproctime = 0;	/* Reset to currproctime to zero	*/
 
+    /* Lab3 3.2: We don't need update pvirtcpu table field
+     * if the old process voluntarily relinquish the CPU. (I/O, sleep)    */
 
-	/* Force context switch to highest priority ready process */
+
+    /* Force context switch to highest priority ready process */
 
 	currpid = dequeue(readylist);
 	ptnew = &proctab[currpid];

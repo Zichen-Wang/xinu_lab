@@ -13,6 +13,13 @@ status	ready(
 	)
 {
 	register struct procent *prptr;
+    /*
+     * User: wang4113
+     * date: 10/17/2018
+     */
+
+    qid16   curr;           /* Lab3 3.2: Runs through items in a queue   */
+	uint32  min_pvirtcpu;   /* Lab3 3.2: Minimum virtual CPU usage      */
 
 	if (isbadpid(pid)) {
 		return SYSERR;
@@ -21,7 +28,35 @@ status	ready(
 	/* Set process state to indicate ready and add to ready list */
 
 	prptr = &proctab[pid];
-	prptr->prstate = PR_READY;
+    /*
+     * User: wang4113
+     * date: 10/17/2018
+     */
+    /* Lab3 3.2 */
+    /* In CFS mode, assign a blocked(sleep) process that becomes ready a virtual CPU usage value
+     * that is the minimum CPU usage across all ready/current processes.
+     */
+    if (XINUSCHED == 2) {       /* Make sure it is in CFS mode  */
+        if (prptr -> prstate == PR_SLEEP) {     /* Process is ready from sleep  */
+            /* Find minimum CPU usage across all ready/current processes */
+
+            /* Initialize min_pvirtcpu to current process virtual CPU usage */
+            min_pvirtcpu = proctab[currpid].pvirtcpu + currproctime;
+
+            /* Scan the ready list to find the process with minimum virtual CPU usage   */
+            curr = firstid(readylist);
+            while (curr != queuetail(q)) {
+                if (min_pvirtcpu > proctab[curr].pvirtcpu) {
+                    min_pvirtcpu = proctab[curr].pvirtcpu;  /* Update the minimum virtual CPU usage */
+                }
+                curr = queuetab[curr].qnext;
+            }
+            prptr -> prprio = MAXPRIO - min_pvirtcpu;   /* Set the priority of the new ready process    */
+        }
+
+    }
+
+    prptr->prstate = PR_READY;
 
 	/*
 	 * User: wang4113
