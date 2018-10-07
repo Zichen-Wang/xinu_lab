@@ -42,12 +42,13 @@ pid32	create(
 	prptr->prstate = PR_SUSP;	/* Initial state is suspended	*/
 	/*
 	 * User: wang4113
-	 * date: 09/26/2018
+	 * date: 10/03/2018
 	 */
 	if (XINUSCHED == 0)			/* Lab2 5.3: If in legacy mode, the priority is equal to the argument 'priority' */
 		prptr->prprio = priority;
 	else if (XINUSCHED == 1)	/* Lab2 5.3: If in R3 mode, the initial priority is equal to INITPRIO	*/
 		prptr->prprio = INITPRIO;
+
 
 	prptr->prstkbase = (char *)saddr;
 	prptr->prstklen = ssize;

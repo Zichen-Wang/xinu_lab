@@ -61,6 +61,11 @@ struct procent {		/* Entry in the process table		*/
 	uint32	pwaittime;	/* Lab2 3.3: The tot waiting time of a process	*/
 	uint32	pwaitcount;	/* Lab2 3.3: The waiting count of a process	*/
 	uint32	pstartwait;	/* Lab2 3.3: The time stamp when a process becomes ready	*/
+    /*
+     * User: wang4113
+     * date: 10/03/2018
+     */
+    uint32  pvirtcpu;   /* Lab3 3.2: The virtual CPU usage of the process   */
 };
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/
@@ -72,19 +77,26 @@ extern	pid32	currpid;	/* Currently executing process		*/
 
 /*
 * User: wang4113
-* date: 09/19/2018
+* date: 10/03/2018
 */
 
 #define	IOPRIO		100		/* Lab2 5.3: The priority of a process which blocks.	*/
-#define	XINUSCHED	1		/* Lab2 5.4: In which mode the scheduler operates.
+#define	XINUSCHED	1		/* Lab2 5.4 & Lab3 3.2: In which mode the scheduler operates.
 							 * 0: legacy mode
 							 * 1: R3 mode
+							 * 2: CFS mode
 							 */
+
+/*
+* User: wang4113
+* date: 10/03/2018
+*/
+
+#define MAXPRIO		32767	/* Lab3 3.2: MAXPRIO is the largest value that XINU's pri16 type can hold.	*/
+
 /*
 * User: wang4113
 * date: 09/20/2018
 */
 /* Lab2 5.5: The parameters of performance evaluation of R3	*/
-#define IOSLEEP		30
-#define LOOP1		60
-#define LOOP2		1480000
+#define IOSLEEP		100
