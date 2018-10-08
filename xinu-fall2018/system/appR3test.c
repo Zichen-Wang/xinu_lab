@@ -25,7 +25,7 @@ void appR3test(int proctype)
      */
     if (proctype == 0) {
         LOOP1 = 10;
-        LOOP2 = 9000000;
+        LOOP2 = 10000000;
     }
     else if (proctype == 1) {
         LOOP1 = 150;
