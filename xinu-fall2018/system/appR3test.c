@@ -18,7 +18,7 @@ void appR3test(int proctype)
     int i, j;
     pid32 pid = igetpid();          /* Get the pid of current process   */
     int LOOP1, LOOP2;
-    kprintf("%d\n", pid);
+
     /*
      * User: wang4113
      * date: 10/07/2018
