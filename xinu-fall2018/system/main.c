@@ -275,7 +275,7 @@ process	main(void)
     //sleepms(20000);      /* Lab2 3.2: "Main" waits for these "appR3test" processes		*/
 
     /* Lab3 3.3: Dynamic workload: create 8 app processes that are all I/O-bound  */
-    kprintf("\nScenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound.\n");
+    kprintf("\nDynamic workload: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound.\n");
     kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
     sleepms(5);    /* Lab3 3.3: Consistent with Lab3 3.2		*/
 
