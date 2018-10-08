@@ -168,6 +168,7 @@ process	main(void)
      * User: wang4113
      * date: 09/20/2018
      */
+    sleepms(5);
     kprintf("\nLab2 5.5:");
 
     /* Lab2 5.5: Scenario 1: create 8 app processes that are all CPU-bound  */

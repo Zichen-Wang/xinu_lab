@@ -52,7 +52,8 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 			ptold -> pvirtcpu += currproctime;
 
 			/* Update its priority  */
-			ptold -> prprio = MAXPRIO - ptold -> pvirtcpu;
+			if (currpid > 0)	/* The priority of prnull should remain zero	*/
+				ptold -> prprio = MAXPRIO - ptold -> pvirtcpu;
 		}
 
 		insert(currpid, readylist, ptold->prprio);
