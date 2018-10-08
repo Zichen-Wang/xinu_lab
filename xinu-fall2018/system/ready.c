@@ -53,7 +53,7 @@ status	ready(
             }
 
             /*	Compare to current process virtual CPU usage	*/
-            if (min_pvirtcpu < proctab[currpid].pvirtcpu + currproctime)
+            if (min_pvirtcpu > proctab[currpid].pvirtcpu + currproctime)
                 min_pvirtcpu = proctab[currpid].pvirtcpu + currproctime;
             prptr -> pvirtcpu = min_pvirtcpu;           /* Set the virtual CPU usage of the new ready process    */
             prptr -> prprio = MAXPRIO - min_pvirtcpu;   /* Set the priority of the new ready process    */
