@@ -52,21 +52,13 @@ void	clkhandler()
 	if((--preempt) <= 0) {
 		/*
 		 * User: wang4113
-		 * date: 10/07/2018
+		 * date: 09/19/2018
 		 */
 		/* Lab2 5.4: In R3 mode, if a process consumes all of its time slice the CPU,
          *   its priority is demoted to INITPRIO	*/
 		if (XINUSCHED == 1) {
 			if (currpid > 0)		/* The priority of prnull should remain zero	*/
 				proctab[currpid].prprio = INITPRIO;
-		}
-		/* Lab3 3.2: In CFS mode, change its priority	*/
-		else if (XINUSCHED == 2) {
-			if (currpid > 0) {        /* The priority of prnull should remain zero	*/
-				/* Now, the virtual CPU usage is proctab[currpid].pvirtcpu + currproctime	*/
-				/* Update the priority accordingly	*/
-				proctab[currpid].prprio = MAXPRIO - (proctab[currpid].pvirtcpu + currproctime);
-			}
 		}
 		preempt = QUANTUM;
 		resched();

@@ -59,6 +59,7 @@ status	ready(
 
     prptr->prstate = PR_READY;
 
+
 	/*
 	 * User: wang4113
 	 * date: 09/19/2018

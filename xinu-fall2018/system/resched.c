@@ -25,6 +25,20 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 	ptold = &proctab[currpid];
 
 	if (ptold->prstate == PR_CURR) {  /* Process remains eligible */
+		/*
+		 * User: wang4113
+		 * date: 10/17/2018
+		 */
+		/* Lab3 3.2 */
+		/* In CFS mode, change the priority of current process before resched()    */
+		if (XINUSCHED == 2) {
+			if (currpid > 0) {        /* The priority of prnull should remain zero	*/
+				/* Now, the virtual CPU usage is proctab[currpid].pvirtcpu + currproctime	*/
+				/* Update the priority accordingly	*/
+				ptold -> prprio = MAXPRIO - (proctab[currpid].pvirtcpu + currproctime);
+			}
+		}
+
 		if (ptold->prprio > firstkey(readylist)) {
 			return;
 		}
