@@ -59,7 +59,7 @@ pid32	create(
 		/* Lab3 3.2: If in CFS mode, set virtual CPU usage first, and set its priority	*/
 		/* Find maximum CPU usage across all ready/current processes */
 
-		/* Initialize min_pvirtcpu to zero */
+		/* Initialize max_pvirtcpu to zero */
 		max_pvirtcpu = 0;
 
 		/* Scan the ready list to find the process with maximum virtual CPU usage   */
