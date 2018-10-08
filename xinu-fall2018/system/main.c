@@ -168,7 +168,6 @@ process	main(void)
      * User: wang4113
      * date: 09/20/2018
      */
-    //kprintf("\nLab2 5.5:");
 
     /* Lab2 5.5: Scenario 1: create 8 app processes that are all CPU-bound  */
     //kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
@@ -186,24 +185,8 @@ process	main(void)
     */
     //sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
-    kprintf("\nLab3 3.2:");
 
-    /* Lab3 3.2: Scenario 1: create 8 app processes that are all CPU-bound  */
-    kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
-    kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
-    sleepms(5);    /* Lab3 3.2: Consistent with Lab2 5.5		*/
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-
-    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
-
-    /* Lab2 5.5: Scenario 2: create 8 app processes that are all IO-bound  */
+    /* Lab2 5.5: Scenario 2: create 8 app processes that are all I/O-bound  */
     //kprintf("\nScenario 2: create 8 app processes that are all I/O-bound.\n");
     //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
     //sleepms(5);    /* Lab2 5.5: Make sure "Main" process has the highest priority when creating apps		*/
@@ -237,6 +220,42 @@ process	main(void)
     */
 
     //sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+
+    /*
+     * User: wang4113
+     * date: 10/07/2018
+     */
+
+    /* Lab3 3.2: Scenario 1: create 8 app processes that are all CPU-bound  */
+    //kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
+    //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    //sleepms(5);    /* Lab3 3.2: Consistent with Lab2 5.5		*/
+    /*
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    */
+    //sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+
+    /* Lab3 3.2: Scenario 1: create 8 app processes that are all I/O-bound  */
+    kprintf("\nScenario 1: create 8 app processes that are all I/O-bound.\n");
+    kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    sleepms(5);    /* Lab3 3.2: Consistent with Lab2 5.5		*/
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
+
+    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
 
 
