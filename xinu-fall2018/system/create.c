@@ -59,8 +59,6 @@ pid32	create(
 		/* Lab3 3.2: If in CFS mode, set virtual CPU usage first, and set its priority	*/
 		/* Find maximum CPU usage across all ready/current processes */
 
-		/* Initialize max_pvirtcpu to current process virtual CPU usage */
-		max_pvirtcpu = proctab[currpid].pvirtcpu + currproctime;
 
 		/* Scan the ready list to find the process with maximum virtual CPU usage   */
 		curr = firstid(readylist);
@@ -70,6 +68,10 @@ pid32	create(
 			}
 			curr = queuetab[curr].qnext;
 		}
+
+		/*	Compare to current process virtual CPU usage	*/
+		if (max_pvirtcpu < proctab[currpid].pvirtcpu + currproctime)
+			max_pvirtcpu = proctab[currpid].pvirtcpu + currproctime;
 		prptr -> pvirtcpu = max_pvirtcpu;			/* Set the virtual CPU usage of the new process    */
 		prptr -> prprio = MAXPRIO - max_pvirtcpu;   /* Set the priority of the new process    */
 	}

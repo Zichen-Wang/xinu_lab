@@ -30,7 +30,7 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 		 * date: 10/17/2018
 		 */
 		/* Lab3 3.2 */
-		/* In CFS mode, change the priority of current process before resched()    */
+		/* In CFS mode, change the priority of current process before comparing priority    */
 		if (XINUSCHED == 2) {
 			if (currpid > 0) {        /* The priority of prnull should remain zero	*/
 				/* Now, the virtual CPU usage is proctab[currpid].pvirtcpu + currproctime	*/

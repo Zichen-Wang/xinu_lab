@@ -40,8 +40,8 @@ status	ready(
         if (prptr -> prstate == PR_SLEEP) {     /* Process is ready from sleep  */
             /* Find minimum CPU usage across all ready/current processes */
 
-            /* Initialize min_pvirtcpu to current process virtual CPU usage */
-            min_pvirtcpu = proctab[currpid].pvirtcpu + currproctime;
+            /* Initialize min_pvirtcpu to MAXPRIO */
+            min_pvirtcpu = MAXPRIO;
 
             /* Scan the ready list to find the process with minimum virtual CPU usage   */
             curr = firstid(readylist);
@@ -51,6 +51,10 @@ status	ready(
                 }
                 curr = queuetab[curr].qnext;
             }
+
+            /*	Compare to current process virtual CPU usage	*/
+            if (min_pvirtcpu < proctab[currpid].pvirtcpu + currproctime)
+                min_pvirtcpu = proctab[currpid].pvirtcpu + currproctime;
             prptr -> pvirtcpu = min_pvirtcpu;           /* Set the virtual CPU usage of the new ready process    */
             prptr -> prprio = MAXPRIO - min_pvirtcpu;   /* Set the priority of the new ready process    */
         }
