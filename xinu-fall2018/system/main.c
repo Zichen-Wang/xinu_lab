@@ -255,7 +255,7 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
-
+    kprintf("!");
     sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
 
