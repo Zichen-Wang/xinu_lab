@@ -240,7 +240,7 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     */
-    sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
+    //sleepms(20000);      /* Lab2 5.5: "Main" waits for these "appR3test" processes		*/
 
     /* Lab3 3.2: Scenario 1: create 8 app processes that are all I/O-bound  */
     kprintf("\nScenario 1: create 8 app processes that are all I/O-bound.\n");
