@@ -51,6 +51,7 @@ status	ready(
                 }
                 curr = queuetab[curr].qnext;
             }
+            prptr -> pvirtcpu = min_pvirtcpu;           /* Set the virtual CPU usage of the new ready process    */
             prptr -> prprio = MAXPRIO - min_pvirtcpu;   /* Set the priority of the new ready process    */
         }
 
