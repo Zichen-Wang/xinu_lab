@@ -8,7 +8,7 @@ process	main(void)
 	//long x;								/* Used in Lab1 5.1	*/
 	//int *esp_before, *esp_after;		/* Used in Lab1 5.3  */
 	//pid32 pid;							/* Used in Lab1 5.3 & Lab2 3.3 */
-	rmsparam_t test_rms[4];
+	rmsparam_t test_rms[4];             /* Used in Lab3 4   */
 
     /* Lab1 3.2: Move the welcome message to a function welcome() */
     /*
