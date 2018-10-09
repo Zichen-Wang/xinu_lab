@@ -52,7 +52,7 @@ pid32   create(
     ad = 0.0;       /* Initialize admission control to zero */
     /*  Count all real-time processes */
     for (i = 1; i < NPROC; i++) {
-        if (proctab[nextpid].prstate != PR_FREE && proctab[i].prrms == true) {
+        if (proctab[nextpid].prstate != PR_FREE && proctab[i].prrms == 1) {
             ad += 1.0 * proctab[i].prct / proctab[i].prperiod;
         }
     }
@@ -133,7 +133,7 @@ pid32   create(
     prptr -> pstartwait = 0;
 
     /* Lab3 4.1: real-time process	*/
-    prptr -> prrms = true;
+    prptr -> prrms = 1;
     prptr -> prct = ptrrmsparam -> rms_ct;
     prptr -> prperiod = ptrrmsparam -> rms_period;
 
