@@ -37,7 +37,7 @@ pid32   rms_create(
     if (ssize < MINSTK)
         ssize = MINSTK;
     ssize = (uint32) roundmb(ssize);
-    if ( (priority < 1) || ((pid=newpid()) == SYSERR) ||
+    if ( ((pid=newpid()) == SYSERR) ||
          ((saddr = (uint32 *)getstk(ssize)) == (uint32 *)SYSERR) ) {
         restore(mask);
         return SYSERR;
@@ -52,12 +52,12 @@ pid32   rms_create(
     ad = 0.0;       /* Initialize admission control to zero */
     /*  Count all real-time processes */
     for (i = 1; i < NPROC; i++) {
-        if (proctab[nextpid].prstate != PR_FREE && proctab[i].prrms == 1) {
+        if (proctab[i].prstate != PR_FREE && proctab[i].prrms == 1) {
             ad += 1.0 * proctab[i].prct / proctab[i].prperiod;
         }
     }
 
-    if (ad + 1.0 * ptrrmsparam -> rms_ct / ptrtmsparam -> rms_period > RMSBOUND) {
+    if (ad + 1.0 * ptrrmsparam -> rms_ct / ptrrmsparam -> rms_period > RMSBOUND) {
         /* admission control test failed    */
         restore(mask);
         return SYSERR;
