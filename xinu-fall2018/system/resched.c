@@ -104,10 +104,10 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
      * User: wang4113
      * date: 09/19/2018
      */
-	if (ptnew -> prrms == false) {
+	if (ptnew -> prrms == 0) {
 		preempt = QUANTUM;
 	}
-	else if (ptnew -> prrms == true) {	/* Lab3 4.3: use RMSQUANTUM for real-time process	*/
+	else if (ptnew -> prrms == 1) {	/* Lab3 4.3: use RMSQUANTUM for real-time process	*/
 		preempt = RMSQUANTUM;
 	}
 
