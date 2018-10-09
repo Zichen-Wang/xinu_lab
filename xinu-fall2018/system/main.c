@@ -299,6 +299,8 @@ process	main(void)
     */
     //sleepms(20000);      /* Lab2 3.3: "Main" waits for these "appR3test" processes		*/
 
+
+    /* Lab3 4: Test of real-time processes   */
     test_rms[0].rms_ct = 10;
     test_rms[0].rms_period = 50;
 
@@ -311,14 +313,15 @@ process	main(void)
     test_rms[3].rms_ct = 20;
     test_rms[3].rms_period = 200;
 
+    kprintf("PID\tx\ty\tperiod number\tclktimemilli\ty - (clktimemilli - period_start)\n");
     if (resume(rms_create(rms_app, 1024, test_rms + 0, "rms_app", 2, 10, 50)) == SYSERR)
-        kprintf("1\n");
+        kprintf("[1]\n");
     if (resume(rms_create(rms_app, 1024, test_rms + 1, "rms_app", 2, 20, 200)) == SYSERR)
-        kprintf("2\n");
+        kprintf("[2]\n");
     if (resume(rms_create(rms_app, 1024, test_rms + 2, "rms_app", 2, 10, 50)) == SYSERR)
-        kprintf("3\n");
+        kprintf("[3]\n");
     if (resume(rms_create(rms_app, 1024, test_rms + 3, "rms_app", 2, 20, 200)) == SYSERR)
-        kprintf("4\n");
+        kprintf("[4]\n");
 
     sleepms(100000);
 
