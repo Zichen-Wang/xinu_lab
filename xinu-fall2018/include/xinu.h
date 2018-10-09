@@ -39,9 +39,3 @@
 #include <multiboot.h>
 #include <stdio.h>
 #include <string.h>
-/*
-* User: wang4113
-* date: 10/08/2018
-*/
-/* Lab3 4.1: Add rms header file    */
-#include <rms.h>
