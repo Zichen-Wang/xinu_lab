@@ -307,20 +307,20 @@ process	main(void)
     test_rms[1].rms_ct = 20;
     test_rms[1].rms_period = 200;
 
-    test_rms[2].rms_ct = 10;
-    test_rms[2].rms_period = 50;
+    test_rms[2].rms_ct = 3;
+    test_rms[2].rms_period = 30;
 
-    test_rms[3].rms_ct = 20;
-    test_rms[3].rms_period = 200;
+    test_rms[3].rms_ct = 7;
+    test_rms[3].rms_period = 100;
 
     kprintf("PID\tx\ty\tperiod number\tclktimemilli\ty - (clktimemilli - period_start)\n");
-    if (resume(rms_create(rms_app, 1024, test_rms + 0, "rms_app", 2, 10, 50)) == SYSERR)
+    if (resume(rms_create(rms_app, 1024, test_rms + 0, "rms_app", 2, test_rms[0].rms_ct, test_rms[0].rms_period)) == SYSERR)
         kprintf("[1]\n");
-    if (resume(rms_create(rms_app, 1024, test_rms + 1, "rms_app", 2, 20, 200)) == SYSERR)
+    if (resume(rms_create(rms_app, 1024, test_rms + 1, "rms_app", 2, test_rms[1].rms_ct, test_rms[1].rms_period)) == SYSERR)
         kprintf("[2]\n");
-    if (resume(rms_create(rms_app, 1024, test_rms + 2, "rms_app", 2, 10, 50)) == SYSERR)
+    if (resume(rms_create(rms_app, 1024, test_rms + 2, "rms_app", 2, test_rms[2].rms_ct, test_rms[2].rms_period)) == SYSERR)
         kprintf("[3]\n");
-    if (resume(rms_create(rms_app, 1024, test_rms + 3, "rms_app", 2, 20, 200)) == SYSERR)
+    if (resume(rms_create(rms_app, 1024, test_rms + 3, "rms_app", 2, test_rms[3].rms_ct, test_rms[3].rms_period)) == SYSERR)
         kprintf("[4]\n");
 
     sleepms(100000);

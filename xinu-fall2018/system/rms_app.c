@@ -38,7 +38,7 @@ void rms_app(uint32 x, uint32 y)    /* x specifies computation time requirement 
             comp_temp = currproctime;   /* Update the running time of current process in case of preemption  */
             if (clktimemilli - period_start < y) {  /* The process is still in this period  */
                 if (comp_received + currproctime >= x) {           /* Check whether current computation time has reached x  */
-                    kprintf("\n%d\t%d\t%d\t%d\t%d\t%d\n",
+                    kprintf("%d\t%d\t%d\t%d\t%d\t%d\n",
                             pid, x, y, period_number, clktimemilli, y - (clktimemilli - period_start));
                     sleepms(y - (clktimemilli - period_start));     /* The real-time process has finished   */
                     break;                                          /* Go to the next period    */
