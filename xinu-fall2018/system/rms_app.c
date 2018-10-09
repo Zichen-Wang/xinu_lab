@@ -47,7 +47,7 @@ void rms_app(uint32 x, uint32 y)    /* x specifies computation time requirement 
             else {                                  /* This period has expired  */
                 if (comp_received + currproctime < x) {           /* The real-time process has not finished in time  */
                     kprintf("%d\t%d\t%d\t%d\t%d\t%d\t[deadline violation]\n",
-                            PID, x, y, period_number, clktimemilli, y - (clktimemilli - period_start));
+                            pid, x, y, period_number, clktimemilli, y - (clktimemilli - period_start));
                     return;     /* Terminate this real-time process */
                 }
             }
