@@ -27,7 +27,7 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 	if (ptold->prstate == PR_CURR) {  /* Process remains eligible */
 		/*
 		 * User: wang4113
-		 * date: 10/17/2018
+		 * date: 10/07/2018
 		 */
 		/* Lab3 3.2 */
 		/* In CFS mode, change the priority of current process before comparing priority    */
@@ -98,8 +98,19 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 
 	ptnew->prstate = PR_CURR;
 
+	//preempt = QUANTUM;		/* Reset time slice for process	*/
 
-	preempt = QUANTUM;		/* Reset time slice for process	*/
+	/*
+     * User: wang4113
+     * date: 09/19/2018
+     */
+	if (ptnew -> prrms == false) {
+		preempt = QUANTUM;
+	}
+	else if (ptnew -> prrms == true) {	/* Lab3 4.3: use RMSQUANTUM for real-time process	*/
+		preempt = RMSQUANTUM;
+	}
+
 	ctxsw(&ptold->prstkptr, &ptnew->prstkptr);
 
 	/* Old process returns here when resumed */

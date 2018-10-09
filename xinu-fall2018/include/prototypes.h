@@ -673,6 +673,16 @@ extern	process	myTestProcC(void);
 /* in file appR3test.c */
 extern	void	appR3test(int);
 
+/*
+ * User: wang4113
+ * date: 10/08/2018
+ */
+/* in file rms_create.c */
+extern	pid32	rms_create(void *, uint32, rmsparam_t *, char *, uint32, ...);
+
+/* in file rms_app.c	*/
+extern 	void 	rms_app(uint32 x, uint32 y);
+
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */

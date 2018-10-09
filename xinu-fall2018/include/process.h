@@ -66,6 +66,14 @@ struct procent {		/* Entry in the process table		*/
      * date: 10/03/2018
      */
     uint32  pvirtcpu;   /* Lab3 3.2: The virtual CPU usage of the process   */
+
+	/*
+     * User: wang4113
+     * date: 10/08/2018
+     */
+	bool8	prrms;		/* Lab3 4.1: a flag that identifies an RMS process	*/
+	uint16	prct;		/* Lab3 4.1: an RMS process computation time	*/
+	uint16	prperiod;	/* Lab3 4.1: an RMS process's period		*/
 };
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/

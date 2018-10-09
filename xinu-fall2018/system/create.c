@@ -49,10 +49,17 @@ pid32	create(
 	prptr->prstate = PR_SUSP;	/* Initial state is suspended	*/
 	/*
 	 * User: wang4113
-	 * date: 10/07/2018
+	 * date: 10/08/2018
 	 */
-	if (XINUSCHED == 0)			/* Lab2 5.3: If in legacy mode, the priority is equal to the argument 'priority' */
+	if (XINUSCHED == 0) {        /* Lab2 5.3: If in legacy mode, the priority is equal to the argument 'priority' */
+		if (priority >= 29000) {
+			/* Lab3 4.3: To ensure that non-real-time process priorities do not exceed 29000,
+ 			* so that process creation with static priority greater than or equal to 29000 is not allowed	*/
+			restore(mask);
+			return (pid32) SYSERR;
+		}
 		prptr->prprio = priority;
+	}
 	else if (XINUSCHED == 1)	/* Lab2 5.3: If in R3 mode, the initial priority is equal to INITPRIO	*/
 		prptr->prprio = INITPRIO;
 	else if (XINUSCHED == 2) {
@@ -143,6 +150,13 @@ pid32	create(
 	prptr -> pwaittime = 0;
 	prptr -> pwaitcount = 0;
 	prptr -> pstartwait = 0;
+
+
+	/*
+	 * User: wang4113
+	 * date: 10/08/2018
+	 */
+	prptr -> prrms = false;		/* Lab3 4.1: non-real-time process	*/
 
 	restore(mask);
 	return pid;
