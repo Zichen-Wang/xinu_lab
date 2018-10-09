@@ -678,7 +678,7 @@ extern	void	appR3test(int);
  * date: 10/08/2018
  */
 /* in file rms_create.c */
-extern	pid32	rms_create(void *, uint32, struct rmsparam *, char *, uint32, ...);
+extern	pid32	rms_create(void *, uint32, rmsparam_t *, char *, uint32, ...);
 
 /* in file rms_app.c	*/
 extern 	void 	rms_app(uint32 x, uint32 y);

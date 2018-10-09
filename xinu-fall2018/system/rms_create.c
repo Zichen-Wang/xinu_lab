@@ -3,7 +3,7 @@
 * date: 10/08/2018
 */
 
-/* rms_create.h - rms_create */
+/* rms_create.c - rms_create */
 
 #include <xinu.h>
 
@@ -14,7 +14,7 @@ local	int newpid();
  *--------------------------------------------------------------
  */
 
-pid32   create(
+pid32   rms_create(
     void		*funcaddr,	    /* Address of the function	    */
     uint32	    ssize,		    /* Stack size in bytes		    */
     rmsparam_t	*ptrrmsparam,	/* A pointer to	struct rmsparam	*/
