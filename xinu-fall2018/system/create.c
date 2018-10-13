@@ -79,8 +79,9 @@ pid32	create(
 		}
 
 		/*	Compare to current process virtual CPU usage	*/
-		if (max_pvirtcpu < proctab[currpid].pvirtcpu + currproctime)
-			max_pvirtcpu = proctab[currpid].pvirtcpu + currproctime;
+		int nowvirtcpu = proctab[currpid].pvirtcpu + currproctime;
+		if (max_pvirtcpu < nowvirtcpu)
+			max_pvirtcpu = nowvirtcpu;
 		prptr -> pvirtcpu = max_pvirtcpu;			/* Set the virtual CPU usage of the new process    */
 		prptr -> prprio = MAXPRIO - max_pvirtcpu;   /* Set the priority of the new process    */
 	}

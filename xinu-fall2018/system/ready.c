@@ -15,7 +15,7 @@ status	ready(
 	register struct procent *prptr;
     /*
      * User: wang4113
-     * date: 10/17/2018
+     * date: 10/07/2018
      */
 
     qid16   curr;           /* Lab3 3.2: Runs through items in a queue   */
@@ -30,7 +30,7 @@ status	ready(
 	prptr = &proctab[pid];
     /*
      * User: wang4113
-     * date: 10/17/2018
+     * date: 10/07/2018
      */
     /* Lab3 3.2 */
     /* In CFS mode, assign a blocked(sleep) process that becomes ready a virtual CPU usage value
@@ -53,8 +53,9 @@ status	ready(
             }
 
             /*	Compare to current process virtual CPU usage	*/
-            if (min_pvirtcpu > proctab[currpid].pvirtcpu + currproctime)
-                min_pvirtcpu = proctab[currpid].pvirtcpu + currproctime;
+            int nowvirtcpu = proctab[currpid].pvirtcpu + currproctime;
+            if (min_pvirtcpu > nowvirtcpu)
+                min_pvirtcpu = nowvirtcpu;
             prptr -> pvirtcpu = min_pvirtcpu;           /* Set the virtual CPU usage of the new ready process    */
             prptr -> prprio = MAXPRIO - min_pvirtcpu;   /* Set the priority of the new ready process    */
         }

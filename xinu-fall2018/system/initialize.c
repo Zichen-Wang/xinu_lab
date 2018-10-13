@@ -204,6 +204,13 @@ static	void	sysinit()
 	prptr->prstkbase = getstk(NULLSTK);
 	prptr->prstklen = NULLSTK;
 	prptr->prstkptr = 0;
+	/*
+	 * User: wang4113
+	 * date: 10/11/2018
+	 */
+
+	prptr -> pvirtcpu = 0;	/* Initialize the virtual CPU usage of Null process	*/
+
 	currpid = NULLPROC;
 	
 	/* Initialize semaphores */
