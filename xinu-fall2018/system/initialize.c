@@ -210,6 +210,7 @@ static	void	sysinit()
 	 */
 
 	prptr -> pvirtcpu = 0;	/* Initialize the virtual CPU usage of Null process	*/
+	prptr -> prrms = FALSE;	/* Initialize rms flag of Null process to FALSE		*/
 
 	currpid = NULLPROC;
 	

@@ -276,10 +276,10 @@ process	main(void)
     //sleepms(20000);      /* Lab2 3.2: "Main" waits for these "appR3test" processes		*/
 
     /* Lab3 3.3: Dynamic workload: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound  */
-    kprintf("\nDynamic workload: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound.\n");
-    kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
-    sleepms(5);    /* Lab3 3.3: Consistent with Lab3 3.2		*/
-
+    //kprintf("\nDynamic workload: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound.\n");
+    //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    //sleepms(5);    /* Lab3 3.3: Consistent with Lab3 3.2		*/
+    /*
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     sleepms(500);
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
@@ -296,12 +296,12 @@ process	main(void)
     sleepms(500);
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     sleepms(500);
-
-    sleepms(20000);      /* Lab2 3.3: "Main" waits for these "appR3test" processes		*/
+    */
+    //sleepms(20000);      /* Lab2 3.3: "Main" waits for these "appR3test" processes		*/
 
 
     /* Lab3 4: Test of real-time processes   */
-    /*
+
     test_rms[0].rms_ct = 10;
     test_rms[0].rms_period = 50;
 
@@ -315,14 +315,21 @@ process	main(void)
     test_rms[3].rms_period = 100;
 
     kprintf("PID\tx\ty\tperiod number\tclktimemilli\ty - (clktimemilli - period_start)\n");
-    proctab[currpid].prprio = MAXPRIO;
+    proctab[currpid].prprio = MAXPRIO;  /* Promote the priority of main process */
+
     resume(rms_create(rms_app, 1024, test_rms + 0, "rms_app", 2, test_rms[0].rms_ct, test_rms[0].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 1, "rms_app", 2, test_rms[1].rms_ct, test_rms[1].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 2, "rms_app", 2, test_rms[2].rms_ct, test_rms[2].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 3, "rms_app", 2, test_rms[3].rms_ct, test_rms[3].rms_period));
-    proctab[currpid].prprio = 20;
-    sleepms(50000);
-    */
+
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+
+    proctab[currpid].prprio = 20;       /* Demote the priority of main process  */
+    sleepms(50000);                     /* main process wait    */
+
 
 
 	/* Run the Xinu shell */

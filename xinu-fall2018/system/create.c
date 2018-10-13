@@ -157,7 +157,7 @@ pid32	create(
 	 * User: wang4113
 	 * date: 10/08/2018
 	 */
-	prptr -> prrms = 0;		/* Lab3 4.1: non-real-time process	*/
+	prptr -> prrms = FALSE;		/* Lab3 4.1: non-real-time process	*/
 
 	restore(mask);
 	return pid;

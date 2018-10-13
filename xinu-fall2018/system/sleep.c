@@ -50,7 +50,8 @@ syscall	sleepms(
 	/* Lab2 5.4: In R3 mode, if a process voluntarily relinquishes the CPU,
 	 *   its priority is elevated to IOPRIO	*/
 	if (XINUSCHED == 1) {
-        if (currpid != NULLPROC)    /* The priority of prnull process should remain zero	*/
+        if (currpid != NULLPROC && proctab[currpid].prrms == FALSE)
+        	/* The priority of prnull process or real-time processshould remain unchanged	*/
 	        proctab[currpid].prprio = IOPRIO;
 	}
 

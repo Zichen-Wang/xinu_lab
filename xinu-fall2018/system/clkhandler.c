@@ -52,12 +52,13 @@ void	clkhandler()
 	if((--preempt) <= 0) {
 		/*
 		 * User: wang4113
-		 * date: 09/19/2018
+		 * date: 10/13/2018
 		 */
 		/* Lab2 5.4: In R3 mode, if a process consumes all of its time slice the CPU,
          *   its priority is demoted to INITPRIO	*/
 		if (XINUSCHED == 1) {
-			if (currpid != NULLPROC)		/* The priority of prnull should remain zero	*/
+			if (currpid != NULLPROC && proctab[currpid].prrms == FALSE)
+				/* The priority of prnull or real-time process should remain unchanged	*/
 				proctab[currpid].prprio = INITPRIO;
 		}
 		preempt = QUANTUM;
