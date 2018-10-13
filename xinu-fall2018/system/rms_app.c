@@ -23,13 +23,12 @@ void rms_app(uint32 x, uint32 y)    /* x specifies computation time requirement 
 
     uint32  sleeptime;          /* time to sleep    */
 
-    period_start = clktimemilli;    /* Remember the current time  */
-
-
     for (period_number = 1; period_number <= 100; period_number++) {     /* Outer loop   */
 
+        period_start = clktimemilli;    /* Remember the current time    */
+
         comp_received = 0;              /* Initialize CPU time received by the process in the period to zero    */
-        comp_temp = currproctime;       /* Initialize the reminder of the value of currproctime */
+        comp_temp = currproctime;       /* Initialize the current value of currproctime */
 
         while (1) { /* Inner loop   */
             if (currproctime == 0) {  /* Context-switch has occurred  */
@@ -44,9 +43,6 @@ void rms_app(uint32 x, uint32 y)    /* x specifies computation time requirement 
 
                     kprintf("%d\t%d\t%d\t%d\t%d\t%d\n",
                             pid, x, y, period_number, clktimemilli, sleeptime);
-
-                    /* We need to calculate the start time of the next period   */
-                    period_start += sleeptime;
 
                     sleepms(sleeptime);     /* The real-time process has finished   */
 
