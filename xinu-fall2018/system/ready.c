@@ -46,7 +46,7 @@ status	ready(
             /* Scan the ready list to find the process with minimum virtual CPU usage   */
             curr = firstid(readylist);
             while (curr != queuetail(readylist)) {
-                if (curr > 0 && min_pvirtcpu > proctab[curr].pvirtcpu) {
+                if (curr != NULLPROC && min_pvirtcpu > proctab[curr].pvirtcpu) {
                     min_pvirtcpu = proctab[curr].pvirtcpu;  /* Update the minimum virtual CPU usage */
                 }
                 curr = queuetab[curr].qnext;

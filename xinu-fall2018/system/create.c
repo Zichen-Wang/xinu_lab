@@ -72,7 +72,7 @@ pid32	create(
 		/* Scan the ready list to find the process with maximum virtual CPU usage   */
 		curr = firstid(readylist);
 		while (curr != queuetail(readylist)) {
-			if (curr > 0 && max_pvirtcpu < proctab[curr].pvirtcpu) {
+			if (curr != NULLPROC && max_pvirtcpu < proctab[curr].pvirtcpu) {
 				max_pvirtcpu = proctab[curr].pvirtcpu;  /* Update the maximum virtual CPU usage */
 			}
 			curr = queuetab[curr].qnext;

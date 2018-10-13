@@ -32,7 +32,7 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 		/* Lab3 3.2 */
 		/* In CFS mode, change the priority of current process before comparing priority    */
 		if (XINUSCHED == 2) {
-			if (currpid > 0) {        /* The priority of prnull should remain zero	*/
+			if (currpid != NULLPROC) {        /* The priority of prnull should remain zero	*/
 				/* Now, the virtual CPU usage is proctab[currpid].pvirtcpu + currproctime	*/
 				/* Update the priority accordingly	*/
 				ptold -> prprio = MAXPRIO - (proctab[currpid].pvirtcpu + currproctime);
@@ -66,7 +66,7 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 			ptold -> pvirtcpu += currproctime;
 
 			/* Update its priority  */
-			if (currpid > 0)	/* The priority of prnull should remain zero	*/
+			if (currpid != NULLPROC)	/* The priority of prnull should remain zero	*/
 				ptold -> prprio = MAXPRIO - ptold -> pvirtcpu;
 		}
 
