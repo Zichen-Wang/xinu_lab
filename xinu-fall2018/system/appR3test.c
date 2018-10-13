@@ -41,7 +41,7 @@ void appR3test(int proctype)
     }
     // Print PID, proctype, clktimemilli, gross CPU usage, and average time before terminating.
 
-    kprintf("%d\t%d\t%d\t%d\t%f\n",
+    kprintf("[R3] %d\t%d\t%d\t%d\t%f\n",
             pid, proctype, clktimemilli, proctab[pid].pgrosscpu + currproctime,
             1.0 * proctab[pid].pwaittime / proctab[pid].pwaitcount);
 
