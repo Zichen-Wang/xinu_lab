@@ -23,7 +23,7 @@ void rms_app(uint32 x, uint32 y)    /* x specifies computation time requirement 
     pid32   pid = getpid();      /* get the pid of this process  */
 
 
-    for (period_number = 1; period_number <= 40; period_number++) {     /* Outer loop   */
+    for (period_number = 1; period_number <= 100; period_number++) {     /* Outer loop   */
 
         grosscpu_start = proctab[pid].pgrosscpu;
         period_start = clktimemilli;    /* Remember the current time  */
