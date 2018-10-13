@@ -15,7 +15,6 @@
 void rms_app(uint32 x, uint32 y)    /* x specifies computation time requirement and y specifies period  */
 {
     uint32  period_start;       /* remember the current time given by clktimemilli     */
-    uint32  grosscpu_start;     /* store gross CPU usage prgrosscpu                    */
     uint32  comp_received;      /* track CPU time received by the process in the period    */
     uint32  comp_temp;          /* remember the value of currproctime
                                  * which will otherwise be lost upon context-switch.    */
@@ -25,7 +24,6 @@ void rms_app(uint32 x, uint32 y)    /* x specifies computation time requirement 
 
     for (period_number = 1; period_number <= 100; period_number++) {     /* Outer loop   */
 
-        grosscpu_start = proctab[pid].pgrosscpu;
         period_start = clktimemilli;    /* Remember the current time  */
         comp_received = 0;              /* Initialize CPU time received by the process in the period to zero    */
         comp_temp = currproctime;       /* Initialize the reminder of the value of currproctime */
@@ -53,4 +51,5 @@ void rms_app(uint32 x, uint32 y)    /* x specifies computation time requirement 
             }
         }
     }
+
 }
