@@ -320,7 +320,7 @@ process	main(void)
     resume(rms_create(rms_app, 1024, test_rms + 2, "rms_app", 2, test_rms[2].rms_ct, test_rms[2].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 3, "rms_app", 2, test_rms[3].rms_ct, test_rms[3].rms_period));
     proctab[currpid].prprio = 20;
-    sleepms(100000);
+    sleepms(50000);
 
 
 
