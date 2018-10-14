@@ -228,10 +228,10 @@ process	main(void)
      */
 
     /* Lab3 3.2: Scenario 1: create 8 app processes that are all CPU-bound  */
-    //kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
-    //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
-    //sleepms(5);    /* Lab3 3.2: Consistent with Lab2 5.5		*/
-    /*
+    kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
+    kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    sleepms(5);    /* Lab3 3.2: Consistent with Lab2 5.5		*/
+
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
@@ -240,7 +240,7 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    */
+
     //sleepms(20000);      /* Lab3 3.2: "Main" waits for these "appR3test" processes		*/
 
     /* Lab3 3.2: Scenario 2: create 8 app processes that are all I/O-bound  */
@@ -301,7 +301,7 @@ process	main(void)
 
 
     /* Lab3 4: Test 4 real-time processes   */
-
+    /*
     test_rms[0].rms_ct = 10;
     test_rms[0].rms_period = 50;
 
@@ -313,22 +313,22 @@ process	main(void)
 
     test_rms[3].rms_ct = 7;
     test_rms[3].rms_period = 100;
-
-    kprintf("PID\tx\ty\tperiod number\tclktimemilli\ty - (clktimemilli - period_start)\n");
+    */
+    //kprintf("PID\tx\ty\tperiod number\tclktimemilli\ty - (clktimemilli - period_start)\n");
     proctab[currpid].prprio = MAXPRIO;  /* Promote the priority of main process */
-
+    /*
     resume(rms_create(rms_app, 1024, test_rms + 0, "rms_app", 2, test_rms[0].rms_ct, test_rms[0].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 1, "rms_app", 2, test_rms[1].rms_ct, test_rms[1].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 2, "rms_app", 2, test_rms[2].rms_ct, test_rms[2].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 3, "rms_app", 2, test_rms[3].rms_ct, test_rms[3].rms_period));
-
+    */
     /* Lab3 4.5: 4 additional CPU-bound processes  */
-
+    /*
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-
+    */
     proctab[currpid].prprio = 20;       /* Demote the priority of main process  */
     sleepms(50000);                     /* main process wait    */
 
