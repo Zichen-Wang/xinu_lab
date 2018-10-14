@@ -30,6 +30,12 @@
 #include <name.h>
 #include <shell.h>
 #include <date.h>
+/*
+ * User: wang4113
+ * date: 10/08/2018
+ */
+#include <rms.h>    /* Add the rms header file  */
+
 #include <prototypes.h>
 #include <delay.h>
 #include <pci.h>

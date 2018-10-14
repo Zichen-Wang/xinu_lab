@@ -677,7 +677,6 @@ extern	void	appR3test(int);
  * User: wang4113
  * date: 10/08/2018
  */
-#include <rms.h>
 /* in file rms_create.c */
 extern	pid32	rms_create(void *, uint32, rmsparam_t *, char *, uint32, ...);
 
