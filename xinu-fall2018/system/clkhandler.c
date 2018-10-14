@@ -61,7 +61,17 @@ void	clkhandler()
 				/* The priority of prnull or real-time process should remain unchanged	*/
 				proctab[currpid].prprio = INITPRIO;
 		}
-		preempt = QUANTUM;
+        /*
+         * User: wang4113
+         * date: 10/13/2018
+         */
+		//preempt = QUANTUM;
+        if (ptnew -> prrms == FALSE) {
+            preempt = QUANTUM;
+        }
+        else if (ptnew -> prrms == TRUE) {	/* Lab3 4.3: use RMSQUANTUM for real-time process	*/
+            preempt = RMSQUANTUM;
+        }
 		resched();
 	}
 }
