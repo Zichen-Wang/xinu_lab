@@ -66,10 +66,10 @@ void	clkhandler()
          * date: 10/13/2018
          */
 		//preempt = QUANTUM;
-        if (ptnew -> prrms == FALSE) {
+        if (proctab[currpid].prrms == FALSE) {
             preempt = QUANTUM;
         }
-        else if (ptnew -> prrms == TRUE) {	/* Lab3 4.3: use RMSQUANTUM for real-time process	*/
+        else if (proctab[currpid].prrms == TRUE) {	/* Lab3 4.3: use RMSQUANTUM for real-time process	*/
             preempt = RMSQUANTUM;
         }
 		resched();
