@@ -29,7 +29,7 @@ void appR3test(int proctype)
     }
     else if (proctype == 1) {
         LOOP1 = 150;
-        LOOP2 = 600000;
+        LOOP2 = 100000;
     }
 
     for (i = 0; i < LOOP1; i++) { // Affects overall run-time of app.
