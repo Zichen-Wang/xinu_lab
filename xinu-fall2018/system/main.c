@@ -228,10 +228,10 @@ process	main(void)
      */
 
     /* Lab3 3.2: Scenario 1: create 8 app processes that are all CPU-bound  */
-    //kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
-    //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
-    //sleepms(5);    /* Lab3 3.2: Consistent with Lab2 5.5		*/
-	/*
+    kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
+    kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    proctab[currpid].prprio = MAXPRIO;  /* Promote the priority of main process */
+
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
@@ -240,14 +240,13 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-	*/
+
     //sleepms(20000);      /* Lab3 3.2: "Main" waits for these "appR3test" processes		*/
 
     /* Lab3 3.2: Scenario 2: create 8 app processes that are all I/O-bound  */
-    kprintf("\nScenario 2: create 8 app processes that are all I/O-bound.\n");
-    kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
-    sleepms(5);    /* Lab3 3.2: Consistent with Lab2 5.5		*/
-
+    //kprintf("\nScenario 2: create 8 app processes that are all I/O-bound.\n");
+    //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    /*
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
@@ -256,13 +255,12 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
-
+    */
     //sleepms(20000);      /* Lab3 3.2: "Main" waits for these "appR3test" processes		*/
 
     /* Lab3 3.2: Scenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound  */
     //kprintf("\nScenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound.\n");
     //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
-    //sleepms(5);    /* Lab3 3.2: Consistent with Lab2 5.5		*/
     /*
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
@@ -278,7 +276,6 @@ process	main(void)
     /* Lab3 3.3: Dynamic workload: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound  */
     //kprintf("\nDynamic workload: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound.\n");
     //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
-    //sleepms(5);    /* Lab3 3.3: Consistent with Lab3 3.2		*/
     /*
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     sleepms(500);
@@ -315,7 +312,7 @@ process	main(void)
     test_rms[3].rms_period = 100;
     */
     //kprintf("PID\tx\ty\tperiod number\tclktimemilli\ty - (clktimemilli - period_start)\n");
-    proctab[currpid].prprio = MAXPRIO;  /* Promote the priority of main process */
+
     /*
     resume(rms_create(rms_app, 1024, test_rms + 0, "rms_app", 2, test_rms[0].rms_ct, test_rms[0].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 1, "rms_app", 2, test_rms[1].rms_ct, test_rms[1].rms_period));
