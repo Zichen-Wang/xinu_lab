@@ -323,12 +323,12 @@ process	main(void)
     resume(rms_create(rms_app, 1024, test_rms + 3, "rms_app", 2, test_rms[3].rms_ct, test_rms[3].rms_period));
 
     /* Lab3 4.5: 4 additional CPU-bound processes  */
-    /*
+
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    */
+
     proctab[currpid].prprio = 20;       /* Demote the priority of main process  */
     sleepms(50000);                     /* main process wait    */
 
