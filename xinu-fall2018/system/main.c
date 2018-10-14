@@ -228,10 +228,10 @@ process	main(void)
      */
 
     /* Lab3 3.2: Scenario 1: create 8 app processes that are all CPU-bound  */
-    kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
-    kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
-    proctab[currpid].prprio = MAXPRIO;  /* Promote the priority of main process */
-
+    //kprintf("\nScenario 1: create 8 app processes that are all CPU-bound.\n");
+    //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    //proctab[currpid].prprio = MAXPRIO;  /* Promote the priority of main process */
+    /*
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
@@ -240,13 +240,14 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-
+    */
     //sleepms(20000);      /* Lab3 3.2: "Main" waits for these "appR3test" processes		*/
 
     /* Lab3 3.2: Scenario 2: create 8 app processes that are all I/O-bound  */
-    //kprintf("\nScenario 2: create 8 app processes that are all I/O-bound.\n");
-    //kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
-    /*
+    kprintf("\nScenario 2: create 8 app processes that are all I/O-bound.\n");
+    kprintf("PID\tproctype\tclktimemilli (ms)\tgross CPU usage (ms)\taverage waiting time (ms)\n");
+    proctab[currpid].prprio = MAXPRIO;  /* Promote the priority of main process */
+
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
@@ -255,7 +256,7 @@ process	main(void)
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
     resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 1));
-    */
+
     //sleepms(20000);      /* Lab3 3.2: "Main" waits for these "appR3test" processes		*/
 
     /* Lab3 3.2: Scenario 3: create 4 app processes that are CPU-bound and 4 app processes that are I/O-bound  */
