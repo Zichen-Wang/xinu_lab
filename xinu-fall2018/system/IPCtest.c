@@ -13,8 +13,11 @@
 
 process IPCtest(void)
 {
+    int i;
+
     while (TRUE) {
         send(3, currpid);
+        for (i = 0; i < 5000000; i++);
         sleepms(1000);
     }
     return OK;

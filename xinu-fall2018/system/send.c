@@ -33,8 +33,6 @@ syscall	send(
 	 * date: 10/18/2018
 	 */
 
-	/* Output the PID along with a time stamp	*/
-	kprintf("[%d ms] Process %d is sending a message \"%d\" to Process %d:\n", clktimemilli, currpid, msg, pid);
 
 	if (currpid != pid
 		&& prptr -> prstate != PR_RECV
@@ -49,6 +47,11 @@ syscall	send(
 		 * which are useless after context switch, so we can use the places of these two arguments to save
 		 * the address of callback function and the original address respectively.
 		 */
+
+
+		/* Output the PID along with a time stamp	*/
+		kprintf("[%d ms] Process %d is sending a message \"%d\" to Process %d asynchronously.\n"
+				, clktimemilli, currpid, msg, pid);
 
 		/* Save the original return address	*/
 		*(int *)(prptr -> prstkptr + 48) = *(int *)(prptr -> prstkptr + 40);

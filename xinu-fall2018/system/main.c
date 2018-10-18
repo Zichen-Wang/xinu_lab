@@ -6,7 +6,7 @@ void myrcv() {
 	extern umsg32 msgbuf;
 
 	msgbuf = receive();  // copy message to user buffer
-	kprintf("[%d ms] Process %d received a message \"%d\"\n", clktimemilli, currpid, msgbuf);
+	kprintf("[%d ms] Process %d received a message \"%d\".\n", clktimemilli, currpid, msgbuf);
 }
 
 process	main(void)
