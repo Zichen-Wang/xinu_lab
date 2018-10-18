@@ -683,6 +683,14 @@ extern	pid32	rms_create(void *, uint32, rmsparam_t *, char *, uint32, ...);
 /* in file rms_app.c	*/
 extern 	void 	rms_app(uint32 x, uint32 y);
 
+/*
+ * User: wang4113
+ * date: 10/18/2018
+ */
+
+/* in file do_handler.S	*/
+extern	void	do_handler(uint32, uint32);
+
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
