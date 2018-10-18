@@ -351,7 +351,7 @@ process	main(void)
 
     resume(create(IPCtest, 1024, INITPRIO, "IPCtest", 0));
 
-    while (True) {
+    while (TRUE) {
     	;
     }
 
