@@ -15,7 +15,7 @@ process IPCtest(void)
 {
     while (TRUE) {
         send(3, currpid);
-        sleepms(100);
+        sleepms(1000);
     }
     return OK;
 }
