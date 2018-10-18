@@ -47,7 +47,7 @@ syscall	send(
 		*(int *)(prptr -> prstkptr + 48) = *(int *)(prptr -> prstkptr + 40);
 
 		/* Save the address of callback function	*/
-		*(int *)(prptr -> prstkptr + 44) = prptr -> original_ret_addr;
+		*(int *)(prptr -> prstkptr + 44) = prptr -> callback_func_addr;
 
 		/* modify the return address to do_handler()	*/
 		*(int *)(prptr -> prstkptr + 40) = (uint32)do_handler;
