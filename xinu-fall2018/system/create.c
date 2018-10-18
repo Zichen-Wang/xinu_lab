@@ -163,7 +163,7 @@ pid32	create(
 	 * User: wang4113
 	 * date: 10/17/2018
 	 */
-	prptr -> callback_func = 0;	/* Initialize the pointer of callback function to NULL		*/
+	prptr -> callback_func_addr = 0;	/* Initialize the pointer of callback function to NULL		*/
 
 	restore(mask);
 	return pid;
