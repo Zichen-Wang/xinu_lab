@@ -8,7 +8,7 @@ void myrcv() {
 
 	msgbuf = receive();  // copy message to user buffer
 	kprintf("[%d ms] Process %d received a message \"%d\".\n", clktimemilli, currpid, msgbuf);
-	for (i = proctab[currpid]; i >= proctab[currpid].prstkptr; i -= 4)
+	for (i = proctab[currpid].prstkbase; i >= proctab[currpid].prstkptr; i -= 4)
 		kprintf("[%08X] %08X\n", i, *(int *)(i));
 }
 
