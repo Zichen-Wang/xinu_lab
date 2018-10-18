@@ -688,6 +688,9 @@ extern 	void 	rms_app(uint32 x, uint32 y);
  * date: 10/18/2018
  */
 
+/* in file reghandler.c	*/
+extern	syscall reghandler( void (* func) (void) );
+
 /* in file do_handler.S	*/
 extern	void	do_handler(uint32, uint32);
 

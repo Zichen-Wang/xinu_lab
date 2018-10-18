@@ -2,6 +2,13 @@
 
 #include <xinu.h>
 
+void myrcv() {
+	extern umsg32 msgbuf;
+
+	msgbuf = receive();  // copy message to user buffer
+	kprintf("[%d ms] Process %d received a message \"%d\"\n", currpid, msgbuf);
+}
+
 process	main(void)
 {
 	//xminsec_t uptime;					/* Used in Lab1 4.1	*/
@@ -333,8 +340,20 @@ process	main(void)
     //proctab[currpid].prprio = 20;       /* Demote the priority of main process  */
     //sleepms(50000);                     /* main process wait    */
 
+	/*
+	 * User: wang4113
+	 * date: 10/18/2018
+	 */
+    if (reghandler(&myrcv) != OK) {
+        kprintf("recv handler registration failed\n");
+        return SYSERR;
+    }
 
+    resume(create(IPCtest, 1024, INITPRIO, "IPCtest", 0));
 
+    while (True) {
+    	;
+    }
 
 
 	/* Run the Xinu shell */
@@ -361,3 +380,4 @@ process	main(void)
 	return OK;
     
 }
+

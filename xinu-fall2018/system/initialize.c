@@ -26,7 +26,14 @@ struct	memblk	memlist;	/* List of free memory blocks		*/
 int	prcount;		/* Total number of live processes	*/
 pid32	currpid;		/* ID of currently executing process	*/
 
-/* Control sequence to reset the console colors and cusor positiion	*/
+/*
+ * User: wang4113
+ * date: 10/18/2018
+ */
+
+umsg32 msgbuf;		/* msgbuf for asynchronous IPC callback function	*/
+
+/* Control sequence to reset the console colors and cusor position	*/
 
 #define	CONSOLE_RESET	" \033[0m\033[2J\033[;H"
 

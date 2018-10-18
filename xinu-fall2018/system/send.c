@@ -33,7 +33,14 @@ syscall	send(
 	 * date: 10/18/2018
 	 */
 
-	if (prptr -> prstate != PR_RECV && prptr -> prstate != PR_RECTIM && prptr -> callback_func_addr != 0) {
+	/* Output the PID along with a time stamp	*/
+	kprintf("[%d ms] Process %d is sending a message \"%d\" to Process %d:\n", clktimemilli, currpid, msg, pid);
+
+	if (currpid != pid
+		&& prptr -> prstate != PR_RECV
+		&& prptr -> prstate != PR_RECTIM
+		&& prptr -> callback_func_addr != 0) {
+		/* Do not allow sending a message to the process itself under asynchronous IPC.	*/
 		/* If the receiver is non-block by a receive() and has registered a callback function,
 		 * modify the stack of the receiver process.	*/
 

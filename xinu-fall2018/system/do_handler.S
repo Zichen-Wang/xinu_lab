@@ -22,7 +22,7 @@ do_handler:
         pushfl                  /* Push flags onto the stack	*/
 
         sti                     /* Interrupts enabled   */
-        call    %eax            /* Call callback function   */
+        call    *%eax           /* Call callback function   */
         cli                     /* Interrupts disabled  */
 
         popfl                   /* Restore the EFLAGS   */
