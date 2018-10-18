@@ -159,6 +159,12 @@ pid32	create(
 	 */
 	prptr -> prrms = FALSE;		/* Lab3 4.1: non-real-time process	*/
 
+	/*
+	 * User: wang4113
+	 * date: 10/17/2018
+	 */
+	prptr -> callback_func = 0;	/* Initialize the pointer of callback function to NULL		*/
+
 	restore(mask);
 	return pid;
 }

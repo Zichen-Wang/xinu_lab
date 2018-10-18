@@ -8,7 +8,7 @@ process	main(void)
 	//long x;								/* Used in Lab1 5.1	*/
 	//int *esp_before, *esp_after;		/* Used in Lab1 5.3  */
 	//pid32 pid;							/* Used in Lab1 5.3 & Lab2 3.3 */
-	rmsparam_t test_rms[4];             /* Used in Lab3 4   */
+	//rmsparam_t test_rms[4];             /* Used in Lab3 4   */
 
     /* Lab1 3.2: Move the welcome message to a function welcome() */
     /*
@@ -301,7 +301,7 @@ process	main(void)
 
 
     /* Lab3 4: Test 4 real-time processes   */
-
+    /*
     test_rms[0].rms_ct = 10;
     test_rms[0].rms_period = 50;
 
@@ -315,22 +315,25 @@ process	main(void)
     test_rms[3].rms_period = 100;
 
     kprintf("PID\tx\ty\tperiod number\tclktimemilli\ty - (clktimemilli - period_start)\n");
-    proctab[currpid].prprio = MAXPRIO;  /* Promote the priority of main process */
-
+    */
+    //proctab[currpid].prprio = MAXPRIO;  /* Promote the priority of main process */
+    /*
     resume(rms_create(rms_app, 1024, test_rms + 0, "rms_app", 2, test_rms[0].rms_ct, test_rms[0].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 1, "rms_app", 2, test_rms[1].rms_ct, test_rms[1].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 2, "rms_app", 2, test_rms[2].rms_ct, test_rms[2].rms_period));
     resume(rms_create(rms_app, 1024, test_rms + 3, "rms_app", 2, test_rms[3].rms_ct, test_rms[3].rms_period));
-
+    */
     /* Lab3 4.5: 4 additional CPU-bound processes  */
+    /*
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
+    */
+    //proctab[currpid].prprio = 20;       /* Demote the priority of main process  */
+    //sleepms(50000);                     /* main process wait    */
 
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
-    resume(create(appR3test, 1024, INITPRIO, "appR3test", 1, 0));
 
-    proctab[currpid].prprio = 20;       /* Demote the priority of main process  */
-    sleepms(50000);                     /* main process wait    */
 
 
 

@@ -74,6 +74,12 @@ struct procent {		/* Entry in the process table		*/
 	bool8	prrms;		/* Lab3 4.1: a flag that identifies an RMS process	*/
 	uint16	prct;		/* Lab3 4.1: an RMS process computation time	*/
 	uint16	prperiod;	/* Lab3 4.1: an RMS process's period		*/
+
+	/*
+	 * User: wang4113
+	 * date: 10/17/2018
+	*/
+	uint32	callback_func_addr;	/* Lab4 3: pointer to callback function	*/
 };
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/

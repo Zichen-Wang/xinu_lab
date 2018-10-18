@@ -212,6 +212,12 @@ static	void	sysinit()
 	prptr -> pvirtcpu = 0;	/* Initialize the virtual CPU usage of Null process	*/
 	prptr -> prrms = FALSE;	/* Initialize rms flag of Null process to FALSE		*/
 
+	/*
+	 * User: wang4113
+	 * date: 10/17/2018
+	 */
+	prptr -> callback_func_addr = 0;	/* Initialize the pointer of callback function of Null process to NULL		*/
+
 	currpid = NULLPROC;
 	
 	/* Initialize semaphores */
