@@ -13,7 +13,6 @@ syscall	send(
 {
 	intmask	mask;			/* Saved interrupt mask		*/
 	struct	procent *prptr;		/* Ptr to process's table entry	*/
-	char *i;
 
 	mask = disable();
 	if (isbadpid(pid)) {
