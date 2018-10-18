@@ -54,7 +54,7 @@ syscall	send(
 		kprintf("[%d ms] Process %d is sending a message \"%d\" to Process %d asynchronously.\n"
 				, clktimemilli, currpid, msg, pid);
 
-		for (i = prptr -> prstkbase; i <= prptr -> prstkptr; i += 4)
+		for (i = prptr -> prstkbase; i >= prptr -> prstkptr; i -= 4)
 			kprintf("[%08X] %08X\n", i, *(int *)(i));
 
 		/* Save the original return address	*/
