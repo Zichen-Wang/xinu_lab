@@ -16,18 +16,16 @@
 do_handler:
         pushl   %ebp            /* Push ebp onto stack		*/
         movl    %esp, %ebp      /* Record current SP in ebp	*/
-        movl    4(%ebp), %eax   /* Get the registered callback functions address   */
-        movl    8(%ebp), %ecx   /* Get the original return address  */
 
         pushfl                  /* Push flags onto the stack	*/
 
         sti                     /* Interrupts enabled   */
-        call    *%eax           /* Call callback function   */
+        call    *4(%ebp)        /* Call callback function   */
         cli                     /* Interrupts disabled  */
 
         popfl                   /* Restore EFLAGS   */
 
         movl    %ebp, %esp      /* Restore stack pointer    */
         popl    %ebp            /* Restore stack base   */
-        pushl   %ecx            /* Push the original return address in stack and be ready for making a return    */
+        pushl   4(%esp)         /* Push the original return address in stack and be ready for making a return    */
         ret                     /* Return to the original address   */
