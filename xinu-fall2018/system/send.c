@@ -54,19 +54,13 @@ syscall	send(
 		kprintf("[%d ms] Process %d is sending a message \"%d\" to Process %d asynchronously.\n"
 				, clktimemilli, currpid, msg, pid);
 
-		for (i = prptr -> prstkbase; i >= prptr -> prstkptr; i -= 4)
-			kprintf("[%08X] %08X\n", i, *(int *)(i));
-
 		/* Save the original return address	*/
-		kprintf("original [%08X]\n", *(int *)(prptr -> prstkptr + 40));
 		*(int *)(prptr -> prstkptr + 48) = *(int *)(prptr -> prstkptr + 40);
 
 		/* Save the address of callback function	*/
-		kprintf("callback [%08X]\n", prptr -> callback_func_addr);
 		*(int *)(prptr -> prstkptr + 44) = prptr -> callback_func_addr;
 
 		/* modify the return address to do_handler()	*/
-		kprintf("do_handler() [%08X]\n", (uint32)do_handler);
 		*(int *)(prptr -> prstkptr + 40) = (uint32)do_handler;
 
 	}
