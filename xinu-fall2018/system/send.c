@@ -44,7 +44,7 @@ syscall	send(
 		 * modify the stack of the receiver process.	*/
 
 
-		/* Since the two arguments of ctxsw() are old process pointer and new process pointer
+		/* Since the two arguments of ctxsw() are the addresses of old process pointer and new process pointer
 		 * which are useless after context switch, so we can use the places of these two arguments to save
 		 * the address of callback function and the original address respectively.
 		 */
