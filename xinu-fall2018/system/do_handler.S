@@ -25,7 +25,7 @@ do_handler:
         call    *%eax           /* Call callback function   */
         cli                     /* Interrupts disabled  */
 
-        popfl                   /* Restore the EFLAGS   */
+        popfl                   /* Restore EFLAGS   */
 
         movl    %ebp, %esp      /* Restore stack pointer    */
         popl    %ebp            /* Restore stack base   */

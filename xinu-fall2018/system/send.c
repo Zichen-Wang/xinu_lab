@@ -13,6 +13,7 @@ syscall	send(
 {
 	intmask	mask;			/* Saved interrupt mask		*/
 	struct	procent *prptr;		/* Ptr to process's table entry	*/
+	uint32 i;
 
 	mask = disable();
 	if (isbadpid(pid)) {
@@ -52,6 +53,9 @@ syscall	send(
 		/* Output the PID along with a time stamp	*/
 		kprintf("[%d ms] Process %d is sending a message \"%d\" to Process %d asynchronously.\n"
 				, clktimemilli, currpid, msg, pid);
+
+		for (i = (uint32)(prptr -> prstkbase); i <= (uint32)(prptr -> prstkptr); i += 4)
+			kprintf("[%08X] %08X\n", i, *i);
 
 		/* Save the original return address	*/
 		*(int *)(prptr -> prstkptr + 48) = *(int *)(prptr -> prstkptr + 40);
