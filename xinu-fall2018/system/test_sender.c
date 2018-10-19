@@ -26,16 +26,16 @@ process test_sender(pid32 receiver_min, uint32 receiver_num)
 
         if (send(receiver_pid, msg) == OK) {
             /* Output the PID along with a time stamp	*/
-            kprintf("\n[%d ms]\tProcess %d is sending a message \"%d\" to Process %d. [msg_num: %d]\n",
+            kprintf("\n[%d ms]\tProcess %d sent \"%d\" to Process %d. [msg_num: %d]\n",
                     clktimemilli, sender_pid, msg, receiver_pid, msg_num);
         }
         else {
-            kprintf("\n[%d ms]\tProcess %d is sending a message \"%d\" to Process %d. [msg_num: %d] [ERROR OCCUR] \n",
+            kprintf("\n[%d ms]\tProcess %d sent \"%d\" to Process %d. [msg_num: %d] [ERROR OCCUR] \n",
                     clktimemilli, sender_pid, msg, receiver_pid, msg_num);
             return SYSERR;
         }
 
-        for (i = 0; i < 700000; i++);   /* Busy loop    */
+        for (i = 0; i < 500000; i++);   /* Busy loop    */
 
         sleepms(1000);
     }
