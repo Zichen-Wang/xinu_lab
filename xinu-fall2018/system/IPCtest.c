@@ -17,7 +17,7 @@ process IPCtest(void)
 
     while (TRUE) {
         send(3, currpid);
-        for (i = 0; i < 3000000; i++);
+        //for (i = 0; i < 3000000; i++);
         sleepms(1000);
     }
     return OK;
