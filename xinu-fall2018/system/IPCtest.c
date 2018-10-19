@@ -16,7 +16,7 @@ process IPCtest(void)
     int i;
 
     while (TRUE) {
-        send(3, currpid);
+        send(3, clktimemilli);
         for (i = 0; i < 700000; i++);
         sleepms(1000);
     }
