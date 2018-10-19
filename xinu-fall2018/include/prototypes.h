@@ -694,8 +694,8 @@ extern	syscall reghandler( void (* func) (void) );
 /* in file do_handler.S	*/
 extern	void	do_handler(uint32, uint32);
 
-/* in file IPCtest.c	*/
-extern	process	IPCtest(void);
+/* in file test_sender.c	*/
+extern	process	test_sender(void);
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */

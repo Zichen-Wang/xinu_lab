@@ -349,7 +349,7 @@ process	main(void)
         return SYSERR;
     }
 
-    resume(create(IPCtest, 1024, INITPRIO, "IPCtest", 0));
+    resume(create(test_sender, 1024, INITPRIO, "test_sender", 0));
 
     while (TRUE) {
     	;

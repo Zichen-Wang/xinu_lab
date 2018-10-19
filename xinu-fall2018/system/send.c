@@ -32,19 +32,12 @@ syscall	send(
 	 * User: wang4113
 	 * date: 10/18/2018
 	 */
-
-
 	if (currpid != pid	/* Do not allow sending a message to the process itself under asynchronous IPC.	*/
 		&& prptr -> prstate != PR_RECV
 		&& prptr -> prstate != PR_RECTIM
 		&& prptr -> callback_func_addr != 0) {
 		/* If the receiver is non-block by a receive() and has registered a callback function,
 		 * modify the stack of the receiver process.	*/
-
-
-		/* Output the PID along with a time stamp	*/
-		kprintf("\n[%d ms]\tProcess %d is sending a message \"%d\" to Process %d asynchronously.\n",
-				clktimemilli, currpid, msg, pid);
 
 
 		/* Since the two arguments of ctxsw() are the addresses of old process pointer and new process pointer
