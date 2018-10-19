@@ -19,19 +19,19 @@ process test_sender(void)
 
     sender_pid = getpid();
 
-    for (msg_num = 1; msg_num <= 100; msg_num++) {
+    for (msg_num = 1; msg_num <= 20; msg_num++) {
 
         msg = clktimemilli * sender_pid % 10000;
         receiver_pid = 3;
 
         if (send(4, msg) == OK) {
             /* Output the PID along with a time stamp	*/
-            kprintf("\n[%d ms]\tProcess %d is sending a message \"%d\" to Process %d asynchronously.\n",
-                    clktimemilli, sender_pid, msg, receiver_pid);
+            kprintf("\n[%d ms]\tProcess %d is sending a message \"%d\" to Process %d. [msg_num: %d]\n",
+                    clktimemilli, sender_pid, msg, receiver_pid, msg_num);
         }
         else {
-            kprintf("\n[%d ms]\tProcess %d is sending a message \"%d\" to Process %d asynchronously. [ERROR OCCUR] \n",
-                    clktimemilli, sender_pid, msg, receiver_pid);
+            kprintf("\n[%d ms]\tProcess %d is sending a message \"%d\" to Process %d. [msg_num: %d] [ERROR OCCUR] \n",
+                    clktimemilli, sender_pid, msg, receiver_pid, msg_num);
             return SYSERR;
         }
 
