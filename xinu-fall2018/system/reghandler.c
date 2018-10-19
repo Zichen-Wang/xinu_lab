@@ -12,11 +12,11 @@
  *-------------------------------------------------------------------------------
  */
 
-syscall reghandler( void (* func) (void) )
+syscall reghandler(void (* func) (void))
 {
     struct	procent	*prptr;		/* Pointer to proc. table entry */
-    intmask mask;   /* Saved interrupt mask		*/
-    mask = disable();   /* Disable interrupts   */
+    intmask mask;               /* Saved interrupt mask		*/
+    mask = disable();           /* Disable interrupts   */
 
     prptr = &proctab[currpid];  /* Retrieve the process table of the current process    */
     if (func == NULL) {         /* If the pointer of callback function is NULL, return system error */
@@ -25,6 +25,6 @@ syscall reghandler( void (* func) (void) )
 
     prptr -> callback_func_addr = (uint32)func;  /* Register the callback function   */
 
-    restore(mask);
+    restore(mask);              /* Restore interrupts */
     return OK;
 }

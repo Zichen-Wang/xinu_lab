@@ -643,7 +643,7 @@ extern	char	myfuncA(int);
 /* in file malwareA.c */
 extern	void	malwareA(void);
 
-/* in file malwareB.c*/
+/* in file malwareB.c */
 extern	void	malwareB(void);
 
 /*
@@ -680,7 +680,7 @@ extern	void	appR3test(int);
 /* in file rms_create.c */
 extern	pid32	rms_create(void *, uint32, rmsparam_t *, char *, uint32, ...);
 
-/* in file rms_app.c	*/
+/* in file rms_app.c */
 extern 	void 	rms_app(uint32 x, uint32 y);
 
 /*
@@ -688,14 +688,21 @@ extern 	void 	rms_app(uint32 x, uint32 y);
  * date: 10/18/2018
  */
 
-/* in file reghandler.c	*/
-extern	syscall reghandler( void (* func) (void) );
+/* in file reghandler.c */
+extern	syscall reghandler(void (* func) (void));
 
-/* in file do_handler.S	*/
+/* in file do_handler.S */
 extern	void	do_handler(uint32, uint32);
 
-/* in file test_sender.c	*/
+/* in file test_receiver.c */
+extern	process	test_receiver(void);
+
+/* in file test_sender.c */
 extern	process	test_sender(void);
+
+/* in file signalreg.c */
+extern	syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg);
+
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */

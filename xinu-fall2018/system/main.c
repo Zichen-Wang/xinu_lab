@@ -2,12 +2,6 @@
 
 #include <xinu.h>
 
-void myrcv() {
-	extern umsg32 msgbuf;
-
-	msgbuf = receive();  // copy message to user buffer
-	kprintf("\n[%d ms]\tProcess %d received a message \"%d\".\n", clktimemilli, currpid, msgbuf);
-}
 
 process	main(void)
 {
@@ -344,11 +338,8 @@ process	main(void)
 	 * User: wang4113
 	 * date: 10/18/2018
 	 */
-    if (reghandler(&myrcv) != OK) {
-        kprintf("recv handler registration failed\n");
-        return SYSERR;
-    }
 
+    resume(create(test_receiver, 1024, INITPRIO, "test_receiver", 0));
     resume(create(test_sender, 1024, INITPRIO, "test_sender", 0));
 
     while (TRUE) {

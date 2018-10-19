@@ -36,6 +36,12 @@
  */
 #include <rms.h>    /* Add the rms header file  */
 
+/*
+ * User: wang4113
+ * date: 10/18/2018
+ */
+#include <xsignal.h>
+
 #include <prototypes.h>
 #include <delay.h>
 #include <pci.h>
