@@ -28,7 +28,7 @@ process test_receiver(void)
     }
 
     while (TRUE) {
-        sleepms(1);
+        ;
     }
 
     return OK;
