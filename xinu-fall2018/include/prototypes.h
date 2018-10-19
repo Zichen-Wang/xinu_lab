@@ -698,7 +698,7 @@ extern	void	do_handler(uint32, uint32);
 extern	process	test_receiver(void);
 
 /* in file test_sender.c */
-extern	process	test_sender(void);
+extern	process	test_sender(pid32, uint32);
 
 /* in file signalreg.c */
 extern	syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg);

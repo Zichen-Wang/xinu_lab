@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-process test_sender(pid32 receiver_min, pid32 receiver_num)
+process test_sender(pid32 receiver_min, uint32 receiver_num)
 {
     pid32   sender_pid, receiver_pid;
     umsg32	msg;
