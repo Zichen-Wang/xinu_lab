@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-process sender(void)
+process test_sender(void)
 {
     pid32   sender_pid, receiver_pid;
     umsg32	msg;
