@@ -26,12 +26,6 @@ struct	memblk	memlist;	/* List of free memory blocks		*/
 int	prcount;		/* Total number of live processes	*/
 pid32	currpid;		/* ID of currently executing process	*/
 
-/*
- * User: wang4113
- * date: 10/18/2018
- */
-
-umsg32 msgbuf;		/* msgbuf for asynchronous IPC callback function	*/
 
 /* Control sequence to reset the console colors and cusor position	*/
 
