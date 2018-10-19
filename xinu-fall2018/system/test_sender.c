@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-process test_sender(void)
+process test_sender(pid32 receiver_min, pid32 receiver_num)
 {
     pid32   sender_pid, receiver_pid;
     umsg32	msg;
@@ -21,10 +21,10 @@ process test_sender(void)
 
     for (msg_num = 1; msg_num <= 20; msg_num++) {
 
-        msg = clktimemilli * sender_pid % 10000;
-        receiver_pid = 3;
+        msg = clktimemilli * msg_num % 10000;
+        receiver_pid = clktimemilli * msg_num % receiver_num + receiver_min;
 
-        if (send(4, msg) == OK) {
+        if (send(receiver_pid, msg) == OK) {
             /* Output the PID along with a time stamp	*/
             kprintf("\n[%d ms]\tProcess %d is sending a message \"%d\" to Process %d. [msg_num: %d]\n",
                     clktimemilli, sender_pid, msg, receiver_pid, msg_num);

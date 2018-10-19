@@ -339,8 +339,10 @@ process	main(void)
 	 * date: 10/18/2018
 	 */
 
-    resume(create(test_receiver, 1024, INITPRIO, "test_receiver", 0));
-    resume(create(test_sender, 1024, INITPRIO, "test_sender", 0));
+    resume(create(test_receiver, 1024, INITPRIO, "test_receiver_1", 0));
+	resume(create(test_receiver, 1024, INITPRIO, "test_receiver_2", 0));
+	resume(create(test_receiver, 1024, INITPRIO, "test_receiver_3", 0));
+    resume(create(test_sender, 1024, INITPRIO, "test_sender", 2, 4, 3));
 
     while (TRUE) {
     	;
