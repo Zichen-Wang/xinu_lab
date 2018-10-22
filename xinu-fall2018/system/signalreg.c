@@ -12,7 +12,7 @@
  *-------------------------------------------------------------------------------
  */
 
-syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg=0)
+syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg)
 {
     struct	procent	*prptr;		/* Pointer to proc. table entry */
     intmask mask;               /* Saved interrupt mask		*/
