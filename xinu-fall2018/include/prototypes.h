@@ -709,6 +709,9 @@ extern	syscall xalarm(int32);
 /* in file do_shandler.c */
 extern	void	do_shandler(void);
 
+/* in file test_xcpu.c	*/
+extern	process	test_xcpu(void);
+
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
