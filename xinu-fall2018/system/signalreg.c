@@ -48,7 +48,7 @@ syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg)
 
     }
     else if (nsig == SIGTIME) {
-        /* Register SIGRECV callback function   */
+        /* Register SIGTIME callback function   */
 
         ((prptr -> prsig)[SIGTIME]).regyes = TRUE;
         ((prptr -> prsig)[SIGTIME]).fnt = func;

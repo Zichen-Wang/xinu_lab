@@ -29,16 +29,17 @@ local int useralarm() {
 
 process test_xalarm(uint32 alarm_time)
 {
-    /*
-    if (signalreg(SIGRECV, &myrcv, 0) != OK) {
-        kprintf("recv handler registration failed\n");
-        return SYSERR;
-    }
-    */
+
     if (signalreg(SIGTIME, &useralarm, 0) != OK) {
         kprintf("alarm handler registration failed\n");
         return SYSERR;
     }
+
+    if (signalreg(SIGRECV, &myrcv, 0) != OK) {
+        kprintf("recv handler registration failed\n");
+        return SYSERR;
+    }
+
 
     if (xalarm(alarm_time) != OK) {
         kprintf("alarm set failed\n");
