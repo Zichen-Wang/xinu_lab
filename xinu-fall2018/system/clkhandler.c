@@ -79,7 +79,6 @@ void	clkhandler()
 				(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
 				asm volatile ("cli");		/* Disable interrupts	*/
 
-				kprintf("%d\n", i);
 
 			}
 			else {
