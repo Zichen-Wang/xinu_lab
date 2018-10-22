@@ -53,15 +53,6 @@ void	clkhandler()
 	 * date: 10/21/2018
 	 */
 
-	/* if the process registered a callback function for SIGXCPU,
-	 * check whether the current process has reached the XCPU time 	*/
-	if ((proctab[currpid].prsig)[SIGXCPU].regyes == TRUE
-	 && proctab[currpid].pgrosscpu + currproctime == (proctab[currpid].prsig)[SIGXCPU].optarg) {
-
-		asm volatile ("sti");		/* Enable interrupts	*/
-		(proctab[currpid].prsig)[SIGXCPU].fnt();	/* Call callback function for SIGXCPU	*/
-		asm volatile ("cli");		/* Disable interrupts	*/
-	}
 
 	/* Check processes whose alarm should ring	*/
 	curr_alarm_flag = FALSE;
@@ -70,7 +61,7 @@ void	clkhandler()
 			&& (proctab[i].prsig)[SIGTIME].regyes == TRUE
 			&& (proctab[i].prsig)[SIGTIME].optarg == clktimemilli) {
 			/* We find a process whose alarm should ring	*/
-			kprintf("%d\n", i);
+
 			if (i == currpid) {
 				/* The current process is the process that registered a handler for SIGTIME	*/
 				curr_alarm_flag = TRUE;
@@ -97,12 +88,23 @@ void	clkhandler()
 		}
 	}
 
+	/* The current process is the process that registered a handler for SIGTIME	*/
 	if (curr_alarm_flag == TRUE) {
 		/* Clear the alarm	*/
 		(proctab[currpid].prsig)[SIGTIME].optarg = 0;
 
 		asm volatile ("sti");		/* Enable interrupts	*/
 		(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
+		asm volatile ("cli");		/* Disable interrupts	*/
+	}
+
+	/* if the process registered a callback function for SIGXCPU,
+	 * check whether the current process has reached the XCPU time 	*/
+	if ((proctab[currpid].prsig)[SIGXCPU].regyes == TRUE
+		&& proctab[currpid].pgrosscpu + currproctime == (proctab[currpid].prsig)[SIGXCPU].optarg) {
+
+		asm volatile ("sti");		/* Enable interrupts	*/
+		(proctab[currpid].prsig)[SIGXCPU].fnt();	/* Call callback function for SIGXCPU	*/
 		asm volatile ("cli");		/* Disable interrupts	*/
 	}
 
