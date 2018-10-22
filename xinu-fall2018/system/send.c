@@ -39,6 +39,8 @@ syscall	send(
 		/* If the receiver is non-block by a receive() and has registered a callback function,
 		 * modify the stack of the receiver process.	*/
 
+		kprintf("%d\n", currpid);
+
 
 		/* Since the two arguments of ctxsw() are the addresses of old process pointer and new process pointer
 		 * which are useless after context switch, so we can use the places of these two arguments to save
