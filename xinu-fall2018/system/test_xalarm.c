@@ -25,7 +25,7 @@ process test_xalarm(uint32 alarm_time)
         kprintf("alarm handler registration failed\n");
         return SYSERR;
     }
-
+    kprintf("%d %d\n", alarm_time, clktimemilli);
     if (xalarm(alarm_time) != OK) {
         kprintf("alarm set failed\n");
     }
