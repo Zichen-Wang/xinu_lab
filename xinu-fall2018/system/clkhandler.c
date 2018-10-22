@@ -84,6 +84,7 @@ void	clkhandler()
 
 			/* The current process is NOT the process that registered a handler for SIGTIME	*/
 
+			/* proctab[i].prstkptr + 48 is useless, so save the original address there as an argument	*/
 			/* Save the original return address	into prptr -> prstkptr + 48 */
 			*(int *)(proctab[i].prstkptr + 48) = *(int *)(proctab[i].prstkptr + 40);
 

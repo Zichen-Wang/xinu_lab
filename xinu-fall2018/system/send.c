@@ -66,7 +66,7 @@ syscall	send(
 		 * modify the stack of the receiver process.	*/
 
 
-		/* prptr -> prstkptr + 48 is useless, so save the original address there	*/
+		/* prptr -> prstkptr + 48 is useless, so save the original address there as an argument	*/
 
 		/* Save the original return address	into prptr -> prstkptr + 48 */
 		*(int *)(prptr -> prstkptr + 48) = *(int *)(prptr -> prstkptr + 40);
