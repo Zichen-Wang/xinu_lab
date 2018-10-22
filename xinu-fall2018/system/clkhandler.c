@@ -6,6 +6,15 @@
  * clkhandler - high level clock interrupt handler
  *------------------------------------------------------------------------
  */
+
+/*
+ * User: wang4113
+ * date: 10/22/2018
+ */
+
+/* in file do_shandler.c */
+extern	void	do_shandler(uint32);
+
 void	clkhandler()
 {
 	static	uint32	count1000 = 1000;	/* Count to 1000 ms	*/
