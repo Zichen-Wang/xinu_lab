@@ -34,7 +34,7 @@ int useralarm() {
     kprintf("\n[SIGTIME] PID: %d\ttime: %d\n", pid, clktimemilli);
 }
 
-process test_signals(uint32 cpu_time, uint32, alarm_time)
+process test_signals(uint32 cpu_time, uint32 alarm_time)
 {
     if (signalreg(SIGRECV, &myrcv, 0) != OK) {
         kprintf("recv handler registration failed\n");
