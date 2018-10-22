@@ -11,6 +11,8 @@
  *-----------------------------------------------------------------
  */
 
+#define signalreg(x, y) signalreg(x, y, 0)
+
 void myrcv() {
     umsg32  msgbuf;     /* Using shared msgbuf by multiple receivers may cause race problem */
     pid32   pid;
@@ -22,7 +24,14 @@ void myrcv() {
 
 process test_receiver(void)
 {
+    /*
     if (reghandler(&myrcv) != OK) {
+        kprintf("recv handler registration failed\n");
+        return SYSERR;
+    }
+    */
+
+    if (signalreg(SIGRECV, &myrcv) != OK) {
         kprintf("recv handler registration failed\n");
         return SYSERR;
     }
