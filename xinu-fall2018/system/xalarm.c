@@ -23,14 +23,14 @@ syscall	xalarm(
         return SYSERR;
     }
 
-    if (proctab[currpid].prsig[SIGXCPU].regyes == FALSE) {
+    if (proctab[currpid].prsig[SIGTIME].regyes == FALSE) {
         /* Current process does not register SIGTIME callback handler   */
 
         restore(mask);
         return SYSERR;
     }
 
-    proctab[currpid].prsig[SIGXCPU].optarg = delay;
+    proctab[currpid].prsig[SIGTIME].optarg = delay;
 
     restore(mask);
 
