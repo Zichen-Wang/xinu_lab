@@ -12,7 +12,7 @@
  *---------------------------------------
  */
 
-void do_shandler()
+void do_shandler(int32 org)     /* `org' is prptr -> prstkptr + 48  */
 {
     intmask mask;           /* Saved interrupt mask     */
     struct  procent *prptr;     /* Ptr to process's table entry */
@@ -21,13 +21,16 @@ void do_shandler()
 
     prptr = &proctab[currpid];
 
-    if (((prptr -> prsig)[SIGRECV]).regyes == TRUE) {
+    if (   ((prptr -> prsig)[SIGRECV]).regyes == TRUE
+        && (org & 2)) {    /* `org' should be `10' or `11' */
+
         asm volatile ("sti");       /* Enable interrupts    */
         (prptr -> prsig)[SIGRECV].fnt();    /* Call callback function for SIGRECV   */
         asm volatile ("cli");       /* Disable interrupts   */
     }
 
-    if (((prptr -> prsig)[SIGTIME]).regyes == TRUE
+    if (   ((prptr -> prsig)[SIGTIME]).regyes == TRUE
+        && (org & 1)        /* `org' should be `01' or `11' */
         && ((prptr -> prsig)[SIGTIME]).optarg > 0
         && ((prptr -> prsig)[SIGTIME]).optarg <= clktimemilli) {
         /* when the scheduler decides to run this process,

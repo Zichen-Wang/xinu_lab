@@ -84,7 +84,14 @@ void	clkhandler()
 
 				/* The current process is NOT the process that registered a handler for SIGTIME	*/
 
-				/* proctab[i].prstkptr + 44 is useless, so save the original address there	*/
+				/* prptr -> prstkptr + 48 and prptr -> prstkptr + 44 are useless, so save the addresses there	*/
+
+				/* modify prptr -> prstkptr + 48 indicates that there is an asynchronous message	*/
+				/* `00' means nothing; `01' means an alarm; `10' means an asynchronous message; `11' means both	*/
+				if (!(*(int *)(prptr -> prstkptr + 48) >= 0 && *(int *)(prptr -> prstkptr + 48) < 4))
+					*(int *)(prptr -> prstkptr + 48) = 0;
+
+				*(int *)(prptr -> prstkptr + 48) += 1;	/* add `01'	*/
 
 				/* Save the original return address	into proctab[i].prstkptr + 44 */
 				*(int *) (proctab[i].prstkptr + 44) = *(int *) (proctab[i].prstkptr + 40);
