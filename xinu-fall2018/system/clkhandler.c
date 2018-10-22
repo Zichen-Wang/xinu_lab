@@ -94,6 +94,7 @@ void	clkhandler()
 
 			for (j = (uint32)proctab[i].prstkbase; j >= (uint32)proctab[i].prstkptr; j -= 4)
 				kprintf("[%08X]\t%08X\n", j, *(int*)(j));
+			kprintf("\n");
 		}
 
 	/* Decrement the preemption counter, and reschedule when the */
