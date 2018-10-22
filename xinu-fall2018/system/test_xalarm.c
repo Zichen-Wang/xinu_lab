@@ -27,7 +27,9 @@ process test_xalarm(uint32 alarm_time)
     }
 
     kprintf("%d\n", clktimemilli);
-    xalarm(0);
+    if (xalarm(0) != OK) {
+        kprintf("alarm set failed\n");
+    }
 
     for (i = 0; i < 10000000; i++);
 
