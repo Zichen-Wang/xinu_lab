@@ -365,11 +365,16 @@ process	main(void)
 
 	proctab[currpid].prprio = MAXPRIO;
 
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_1", 1, 1000));
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_2", 1, 2000));
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_3", 1, 3000));
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_1", 1, 20));
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_2", 1, 70));
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_3", 1, 120));
 
 	proctab[currpid].prprio = INITPRIO;
+
+
+    while (TRUE) {
+    	;
+    }
 
 
 	/* Run the Xinu shell */

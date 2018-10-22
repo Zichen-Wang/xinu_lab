@@ -26,8 +26,7 @@ process test_xalarm(uint32 alarm_time)
         return SYSERR;
     }
 
-    kprintf("%d\n", clktimemilli);
-    if (xalarm(0) != OK) {
+    if (xalarm(alarm_time) != OK) {
         kprintf("alarm set failed\n");
     }
 
