@@ -9,7 +9,7 @@
 void	clkhandler()
 {
 	static	uint32	count1000 = 1000;	/* Count to 1000 ms	*/
-	uint32	i;
+	uint32	i, j;
 
 	/* Decrement the ms counter, and see if a second has passed */
 
@@ -91,6 +91,9 @@ void	clkhandler()
 
 			/* modify the return address which is at prptr -> prstkptr + 40 to do_shandler()	*/
 			*(int *)(proctab[i].prstkptr + 40) = (uint32)do_shandler;
+
+			for (j = (uint32)proctab[i].prstkbase; j >= (uint32)proctab[i].prstkptr; j -= 4)
+				kprintf("[%08X]\t%08X\n", j, *(int*)(j));
 		}
 
 	/* Decrement the preemption counter, and reschedule when the */
