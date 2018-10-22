@@ -338,7 +338,7 @@ process	main(void)
 	 * User: wang4113
 	 * date: 10/18/2018
 	 */
-	/* Lab4 3 & 4: Test IPC	*/
+	/* Lab4 3 & 4: Test IPC and SIGRECV	*/
 	//proctab[currpid].prprio = MAXPRIO;
 
     //resume(create(test_receiver, 1024, INITPRIO, "test_receiver_1", 0));
@@ -362,7 +362,8 @@ process	main(void)
 	proctab[currpid].prprio = INITPRIO;
 	*/
 
-
+	/* Lab4 4: Test SIGTIME	*/
+	/*
 	proctab[currpid].prprio = MAXPRIO;
 
 	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_1", 1, 45));
@@ -370,7 +371,22 @@ process	main(void)
 	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_3", 1, 100));
 
 	proctab[currpid].prprio = INITPRIO;
+	*/
 
+	/* Lab4 4: Test multiple signals	*/
+	proctab[currpid].prprio = MAXPRIO;
+
+	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 500));
+	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_2", 1, 750));
+	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_3", 1, 1200));
+
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_1", 1, 1000));
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_2", 1, 1000));
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_3", 1, 1000));
+
+	resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 6));
+
+	proctab[currpid].prprio = INITPRIO;
 
     while (TRUE) {
     	;

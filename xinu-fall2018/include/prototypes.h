@@ -715,6 +715,9 @@ extern	process	test_xcpu(uint32);
 /* in file test_xalarm.c	*/
 extern	process	test_xalarm(uint32);
 
+/* in file test_signals.c	*/
+extern	process	test_signals(uint32, uint32);
+
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
