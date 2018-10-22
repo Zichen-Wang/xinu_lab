@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-int userhandler() {
+int useralarm() {
     pid32   pid;
 
     pid = getpid();      /* Get current PID */
