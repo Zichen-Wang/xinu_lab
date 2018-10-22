@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-void signalreg() {
+void userhandler() {
     pid32   pid;
 
     pid = getpid();      /* Get current PID */
@@ -20,7 +20,7 @@ void signalreg() {
 
 process test_xcpu(uint32 cpu_time)
 {
-    if (signalreg(SIGXCPU, &myrcv, cpu_time) != OK) {
+    if (signalreg(SIGXCPU, &userhandler, cpu_time) != OK) {
         kprintf("xcpu handler registration failed\n");
         return SYSERR;
     }
