@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-void myrcv() {
+void myrcv_signals() {
     umsg32  msgbuf;     /* Using shared msgbuf by multiple receivers may cause race problem */
     pid32   pid;
 
@@ -36,7 +36,7 @@ int useralarm() {
 
 process test_signals(uint32 cpu_time, uint32 alarm_time)
 {
-    if (signalreg(SIGRECV, &myrcv, 0) != OK) {
+    if (signalreg(SIGRECV, &myrcv_signals, 0) != OK) {
         kprintf("recv handler registration failed\n");
         return SYSERR;
     }
