@@ -71,6 +71,10 @@ void	clkhandler()
 
 			if (i == currpid) {
 				/* The current process is the process that registered a handler for SIGTIME	*/
+
+				/* Clear the alarm	*/
+				(proctab[i].prsig)[SIGTIME].optarg = 0;
+
 				asm volatile ("sti");		/* Enable interrupts	*/
 				(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
 				asm volatile ("cli");		/* Disable interrupts	*/
@@ -81,10 +85,10 @@ void	clkhandler()
 			/* The current process is NOT the process that registered a handler for SIGTIME	*/
 
 			/* Save the original return address	into prptr -> prstkptr + 44 */
-			*(int *)(prptr -> prstkptr + 44) = *(int *)(prptr -> prstkptr + 40);
+			*(int *)(proctab[i].prstkptr + 44) = *(int *)(proctab[i].prstkptr + 40);
 
 			/* modify the return address which is at prptr -> prstkptr + 40 to do_handler()	*/
-			*(int *)(prptr -> prstkptr + 40) = (uint32)do_shandler;
+			*(int *)(proctab[i].prstkptr + 40) = (uint32)do_shandler;
 		}
 
 	/* Decrement the preemption counter, and reschedule when the */
