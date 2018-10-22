@@ -27,10 +27,10 @@ process test_xalarm(uint32 alarm_time)
     }
 
     kprintf("%d\n", clktimemilli);
+    xalarm(0);
 
     for (i = 0; i < 10000000; i++);
 
-    xalarm(0);
 
     while (TRUE) {
         ;

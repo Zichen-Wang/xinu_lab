@@ -372,11 +372,6 @@ process	main(void)
 	proctab[currpid].prprio = INITPRIO;
 
 
-    while (TRUE) {
-    	;
-    }
-
-
 	/* Run the Xinu shell */
 
 	recvclr();
