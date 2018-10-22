@@ -348,7 +348,7 @@ process	main(void)
 	//resume(create(test_sender, 1024, INITPRIO, "test_sender_2", 2, 4, 3));
 	//resume(create(test_sender, 1024, INITPRIO, "test_sender_3", 2, 4, 3));
 
-	proctab[currpid].prprio = INITPRIO;
+	proctab[currpid].prprio = INITPRIO - 1;
 
     while (TRUE) {
     	;
