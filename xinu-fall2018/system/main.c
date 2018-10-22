@@ -353,6 +353,11 @@ process	main(void)
 
 	/* Lab4 4: Test SIGXCPU	*/
 
+	proctab[currpid].prprio = MAXPRIO;
+
+	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 500));
+
+	proctab[currpid].prprio = INITPRIO;
 
 
     while (TRUE) {

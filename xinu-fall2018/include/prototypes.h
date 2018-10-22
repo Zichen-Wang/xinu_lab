@@ -710,7 +710,7 @@ extern	syscall xalarm(int32);
 extern	void	do_shandler(void);
 
 /* in file test_xcpu.c	*/
-extern	process	test_xcpu(void);
+extern	process	test_xcpu(uint32);
 
 
 

@@ -11,8 +11,6 @@
  *-----------------------------------------------------------------
  */
 
-#define signalreg(x, y) signalreg(x, y, 0)
-
 void signalreg() {
     pid32   pid;
 
@@ -20,9 +18,9 @@ void signalreg() {
     kprintf("\n[%d ms]\tPID: %d\tSIGXCPU handler has been called.\n", clktimemilli, pid);
 }
 
-process test_xcpu(void)
+process test_xcpu(uint32 cpu_time)
 {
-    if (signalreg(SIGXCPU, &myrcv, 500) != OK) {
+    if (signalreg(SIGXCPU, &myrcv, cpu_time) != OK) {
         kprintf("xcpu handler registration failed\n");
         return SYSERR;
     }
