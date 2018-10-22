@@ -26,7 +26,6 @@ void do_shandler()
         (prptr -> prsig)[SIGRECV].fnt();    /* Call callback function for SIGRECV   */
         asm volatile ("cli");       /* Disable interrupts   */
     }
-    kprintf("!");
 
     if (((prptr -> prsig)[SIGTIME]).regyes == TRUE
         && ((prptr -> prsig)[SIGTIME]).optarg > 0

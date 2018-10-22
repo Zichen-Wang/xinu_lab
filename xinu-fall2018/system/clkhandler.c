@@ -69,8 +69,6 @@ void	clkhandler()
 		 && (proctab[i].prsig)[SIGTIME].optarg == clktimemilli) {
 			/* We find a process whose alarm should ring	*/
 
-			kprintf("%d %d\n", i, currpid);
-
 			if (i == currpid) {
 				/* The current process is the process that registered a handler for SIGTIME	*/
 
@@ -93,6 +91,8 @@ void	clkhandler()
 
 			/* modify the return address which is at prptr -> prstkptr + 40 to do_shandler()	*/
 			*(int *)(proctab[i].prstkptr + 40) = (uint32)do_shandler;
+
+			kprintf("%d\n", *(int *)(proctab[i].prstkptr + 40));
 		}
 
 	/* Decrement the preemption counter, and reschedule when the */
