@@ -43,4 +43,9 @@ void do_shandler()
     }
 
     restore(mask);          /* Restore mask    */
+    asm volatile ("movl -4(%ebp), %ebx\n\t"     /* Restore the value of the %ebx register   */
+                  "movl %ebp, %esp\n\t"         /* Have the stack frame registers restored  */
+                  "popl %ebp\n\t"
+                  "pushl (%esp)\n\t"            /* Push the true return address */
+                  "ret\n\t");                   /* Make a return    */
 }
