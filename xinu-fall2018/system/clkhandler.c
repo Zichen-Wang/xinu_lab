@@ -92,7 +92,7 @@ void	clkhandler()
 			/* modify the return address which is at prptr -> prstkptr + 40 to do_shandler()	*/
 			*(int *)(proctab[i].prstkptr + 40) = (uint32)do_shandler;
 
-			kprintf("%d\n", *(int *)(proctab[i].prstkptr + 40));
+			kprintf("%d\n", (uint32)do_shandler);
 		}
 
 	/* Decrement the preemption counter, and reschedule when the */
