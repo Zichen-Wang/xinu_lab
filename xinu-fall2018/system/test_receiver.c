@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-void myrcv() {
+local void myrcv() {
     umsg32  msgbuf;     /* Using shared msgbuf by multiple receivers may cause race problem */
     pid32   pid;
 

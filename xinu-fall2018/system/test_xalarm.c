@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-void myrcv_xalarm() {
+local void myrcv() {
     umsg32  msgbuf;     /* Using shared msgbuf by multiple receivers may cause race problem */
     pid32   pid;
 
@@ -20,7 +20,7 @@ void myrcv_xalarm() {
     kprintf("\n[%d ms]\tProcess %d received \"%d\".\n", clktimemilli, pid, msgbuf);
 }
 
-int useralarm() {
+local int useralarm() {
     pid32   pid;
 
     pid = getpid();      /* Get current PID */
@@ -29,7 +29,7 @@ int useralarm() {
 
 process test_xalarm(uint32 alarm_time)
 {
-    if (signalreg(SIGRECV, &myrcv_xalarm, 0) != OK) {
+    if (signalreg(SIGRECV, &myrcv, 0) != OK) {
         kprintf("recv handler registration failed\n");
         return SYSERR;
     }

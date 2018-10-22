@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-void myrcv_signals() {
+local void myrcv() {
     umsg32  msgbuf;     /* Using shared msgbuf by multiple receivers may cause race problem */
     pid32   pid;
 
@@ -20,14 +20,14 @@ void myrcv_signals() {
     kprintf("\n[%d ms]\tProcess %d received \"%d\".\n", clktimemilli, pid, msgbuf);
 }
 
-int userhandler_signals() {
+local int userhandler() {
     pid32   pid;
 
     pid = getpid();      /* Get current PID */
     kprintf("\n[SIGXCPU] PID: %d\ttime: %d\tusage: %d\n", pid, clktimemilli, proctab[pid].pgrosscpu + currproctime);
 }
 
-int useralarm_signals() {
+local int useralarm() {
     pid32   pid;
 
     pid = getpid();      /* Get current PID */
@@ -36,17 +36,17 @@ int useralarm_signals() {
 
 process test_signals(uint32 cpu_time, uint32 alarm_time)
 {
-    if (signalreg(SIGRECV, &myrcv_signals, 0) != OK) {
+    if (signalreg(SIGRECV, &myrcv, 0) != OK) {
         kprintf("recv handler registration failed\n");
         return SYSERR;
     }
 
-    if (signalreg(SIGXCPU, &userhandler_signals, cpu_time) != OK) {
+    if (signalreg(SIGXCPU, &userhandler, cpu_time) != OK) {
         kprintf("xcpu handler registration failed\n");
         return SYSERR;
     }
 
-    if (signalreg(SIGTIME, &useralarm_signals, 0) != OK) {
+    if (signalreg(SIGTIME, &useralarm, 0) != OK) {
         kprintf("alarm handler registration failed\n");
         return SYSERR;
     }

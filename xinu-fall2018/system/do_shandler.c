@@ -35,7 +35,6 @@ void do_shandler()
 
         /* Clear the alarm  */
         ((prptr -> prsig)[SIGTIME]).optarg = 0;
-        kprintf("!");
         asm volatile ("sti");       /* Enable interrupts    */
         (prptr -> prsig)[SIGTIME].fnt();    /* Call callback function for SIGTIME   */
         asm volatile ("cli");       /* Disable interrupts   */

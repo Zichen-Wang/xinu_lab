@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-void myrcv_xcpu() {
+local void myrcv() {
     umsg32  msgbuf;     /* Using shared msgbuf by multiple receivers may cause race problem */
     pid32   pid;
 
@@ -20,7 +20,7 @@ void myrcv_xcpu() {
     kprintf("\n[%d ms]\tProcess %d received \"%d\".\n", clktimemilli, pid, msgbuf);
 }
 
-int userhandler() {
+local int userhandler() {
     pid32   pid;
 
     pid = getpid();      /* Get current PID */
@@ -29,7 +29,7 @@ int userhandler() {
 
 process test_xcpu(uint32 cpu_time)
 {
-    if (signalreg(SIGRECV, &myrcv_xcpu, 0) != OK) {
+    if (signalreg(SIGRECV, &myrcv, 0) != OK) {
         kprintf("recv handler registration failed\n");
         return SYSERR;
     }
