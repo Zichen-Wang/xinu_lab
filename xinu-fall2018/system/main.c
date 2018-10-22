@@ -352,12 +352,22 @@ process	main(void)
 
 
 	/* Lab4 4: Test SIGXCPU	*/
-
+	/*
 	proctab[currpid].prprio = MAXPRIO;
 
 	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 500));
 	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 750));
 	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 1000));
+
+	proctab[currpid].prprio = INITPRIO;
+	*/
+
+
+	proctab[currpid].prprio = MAXPRIO;
+
+	resume(create(test_alarm, 1024, INITPRIO, "test_xcpu_1", 1, 1000));
+	resume(create(test_alarm, 1024, INITPRIO, "test_xcpu_1", 1, 2000));
+	resume(create(test_alarm, 1024, INITPRIO, "test_xcpu_1", 1, 3000));
 
 	proctab[currpid].prprio = INITPRIO;
 
