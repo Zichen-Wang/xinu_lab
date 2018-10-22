@@ -356,8 +356,8 @@ process	main(void)
 	proctab[currpid].prprio = MAXPRIO;
 
 	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 500));
-	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 750));
-	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 1000));
+	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_2", 1, 750));
+	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_3", 1, 1000));
 
 	proctab[currpid].prprio = INITPRIO;
 	*/
@@ -365,9 +365,9 @@ process	main(void)
 
 	proctab[currpid].prprio = MAXPRIO;
 
-	resume(create(test_alarm, 1024, INITPRIO, "test_xcpu_1", 1, 1000));
-	resume(create(test_alarm, 1024, INITPRIO, "test_xcpu_1", 1, 2000));
-	resume(create(test_alarm, 1024, INITPRIO, "test_xcpu_1", 1, 3000));
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_1", 1, 1000));
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_2", 1, 2000));
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_3", 1, 3000));
 
 	proctab[currpid].prprio = INITPRIO;
 
