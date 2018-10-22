@@ -29,4 +29,5 @@ do_handler:
 
         movl    %ebp, %esp      /* Restore stack pointer    */
         popl    %ebp            /* Restore stack base   */
+        pushl   (%esp)          /* Push the original return address in stack and be ready for making a return    */
         ret                     /* Return to the original address   */
