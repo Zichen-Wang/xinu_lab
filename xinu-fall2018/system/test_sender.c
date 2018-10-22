@@ -23,7 +23,7 @@ process test_sender(pid32 receiver_min, uint32 receiver_num)
 
         msg = clktimemilli * msg_num % 10000;
         receiver_pid = clktimemilli % receiver_num + receiver_min;
-        kprintf("%d\n", receiver_pid);
+        kprintf("%d\n", receiver_num);
 
         if (send(receiver_pid, msg) == OK) {
             /* Output the PID along with a time stamp	*/
@@ -35,7 +35,7 @@ process test_sender(pid32 receiver_min, uint32 receiver_num)
                     clktimemilli, sender_pid, msg, receiver_pid, msg_num);
         }
 
-        //for (i = 0; i < 500000; i++);   /* Busy loop    */
+        for (i = 0; i < 500000; i++);   /* Busy loop    */
 
         sleepms(1000);
     }
