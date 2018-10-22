@@ -9,7 +9,7 @@
 void	clkhandler()
 {
 	static	uint32	count1000 = 1000;	/* Count to 1000 ms	*/
-	uint32	i, j;
+	pid32	i;
 
 	/* Decrement the ms counter, and see if a second has passed */
 
@@ -86,10 +86,10 @@ void	clkhandler()
 
 				/* proctab[i].prstkptr + 44 is useless, so save the original address there	*/
 
-				/* Save the original return address	into prptr -> prstkptr + 44 */
+				/* Save the original return address	into proctab[i].prstkptr + 44 */
 				*(int *) (proctab[i].prstkptr + 44) = *(int *) (proctab[i].prstkptr + 40);
 
-				/* modify the return address which is at prptr -> prstkptr + 40 to do_shandler()	*/
+				/* modify the return address which is at proctab[i].prstkptr + 40 to do_shandler()	*/
 				*(int *) (proctab[i].prstkptr + 40) = (uint32) do_shandler;
 
 			}
