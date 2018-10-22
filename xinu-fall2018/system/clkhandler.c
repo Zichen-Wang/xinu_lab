@@ -10,6 +10,7 @@ void	clkhandler()
 {
 	static	uint32	count1000 = 1000;	/* Count to 1000 ms	*/
 	pid32	i;
+	bool8	curr_alarm_flag;
 
 	/* Decrement the ms counter, and see if a second has passed */
 
@@ -63,24 +64,17 @@ void	clkhandler()
 	}
 
 	/* Check processes whose alarm should ring	*/
-	for (i = 0; i < NPROC; i++)
+	curr_alarm_flag = FALSE;
+	for (i = 0; i < NPROC; i++) {
 		if (proctab[i].prstate != PR_FREE
-		 && (proctab[i].prsig)[SIGTIME].regyes == TRUE
-		 && (proctab[i].prsig)[SIGTIME].optarg == clktimemilli) {
+			&& (proctab[i].prsig)[SIGTIME].regyes == TRUE
+			&& (proctab[i].prsig)[SIGTIME].optarg == clktimemilli) {
 			/* We find a process whose alarm should ring	*/
 			kprintf("%d\n", i);
 			if (i == currpid) {
 				/* The current process is the process that registered a handler for SIGTIME	*/
-
-				/* Clear the alarm	*/
-				(proctab[i].prsig)[SIGTIME].optarg = 0;
-
-				asm volatile ("sti");		/* Enable interrupts	*/
-				(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
-				asm volatile ("cli");		/* Disable interrupts	*/
-
-			}
-			else {
+				curr_alarm_flag = TRUE;
+			} else {
 
 				/* The current process is NOT the process that registered a handler for SIGTIME	*/
 
@@ -88,10 +82,10 @@ void	clkhandler()
 
 				/* modify proctab[i].prstkptr + 48 indicates that there is an asynchronous message	*/
 				/* `00' means nothing; `01' means an asynchronous message; `10' means an alarm; `11' means both	*/
-				if (!(*(int *)(proctab[i].prstkptr + 48) >= 0 && *(int *)(proctab[i].prstkptr + 48) < 4))
-					*(int *)(proctab[i].prstkptr + 48) = 0;
+				if (!(*(int *) (proctab[i].prstkptr + 48) >= 0 && *(int *) (proctab[i].prstkptr + 48) < 4))
+					*(int *) (proctab[i].prstkptr + 48) = 0;
 
-				*(int *)(proctab[i].prstkptr + 48) |= 2;	/* add `10'	*/
+				*(int *) (proctab[i].prstkptr + 48) |= 2;    /* add `10'	*/
 
 				/* Save the original return address	into proctab[i].prstkptr + 44 */
 				*(int *) (proctab[i].prstkptr + 44) = *(int *) (proctab[i].prstkptr + 40);
@@ -101,6 +95,17 @@ void	clkhandler()
 
 			}
 		}
+	}
+
+	if (curr_alarm_flag == TRUE) {
+		/* Clear the alarm	*/
+		(proctab[currpid].prsig)[SIGTIME].optarg = 0;
+
+		asm volatile ("sti");		/* Enable interrupts	*/
+		(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
+		asm volatile ("cli");		/* Disable interrupts	*/
+	}
+
 
 	/* Decrement the preemption counter, and reschedule when the */
 	/*   remaining time reaches zero			     */
