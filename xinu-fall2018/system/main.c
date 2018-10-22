@@ -350,8 +350,6 @@ process	main(void)
 
 	proctab[currpid].prprio = INITPRIO;
 
-	fuckyou();
-
     while (TRUE) {
     	;
     }

@@ -12,7 +12,7 @@
  *---------------------------------------
  */
 
-void fuckyou()
+void do_shandler()
 {
     intmask mask;           /* Saved interrupt mask     */
     struct  procent *prptr;     /* Ptr to process's table entry */
