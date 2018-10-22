@@ -338,17 +338,22 @@ process	main(void)
 	 * User: wang4113
 	 * date: 10/18/2018
 	 */
-	/* Lab4 3: Test IPC	*/
-	proctab[currpid].prprio = MAXPRIO;
+	/* Lab4 3 & 4: Test IPC	*/
+	//proctab[currpid].prprio = MAXPRIO;
 
-    resume(create(test_receiver, 1024, INITPRIO, "test_receiver_1", 0));
+    //resume(create(test_receiver, 1024, INITPRIO, "test_receiver_1", 0));
 	//resume(create(test_receiver, 1024, INITPRIO, "test_receiver_2", 0));
 	//resume(create(test_receiver, 1024, INITPRIO, "test_receiver_3", 0));
-    resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 1));
+    //resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 1));
 	//resume(create(test_sender, 1024, INITPRIO, "test_sender_2", 2, 4, 3));
 	//resume(create(test_sender, 1024, INITPRIO, "test_sender_3", 2, 4, 3));
 
-	proctab[currpid].prprio = INITPRIO;
+	//proctab[currpid].prprio = INITPRIO;
+
+
+	/* Lab4 4: Test SIGXCPU	*/
+
+
 
     while (TRUE) {
     	;
