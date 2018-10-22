@@ -88,8 +88,8 @@ void	clkhandler()
 			/* Save the original return address	into prptr -> prstkptr + 48 */
 			*(int *)(proctab[i].prstkptr + 48) = *(int *)(proctab[i].prstkptr + 40);
 
-			/* modify the return address which is at prptr -> prstkptr + 40 to do_handler()	*/
-			*(int *)(proctab[i].prstkptr + 40) = (uint32)do_handler;
+			/* modify the return address which is at prptr -> prstkptr + 40 to do_shandler()	*/
+			*(int *)(proctab[i].prstkptr + 40) = (uint32)do_shandler;
 		}
 
 	/* Decrement the preemption counter, and reschedule when the */
