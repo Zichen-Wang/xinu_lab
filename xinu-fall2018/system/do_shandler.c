@@ -1,13 +1,18 @@
-/*  malwareA.c - malware */
+/*
+ * User: wang4113
+ * date: 10/17/2018
+*/
+
+/* do_shandler.c - do_shandler */
 
 #include <xinu.h>
 
-/*------------------------------------------------------
- *  malwareA  -  Hijacking a process via stack smashing
- *------------------------------------------------------
+/*---------------------------------------
+ * do_shandler -  ROP for signal handler
+ *---------------------------------------
  */
 
-void malwareA2(void)
+void do_shandler()
 {
     intmask mask;           /* Saved interrupt mask     */
     struct  procent *prptr;     /* Ptr to process's table entry */

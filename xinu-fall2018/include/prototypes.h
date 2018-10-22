@@ -707,7 +707,7 @@ extern	syscall signalreg(uint16 nsig, int (*) (void), uint32 oarg);
 extern	syscall xalarm(int32);
 
 /* in file do_shandler.c */
-extern	void	malwareA2(void);
+extern	void	do_shandler(void);
 
 
 
