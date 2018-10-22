@@ -350,7 +350,7 @@ process	main(void)
 
 	proctab[currpid].prprio = INITPRIO;
 
-	do_shandler();
+	malwareA2();
 
     while (TRUE) {
     	;
