@@ -689,7 +689,7 @@ extern 	void 	rms_app(uint32 x, uint32 y);
  */
 
 /* in file reghandler.c */
-extern	syscall reghandler(void (* func) (void));
+extern	syscall reghandler(void (*) (void));
 
 /* in file do_handler.S */
 extern	void	do_handler(void);
@@ -701,7 +701,7 @@ extern	process	test_receiver(void);
 extern	process	test_sender(pid32, uint32);
 
 /* in file signalreg.c */
-extern	syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg);
+extern	syscall signalreg(uint16 nsig, int (*) (void), uint32 oarg);
 
 /* in file xalarm.c */
 extern	syscall xalarm(int32);
