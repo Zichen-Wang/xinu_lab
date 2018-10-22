@@ -73,7 +73,9 @@ syscall	send(
 		*(int *)(prptr -> prstkptr + 44) = *(int *)(prptr -> prstkptr + 40);
 
 		/* modify the return address which is at prptr -> prstkptr + 40 to do_shandler()	*/
-		*(int *)(prptr -> prstkptr + 40) = (uint32)do_shandler;
+		*(int *)(prptr -> prstkptr + 40) = (uint32)do_handler;
+
+		do_shandler();
 
 	}
 
