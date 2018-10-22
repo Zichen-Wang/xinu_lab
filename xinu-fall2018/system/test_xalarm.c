@@ -30,7 +30,7 @@ local int useralarm() {
 process test_xalarm(uint32 alarm_time)
 {
 
-    if (signalreg(SIGRECV, &myrcv) != OK) {
+    if (signalreg(SIGRECV, &myrcv, 0) != OK) {
         kprintf("recv handler registration failed\n");
         return SYSERR;
     }
