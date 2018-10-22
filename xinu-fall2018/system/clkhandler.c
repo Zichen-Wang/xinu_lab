@@ -91,7 +91,7 @@ void	clkhandler()
 				if (!(*(int *)(proctab[i].prstkptr + 48) >= 0 && *(int *)(proctab[i].prstkptr + 48) < 4))
 					*(int *)(proctab[i].prstkptr + 48) = 0;
 
-				*(int *)(proctab[i].prstkptr + 48) += 2;	/* add `10'	*/
+				*(int *)(proctab[i].prstkptr + 48) |= 2;	/* add `10'	*/
 
 				/* Save the original return address	into proctab[i].prstkptr + 44 */
 				*(int *) (proctab[i].prstkptr + 44) = *(int *) (proctab[i].prstkptr + 40);

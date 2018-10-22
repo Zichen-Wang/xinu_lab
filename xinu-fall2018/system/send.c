@@ -74,7 +74,7 @@ syscall	send(
 		if (!(*(int *)(prptr -> prstkptr + 48) >= 0 && *(int *)(prptr -> prstkptr + 48) < 4))
 			*(int *)(prptr -> prstkptr + 48) = 0;
 
-		*(int *)(prptr -> prstkptr + 48) += 1;	/* add `01'	*/
+		*(int *)(prptr -> prstkptr + 48) |= 1;	/* add `01'	*/
 
 		/* Save the original return address	into prptr -> prstkptr + 44 */
 		*(int *)(prptr -> prstkptr + 44) = *(int *)(prptr -> prstkptr + 40);
