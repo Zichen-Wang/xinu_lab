@@ -5,7 +5,7 @@
 
 /* do_shandler.c - do_shandler */
 
-#include <xinu.h>
+#include <process.h>
 
 /*---------------------------------------
  * do_shandler -  ROP for signal handler

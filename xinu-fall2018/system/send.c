@@ -6,15 +6,6 @@
  *  send  -  Pass a message to a process and start recipient if waiting
  *------------------------------------------------------------------------
  */
-
-/*
- * User: wang4113
- * date: 10/22/2018
- */
-
-/* in file do_shandler.c */
-extern	void	do_shandler(uint32);
-
 syscall	send(
 	  pid32		pid,		/* ID of recipient process	*/
 	  umsg32	msg		/* Contents of message		*/
