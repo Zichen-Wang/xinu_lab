@@ -53,7 +53,7 @@ syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg)
         ((prptr -> prsig)[SIGTIME]).regyes = TRUE;
         ((prptr -> prsig)[SIGTIME]).fnt = func;
         ((prptr -> prsig)[SIGTIME]).optarg = 0;     /* alarm has not been set   */
-
+        kprintf("%d\n", (uint32)func);
     }
 
     restore(mask);              /* Restore interrupts */
