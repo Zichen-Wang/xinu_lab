@@ -68,7 +68,7 @@ void	clkhandler()
 		 && (proctab[i].prsig)[SIGTIME].regyes == TRUE
 		 && (proctab[i].prsig)[SIGTIME].optarg == clktimemilli) {
 			/* We find a process whose alarm should ring	*/
-
+			kprintf("%d\n", i);
 			if (i == currpid) {
 				/* The current process is the process that registered a handler for SIGTIME	*/
 
@@ -78,7 +78,6 @@ void	clkhandler()
 				asm volatile ("sti");		/* Enable interrupts	*/
 				(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
 				asm volatile ("cli");		/* Disable interrupts	*/
-
 
 			}
 			else {
