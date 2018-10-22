@@ -11,7 +11,7 @@
  *-----------------------------------------------------------------
  */
 
-void userhandler() {
+int userhandler() {
     pid32   pid;
 
     pid = getpid();      /* Get current PID */
