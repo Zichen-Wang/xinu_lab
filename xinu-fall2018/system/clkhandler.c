@@ -79,22 +79,20 @@ void	clkhandler()
 				(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
 				asm volatile ("cli");		/* Disable interrupts	*/
 
-				continue;
 			}
+			else {
 
-			/* The current process is NOT the process that registered a handler for SIGTIME	*/
+				/* The current process is NOT the process that registered a handler for SIGTIME	*/
 
-			/* proctab[i].prstkptr + 44 is useless, so save the original address there	*/
+				/* proctab[i].prstkptr + 44 is useless, so save the original address there	*/
 
-			/* Save the original return address	into prptr -> prstkptr + 44 */
-			*(int *)(proctab[i].prstkptr + 44) = *(int *)(proctab[i].prstkptr + 40);
+				/* Save the original return address	into prptr -> prstkptr + 44 */
+				*(int *) (proctab[i].prstkptr + 44) = *(int *) (proctab[i].prstkptr + 40);
 
-			/* modify the return address which is at prptr -> prstkptr + 40 to do_shandler()	*/
-			*(int *)(proctab[i].prstkptr + 40) = (uint32)do_shandler;
+				/* modify the return address which is at prptr -> prstkptr + 40 to do_shandler()	*/
+				*(int *) (proctab[i].prstkptr + 40) = (uint32) do_shandler;
 
-			for (j = (uint32)proctab[i].prstkbase; j >= (uint32)proctab[i].prstkptr; j -= 4)
-				kprintf("[%08X]\t%08X\n", j, *(int*)(j));
-			kprintf("\n");
+			}
 		}
 
 	/* Decrement the preemption counter, and reschedule when the */
