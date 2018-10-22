@@ -367,7 +367,7 @@ process	main(void)
 
 	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_1", 1, 45));
 	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_2", 1, 100));
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_3", 1, 150));
+	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_3", 1, 100));
 
 	proctab[currpid].prprio = INITPRIO;
 
