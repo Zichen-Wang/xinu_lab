@@ -12,7 +12,7 @@
  */
 
 void myrcv() {
-    umsg32  msgbuf;     /* Using shared msgbuf for each receiver may cause race problem */
+    umsg32  msgbuf;     /* Using shared msgbuf by multiple receivers may cause race problem */
     pid32   pid;
 
     msgbuf = receive();  // copy message to user buffer

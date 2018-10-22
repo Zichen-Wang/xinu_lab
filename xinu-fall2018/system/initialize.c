@@ -217,7 +217,10 @@ static	void	sysinit()
 	 * User: wang4113
 	 * date: 10/17/2018
 	 */
-	prptr -> callback_func_addr = 0;	/* Initialize the pointer of callback function of Null process to NULL		*/
+	prptr -> callback_func = NULL;	/* Initialize the pointer of callback function of Null process to NULL		*/
+
+	for (i = 0; i < SIGNUM; i++)	/* Initialize signal registration of Null process to FALSE		*/
+		((prptr -> prsig)[i]).regyes = FALSE;
 
 	currpid = NULLPROC;
 	

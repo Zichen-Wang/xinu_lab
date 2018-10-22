@@ -9,11 +9,13 @@
 		.globl	do_handler
 
 /*------------------------------------------------------------------------------
- * do_handler -  remember the orginial return address and call callback function
+ * do_handler -  remember the original return address and call callback function
  *------------------------------------------------------------------------------
  */
 
 do_handler:
+        /* We do not need disable interrupts since it has been disabled when context switching  */
+
         pushl   %ebp            /* Push ebp onto stack		*/
         movl    %esp, %ebp      /* Record current SP in ebp	*/
 

@@ -9,6 +9,7 @@
 void	clkhandler()
 {
 	static	uint32	count1000 = 1000;	/* Count to 1000 ms	*/
+	uint32	i;
 
 	/* Decrement the ms counter, and see if a second has passed */
 
@@ -45,6 +46,46 @@ void	clkhandler()
 			wakeup();
 		}
 	}
+
+	/*
+	 * User: wang4113
+	 * date: 10/21/2018
+	 */
+
+	/* if the process registered a callback function for SIGXCPU,
+	 * check whether the current process has reached the XCPU time 	*/
+	if ((proctab[currpid].prsig)[SIGXCPU].regyes == TRUE
+	 && proctab[currpid].pgrosscpu + currproctime == (proctab[currpid].prsig)[SIGXCPU].optarg) {
+
+		asm volatile ("sti");		/* Enable interrupts	*/
+		(proctab[currpid].prsig)[SIGXCPU].fnt();	/* Call callback function for SIGXCPU	*/
+		asm volatile ("cli");		/* Disable interrupts	*/
+	}
+
+	/* Check processes whose alarm should ring	*/
+	for (i = 0; i < NPROC; i++)
+		if (proctab[i].prstate != PR_FREE
+		 && (proctab[i].prsig)[SIGTIME].regyes == TRUE
+		 && (proctab[i].prsig)[SIGTIME].optarg == clktimemilli) {
+			/* We find a process whose alarm should ring	*/
+
+			if (i == currpid) {
+				/* The current process is the process that registered a handler for SIGTIME	*/
+				asm volatile ("sti");		/* Enable interrupts	*/
+				(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
+				asm volatile ("cli");		/* Disable interrupts	*/
+
+				continue;
+			}
+
+			/* The current process is NOT the process that registered a handler for SIGTIME	*/
+
+			/* Save the original return address	into prptr -> prstkptr + 44 */
+			*(int *)(prptr -> prstkptr + 44) = *(int *)(prptr -> prstkptr + 40);
+
+			/* modify the return address which is at prptr -> prstkptr + 40 to do_handler()	*/
+			*(int *)(prptr -> prstkptr + 40) = (uint32)do_shandler;
+		}
 
 	/* Decrement the preemption counter, and reschedule when the */
 	/*   remaining time reaches zero			     */

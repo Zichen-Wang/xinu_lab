@@ -12,7 +12,7 @@
  *---------------------------------------
  */
 
-void do_shandler()
+void do_shandler(uint32 original_ret_addr)
 {
     intmask	mask;			/* Saved interrupt mask		*/
     struct	procent *prptr;		/* Ptr to process's table entry	*/
@@ -42,7 +42,8 @@ void do_shandler()
 
     }
 
+    /* modify the return address which is at prptr -> prstkptr + 40 to original_ret_addr	*/
+    *(int *)(prptr -> prstkptr + 40) = original_ret_addr;
+
     restore(mask);          /* Restore mask    */
-
-
 }

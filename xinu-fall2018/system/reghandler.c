@@ -20,10 +20,11 @@ syscall reghandler(void (* func) (void))
 
     prptr = &proctab[currpid];  /* Retrieve the process table of the current process    */
     if (func == NULL) {         /* If the pointer of callback function is NULL, return system error */
+        restore(mask);          /* Restore interrupts */
         return SYSERR;
     }
 
-    prptr -> callback_func_addr = (uint32)func;  /* Register the callback function   */
+    prptr -> callback_func = func;  /* Register the callback function   */
 
     restore(mask);              /* Restore interrupts */
     return OK;

@@ -77,12 +77,11 @@ struct procent {		/* Entry in the process table		*/
 
 	/*
 	 * User: wang4113
-	 * date: 10/17/2018
+	 * date: 10/21/2018
 	*/
-	uint32	callback_func_addr;	/* Lab4 3: pointer to callback function	*/
-	uint32  recv_handler_addr;  /* Lab4 4: pointer to callback handler of SIGRECV  */
-	uint32  xcpu_handler_addr;  /* Lab4 4: pointer to callback handler of SIGXCPU  */
-	uint32  alarm_handler_addr; /* Lab4 4: pointer to callback handler of SIGTIME  */
+	void (* callback_func) (void);	/* Lab4 3: pointer to callback function	*/
+
+	struct xsigtab prsig[SIGNUM];	/* Lab4 4: a per-process signal table that specifies its signal disposition.	*/
 };
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/

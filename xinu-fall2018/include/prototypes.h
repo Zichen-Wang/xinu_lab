@@ -703,6 +703,12 @@ extern	process	test_sender(pid32, uint32);
 /* in file signalreg.c */
 extern	syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg);
 
+/* in file xalarm.c */
+extern	syscall xalarm(int32);
+
+/* in file do_shandler.c */
+extern	void	do_shandler(uint32);
+
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
