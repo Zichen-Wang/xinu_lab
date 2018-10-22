@@ -12,7 +12,7 @@
  *---------------------------------------
  */
 
-void do_shandler(uint32 org)     /* `org' is prptr -> prstkptr + 48  */
+void do_shandler(uint32 arg)     /* `org' is prptr -> prstkptr + 48  */
 {
     intmask mask;           /* Saved interrupt mask     */
     struct  procent *prptr;     /* Ptr to process's table entry */
@@ -21,19 +21,18 @@ void do_shandler(uint32 org)     /* `org' is prptr -> prstkptr + 48  */
 
     prptr = &proctab[currpid];
 
-    if (currpid == 6)
-        kprintf("%d\n", org);
+    kprintf("%d %d\n", currpid, arg);
 
     if (   ((prptr -> prsig)[SIGRECV]).regyes == TRUE
-        && (org & 1)) {    /* `org' should be `10' or `11' */
+        && (arg & 1)) {    /* `org' should be `10' or `11' */
 
         asm volatile ("sti");       /* Enable interrupts    */
-        (prptr -> prsig)[SIGRECV].fnt();    /* Call callback function for SIGRECV   */
+        ((prptr -> prsig)[SIGRECV]).fnt();    /* Call callback function for SIGRECV   */
         asm volatile ("cli");       /* Disable interrupts   */
     }
 
     if (   ((prptr -> prsig)[SIGTIME]).regyes == TRUE
-        && (org & 2)        /* `org' should be `01' or `11' */
+        && (arg & 2)        /* `org' should be `01' or `11' */
         && ((prptr -> prsig)[SIGTIME]).optarg > 0
         && ((prptr -> prsig)[SIGTIME]).optarg <= clktimemilli) {
         /* when the scheduler decides to run this process,
@@ -42,7 +41,7 @@ void do_shandler(uint32 org)     /* `org' is prptr -> prstkptr + 48  */
         /* Clear the alarm  */
         ((prptr -> prsig)[SIGTIME]).optarg = 0;
         asm volatile ("sti");       /* Enable interrupts    */
-        (prptr -> prsig)[SIGTIME].fnt();    /* Call callback function for SIGTIME   */
+        ((prptr -> prsig)[SIGTIME]).fnt();    /* Call callback function for SIGTIME   */
         asm volatile ("cli");       /* Disable interrupts   */
 
     }
