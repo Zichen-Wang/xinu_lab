@@ -69,6 +69,8 @@ void	clkhandler()
 		 && (proctab[i].prsig)[SIGTIME].optarg == clktimemilli) {
 			/* We find a process whose alarm should ring	*/
 
+			kprintf("%d %d\n", i, currpid);
+
 			if (i == currpid) {
 				/* The current process is the process that registered a handler for SIGTIME	*/
 
