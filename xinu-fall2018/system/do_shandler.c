@@ -12,7 +12,7 @@
  *---------------------------------------
  */
 
-void do_shandler(int32 org)     /* `org' is prptr -> prstkptr + 48  */
+void do_shandler(uint32 org)     /* `org' is prptr -> prstkptr + 48  */
 {
     intmask mask;           /* Saved interrupt mask     */
     struct  procent *prptr;     /* Ptr to process's table entry */
