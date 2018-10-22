@@ -15,7 +15,7 @@ void userhandler() {
     pid32   pid;
 
     pid = getpid();      /* Get current PID */
-    kprintf("\n[%d ms]\tPID: %d\tSIGXCPU handler has been called.\n", clktimemilli, pid);
+    kprintf("\n[%d ms]\tPID: %d\tusage: %d\n", clktimemilli, pid, proctab[pid].pgrosscpu + currproctime);
 }
 
 process test_xcpu(uint32 cpu_time)
