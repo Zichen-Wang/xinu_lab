@@ -692,7 +692,7 @@ extern 	void 	rms_app(uint32 x, uint32 y);
 extern	syscall reghandler(void (* func) (void));
 
 /* in file do_handler.S */
-extern	void	do_handler(uint32, uint32);
+extern	void	do_handler(void);
 
 /* in file test_receiver.c */
 extern	process	test_receiver(void);

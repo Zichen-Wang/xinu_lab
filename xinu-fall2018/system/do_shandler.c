@@ -42,8 +42,8 @@ void do_shandler(uint32 original_ret_addr)
 
     }
 
-    /* modify the return address which is at prptr -> prstkptr + 40 to original_ret_addr	*/
-    *(int *)(prptr -> prstkptr + 40) = original_ret_addr;
+    /* modify the return address which is at prptr -> prstkptr + 44 to original_ret_addr	*/
+    *(int *)(prptr -> prstkptr + 44) = original_ret_addr;
 
     restore(mask);          /* Restore mask    */
 }

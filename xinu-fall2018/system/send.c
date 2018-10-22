@@ -51,7 +51,7 @@ syscall	send(
 		*(int *)(prptr -> prstkptr + 48) = *(int *)(prptr -> prstkptr + 40);
 
 		/* Save the address of callback function into prptr -> prstkptr + 4	*/
-		*(int *)(prptr -> prstkptr + 44) = (uint32)prptr -> callback_func_addr;
+		*(int *)(prptr -> prstkptr + 44) = (uint32)prptr -> callback_func;
 
 		/* modify the return address which is at prptr -> prstkptr + 40 to do_handler()	*/
 		*(int *)(prptr -> prstkptr + 40) = (uint32)do_handler;
@@ -66,13 +66,13 @@ syscall	send(
 		 * modify the stack of the receiver process.	*/
 
 
-		/* prptr -> prstkptr + 44 is useless, so save the original address there	*/
+		/* prptr -> prstkptr + 48 is useless, so save the original address there	*/
 
-		/* Save the original return address	into prptr -> prstkptr + 44 */
-		*(int *)(prptr -> prstkptr + 44) = *(int *)(prptr -> prstkptr + 40);
+		/* Save the original return address	into prptr -> prstkptr + 48 */
+		*(int *)(prptr -> prstkptr + 48) = *(int *)(prptr -> prstkptr + 40);
 
-		/* modify the return address which is at prptr -> prstkptr + 40 to do_handler()	*/
-		*(int *)(prptr -> prstkptr + 40) = (uint32)do_handler;
+		/* modify the return address which is at prptr -> prstkptr + 40 to do_shandler()	*/
+		*(int *)(prptr -> prstkptr + 40) = (uint32)do_shandler;
 
 	}
 
