@@ -19,6 +19,8 @@ syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg)
 
     mask = disable();           /* Disable interrupts   */
 
+    prptr = &proctab[currpid];  /* Retrieve the process table of the current process    */
+
     if (func == NULL) {         /* If the pointer of callback function is NULL, return system error */
         restore(mask);          /* Restore interrupts */
         return SYSERR;
@@ -34,7 +36,7 @@ syscall signalreg(uint16 nsig, int (* func) (void), uint32 oarg)
     else if (nsig == SIGXCPU) {
         /* Register SIGXCPU callback function   */
 
-        if (oarg <= proctab[currpid].pgrosscpu + currproctime) {
+        if (oarg <= prptr -> pgrosscpu + currproctime) {
             /* The XCPU time should be larger than the gross CPU usage of current process    */
             restore(mask);          /* Restore interrupts */
             return SYSERR;

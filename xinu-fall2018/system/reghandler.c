@@ -19,6 +19,7 @@ syscall reghandler(void (* func) (void))
     mask = disable();           /* Disable interrupts   */
 
     prptr = &proctab[currpid];  /* Retrieve the process table of the current process    */
+
     if (func == NULL) {         /* If the pointer of callback function is NULL, return system error */
         restore(mask);          /* Restore interrupts */
         return SYSERR;
