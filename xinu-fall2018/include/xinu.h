@@ -2,6 +2,13 @@
 
 #include <kernel.h>
 #include <conf.h>
+
+/*
+ * User: wang4113
+ * date: 10/18/2018
+ */
+#include <xsignal.h>
+
 #include <process.h>
 #include <queue.h>
 #include <resched.h>
@@ -35,12 +42,6 @@
  * date: 10/08/2018
  */
 #include <rms.h>    /* Add the rms header file  */
-
-/*
- * User: wang4113
- * date: 10/18/2018
- */
-#include <xsignal.h>
 
 #include <prototypes.h>
 #include <delay.h>
