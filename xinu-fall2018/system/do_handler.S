@@ -22,12 +22,11 @@ do_handler:
         pushfl                  /* Push flags onto the stack	*/
 
         sti                     /* Interrupts enabled   */
-        call    *4(%ebp)        /* Call callback function   */
+        call    *8(%ebp)        /* Call callback function   */
         cli                     /* Interrupts disabled  */
 
         popfl                   /* Restore EFLAGS   */
 
         movl    %ebp, %esp      /* Restore stack pointer    */
         popl    %ebp            /* Restore stack base   */
-        pushl   4(%esp)         /* Push the original return address in stack and be ready for making a return    */
         ret                     /* Return to the original address   */
