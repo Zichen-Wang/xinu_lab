@@ -87,11 +87,11 @@ void	clkhandler()
 				/* proctab[i].prstkptr + 48 and proctab[i].prstkptr + 44 are useless, so save the addresses there	*/
 
 				/* modify proctab[i].prstkptr + 48 indicates that there is an asynchronous message	*/
-				/* `00' means nothing; `01' means an alarm; `10' means an asynchronous message; `11' means both	*/
+				/* `00' means nothing; `01' means an asynchronous message; `10' means an alarm; `11' means both	*/
 				if (!(*(int *)(proctab[i].prstkptr + 48) >= 0 && *(int *)(proctab[i].prstkptr + 48) < 4))
 					*(int *)(proctab[i].prstkptr + 48) = 0;
 
-				*(int *)(proctab[i].prstkptr + 48) += 1;	/* add `01'	*/
+				*(int *)(proctab[i].prstkptr + 48) += 2;	/* add `10'	*/
 
 				/* Save the original return address	into proctab[i].prstkptr + 44 */
 				*(int *) (proctab[i].prstkptr + 44) = *(int *) (proctab[i].prstkptr + 40);
