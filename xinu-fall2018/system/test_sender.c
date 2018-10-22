@@ -19,7 +19,7 @@ process test_sender(pid32 receiver_min, uint32 receiver_num)
 
     sender_pid = getpid();
 
-    for (msg_num = 1; msg_num <= 20 * receiver_num; msg_num++) {
+    for (msg_num = 1; msg_num <= 10 * receiver_num; msg_num++) {
 
         msg = clktimemilli * msg_num % 10000;
         receiver_pid = clktimemilli % receiver_num + receiver_min;
