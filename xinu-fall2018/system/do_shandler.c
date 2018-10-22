@@ -27,14 +27,12 @@ void do_shandler()
         asm volatile ("cli");       /* Disable interrupts   */
     }
 
-    kprintf("!");
-
     if (((prptr -> prsig)[SIGTIME]).regyes == TRUE
         && ((prptr -> prsig)[SIGTIME]).optarg > 0
         && ((prptr -> prsig)[SIGTIME]).optarg <= clktimemilli) {
         /* when the scheduler decides to run this process,
          * the alarm time should be non-zero and equal to or lower than clktimemilli    */
-        kprintf("!");
+
         /* Clear the alarm  */
         ((prptr -> prsig)[SIGTIME]).optarg = 0;
         kprintf("!");
