@@ -102,6 +102,9 @@ void	clkhandler()
 	/* The current process is the process that registered a handler for SIGTIME	*/
 	if (curr_alarm_flag == TRUE) {
 
+		/* Clear the alarm	*/
+		(proctab[currpid].prsig)[SIGTIME].optarg = 0;
+
 		asm volatile ("sti");		/* Enable interrupts	*/
 		(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
 		asm volatile ("cli");		/* Disable interrupts	*/
