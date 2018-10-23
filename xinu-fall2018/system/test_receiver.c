@@ -17,7 +17,7 @@ local void myrcv() {
 
     msgbuf = receive();  // copy message to user buffer
     pid = getpid();      /* Get current PID */
-    kprintf("\n[%d ms]\tProcess %d received \"%d\".\n", clktimemilli, pid, msgbuf);
+    kprintf("\n%d ms\tProcess %d received \"%d\".\n", clktimemilli, pid, msgbuf);
 }
 
 process test_receiver(void)
