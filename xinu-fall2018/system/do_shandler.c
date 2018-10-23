@@ -31,14 +31,8 @@ void do_shandler(uint32 arg)     /* `org' is prptr -> prstkptr + 48  */
     }
 
     if (   (prptr -> prsig)[SIGTIME].regyes == TRUE
-        && (arg & 2)        /* `org' should be `01' or `11' */
-        && (prptr -> prsig)[SIGTIME].optarg > 0
-        && (prptr -> prsig)[SIGTIME].optarg <= clktimemilli) {
-        /* when the scheduler decides to run this process,
-         * the alarm time should be non-zero and equal to or lower than clktimemilli    */
+        && (arg & 2)) {    /* `org' should be `01' or `11' */
 
-        /* Clear the alarm  */
-        (prptr -> prsig)[SIGTIME].optarg = 0;
         asm volatile ("sti");       /* Enable interrupts    */
         (prptr -> prsig)[SIGTIME].fnt();    /* Call callback function for SIGTIME   */
         asm volatile ("cli");       /* Disable interrupts   */

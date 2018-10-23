@@ -382,21 +382,21 @@ process	main(void)
 
 	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_4", 1, 1200));
 	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_5", 1, 2750));
-	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_6", 1, 3200));
+	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_6", 1, 1000));
 
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_1", 1, 1000));
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_2", 1, 1000));
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_3", 1, 1000));
+	//resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_1", 1, 1000));
+	//resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_2", 1, 1000));
+	//resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_3", 1, 1000));
 
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_4", 1, 5000));
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_5", 1, 5000));
-	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_6", 1, 5000));
+	//resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_4", 1, 5000));
+	//resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_5", 1, 5000));
+	//resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_6", 1, 5000));
 
-	resume(create(test_signals, 1024, INITPRIO, "test_signals_1", 2, 2345, 6754));
-	resume(create(test_signals, 1024, INITPRIO, "test_signals_2", 2, 2223, 6686));
-	resume(create(test_signals, 1024, INITPRIO, "test_signals_3", 2, 6564, 2331));
+	//resume(create(test_signals, 1024, INITPRIO, "test_signals_1", 2, 2345, 6754));
+	//resume(create(test_signals, 1024, INITPRIO, "test_signals_2", 2, 2223, 6686));
+	//resume(create(test_signals, 1024, INITPRIO, "test_signals_3", 2, 6564, 2331));
 
-	resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 15));
+	resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 6));
 
 	proctab[currpid].prprio = INITPRIO;
 
