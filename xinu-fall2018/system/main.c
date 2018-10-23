@@ -342,9 +342,9 @@ process	main(void)
 	proctab[currpid].prprio = MAXPRIO;
 
     resume(create(test_receiver, 1024, INITPRIO, "test_receiver_1", 0));
-	//resume(create(test_receiver, 1024, INITPRIO, "test_receiver_2", 0));
-	//resume(create(test_receiver, 1024, INITPRIO, "test_receiver_3", 0));
-    resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 1));
+	resume(create(test_receiver, 1024, INITPRIO, "test_receiver_2", 0));
+	resume(create(test_receiver, 1024, INITPRIO, "test_receiver_3", 0));
+    resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 3));
 	//resume(create(test_sender, 1024, INITPRIO, "test_sender_2", 2, 4, 3));
 	//resume(create(test_sender, 1024, INITPRIO, "test_sender_3", 2, 4, 3));
 
