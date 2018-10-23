@@ -23,7 +23,7 @@ process test_sender(pid32 receiver_min, uint32 receiver_num)
 
         msg = clktimemilli * msg_num % 10000;
         //receiver_pid = msg_num % receiver_num + receiver_min;
-        receiver_pid = clktimemilli * 97 % receiver_num + receiver_min;
+        receiver_pid = clktimemilli % receiver_num + receiver_min;
 
         if (send(receiver_pid, msg) == OK) {
             /* Output the PID along with a time stamp	*/

@@ -30,7 +30,9 @@ void do_shandler(uint32 arg)     /* `org' is prptr -> prstkptr + 48  */
     }
 
     if (   (prptr -> prsig)[SIGTIME].regyes == TRUE
-        && (arg & 2)) {    /* `arg' should be `10' or `11' */
+        && (arg & 2)
+        && (prptr -> prsig)[SIGTIME].optarg > 0
+        && (prptr -> prsig)[SIGTIME].optarg <= clktimemilli) {    /* `arg' should be `10' or `11' */
 
         /* Clear the alarm	*/
         (prptr -> prsig)[SIGTIME].optarg = 0;
