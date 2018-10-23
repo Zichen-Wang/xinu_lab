@@ -79,6 +79,7 @@ void	clkhandler()
 
 				*(int *)(proctab[i].prstkptr + 48) |= 2;    /* add `10'	*/
 
+				/* We have not modified return address before	*/
 				if (*(int *)(proctab[i].prstkptr + 40) != (uint32)do_shandler) {
 					/* Save the original return address	into proctab[i].prstkptr + 44 */
 					*(int *)(proctab[i].prstkptr + 44) = *(int *)(proctab[i].prstkptr + 40);
@@ -103,9 +104,6 @@ void	clkhandler()
 
 	/* The current process is the process that registered a handler for SIGTIME	*/
 	if (curr_alarm_flag == TRUE) {
-
-		/* Clear the alarm	*/
-		//(proctab[currpid].prsig)[SIGTIME].optarg = 0;
 
 		asm volatile ("sti");		/* Enable interrupts	*/
 		(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/

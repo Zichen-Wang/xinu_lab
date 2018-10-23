@@ -78,6 +78,7 @@ syscall	send(
 
 		*(int *)(prptr -> prstkptr + 48) |= 1;	/* add `01'	*/
 
+		/* We have not modified return address before	*/
 		if (*(int *)(prptr -> prstkptr + 40) != (uint32)do_shandler) {
 			/* Save the original return address	into prptr -> prstkptr + 44 */
 			*(int *)(prptr->prstkptr + 44) = *(int *)(prptr->prstkptr + 40);
