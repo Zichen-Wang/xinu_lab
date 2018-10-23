@@ -26,11 +26,11 @@ process test_sender(pid32 receiver_min, uint32 receiver_num)
 
         if (send(receiver_pid, msg) == OK) {
             /* Output the PID along with a time stamp	*/
-            kprintf("\nmsg_num: %d\t%d ms\tProcess %d sent \"%d\" to Process %d.\n",
+            kprintf("\nmsg_num: %d\t%d ms\tProcess %d sent `%d' to Process %d.\n",
                     msg_num, clktimemilli, sender_pid, msg, receiver_pid);
         }
         else {
-            kprintf("\nmsg_num: %d\t%d ms\tProcess %d sent \"%d\" to Process %d.[ERROR OCCUR] \n",
+            kprintf("\nmsg_num: %d\t%d ms\tProcess %d sent `%d' to Process %d.[ERROR OCCUR] \n",
                     msg_num, clktimemilli, sender_pid, msg, receiver_pid);
         }
 
