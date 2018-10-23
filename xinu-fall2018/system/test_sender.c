@@ -19,19 +19,19 @@ process test_sender(pid32 receiver_min, uint32 receiver_num)
 
     sender_pid = getpid();
 
-    for (msg_num = 1; msg_num <= 10 * receiver_num; msg_num++) {
+    for (msg_num = 0; msg_num < 10 * receiver_num; msg_num++) {
 
         msg = clktimemilli * msg_num % 10000;
-        receiver_pid = (msg_num * 97) % receiver_num + receiver_min;
+        receiver_pid = msg_num % receiver_num + receiver_min;
 
         if (send(receiver_pid, msg) == OK) {
             /* Output the PID along with a time stamp	*/
-            kprintf("\n[%d ms]\tProcess %d sent \"%d\" to Process %d. [msg_num: %d]\n",
-                    clktimemilli, sender_pid, msg, receiver_pid, msg_num);
+            kprintf("\nmsg_num: %d\t%d ms\tProcess %d sent \"%d\" to Process %d.\n",
+                    msg_num, clktimemilli, sender_pid, msg, receiver_pid);
         }
         else {
-            kprintf("\n[%d ms]\tProcess %d sent \"%d\" to Process %d. [msg_num: %d] [ERROR OCCUR] \n",
-                    clktimemilli, sender_pid, msg, receiver_pid, msg_num);
+            kprintf("\nmsg_num: %d\t%d ms\tProcess %d sent \"%d\" to Process %d.[ERROR OCCUR] \n",
+                    msg_num, clktimemilli, sender_pid, msg, receiver_pid);
         }
 
         for (i = 0; i < 500000; i++);   /* Busy loop    */
