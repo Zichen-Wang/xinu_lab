@@ -397,7 +397,6 @@ process	main(void)
 	resume(create(test_signals, 1024, INITPRIO, "test_signals_3", 2, 6564, 2331));
 
 	resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 15));
-	resume(create(test_sender, 1024, INITPRIO, "test_sender_2", 2, 4, 15));
 
 	proctab[currpid].prprio = INITPRIO;
 
