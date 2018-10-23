@@ -15,7 +15,7 @@ local void myrcv() {
     umsg32  msgbuf;     /* Using shared msgbuf by multiple receivers may cause race problem */
     pid32   pid;
 
-    msgbuf = receive();  // copy message to user buffer
+    msgbuf = receive();  /* copy message to user buffer */
     pid = getpid();      /* Get current PID */
     kprintf("\n[%d ms]\tProcess %d received \"%d\".\n", clktimemilli, pid, msgbuf);
 }
