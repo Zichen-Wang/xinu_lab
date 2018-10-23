@@ -65,6 +65,7 @@ void	clkhandler()
 			if (i == currpid) {
 				/* The current process is the process that registered a handler for SIGTIME	*/
 				curr_alarm_flag = TRUE;
+
 			} else {
 
 				/* The current process is NOT the process that registered a handler for SIGTIME	*/
@@ -73,19 +74,18 @@ void	clkhandler()
 
 				/* modify proctab[i].prstkptr + 48 indicates that there is an asynchronous message	*/
 				/* `00' means nothing; `01' means an asynchronous message; `10' means an alarm; `11' means both	*/
-				if (i == 11)
-					kprintf("%d %d\n", *(int *)(proctab[i].prstkptr + 48), currpid);
 				if (!(*(int *)(proctab[i].prstkptr + 48) >= 0 && *(int *)(proctab[i].prstkptr + 48) < 4))
 					*(int *)(proctab[i].prstkptr + 48) = 0;
 
 				*(int *)(proctab[i].prstkptr + 48) |= 2;    /* add `10'	*/
 
-				/* Save the original return address	into proctab[i].prstkptr + 44 */
-				*(int *)(proctab[i].prstkptr + 44) = *(int *)(proctab[i].prstkptr + 40);
+				if (*(int *)(prptr -> prstkptr + 40) != (uint32)do_shandler) {
+					/* Save the original return address	into proctab[i].prstkptr + 44 */
+					*(int *)(proctab[i].prstkptr + 44) = *(int *)(proctab[i].prstkptr + 40);
 
-				/* modify the return address which is at proctab[i].prstkptr + 40 to do_shandler()	*/
-				*(int *)(proctab[i].prstkptr + 40) = (uint32)do_shandler;
-
+					/* modify the return address which is at proctab[i].prstkptr + 40 to do_shandler()	*/
+					*(int *)(proctab[i].prstkptr + 40) = (uint32)do_shandler;
+				}
 			}
 		}
 	}
