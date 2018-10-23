@@ -395,8 +395,8 @@ process	main(void)
 	resume(create(test_xalarm, 1024, INITPRIO, "test_xalarm_6", 1, 5000));
 
 	resume(create(test_signals, 1024, INITPRIO, "test_signals_1", 2, 2345, 6754));
-	resume(create(test_signals, 1024, INITPRIO, "test_signals_2", 2, 2223, 6686));
-	resume(create(test_signals, 1024, INITPRIO, "test_signals_3", 2, 6564, 2331));
+	resume(create(test_signals, 1024, INITPRIO, "test_signals_2", 2, 3030, 6686));
+	resume(create(test_signals, 1024, INITPRIO, "test_signals_3", 2, 1243, 2331));
 
 	resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 15));
 
