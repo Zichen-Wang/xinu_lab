@@ -73,7 +73,8 @@ void	clkhandler()
 
 				/* modify proctab[i].prstkptr + 48 indicates that there is an asynchronous message	*/
 				/* `00' means nothing; `01' means an asynchronous message; `10' means an alarm; `11' means both	*/
-				kprintf("%d\n", *(int *)(proctab[i].prstkptr + 48));
+				if (i == 11)
+					kprintf("%d\n", *(int *)(proctab[i].prstkptr + 48));
 				if (!(*(int *)(proctab[i].prstkptr + 48) >= 0 && *(int *)(proctab[i].prstkptr + 48) < 4))
 					*(int *)(proctab[i].prstkptr + 48) = 0;
 

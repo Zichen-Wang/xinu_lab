@@ -21,8 +21,8 @@ void do_shandler(uint32 arg)     /* `arg' is prptr -> prstkptr + 48  */
 
     prptr = &proctab[currpid];
 
-    //kprintf("**%d\n", prptr -> prstate);
-    //kprintf("*%d\n", prptr -> prhasmsg);
+    kprintf("**%d\n", prptr -> prstate);
+    kprintf("*%d\n", prptr -> prhasmsg);
 
     if (   (prptr -> prsig)[SIGRECV].regyes == TRUE
         && (arg & 1)) {    /* `arg' should be `01' or `11' */
