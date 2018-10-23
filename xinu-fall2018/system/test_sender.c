@@ -34,7 +34,8 @@ process test_sender(pid32 receiver_min, uint32 receiver_num)
                     clktimemilli, sender_pid, msg, receiver_pid, msg_num);
         }
 
-        for (i = 0; i < 5000000; i++);   /* Busy loop    */
+        for (i = 0; i < 500000; i++);   /* Busy loop    */
+        sleepms(500);
 
     }
     return OK;
