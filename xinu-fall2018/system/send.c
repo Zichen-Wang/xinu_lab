@@ -59,7 +59,7 @@ syscall	send(
 
 	}
 
-	kprintf("**%d\n", pid);
+	kprintf("**%d\n", prptr -> prstate);
 	if (pid == 11)
 		kprintf("*%d\n", *(int *)(prptr -> prstkptr + 48));
 
