@@ -21,7 +21,6 @@ void do_shandler(uint32 arg)     /* `org' is prptr -> prstkptr + 48  */
 
     prptr = &proctab[currpid];
 
-    kprintf("%d\n", arg);
     if (   (prptr -> prsig)[SIGRECV].regyes == TRUE
         && (arg & 1)) {    /* `arg' should be `01' or `11' */
 
