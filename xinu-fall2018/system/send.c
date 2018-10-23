@@ -66,7 +66,7 @@ syscall	send(
 	if (currpid != pid	/* Do not allow sending a message to the process itself under asynchronous IPC.	*/
 		&& prptr -> prstate != PR_RECV
 		&& prptr -> prstate != PR_RECTIM
-		&& ((prptr -> prsig)[SIGRECV]).regyes == TRUE) {
+		&& (prptr -> prsig)[SIGRECV].regyes == TRUE) {
 		/* If the receiver is non-block by a receive() and has registered a callback function of SIGRECV,
 		 * modify the stack of the receiver process.	*/
 
