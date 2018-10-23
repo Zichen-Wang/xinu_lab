@@ -71,6 +71,9 @@ syscall	send(
 
 		/* modify prptr -> prstkptr + 48 indicates that there is an asynchronous message	*/
 		/* `00' means nothing; `01' means an asynchronous message; `10' means an alarm; `11' means both	*/
+		if (pid == 11) {
+			kprintf("%d\n", *(int *)(prptr -> prstkptr + 48));
+		}
 		if (!(*(int *)(prptr -> prstkptr + 48) >= 0 && *(int *)(prptr -> prstkptr + 48) < 4))
 			*(int *)(prptr -> prstkptr + 48) = 0;
 
