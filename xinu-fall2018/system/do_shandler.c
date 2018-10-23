@@ -35,7 +35,7 @@ void do_shandler(uint32 arg)     /* `org' is prptr -> prstkptr + 48  */
         && (prptr -> prsig)[SIGTIME].optarg <= clktimemilli) {    /* `arg' should be `10' or `11' */
 
         /* Clear the alarm	*/
-        (prptr -> prsig)[SIGTIME].optarg = 0;
+        //(prptr -> prsig)[SIGTIME].optarg = 0;
 
         asm volatile ("sti");       /* Enable interrupts    */
         (prptr -> prsig)[SIGTIME].fnt();    /* Call callback function for SIGTIME   */
