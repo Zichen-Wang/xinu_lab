@@ -21,6 +21,9 @@ void do_shandler(uint32 arg)     /* `arg' is prptr -> prstkptr + 48  */
 
     prptr = &proctab[currpid];
 
+    kprintf("**%d\n", prptr -> prstate);
+    kprintf("*%d\n", prstkptr -> prhasmsg);
+
     if (   (prptr -> prsig)[SIGRECV].regyes == TRUE
         && (arg & 1)) {    /* `arg' should be `01' or `11' */
 
@@ -28,6 +31,8 @@ void do_shandler(uint32 arg)     /* `arg' is prptr -> prstkptr + 48  */
         (prptr -> prsig)[SIGRECV].fnt();    /* Call callback function for SIGRECV   */
         asm volatile ("cli");       /* Disable interrupts   */
     }
+
+
 
     if (   (prptr -> prsig)[SIGTIME].regyes == TRUE
         && (arg & 2)

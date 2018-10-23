@@ -59,9 +59,6 @@ syscall	send(
 
 	}
 
-	kprintf("**%d\n", prptr -> prstate);
-	if (pid == 11)
-		kprintf("*%d\n", *(int *)(prptr -> prstkptr + 48));
 
 	if (currpid != pid	/* Do not allow sending a message to the process itself under asynchronous IPC.	*/
 		&& prptr -> prstate != PR_RECV
