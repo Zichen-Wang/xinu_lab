@@ -22,18 +22,20 @@ local void myrcv() {
 
 process test_receiver(void)
 {
-    /*
+
     if (reghandler(&myrcv) != OK) {
+        kprintf("recv handler registration failed\n");
+        return SYSERR;
+    }
+
+    /*
+    if (signalreg(SIGRECV, &myrcv, 0) != OK) {
         kprintf("recv handler registration failed\n");
         return SYSERR;
     }
     */
 
-    if (signalreg(SIGRECV, &myrcv, 0) != OK) {
-        kprintf("recv handler registration failed\n");
-        return SYSERR;
-    }
-
+    sleepms(500);
 
     while (TRUE) {
         ;
