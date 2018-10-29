@@ -53,16 +53,6 @@ void	clkhandler()
 	 */
 
 
-	/* The current process is the process that registered a handler for SIGTIME	*/
-	if ((proctab[currpid].prsig)[SIGTIME].regyes == TRUE
-		&& (proctab[currpid].prsig)[SIGTIME].optarg == clktimemilli) {
-		curr_alarm_flag = TRUE;
-	}
-	else {
-		curr_alarm_flag = FALSE;
-	}
-
-
 	/* if the process registered a callback function for SIGXCPU,
 	 * check whether the current process has reached the XCPU time 	*/
 	if ((proctab[currpid].prsig)[SIGXCPU].regyes == TRUE
@@ -72,6 +62,16 @@ void	clkhandler()
 	else {
 		curr_xcpu_flag = FALSE;
 	}
+
+	/* The current process is the process that registered a handler for SIGTIME	*/
+	if ((proctab[currpid].prsig)[SIGTIME].regyes == TRUE
+		&& (proctab[currpid].prsig)[SIGTIME].optarg == clktimemilli) {
+		curr_alarm_flag = TRUE;
+	}
+	else {
+		curr_alarm_flag = FALSE;
+	}
+
 
 
 	if (curr_xcpu_flag == TRUE) {
