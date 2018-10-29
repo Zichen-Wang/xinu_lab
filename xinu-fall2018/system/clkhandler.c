@@ -63,10 +63,10 @@ void	clkhandler()
 
 
 	/* The current process is the process that registered a handler for SIGTIME	*/
-	if ((proctab[currpid].prsig)[SIGXCPU].regyes == TRUE
-		&& (proctab[currpid].prsig)[SIGXCPU].optarg == clktimemilli) {
+	if ((proctab[currpid].prsig)[SIGTIME].regyes == TRUE
+		&& (proctab[currpid].prsig)[SIGTIME].optarg == clktimemilli) {
 
-		(proctab[currpid]).prsig[SIGXCPU].optarg = 0;	/* Clear the alarm	*/
+		(proctab[currpid]).prsig[SIGTIME].optarg = 0;	/* Clear the alarm	*/
 
 		asm volatile ("sti");		/* Enable interrupts	*/
 		(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
