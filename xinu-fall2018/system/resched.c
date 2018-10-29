@@ -111,6 +111,32 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 		preempt = RMSQUANTUM;
 	}
 
+	if (   (proctab[currpid].prsig)[SIGTIME].regyes == TRUE
+	    && (proctab[currpid].prsig)[SIGTIME].optarg > 0
+		&& (proctab[currpid].prsig)[SIGTIME].optarg <= clktimemilli) {
+		/* The current process is NOT the process that registered a handler for SIGTIME	*/
+
+		/* proctab[currpid].prstkptr + 48 and proctab[currpid].prstkptr + 44 are useless, so save the addresses there	*/
+
+		/* modify proctab[currpid].prstkptr + 48 indicates that there is an asynchronous message	*/
+		/* `00' means nothing; `01' means an asynchronous message; `10' means an alarm; `11' means both	*/
+		if (!(*(int *)(proctab[currpid].prstkptr + 48) >= 0 && *(int *)(proctab[currpid].prstkptr + 48) < 4))
+			*(int *)(proctab[currpid].prstkptr + 48) = 0;
+
+		*(int *)(proctab[currpid].prstkptr + 48) |= 2;    /* add `10'	*/
+
+		/* We have not modified return address before	*/
+		if (*(int *)(proctab[currpid].prstkptr + 40) != (uint32)do_shandler) {
+			/* Save the original return address	into proctab[i].prstkptr + 44 */
+			*(int *)(proctab[currpid].prstkptr + 44) = *(int *)(proctab[currpid].prstkptr + 40);
+
+			/* modify the return address which is at proctab[i].prstkptr + 40 to do_shandler()	*/
+			*(int *)(proctab[currpid].prstkptr + 40) = (uint32)do_shandler;
+		}
+
+	}
+
+
 	ctxsw(&ptold->prstkptr, &ptnew->prstkptr);
 
 	/* Old process returns here when resumed */

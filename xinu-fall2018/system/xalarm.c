@@ -18,7 +18,7 @@ syscall	xalarm(
     intmask	mask;			/* Saved interrupt mask		*/
     mask = disable();
 
-    if (delay <= clktimemilli) {    /*  Time travel into the past is not allowed    */
+    if (delay < clktimemilli) {    /*  Time travel into the past is not allowed    */
         restore(mask);
         return SYSERR;
     }

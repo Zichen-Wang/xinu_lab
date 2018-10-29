@@ -9,8 +9,6 @@
 void	clkhandler()
 {
 	static	uint32	count1000 = 1000;	/* Count to 1000 ms	*/
-	pid32	i;
-	bool8	curr_alarm_flag;
 
 	/* Decrement the ms counter, and see if a second has passed */
 
@@ -53,44 +51,6 @@ void	clkhandler()
 	 * date: 10/21/2018
 	 */
 
-
-	/* Check processes whose alarm should ring	*/
-	curr_alarm_flag = FALSE;
-	for (i = 0; i < NPROC; i++) {
-		if (proctab[i].prstate != PR_FREE
-			&& (proctab[i].prsig)[SIGTIME].regyes == TRUE
-			&& (proctab[i].prsig)[SIGTIME].optarg == clktimemilli) {
-			/* We find a process whose alarm should ring	*/
-
-			if (i == currpid) {
-				/* The current process is the process that registered a handler for SIGTIME	*/
-				curr_alarm_flag = TRUE;
-
-			} else {
-
-				/* The current process is NOT the process that registered a handler for SIGTIME	*/
-
-				/* proctab[i].prstkptr + 48 and proctab[i].prstkptr + 44 are useless, so save the addresses there	*/
-
-				/* modify proctab[i].prstkptr + 48 indicates that there is an asynchronous message	*/
-				/* `00' means nothing; `01' means an asynchronous message; `10' means an alarm; `11' means both	*/
-				if (!(*(int *)(proctab[i].prstkptr + 48) >= 0 && *(int *)(proctab[i].prstkptr + 48) < 4))
-					*(int *)(proctab[i].prstkptr + 48) = 0;
-
-				*(int *)(proctab[i].prstkptr + 48) |= 2;    /* add `10'	*/
-
-				/* We have not modified return address before	*/
-				if (*(int *)(proctab[i].prstkptr + 40) != (uint32)do_shandler) {
-					/* Save the original return address	into proctab[i].prstkptr + 44 */
-					*(int *)(proctab[i].prstkptr + 44) = *(int *)(proctab[i].prstkptr + 40);
-
-					/* modify the return address which is at proctab[i].prstkptr + 40 to do_shandler()	*/
-					*(int *)(proctab[i].prstkptr + 40) = (uint32)do_shandler;
-				}
-			}
-		}
-	}
-
 	/* if the process registered a callback function for SIGXCPU,
 	 * check whether the current process has reached the XCPU time 	*/
 	if ((proctab[currpid].prsig)[SIGXCPU].regyes == TRUE
@@ -103,7 +63,10 @@ void	clkhandler()
 
 
 	/* The current process is the process that registered a handler for SIGTIME	*/
-	if (curr_alarm_flag == TRUE) {
+	if ((proctab[currpid].prsig)[SIGXCPU].regyes == TRUE
+		&& (proctab[currpid].prsig)[SIGXCPU].optarg == clktimemilli) {
+
+		(proctab[currpid]).prsig[SIGXCPU].optarg = 0;	/* Clear the alarm	*/
 
 		asm volatile ("sti");		/* Enable interrupts	*/
 		(proctab[currpid].prsig)[SIGTIME].fnt();	/* Call callback function for SIGTIME	*/
