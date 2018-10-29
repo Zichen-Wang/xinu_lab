@@ -127,10 +127,10 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 
 		/* We have not modified return address before	*/
 		if (*(int *)(proctab[currpid].prstkptr + 40) != (uint32)do_shandler) {
-			/* Save the original return address	into proctab[i].prstkptr + 44 */
+			/* Save the original return address	into proctab[currpid].prstkptr + 44 */
 			*(int *)(proctab[currpid].prstkptr + 44) = *(int *)(proctab[currpid].prstkptr + 40);
 
-			/* modify the return address which is at proctab[i].prstkptr + 40 to do_shandler()	*/
+			/* modify the return address which is at proctab[currpid].prstkptr + 40 to do_shandler()	*/
 			*(int *)(proctab[currpid].prstkptr + 40) = (uint32)do_shandler;
 		}
 
