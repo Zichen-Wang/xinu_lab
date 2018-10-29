@@ -9,6 +9,7 @@
 void	clkhandler()
 {
 	static	uint32	count1000 = 1000;	/* Count to 1000 ms	*/
+	bool8	curr_xcpu_flag, curr_alarm_flag;
 
 	/* Decrement the ms counter, and see if a second has passed */
 
@@ -51,10 +52,29 @@ void	clkhandler()
 	 * date: 10/21/2018
 	 */
 
+
+	/* The current process is the process that registered a handler for SIGTIME	*/
+	if ((proctab[currpid].prsig)[SIGTIME].regyes == TRUE
+		&& (proctab[currpid].prsig)[SIGTIME].optarg == clktimemilli) {
+		curr_alarm_flag = TRUE;
+	}
+	else {
+		curr_alarm_flag = FALSE;
+	}
+
+
 	/* if the process registered a callback function for SIGXCPU,
 	 * check whether the current process has reached the XCPU time 	*/
 	if ((proctab[currpid].prsig)[SIGXCPU].regyes == TRUE
 		&& proctab[currpid].pgrosscpu + currproctime == (proctab[currpid].prsig)[SIGXCPU].optarg) {
+		curr_xcpu_flag = TRUE;
+	}
+	else {
+		curr_xcpu_flag = FALSE;
+	}
+
+
+	if (curr_xcpu_flag == TRUE) {
 
 		asm volatile ("sti");		/* Enable interrupts	*/
 		(proctab[currpid].prsig)[SIGXCPU].fnt();	/* Call callback function for SIGXCPU	*/
@@ -62,9 +82,7 @@ void	clkhandler()
 	}
 
 
-	/* The current process is the process that registered a handler for SIGTIME	*/
-	if ((proctab[currpid].prsig)[SIGTIME].regyes == TRUE
-		&& (proctab[currpid].prsig)[SIGTIME].optarg == clktimemilli) {
+	if (curr_alarm_flag == TRUE) {
 
 		(proctab[currpid]).prsig[SIGTIME].optarg = 0;	/* Clear the alarm	*/
 
