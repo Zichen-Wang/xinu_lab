@@ -352,7 +352,7 @@ process	main(void)
 
 
 	/* Lab4 4: Test SIGXCPU	*/
-	/*
+
 	proctab[currpid].prprio = MAXPRIO;
 
 	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 500));
@@ -360,7 +360,7 @@ process	main(void)
 	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_3", 1, 1000));
 
 	proctab[currpid].prprio = INITPRIO;
-	*/
+
 
 	/* Lab4 4: Test SIGTIME	*/
 	/*
@@ -375,7 +375,7 @@ process	main(void)
 	*/
 
 	/* Lab4 4: Test multiple signals	*/
-
+	/*
 	proctab[currpid].prprio = MAXPRIO;
 
 	resume(create(test_xcpu, 1024, INITPRIO, "test_xcpu_1", 1, 500));
@@ -401,7 +401,7 @@ process	main(void)
 	resume(create(test_sender, 1024, INITPRIO, "test_sender_1", 2, 4, 15));
 
 	proctab[currpid].prprio = INITPRIO;
-
+	*/
     while (TRUE) {
     	;
     }
