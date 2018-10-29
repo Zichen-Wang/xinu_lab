@@ -18,7 +18,10 @@ do_handler:
 
         pushl   %ebp            /* Push ebp onto stack		*/
         movl    %esp, %ebp      /* Record current SP in ebp	*/
-
+                                /* We do not need save other registers
+                                 * since EAX, ECX, EDX will be restored by the caller of ctxsw(),
+                                 * and the rest will be saved by callee function and restored when callee returns
+                                 */
         pushfl                  /* Push flags onto the stack	*/
 
         sti                     /* Interrupts enabled   */
