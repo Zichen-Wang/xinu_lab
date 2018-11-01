@@ -30,13 +30,6 @@ devcall	rdscontrol (
 		return SYSERR;
 	}
 
-	/* Ensure rdsprocess is runnning */
-
-	if ( ! rdptr->rd_comruns ) {
-		rdptr->rd_comruns = TRUE;
-		resume(rdptr->rd_comproc);
-	}
-
 	switch (func) {
 
 	/* Synchronize writes */
@@ -69,17 +62,11 @@ devcall	rdscontrol (
 		/* Prepare to wait until item is processed */
 
 		recvclr();
+		resume(rdptr->rd_comproc);
 
-		/* Signal then semaphore to start communication */
-
-		signal(rdptr->rd_reqsem);
-
-		/* Block to wait for a message */
+		/* Block to wait for message */
 
 		bptr = (struct rdbuff *)receive();
-		if (bptr == (struct rdbuff *)SYSERR) {	
-			return SYSERR;
-		}
 		break;
 
 	/* Delete the remote disk (entirely remove it) */

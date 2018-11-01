@@ -1,12 +1,17 @@
-/* atoi.c - atoi */
-
-/*------------------------------------------------------------------------
- *  atoi  -  Converts an ascii value to an integer.
- *------------------------------------------------------------------------
+/**
+ * @file atoi.c
+ * @provides atoi.
+ *
+ * $Id: atoi.c 2020 2009-08-13 17:50:08Z mschul $
  */
-int	atoi(
-	  char		*p
-	)
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+/**
+ * Converts an ascii value to an integer.
+ * @param *p pointer to ascii string
+ * @return integer
+ */
+int atoi(char *p)
 {
     int n = 0, f = 0;
 

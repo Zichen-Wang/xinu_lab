@@ -40,8 +40,8 @@ void	ttyhandle_in (
 
 		/* Wrap buffer pointer	*/
 
-		if (typtr->tyitail >= &typtr->tyibuff[TY_IBUFLEN]) {
-			typtr->tyitail = typtr->tyibuff;
+		if (typtr->tyotail >= &typtr->tyobuff[TY_OBUFLEN]) {
+			typtr->tyotail = typtr->tyobuff;
 		}
 
 		/* Signal input semaphore and return */
@@ -97,7 +97,7 @@ void	ttyhandle_in (
 		if (ch == typtr->tyikillc && typtr->tyikill) {
 			typtr->tyitail -= typtr->tyicursor;
 			if (typtr->tyitail < typtr->tyibuff) {
-				typtr->tyitail += TY_IBUFLEN;
+				typtr->tyihead += TY_IBUFLEN;
 			}
 			typtr->tyicursor = 0;
 			eputc(TY_RETURN, typtr, csrptr);
@@ -107,8 +107,7 @@ void	ttyhandle_in (
 
 		/* Erase (backspace) character */
 
-		if ( ((ch==typtr->tyierasec) || (ch==typtr->tyierasec2))
-					     && typtr->tyierase) {
+		if ( (ch == typtr->tyierasec) && typtr->tyierase) {
 			if (typtr->tyicursor > 0) {
 				typtr->tyicursor--;
 				erase1(typtr, csrptr);
@@ -156,7 +155,7 @@ void	ttyhandle_in (
 			}
 			*typtr->tyitail++ = ch;
 			signal(typtr->tyisem);
-			return;
+			return;			
 		}
 
 

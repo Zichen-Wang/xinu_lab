@@ -1,29 +1,31 @@
-/* dprnt.c - _doprnt, _prtl2, _prtl8, _prtl10, _prtX16, _prtl16 */
+/**
+ * @file doprnt.c
+ * @provides  _doprnt, _prtl2, _prtl8, _prtl10, _prtX16, _prtl16.
+ *
+ * $Id: doprnt.c 2020 2009-08-13 17:50:08Z mschul $
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
 #include <stdarg.h>
 
 #define	MAXSTR	80
 #define NULL    0
-#define PRECISION 6
 
 static void _prtl10(long num, char *str);
 static void _prtl8(long num, char *str);
 static void _prtX16(long num, char *str);
 static void _prtl16(long num, char *str);
 static void _prtl2(long num, char *str);
-static void _prtdbl(double num, int precision, char *str);
 
-/*------------------------------------------------------------------------
- *  _doprnt  -  Format and write output using 'func' to write characters.
- *				(Patched for Sun3 by Shawn Ostermann.)
- *				All arguments passed as 4 bytes, long==int.
- *------------------------------------------------------------------------
+/**
+ * Format and write output using 'func' to write characters. (Patched
+ * for Sun3 by Shawn Ostermann.)  All arguments passed as 4 bytes, long==int.
+ * @param *fmt format string
+ * @param ap list of values
+ * @param *func character output function
+ * @param farg argument for character output function
  */
-void	_doprnt(
-	  char			*fmt,
-	  va_list		ap,
-	  int			(*func)(int)
-	)
+void _doprnt(char *fmt, va_list ap, int (*func) (int))
 {
     int c;
     int i;
@@ -40,7 +42,6 @@ void	_doprnt(
     char sign;                  /* Set to '-' for negative decimals     */
     char digit1;                /* Offset to add to first numeric digit */
     long larg;
-    double darg;
 
     for (;;)
     {
@@ -133,18 +134,9 @@ void	_doprnt(
             if (larg < 0)
             {
                 sign = '-';
+                larg = -larg;
             }
             _prtl10(larg, str);
-            break;
-            
-        case 'f':
-            darg = va_arg(ap, double);
-
-            if (darg < 0)
-            {
-                sign = '-';
-            }
-            _prtdbl(darg, PRECISION, str);
             break;
 
         case 'u':
@@ -279,22 +271,19 @@ void	_doprnt(
 
 }
 
-/*------------------------------------------------------------------------
- *  _prtl10  -  Converts long to base 10 string.
- *------------------------------------------------------------------------
+/**
+ * Prints
+ * @param num
+ * @param *str
  */
-static void		_prtl10(
-				  long		num, 
-				  char		*str
-				)
+static void _prtl10(long num, char *str)
 {
     int i;
     char temp[11];
 
     temp[0] = '\0';
-    temp[1] = ((num<0) ? -(num%10) : (num%10)) + '0';
-    num /= (num<0) ? -10 : 10;
-    for (i = 2; i <= 10; i++) {
+    for (i = 1; i <= 10; i++)
+    {
         temp[i] = num % 10 + '0';
         num /= 10;
     }
@@ -305,14 +294,12 @@ static void		_prtl10(
         *str++ = temp[i--];
 }
 
-/*------------------------------------------------------------------------
- *  _prtl8  -  Converts long to base 8 string.
- *------------------------------------------------------------------------
+/**
+ * Prints
+ * @param num
+ * @param *str
  */
-static void	_prtl8(
-		  long		num,
-		  char		*str
-		)
+static void _prtl8(long num, char *str)
 {
     int i;
     char temp[12];
@@ -331,14 +318,12 @@ static void	_prtl8(
         *str++ = temp[i--];
 }
 
-/*------------------------------------------------------------------------
- *  _prtl16  -  Converts long to lowercase hex string.
- *------------------------------------------------------------------------
+/**
+ * Prints
+ * @param num
+ * @param *str
  */
-static void	_prtl16(
-		  long		num,
-		  char		*str
-		)
+static void _prtl16(long num, char *str)
 {
     int i;
     char temp[9];
@@ -356,14 +341,12 @@ static void	_prtl16(
         *str++ = temp[i--];
 }
 
-/*------------------------------------------------------------------------
- *  _prtX16  -  Converts long to uppercase hex string.
- *------------------------------------------------------------------------
+/**
+ * Prints
+ * @param num
+ * @param *str
  */
-static void	_prtX16(
-		  long		num,
-		  char		*str
-		)
+static void _prtX16(long num, char *str)
 {
     int i;
     char temp[9];
@@ -381,14 +364,12 @@ static void	_prtX16(
         *str++ = temp[i--];
 }
 
-/*------------------------------------------------------------------------
- *  _prtl2  -  Converts long to binary string.
- *------------------------------------------------------------------------
+/**
+ * Prints
+ * @param num
+ * @param *str
  */
-static void	_prtl2(
-		  long		num,
-		  char		*str
-		)
+static void _prtl2(long num, char *str)
 {
     int i;
     char temp[35];
@@ -404,29 +385,4 @@ static void	_prtl2(
         i++;
     while (i >= 0)
         *str++ = temp[i--];
-}
-
-/*------------------------------------------------------------------------
- *  _prtdbl  -  Converts double to binary string.
- *------------------------------------------------------------------------
- */
-static void	_prtdbl(
-		  double	num,
-		  int		precision,
-		  char		*str
-		)
-{
-    int i,mp;
-    long w,p;
- 
-	for(i = 0, mp = 1; i < precision; i++, mp *= 10);
-    
-    num = ((num<0) ? -(num) : (num));
-    w = (long)(num);
-    p = (long)(num * mp) - (long)(w * mp);
-    
-    _prtl10(w, str);
-    while(*str != '\0') { str++; }
-    *str++ = '.';
-    _prtl10(p, str);
 }

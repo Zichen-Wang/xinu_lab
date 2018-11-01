@@ -87,11 +87,6 @@ devcall	lfsopen (
 		signal(Lf_data.lf_mutex);
 		return SYSERR;
 	    }
-	    if (lfscheck(dirptr) == SYSERR ) {
-		kprintf("Disk does not contain a Xinu file system\n");
-		signal(Lf_data.lf_mutex);
-		return SYSERR;
-	    }
 	    Lf_data.lf_dirpresent = TRUE;
 	}
 
@@ -163,7 +158,7 @@ devcall	lfsopen (
 
 	to = lfptr->lfname;
 	from = name;
-	while ( (*to++ = *from++) != NULLCH ) {
+	while ( (*to = *from++) != NULLCH ) {
 		;
 	}
 

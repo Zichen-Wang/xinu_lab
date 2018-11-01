@@ -1,4 +1,10 @@
-/* sscanf.c - sscanf, sgetch, sungetch */
+/**
+ * @file sscanf.c
+ * @provides sscanf, sgetch, sungetch.
+ *
+ * $Id: sscanf.c 2020 2009-08-13 17:50:08Z mschul $
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
 #define EOF   (-2)
 
@@ -8,16 +14,14 @@ extern int _doscan(register char *, register int **,
                    int (*getc) (int, char **),
                    int (*ungetc) (int, char **), int, int);
 
-/*------------------------------------------------------------------------
- *  sscanf  -  Read from a string according to a format.
- *			   Return result of _doscan.
- *------------------------------------------------------------------------
+/**
+ * Read from a string according to a format.
+ * @param *str string to read from
+ * @param *fmt format string
+ * @param args number of arguments in format string
+ * @return result of _doscan
  */
-int	sscanf(
-	  char		*str,		/* String to read from		*/
-	  char		*fmt,		/* Format string		*/
-	  int		args		/* Num of args in format string	*/
-	)
+int sscanf(char *str, char *fmt, int args)
 {
     char *s;
 
@@ -25,26 +29,22 @@ int	sscanf(
     return (_doscan(fmt, (int **)&args, sgetch, sungetch, 0, (int)&s));
 }
 
-/*------------------------------------------------------------------------
- *  sgetch  -  Get the next character from a string
- *------------------------------------------------------------------------
+/**
+ * Get the next character from a string.
+ * @param dummy unused variable
+ * @param cpp string to read next character from
  */
-static int	sgetch(
-		  int		dummy,	/* Dummy unused variable	*/
-		  char		**cpp	/* String to use		*/
-		)
+static int sgetch(int dummy, char **cpp)
 {
     return (*(*cpp) == '\0' ? EOF : *(*cpp)++);
 }
 
-/*------------------------------------------------------------------------
- *  sungetch  -  Pushback a character in a string
- *------------------------------------------------------------------------
+/**
+ * Pushback a character in a string.
+ * @param dummy unused variable
+ * @param cpp string to pushback character to
  */
-static int	sungetch(
-		  int		dummy,	/* Dummy unused variable	*/
-		  char		**cpp	/* String for pushback		*/
-		)
+static int sungetch(int dummy, char **cpp)
 {
     return (*(*cpp)--);
 }

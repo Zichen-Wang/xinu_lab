@@ -2,17 +2,17 @@
 
 #include <xinu.h>
 
-#define	MAXSECONDS	2147483		/* Max seconds per 32-bit msec	*/
+#define	MAXSECONDS	4294967		/* Max seconds per 32-bit msec	*/
 
 /*------------------------------------------------------------------------
  *  sleep  -  Delay the calling process n seconds
  *------------------------------------------------------------------------
  */
 syscall	sleep(
-	  int32	delay		/* Time to delay in seconds	*/
+	  uint32	delay		/* Time to delay in seconds	*/
 	)
 {
-	if ( (delay < 0) || (delay > MAXSECONDS) ) {
+	if (delay > MAXSECONDS) {
 		return SYSERR;
 	}
 	sleepms(1000*delay);
@@ -24,36 +24,19 @@ syscall	sleep(
  *------------------------------------------------------------------------
  */
 syscall	sleepms(
-	  int32	delay			/* Time to delay in msec.	*/
+	  uint32	delay		/* Time to delay in msec.	*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/
 
-	if (delay < 0) {
-		return SYSERR;
-	}
-
-
+	mask = disable();
 	if (delay == 0) {
 		yield();
+		restore(mask);
 		return OK;
 	}
 
 	/* Delay calling process */
-
-	mask = disable();
-
-	/*
-	 * User: wang4113
-	 * date: 09/19/2018
-	 */
-	/* Lab2 5.4: In R3 mode, if a process voluntarily relinquishes the CPU,
-	 *   its priority is elevated to IOPRIO	*/
-	if (XINUSCHED == 1) {
-        if (currpid != NULLPROC && proctab[currpid].prrms == FALSE)
-        	/* The priority of prnull process or real-time processshould remain unchanged	*/
-	        proctab[currpid].prprio = IOPRIO;
-	}
 
 	if (insertd(currpid, sleepq, delay) == SYSERR) {
 		restore(mask);

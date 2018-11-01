@@ -1,14 +1,19 @@
-/* strstr.c - strstr */
-
-/*------------------------------------------------------------------------
- *  strstr  -  Return a pointer to the location in a string at which a
- *			substring appears or NULL if not found
- *------------------------------------------------------------------------
+/**
+ * @file strstr.c
+ * @provides strstr.
+ *
+ * $Id: strstr.c 2020 2009-08-13 17:50:08Z mschul $
  */
-char	*strstr(
-	  const char	*cs,		/* String to search		*/
-	  const char	*ct		/* Substring to locate		*/
-	)
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+/**
+ * Returns a pointer to the location in a string at which a particular
+ * string appears.
+ * @param cs string to search
+ * @param ct string to locate
+ * @return the pointer in the string, NULL if string not found
+ */
+char *strstr(const char *cs, const char *ct)
 {
     char *cq;
     char *cr;

@@ -427,25 +427,10 @@ _Xint32:
 	pushl	$32
 	jmp	Xtrap
 
-/*
- * User: wang4113
- * date: 09/19/2018
- */
-/* Lab2 4: interrupt #33 is used as system call   */
 	.globl  _Xint33			/* available for ext. interrupt	*/
 _Xint33:
 	pushl	%ebp
 	movl	%esp,%ebp
-	cmpl    $3, %eax        /* check whether EAX (syscall number) equals 3 or not        */
-	jne     _Trap33         /* false: undefined syscall number; jump to _Trap33 and trap */
-    cli			            /* disable further interrupts   */
-	call    getpid          /* true:  call syscall handler getpid() which will save the current pid in EAX   */
-	sti			            /* restore interrupt status     */
-	movl    %ebp, %esp      /* restore stack point  */
-	popl    %ebp            /* restore stack frame  */
-	iret                    /* 'iret' is used to return from an interrupt   */
-
-_Trap33:                    /* _Trap33 flag used to deal with undefined syscall number  */
 	pushal
 	movl	%esp, %eax
 	pushl	%eax

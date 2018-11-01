@@ -47,41 +47,11 @@ struct procent {		/* Entry in the process table		*/
 	char	*prstkbase;	/* Base of run time stack		*/
 	uint32	prstklen;	/* Stack length in bytes		*/
 	char	prname[PNMLEN];	/* Process name				*/
-	sid32	prsem;		/* Semaphore on which process waits	*/
+	uint32	prsem;		/* Semaphore on which process waits	*/
 	pid32	prparent;	/* ID of the creating process		*/
 	umsg32	prmsg;		/* Message sent to this process		*/
 	bool8	prhasmsg;	/* Nonzero iff msg is valid		*/
 	int16	prdesc[NDESC];	/* Device descriptors for process	*/
-
-	/*
-	 * User: wang4113
-	 * date: 09/19/2018
-	 */
-	uint32	pgrosscpu;	/* Lab2 3.2: To record the gross CPU usage of a process	*/
-	uint32	pwaittime;	/* Lab2 3.3: The tot waiting time of a process	*/
-	uint32	pwaitcount;	/* Lab2 3.3: The waiting count of a process	*/
-	uint32	pstartwait;	/* Lab2 3.3: The time stamp when a process becomes ready	*/
-    /*
-     * User: wang4113
-     * date: 10/03/2018
-     */
-    uint32  pvirtcpu;   /* Lab3 3.2: The virtual CPU usage of the process   */
-
-	/*
-     * User: wang4113
-     * date: 10/08/2018
-     */
-	bool8	prrms;		/* Lab3 4.1: a flag that identifies an RMS process	*/
-	uint16	prct;		/* Lab3 4.1: an RMS process computation time	*/
-	uint16	prperiod;	/* Lab3 4.1: an RMS process's period		*/
-
-	/*
-	 * User: wang4113
-	 * date: 10/21/2018
-	*/
-	void (* callback_func) (void);	/* Lab4 3: pointer to callback function	*/
-
-	struct xsigtab prsig[SIGNUM];	/* Lab4 4: a per-process signal table that specifies its signal disposition.	*/
 };
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/
@@ -90,29 +60,3 @@ struct procent {		/* Entry in the process table		*/
 extern	struct	procent proctab[];
 extern	int32	prcount;	/* Currently active processes		*/
 extern	pid32	currpid;	/* Currently executing process		*/
-
-/*
-* User: wang4113
-* date: 10/03/2018
-*/
-
-#define	IOPRIO		100		/* Lab2 5.3: The priority of a process which blocks.	*/
-#define	XINUSCHED	1		/* Lab2 5.4 & Lab3 3.2: In which mode the scheduler operates.
-							 * 0: legacy mode
-							 * 1: R3 mode
-							 * 2: CFS mode
-							 */
-
-/*
-* User: wang4113
-* date: 10/03/2018
-*/
-
-#define MAXPRIO		32767	/* Lab3 3.2: MAXPRIO is the largest value that XINU's pri16 type can hold.	*/
-
-/*
-* User: wang4113
-* date: 09/20/2018
-*/
-/* Lab2 5.5: The parameters of performance evaluation of R3	*/
-#define IOSLEEP		100

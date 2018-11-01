@@ -16,7 +16,7 @@ TOPDIR		=	..
 CC		=	${COMPILER_ROOT}gcc
 LD		=	${COMPILER_ROOT}ld
 OBJCOPY		=	${COMPILER_ROOT}objcopy
-XINU		=	$(TOPDIR)/compile/xinu
+XINU		=	$(TOPDIR)/compile/xinu.elf
 XINUBIN		=	$(TOPDIR)/compile/xinu.bin
 XINUXBIN	=	$(TOPDIR)/compile/xinu.xbin
 MAKEXBIN 	=	$(TOPDIR)/compile/bin/buildxbin
@@ -24,6 +24,7 @@ BUILDMAKE	=	$(TOPDIR)/compile/bin/build-make
 
 MAKEDEP		=	$(CC) -M -MG
 
+TGT		=	xinu
 DEPSFILE	=	.deps
 DEFSFILE	=	.defs
 VERSIONFILE	=	version
@@ -40,7 +41,8 @@ REBUILDFLAGS	=	-s $(TOPDIR)/system  debug.c		\
 			-s $(TOPDIR)/device/rfs			\
 			-s $(TOPDIR)/net  'arp_dump*'  		\
 				'dhcp_dump*'  pxe.c		\
-			-s $(TOPDIR)/shell  'xsh_rdstest*'
+			-s $(TOPDIR)/shell  'xsh_rdstest*'	\
+			-s $(TOPDIR)/paging
 
 INCLUDE		=	-I$(TOPDIR)/include
 DEFS		= 	-DBSDURG -DVERSION=\""`cat $(VERSIONFILE)`"\"
@@ -52,7 +54,7 @@ SFLAGS  = ${INCLUDE}
 # Loader flags
 LDFLAGS = -dn -m elf_i386 -Map xinu.map -T $(LDSCRIPT)
 
-all:	xinu
+all:	$(TGT)
 
 #--------------------------------------------------------------------------------
 # Handle generation of a new version string when initialize is recompiled
@@ -128,7 +130,7 @@ configure:
 	@echo forcing a rebuild of conf.h and conf.c
 	@make newversion
 	@(cd $(TOPDIR)/config; make install)
-
+	
 clean:
 	@echo removing .o files
 	@rm -f ${LD_LIST}
@@ -144,13 +146,11 @@ clean:
 #--------------------------------------------------------------------------------
 	
 $(DEFSFILE):
-	@rm -f $(DEFSFILE)
-	@echo "" > $(DEFSFILE)
-	@make rebuild
+	@touch $(DEFSFILE)
+	make rebuild
 
 $(DEPSFILE):
-	@rm -f $(DEPSFILE)
-	@echo "" > $(DEPSFILE)
+	@touch $(DEPSFILE)
 	@make depend
 
 rebuild: $(CONFC)
@@ -159,7 +159,7 @@ rebuild: $(CONFC)
 
 defclean:
 	rm -f $(DEFSFILE)
-	echo "" > $(DEFSFILE)
+	touch $(DEFSFILE)
 
 depend: $(DEFSFILE)
 	@echo;echo Making all dependencies in $(DEPSFILE)
@@ -168,6 +168,6 @@ depend: $(DEFSFILE)
 
 depclean:
 	rm -f $(DEPSFILE)
-	echo "" > $(DEPSFILE)
+	touch $(DEPSFILE)
 
 -include $(DEPSFILE)

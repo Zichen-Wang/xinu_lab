@@ -1,4 +1,10 @@
-/* qsort.c - qsort, qs1, qsexc, qstexc */
+/**
+ * @file qsort.c
+ * @provides qsort, qs1, qsexc, qstexc.
+ *
+ * $Id: qsort.c 2020 2009-08-13 17:50:08Z mschul $
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
 static int (*qscmp) (char *, char *);
 static int qses;
@@ -6,30 +12,21 @@ static void qs1(char *, char *);
 static void qsexc(char *, char *);
 static void qstexc(char *, char *, char *);
 
-/*------------------------------------------------------------------------
- *  qsort  -  Use quicksort to sort an array
- *------------------------------------------------------------------------
+/**
+ * Performs a quick sort
+ * @param *a array to sort
+ * @param n length of the array
+ * @param es pivot
+ * @param (*fc)() comparison function
  */
-void	qsort(
-	  char		*a,		/* Array to sort		*/
-	  unsigned	n,		/* Length of the array		*/
-	  int		es,		/* Pivot value			*/
-	  int		(*fc)(char *, char *)	/* Comparison function	*/
-	)
+void qsort(char *a, unsigned n, int es, int (*fc) (char *, char *))
 {
     qscmp = fc;
     qses = es;
     qs1(a, a + n * es);
 }
 
-/*------------------------------------------------------------------------
- *  qs1  -  internal quicksort function
- *------------------------------------------------------------------------
- */
-static void	qs1(
-		  char		*a,
-		  char		*l
-		)
+static void qs1(char *a, char *l)
 {
     register char *i, *j;
     register int es;
@@ -109,14 +106,7 @@ static void	qs1(
     }
 }
 
-/*------------------------------------------------------------------------
- *  qsexc  -  internal quicksort function
- *------------------------------------------------------------------------
- */
-static void	qsexc(
-		  char		*i,
-		  char		*j
-		)
+static void qsexc(char *i, char *j)
 {
     register char *ri, *rj, c;
     int n;
@@ -133,15 +123,7 @@ static void	qsexc(
     while (--n);
 }
 
-/*------------------------------------------------------------------------
- *  qstexc  -  internal quicksort function
- *------------------------------------------------------------------------
- */
-static void	qstexc(
-		  char		*i,
-		  char		*j,
-		  char		*k
-		)
+static void qstexc(char *i, char *j, char *k)
 {
     register char *ri, *rj, *rk;
     int c;

@@ -102,7 +102,7 @@ extern	struct	rdscblk	rdstab[];	/* Remote disk control block	*/
 
 /* Definitions of parameters used during server access */
 
-#define	RD_RETRIES	3		/* Times to retry sending a msg	*/
+#define	RD_RETRIES	10		/* Times to retry sending a msg	*/
 #define	RD_TIMEOUT	2000		/* Timeout for reply (2 seconds)*/
 
 /* Control functions for a remote file pseudo device */

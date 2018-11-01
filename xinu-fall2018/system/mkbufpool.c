@@ -37,7 +37,6 @@ bpid32	mkbufpool(
 	bpptr->bpnext = (struct bpentry *)buf;
 	bpptr->bpsize = bufsiz;
 	if ( (bpptr->bpsem = semcreate(numbufs)) == SYSERR) {
-		freemem(buf, numbufs * (bufsiz+sizeof(bpid32)) );
 		nbpools--;
 		restore(mask);
 		return (bpid32)SYSERR;

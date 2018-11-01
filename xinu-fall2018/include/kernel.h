@@ -24,6 +24,7 @@ typedef	uint32	intmask;	/* saved interrupt mask			*/
 typedef	int32	ibid32;		/* index block ID (used in file system)	*/
 typedef	int32	dbid32;		/* data block ID (used in file system)	*/
 typedef	int32	uid32;		/* ID for UDP table descriptor		*/
+typedef	uint32	bsd_t;		/* ID for backing store			*/
 
 /* Function declaration return types */
 
@@ -60,14 +61,7 @@ extern	qid16	readylist;	/* global ID for list of ready processes*/
 
 #define	CONTEXT	64		/* bytes in a function call context on	*/
 				/* the run-time stack			*/
-/*
- * User: wang4113
- * date: 09/19/2018
-*/
-
-//#define	QUANTUM	2		/* time slice in milliseconds		*/
-#define QUANTUM 25      /* Lab2 5.5: set QUANTUM to 25 msec     */
-
+#define	QUANTUM	2		/* time slice in milliseconds		*/
 
 /* Size of the stack for the null process */
 

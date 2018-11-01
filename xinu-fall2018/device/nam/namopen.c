@@ -23,7 +23,7 @@ devcall	namopen(
 		return SYSERR;
 	}
 
-	/* Open underlying device and return status */
+	/* open underlying device and return status */
 
 	return  open(newdev, newname, mode);
 }

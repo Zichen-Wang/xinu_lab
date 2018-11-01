@@ -132,7 +132,7 @@ int32	eth_phy_reset	(
 			return SYSERR;
 	}
 
-	DELAY(100000);
+	DELAY(ETH_QUARK_INIT_DELAY);
 
 	kprintf("Ethernet Link is Up\n");
 
@@ -249,6 +249,7 @@ int32	ethinit (
 	if((int)ethptr->osem == SYSERR) {
 		return SYSERR;
 	}
+	ethptr->txHead = ethptr->txTail = 0;
 
 	ethptr->rxRingSize = ETH_QUARK_RX_RING_SIZE;
 
@@ -297,6 +298,7 @@ int32	ethinit (
 	if((int)ethptr->isem == SYSERR) {
 		return SYSERR;
 	}
+	ethptr->rxHead = ethptr->rxTail = 0;
 
 	/* Enable the Transmit and Receive Interrupts */
 	csrptr->ier = (	ETH_QUARK_IER_NIE |

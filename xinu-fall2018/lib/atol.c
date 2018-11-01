@@ -1,12 +1,17 @@
-/* atol.c - atol */
-
-/*------------------------------------------------------------------------
- *  atol  -  Converts an ascii value to a long.
- *------------------------------------------------------------------------
+/**
+ * @file atol.c
+ * @provides atol.
+ *
+ * $Id: atol.c 2020 2009-08-13 17:50:08Z mschul $
  */
-long	atol(
-		  char		*p
-		)
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+/**
+ * Converts an ascii value to a long.
+ * @param *p pointer to ascii string
+ * @return long
+ */
+long atol(char *p)
 {
     long n;
     int f;

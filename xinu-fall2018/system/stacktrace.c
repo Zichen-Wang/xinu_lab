@@ -13,12 +13,11 @@ syscall stacktrace(int pid)
 {
 	struct procent	*proc = &proctab[pid];
 	unsigned long	*sp, *fp;
-
 	if (pid != 0 && isbadpid(pid))
 		return SYSERR;
 	if (pid == currpid) {
-		asm("movl %esp,esp");
-		asm("movl %ebp,ebp");
+		asm("movl %esp, esp");
+		asm("movl %ebp, ebp");
 		sp = esp;
 		fp = ebp;
 	} else {

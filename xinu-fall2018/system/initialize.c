@@ -1,4 +1,4 @@
-/* initialize.c - nulluser, sysinit */
+/* initialize.c - nulluser, sysinit, sizmem */
 
 /* Handle system initialization and become the null process */
 
@@ -9,11 +9,11 @@ extern	void	start(void);	/* Start of Xinu code			*/
 extern	void	*_end;		/* End of Xinu code			*/
 
 /* Function prototypes */
-extern	void welcome(void); /* Display the welcome message		*/
+
 extern	void main(void);	/* Main is the first process created	*/
+extern	void xdone(void);	/* System "shutdown" procedure		*/
 static	void sysinit(); 	/* Internal system initialization	*/
 extern	void meminit(void);	/* Initializes the free memory list	*/
-local	process startup(void);	/* Process to finish startup tasks	*/
 
 /* Declarations of major kernel variables */
 
@@ -26,11 +26,8 @@ struct	memblk	memlist;	/* List of free memory blocks		*/
 int	prcount;		/* Total number of live processes	*/
 pid32	currpid;		/* ID of currently executing process	*/
 
-
-/* Control sequence to reset the console colors and cusor position	*/
-
-#define	CONSOLE_RESET	" \033[0m\033[2J\033[;H"
-
+bool8   PAGE_SERVER_STATUS;    /* Indicate the status of the page server */
+sid32   bs_init_sem;
 /*------------------------------------------------------------------------
  * nulluser - initialize the system and become the null process
  *
@@ -51,9 +48,11 @@ void	nulluser()
 	uint32	free_mem;		/* Total amount of free memory	*/
 	
 	/* Initialize the system */
-
+		
 	sysinit();
 
+	kprintf("\n\r%s\n\n\r", VERSION);
+	
 	/* Output Xinu memory layout */
 	free_mem = 0;
 	for (memptr = memlist.mnext; memptr != NULL;
@@ -62,7 +61,7 @@ void	nulluser()
 	}
 	kprintf("%10d bytes of free memory.  Free list:\n", free_mem);
 	for (memptr=memlist.mnext; memptr!=NULL;memptr = memptr->mnext) {
-	    kprintf("           [0x%08X to 0x%08X]\n",
+	    kprintf("           [0x%08X to 0x%08X]\r\n",
 		(uint32)memptr, ((uint32)memptr) + memptr->mlength - 1);
 	}
 
@@ -75,77 +74,33 @@ void	nulluser()
 	kprintf("           [0x%08X to 0x%08X]\n\n",
 		(uint32)&data, (uint32)&ebss - 1);
 
+	/* Create the RDS process */
+
+	rdstab[0].rd_comproc = create(rdsprocess, RD_STACK, RD_PRIO,
+					"rdsproc", 1, &rdstab[0]);
+	if(rdstab[0].rd_comproc == SYSERR) {
+		panic("Cannot create remote disk process");
+	}
+	resume(rdstab[0].rd_comproc);
+
 	/* Enable interrupts */
 
 	enable();
 
-        /* Limit network relevant calls for CS503 courses   */
-	///* Initialize the network stack and start processes */
+	/* Create a process to execute function main() */
 
-	//net_init();
-
-	/* Lab1 3.2: Display the welcome message */
-	welcome();
-
-	/* Create a process to finish startup and start main */
-
-	resume(create((void *)startup, INITSTK, INITPRIO,
-					"Startup process", 0, NULL));
+	resume (
+	   create((void *)main, INITSTK, INITPRIO, "Main process", 0,
+           NULL));
 
 	/* Become the Null process (i.e., guarantee that the CPU has	*/
 	/*  something to run when no other process is ready to execute)	*/
 
-
-//	while (TRUE) {
-//		;		/* Do nothing */
-//	}
-
-    /* Lab1 3.1: An alternative way to do nothing forever. */
-    halt();
+	while (TRUE) {
+		;		/* Do nothing */
+	}
 
 }
-
-
-/*------------------------------------------------------------------------
- *
- * startup  -  Finish startup takss that cannot be run from the Null
- *		  process and then create and resumethe main process
- *
- *------------------------------------------------------------------------
- */
-local process	startup(void)
-{
-        /* Limit network relevant calls for CS503 courses   */
-	//uint32	ipaddr;			/* Computer's IP address	*/
-	//char	str[128];		/* String used to format output	*/
-
-
-	///* Use DHCP to obtain an IP address and format it */
-
-	//ipaddr = getlocalip();
-	//if ((int32)ipaddr == SYSERR) {
-	//	kprintf("Cannot obtain an IP address\n");
-	//} else {
-	//	/* Print the IP in dotted decimal and hex */
-	//	ipaddr = NetData.ipucast;
-	//	sprintf(str, "%d.%d.%d.%d",
-	//		(ipaddr>>24)&0xff, (ipaddr>>16)&0xff,
-	//		(ipaddr>>8)&0xff,        ipaddr&0xff);
-	//
-	//	kprintf("Obtained IP address  %s   (0x%08x)\n", str,
-	//							ipaddr);
-	//}
-
-	/* Create a process to execute function main() */
-
-	resume(create((void *)main, INITSTK, INITPRIO,
-					"Main process", 0, NULL));
-
-	/* Startup process exits at this point */
-
-	return OK;
-}
-
 
 /*------------------------------------------------------------------------
  *
@@ -162,11 +117,6 @@ static	void	sysinit()
 	/* Platform Specific Initialization */
 
 	platinit();
-
-	/* Reset the console */
-
-	kprintf(CONSOLE_RESET);
-	kprintf("\n%s\n\n", VERSION);
 
 	/* Initialize the interrupt vectors */
 
@@ -205,23 +155,6 @@ static	void	sysinit()
 	prptr->prstkbase = getstk(NULLSTK);
 	prptr->prstklen = NULLSTK;
 	prptr->prstkptr = 0;
-	/*
-	 * User: wang4113
-	 * date: 10/11/2018
-	 */
-
-	prptr -> pvirtcpu = 0;	/* Initialize the virtual CPU usage of Null process	*/
-	prptr -> prrms = FALSE;	/* Initialize rms flag of Null process to FALSE		*/
-
-	/*
-	 * User: wang4113
-	 * date: 10/17/2018
-	 */
-	prptr -> callback_func = NULL;	/* Initialize the pointer of callback function of Null process to NULL		*/
-
-	for (i = 0; i < SIGNUM; i++)	/* Initialize signal registration of Null process to FALSE		*/
-		((prptr -> prsig)[i]).regyes = FALSE;
-
 	currpid = NULLPROC;
 	
 	/* Initialize semaphores */
@@ -248,6 +181,10 @@ static	void	sysinit()
 	for (i = 0; i < NDEVS; i++) {
 		init(i);
 	}
+
+        PAGE_SERVER_STATUS = PAGE_SERVER_INACTIVE;
+        bs_init_sem = semcreate(1);
+
 	return;
 }
 

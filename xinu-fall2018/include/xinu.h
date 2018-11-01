@@ -2,13 +2,6 @@
 
 #include <kernel.h>
 #include <conf.h>
-
-/*
- * User: wang4113
- * date: 10/18/2018
- */
-#include <xsignal.h>
-
 #include <process.h>
 #include <queue.h>
 #include <resched.h>
@@ -27,6 +20,7 @@
 #include <rdisksys.h>
 #include <lfilesys.h>
 #include <ether.h>
+#include <gpio.h>
 #include <net.h>
 #include <ip.h>
 #include <arp.h>
@@ -37,12 +31,6 @@
 #include <name.h>
 #include <shell.h>
 #include <date.h>
-/*
- * User: wang4113
- * date: 10/08/2018
- */
-#include <rms.h>    /* Add the rms header file  */
-
 #include <prototypes.h>
 #include <delay.h>
 #include <pci.h>
@@ -52,3 +40,5 @@
 #include <multiboot.h>
 #include <stdio.h>
 #include <string.h>
+#include <paging.h>
+#include <page_server.h>

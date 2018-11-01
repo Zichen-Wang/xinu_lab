@@ -5,7 +5,6 @@
 #include <stdio.h>
 
 static	uint32	parseval(char *);
-extern	uint32	start;
 
 /*------------------------------------------------------------------------
  * xsh_memdump - dump a region of memory by displaying values in hex
@@ -15,8 +14,7 @@ extern	uint32	start;
 shellcmd xsh_memdump(int nargs, char *args[])
 {
 	bool8	force = FALSE;		/* ignore address sanity checks	*/
-	uint32	begin;			/* begining address		*/
-	uint32	stop;			/* last address to dump		*/
+	uint32	start;			/* starting address		*/
 	uint32	length;			/* length of region to dump	*/
 	int32	arg;			/* index into args array	*/
 	uint32	l;			/* counts length during dump	*/
@@ -28,16 +26,16 @@ shellcmd xsh_memdump(int nargs, char *args[])
 	/* For argument '--help', emit help about the 'memdump' command	*/
 
 	if (nargs == 2 && strncmp(args[1], "--help", 7) == 0) {
-		printf("Use: %s [-f] Address Length\n\n", args[0]);
+		printf("Use: %s [-f] START LENGTH\n\n", args[0]);
 		printf("Description:\n");
-		printf("\tDumps Length bytes of memory begining at the\n");
-		printf("\tspecified starting address (both the address\n");
-		printf("\tand length can be specified in decimal or hex)\n");
+		printf("\tDumps a LENGTH bytes of memory starting at\n");
+		printf("\tthe specified START address (both START and\n");
+		printf("\tLENGTH can be specified in decimal or hex)\n");
 		printf("Options:\n");
-		printf("\t-f         ignore sanity checks for addresses\n");
-		printf("\tAddress    memory address at which to start\n");
-		printf("\tLength     the number of bytes to dump\n");
-		printf("\t--help     display this help and exit\n");
+		printf("\t-f\t\tignore sanity checks for addresses\n");
+		printf("\tSTART\t\tmemory address at which to start\n");
+		printf("\tLENGTH\tnumber of bytes to dump\n");
+		printf("\t--help\t display this help and exit\n");
 		return 0;
 	}
 
@@ -65,8 +63,8 @@ shellcmd xsh_memdump(int nargs, char *args[])
 		return 1;
 	}
 
-	if ( (begin=parseval(args[arg])) == 0 ) {
-		fprintf(stderr, "%s: invalid begining address\n",
+	if ( (start=parseval(args[arg])) == 0 ) {
+		fprintf(stderr, "%s: invalid starting address\n",
 				args[0]);
 		return 1;
 	}
@@ -76,27 +74,22 @@ shellcmd xsh_memdump(int nargs, char *args[])
 		return 1;
 	}
 
-	/* Round begining address down to multiple of four and round	*/
+	/* Round starting address down to multiple of four and round	*/
 	/*	length up to a multiple of four				*/
 
-	begin &= ~0x3;
+	start &= ~0x3;
 	length = (length + 3) & ~0x3;
-
-	/* Add length to begin address */
-
-	stop = begin + length;
 
 	/* verify that the address and length are reasonable */
 
-	if ( force || ( (begin >= (uint32)&start) && (stop > begin) &&
-					(((void *)stop) < maxheap)) ) {
+	if (force) {
 
 		/* values are valid; perform dump */
 
-		chptr = (char *)begin;
+		chptr = (char *)start;
 		for (l=0; l<length; l+=16) {
-			printf("%08x: ", begin);
-			addr = (uint32 *)begin;
+			printf("%08x: ", start);
+			addr = (uint32 *)start;
 			for (i=0; i<4; i++) {
 				printf("%08x ",*addr++);
 			}
@@ -110,12 +103,11 @@ shellcmd xsh_memdump(int nargs, char *args[])
 				}
 			}
 			printf("*\n");
-			begin += 16;
+			start += 16;
 		}
 		return 0;
-	} else {
-		printf("Values are out of range; use -f to force\n");
 	}
+	printf("Values are out of range; use -f to force\n");
 	return 1;
 }
 

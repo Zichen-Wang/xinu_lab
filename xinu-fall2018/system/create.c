@@ -4,13 +4,15 @@
 
 local	int newpid();
 
+#define	roundew(x)	( (x+3)& ~0x3)
+
 /*------------------------------------------------------------------------
  *  create  -  Create a process to start running a function on x86
  *------------------------------------------------------------------------
  */
 pid32	create(
 	  void		*funcaddr,	/* Address of the function	*/
-	  uint32	ssize,		/* Stack size in bytes		*/
+	  uint32	ssize,		/* Stack size in words		*/
 	  pri16		priority,	/* Process priority > 0		*/
 	  char		*name,		/* Name (for debugging)		*/
 	  uint32	nargs,		/* Number of args that follow	*/
@@ -25,19 +27,13 @@ pid32	create(
 	uint32		*a;		/* Points to list of args	*/
 	uint32		*saddr;		/* Stack address		*/
 
-	/*
-	 * User: wang4113
-	 * date: 10/07/2018
-	 */
-	qid16   curr;           /* Lab3 3.2: Runs through items in a queue   */
-	uint32  max_pvirtcpu;   /* Lab3 3.2: Maximum virtual CPU usage      */
-
 	mask = disable();
 	if (ssize < MINSTK)
 		ssize = MINSTK;
-	ssize = (uint32) roundmb(ssize);
-	if ( (priority < 1) || ((pid=newpid()) == SYSERR) ||
-	     ((saddr = (uint32 *)getstk(ssize)) == (uint32 *)SYSERR) ) {
+	ssize = (uint32) roundew(ssize);
+	if (((saddr = (uint32 *)getstk(ssize)) ==
+	    (uint32 *)SYSERR ) ||
+	    (pid=newpid()) == SYSERR || priority < 1 ) {
 		restore(mask);
 		return SYSERR;
 	}
@@ -47,46 +43,7 @@ pid32	create(
 
 	/* Initialize process table entry for new process */
 	prptr->prstate = PR_SUSP;	/* Initial state is suspended	*/
-	/*
-	 * User: wang4113
-	 * date: 10/08/2018
-	 */
-	if (XINUSCHED == 0) {        /* Lab2 5.3: If in legacy mode, the priority is equal to the argument 'priority' */
-		if (priority >= 29000) {
-			/* Lab3 4.3: To ensure that non-real-time process priorities do not exceed 29000,
- 			* so that process creation with static priority greater than or equal to 29000 is not allowed	*/
-			restore(mask);
-			return (pid32) SYSERR;
-		}
-		prptr->prprio = priority;
-	}
-	else if (XINUSCHED == 1)	/* Lab2 5.3: If in R3 mode, the initial priority is equal to INITPRIO	*/
-		prptr->prprio = INITPRIO;
-	else if (XINUSCHED == 2) {
-		/* Lab3 3.2: If in CFS mode, set virtual CPU usage first, and set its priority	*/
-		/* Find maximum CPU usage across all ready/current processes */
-
-		/* Initialize max_pvirtcpu to zero */
-		max_pvirtcpu = 0;
-
-		/* Scan the ready list to find the process with maximum virtual CPU usage   */
-		curr = firstid(readylist);
-		while (curr != queuetail(readylist)) {
-			if (curr != NULLPROC && max_pvirtcpu < proctab[curr].pvirtcpu) {
-				max_pvirtcpu = proctab[curr].pvirtcpu;  /* Update the maximum virtual CPU usage */
-			}
-			curr = queuetab[curr].qnext;
-		}
-
-		/*	Compare to current process virtual CPU usage	*/
-		int nowvirtcpu = proctab[currpid].pvirtcpu + currproctime;
-		if (max_pvirtcpu < nowvirtcpu)
-			max_pvirtcpu = nowvirtcpu;
-		prptr -> pvirtcpu = max_pvirtcpu;			/* Set the virtual CPU usage of the new process    */
-		prptr -> prprio = MAXPRIO - max_pvirtcpu;   /* Set the priority of the new process    */
-	}
-
-
+	prptr->prprio = priority;
 	prptr->prstkbase = (char *)saddr;
 	prptr->prstklen = ssize;
 	prptr->prname[PNMLEN-1] = NULLCH;
@@ -110,12 +67,12 @@ pid32	create(
 	a = (uint32 *)(&nargs + 1);	/* Start of args		*/
 	a += nargs -1;			/* Last argument		*/
 	for ( ; nargs > 0 ; nargs--)	/* Machine dependent; copy args	*/
-		*--saddr = *a--;	/* onto created process's stack	*/
+		*--saddr = *a--;	/*   onto created process' stack*/
 	*--saddr = (long)INITRET;	/* Push on return address	*/
 
 	/* The following entries on the stack must match what ctxsw	*/
 	/*   expects a saved process state to contain: ret address,	*/
-	/*   ebp, interrupt mask, flags, registers, and an old SP	*/
+	/*   ebp, interrupt mask, flags, registerss, and an old SP	*/
 
 	*--saddr = (long)funcaddr;	/* Make the stack look like it's*/
 					/*   half-way through a call to	*/
@@ -139,35 +96,6 @@ pid32	create(
 	*--saddr = 0;			/* %esi */
 	*--saddr = 0;			/* %edi */
 	*pushsp = (unsigned long) (prptr->prstkptr = (char *)saddr);
-
-	/*
-	 * User: wang4113
-	 * date: 09/19/2018
-	 */
-	/* Lab2 3.2: Initialize the gross CPU usage of a process to zero	*/
-	prptr -> pgrosscpu = 0;
-
-	/* Lab2 3.3: Initialize the waiting count and waiting time of a process to zero	*/
-	prptr -> pwaittime = 0;
-	prptr -> pwaitcount = 0;
-	prptr -> pstartwait = 0;
-
-
-	/*
-	 * User: wang4113
-	 * date: 10/08/2018
-	 */
-	prptr -> prrms = FALSE;		/* Lab3 4.1: non-real-time process	*/
-
-	/*
-	 * User: wang4113
-	 * date: 10/17/2018
-	 */
-	prptr -> callback_func = NULL;	/* Initialize the pointer of callback function to NULL				*/
-
-	for (i = 0; i < SIGNUM; i++)	/* Initialize signal registration to FALSE		*/
-		((prptr -> prsig)[i]).regyes = FALSE;
-
 	restore(mask);
 	return pid;
 }

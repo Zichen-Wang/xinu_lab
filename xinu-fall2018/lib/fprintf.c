@@ -1,21 +1,23 @@
-/* fprintf.c - _fdoprnt */
+/**
+ * @file fprintf.c
+ * @provides fprintf.
+ *
+ * $Id: fprintf.c 2020 2009-08-13 17:50:08Z mschul $
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
 #include <xinu.h>
 #include <stdarg.h>
 
 extern void _fdoprnt(char *, va_list, int (*)(did32, char), int);
 
-/*------------------------------------------------------------------------
- *  fprintf  -  Print a formatted message on specified device (file).
- *			Return 0 if the output was printed successfully,
- *			and -1 if an error occurred.
- *------------------------------------------------------------------------
+/**
+ * Print a formatted message on specified device (file)
+ * @param dev device to write to
+ * @param *fmt format string
+ * @return 0 if the output was printed sucessfully, -1 if an error occured
  */
-int	fprintf(
-	  int		dev,		/* device to write to		*/
-	  char		*fmt,		/* format string		*/
-	  ...
-	)
+int fprintf(int dev, char *fmt, ...)
 {
     va_list ap;
     int putc(did32, char);
