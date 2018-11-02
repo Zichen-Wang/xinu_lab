@@ -38,7 +38,7 @@ void hook_pfault(char *addr)
 #endif
 }
 
-void hook_pswap_out(unsigned int pagenum, int framenb)
+void hook_pswap_out(unsigned int pagenum, int framenum)
 {
 #ifdef HOOK_SWITCH_ON
     kprintf("Replacing frame number %d, virtual page %d\n\n", framenum, pagenum);
