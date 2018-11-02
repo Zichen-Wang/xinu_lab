@@ -21,7 +21,7 @@ enable_paging:
 
         cli     /* Interrupt disabled   */
         movl    %cr0, %eax
-        orl     %eax, $0x80000000   /* Enable paging    */
+        or      $0x80000000, %eax   /* Enable paging    */
         movl    %eax, %cr0
 
         popfl   /* Restore EFLAGS   */
