@@ -243,6 +243,9 @@ static	void initialize_paging(void)
 
 	*(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4) = (uint32)shared_page_table[4];
 
+	for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++)
+		kprintf("[0x%08X] 0x%08X\n", (uint32)(prptr -> page_directory + i), *(prptr -> page_directory + i));
+
 	/* 5. Set the PDBR register to the page directory of the null process	*/
 	setCR3((uint32)(prptr -> page_directory));
 
