@@ -15,14 +15,14 @@
 #define F_PT            3
 #define F_PT_SHARED     4
 
-typedef struct {
+struct frame_t {
 
     uint16  fstate;      /* Define the status of a frame */
     pid32   pid;        /* Which process is using this frame?    */
 
     unsigned int virt_addr	: 20;   /* the virtual address of this frame    */
 
-} frame_t;
+};
 
 
 #define FRAME_NUM_OF_PAGE_TABLE     1000    /* number of frames for page directory or page table */
