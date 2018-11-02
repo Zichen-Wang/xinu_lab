@@ -34,6 +34,10 @@ typedef struct {
 #define FRAME_DIRECTORY_TABLE   0           /* Frame type used in findfframe()  */
 #define FRAME_VIRTUAL_HEAP      1           /* Frame type used in findfframe()  */
 
+/* in file paging_init.c    */
+extern  struct frame_t inverted_page_table[NFRAMES];
+
+extern  char * shared_page_table[5];
 
 /* in paging_init.c     */
 extern  void paging_init(void);
