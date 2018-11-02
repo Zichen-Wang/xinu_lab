@@ -28,4 +28,8 @@ void paging_init(void)
         inverted_page_table[i].fstate = F_FREE;
 
     }
+
+    for (i = 0; i < 5; i++) {
+        shared_page_table[i] = NULL;
+    }
 }
