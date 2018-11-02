@@ -48,13 +48,13 @@ void create_shared_pt(void)
             pt_entry -> pt_avail    = 0;
 
             if (t < 4)
-                pt_entry -> pt_base	    = NBPG * (t * PAGE_TABLE_ENTRIES + i);
+                pt_entry -> pt_base	= NBPG * (t * PAGE_TABLE_ENTRIES + i);
             else
-                pt_entry -> pt_base     = NBPG * (DEVICE_FRAME_BASE + i);
+                pt_entry -> pt_base = NBPG * (DEVICE_FRAME_BASE + i);
 
             pt_entry++;
         }
-
+        kprintf("page table address 0x%08X\n", (uint32)((pt_entry - 1) -> pt_base));
         shared_page_table[t] = (char *)(NBPG * (PAGE_TABLE_BASE + frame_num));
     }
 
