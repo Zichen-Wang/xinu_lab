@@ -239,12 +239,12 @@ static	void initialize_paging(void)
 
 	/* Assign shared page tables to page directory of null process	*/
 	for (i = 0; i < 4; i++)
-		*(prptr -> page_directory + i * 4) = (uint32)shared_page_table[i];
+		*(uint32*)(prptr -> page_directory + i * 4) = (uint32)shared_page_table[i];
 
 	*(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4) = (uint32)shared_page_table[4];
 
 	for (i = 0; i < 5; i++)
-		kprintf("0x%08X\n", *(prptr -> page_directory + i * 4));
+		kprintf("0x%08X\n", *(uint32*)(prptr -> page_directory + i * 4));
 
 	/*
 	for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++)
