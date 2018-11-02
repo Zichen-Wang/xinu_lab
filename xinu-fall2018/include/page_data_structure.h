@@ -31,8 +31,8 @@ struct frame_t {
 #define PAGE_DIRECTORY_ENTRIES 1024    /* number of entries for page directory */
 #define PAGE_TABLE_ENTRIES     1024    /* number of entries for page table */
 
-#define FRAME_DIRECTORY_TABLE   0           /* Frame type used in findfframe()  */
-#define FRAME_VIRTUAL_HEAP      1           /* Frame type used in findfframe()  */
+#define PAGE_DIRECTORY_TABLE   0           /* Frame type used in findfframe()  */
+#define PAGE_VIRTUAL_HEAP      1           /* Frame type used in findfframe()  */
 
 /* in file paging_init.c    */
 extern  struct frame_t inverted_page_table[NFRAMES];
