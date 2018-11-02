@@ -30,7 +30,7 @@ char * create_pd(pid32 pid)
 
 
     pd_entry = (pd_t *)(NBPG * (PAGE_TABLE_BASE + frame_num));
-    kprintf("%d\n", (uint32)(pd_entry));
+    kprintf("%0x%08X\n", (uint32)(pd_entry));
 
     /* Initialize the page directory    */
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {

@@ -34,7 +34,7 @@ void hook_pfault(char *addr)
 {
     page_fault_count++;
 #ifdef HOOK_SWITCH_ON
-    kprintf("Page fault for address %d\n\n", addr);
+    kprintf("Page fault for address 0x%08X\n\n", addr);
 #endif
 }
 

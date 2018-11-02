@@ -32,7 +32,7 @@ void create_shared_pt(void)
         hook_ptable_create(frame_num);
 
         pt_entry = (pt_t *)(NBPG * (PAGE_TABLE_BASE + frame_num));
-        kprintf("%d\n", (uint32)(pt_entry));
+        kprintf("%0x%08X\n", (uint32)(pt_entry));
 
         /* Initialize the page table    */
         for (i = 0; i < PAGE_TABLE_ENTRIES; i++) {
