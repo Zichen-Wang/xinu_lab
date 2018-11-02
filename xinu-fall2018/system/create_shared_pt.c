@@ -27,11 +27,13 @@ void create_shared_pt(void)
             stop("Error to create a new shared page table!\n");
         }
 
+        /* Set the inverted_page_table entry    */
         inverted_page_table[frame_num].fstate = F_SHARED_PT;
+        inverted_page_table[frame_num].reference_count = PAGE_TABLE_ENTRIES;
+
+        pt_entry = (pt_t *)(NBPG * (PAGE_TABLE_BASE + frame_num));  /* Base address of page table   */
 
         hook_ptable_create(frame_num);
-
-        pt_entry = (pt_t *)(NBPG * (PAGE_TABLE_BASE + frame_num));
         kprintf("page table address 0x%08X\n", (uint32)(pt_entry));
 
         /* Initialize the page table    */
@@ -52,7 +54,6 @@ void create_shared_pt(void)
             else
                 pt_entry -> pt_base = DEVICE_FRAME_BASE + i;
 
-            kprintf("page base address 0x%08X\n", (uint32)(pt_entry -> pt_base) * NBPG);
             pt_entry++;
         }
         shared_page_table[t] = (char *)(NBPG * (PAGE_TABLE_BASE + frame_num));

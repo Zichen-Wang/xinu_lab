@@ -13,19 +13,23 @@
 
 
 int findfframe(uint8 type)
-/* type == PAGE_DIRECTORY_TABLE means find a free frame for page directory or page table
+/*
+ * type == PAGE_DIRECTORY_TABLE means find a free frame for page directory or page table
  * type == PAGE_VIRTUAL_HEAP means find a free frame for virtual heap
  */
 {
     uint32	i;			/* Iterate through all frames   */
-    static	uint32 next_frame_pdt = 0;	/* Position in array [0, 999] for page directory of page table	*/
-    static  uint32 next_frame_virt = 1000; /* Position in array [1000, 3071] for virtual memory	*/
+    /* Position in array [0, NFRAMES_FOR_PAGE_TABLE - 1] for page directory of page table	*/
+    static	uint32 next_frame_pdt = 0;
+
+    /* Position in array [NFRAMES_FOR_PAGE_TABLE, NFRAMES - 1] for virtual memory	*/
+    static  uint32 next_frame_virt = NFRAMES_FOR_PAGE_TABLE;
 
 
     if (type == PAGE_DIRECTORY_TABLE) { /* find a frame for page directory or page table   */
-        for (i = 0; i < FRAME_NUM_OF_PAGE_TABLE; i++) {
+        for (i = 0; i < NFRAMES_FOR_PAGE_TABLE; i++) {
 
-            if (next_frame_pdt == FRAME_NUM_OF_PAGE_TABLE) { /* Wrap around to beginning */
+            if (next_frame_pdt == NFRAMES_FOR_PAGE_TABLE) { /* Wrap around to beginning */
                 next_frame_pdt = 0;
             }
 

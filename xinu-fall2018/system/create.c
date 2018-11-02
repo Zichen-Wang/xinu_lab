@@ -96,6 +96,23 @@ pid32	create(
 	*--saddr = 0;			/* %esi */
 	*--saddr = 0;			/* %edi */
 	*pushsp = (unsigned long) (prptr->prstkptr = (char *)saddr);
+
+	/*
+	 * user: wang4113
+	 * data: 11/02/2018
+	 */
+
+	/* Create a new page directory */
+	prptr -> page_directory = create_pd(pid);
+
+	/* Assign shared page tables to page directory of null process	*/
+	for (i = 0; i < 4; i++)
+		*(prptr -> page_directory + i * 4) = (uint32)shared_page_table[i];
+
+	*(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4) = (uint32)shared_page_table[4];
+
+	prptr -> hsize_in_pages = 0;
+
 	restore(mask);
 	return pid;
 }

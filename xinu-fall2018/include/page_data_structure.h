@@ -5,6 +5,7 @@
 
 /* page_data_structure.h */
 
+#define PAGE_FAULT_NUM  14
 
 #define F_FREE          0
 #define F_USED_VIRT     1
@@ -17,7 +18,8 @@ struct frame_t {
     uint16  fstate;      /* Define the status of a frame */
     pid32   pid;        /* Which process is using this frame?    */
 
-    unsigned int virt_addr	: 20;   /* the virtual address of this frame    */
+    unsigned int virt_page_num	: 20;   /* the virtual address of this frame    */
+    int reference_count;
 
 };
 
@@ -25,8 +27,8 @@ struct frame_t {
 #define PAGE_TABLE_BASE     1024        /* base frames for page directory or page table memory */
 #define DEVICE_FRAME_BASE   589824      /* base frames for device memory    */
 
-#define FRAME_NUM_OF_PAGE_TABLE     1000    /* number of frames for page directory or page table */
-#define FRAME_NUM_OF_VIRTUAL_HEAP   2072    /* number of frames for virtual heap    */
+#define NFRAMES_FOR_PAGE_TABLE     1000    /* number of frames for page directory or page table */
+#define NFRAMES_FOR_VIRTUAL_HEAP   2072    /* number of frames for virtual heap    */
 
 #define PAGE_DIRECTORY_ENTRIES 1024    /* number of entries for page directory */
 #define PAGE_TABLE_ENTRIES     1024    /* number of entries for page table */

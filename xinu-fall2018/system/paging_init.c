@@ -26,6 +26,7 @@ void paging_init(void)
     for (i = 0; i < NFRAMES; i++) {
 
         inverted_page_table[i].fstate = F_FREE;
+        inverted_page_table[i].reference_count = 0;
 
     }
 

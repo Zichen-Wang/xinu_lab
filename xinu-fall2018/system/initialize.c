@@ -237,18 +237,20 @@ static	void initialize_paging(void)
 
 	create_shared_pt();	/* Create shared page tables for 3 and 4	*/
 
-	/* Assign these page tables to page directory of null process	*/
+	/* Assign shared page tables to page directory of null process	*/
 	for (i = 0; i < 4; i++)
 		*(prptr -> page_directory + i * 4) = (uint32)shared_page_table[i];
 
 	*(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4) = (uint32)shared_page_table[4];
 
 	/* 5. Set the PDBR register to the page directory of the null process	*/
-
+	setCR3((uint32)(prptr -> page_directory));
 
 	/* 6. Install the page fault interrupt service routine 	*/
+	//set_evec(PAGE_FAULT_NUM, )
 
 	/* 7. Enable paging	*/
+	enable_paging();
 }
 
 int32	stop(char *s)

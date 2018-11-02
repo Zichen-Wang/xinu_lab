@@ -25,12 +25,12 @@ char * create_pd(pid32 pid)
         return (char *)(SYSERR);
     }
 
+    /* Set the inverted_page_table entry    */
     inverted_page_table[frame_num].fstate = F_PD;
     inverted_page_table[frame_num].pid = pid;
 
-
-    pd_entry = (pd_t *)(NBPG * (PAGE_TABLE_BASE + frame_num));
-    kprintf("page directory address 0x%08X\n", (uint32)(pd_entry));
+    pd_entry = (pd_t *)(NBPG * (PAGE_TABLE_BASE + frame_num));  /* Base address of page directory   */
+    kprintf("pid %d: page directory address 0x%08X\n", pid, (uint32)(pd_entry));
 
     /* Initialize the page directory    */
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
