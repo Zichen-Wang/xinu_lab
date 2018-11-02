@@ -15,6 +15,14 @@ extern	void xdone(void);	/* System "shutdown" procedure		*/
 static	void sysinit(); 	/* Internal system initialization	*/
 extern	void meminit(void);	/* Initializes the free memory list	*/
 
+/*
+ * user: wang4113
+ * data: 11/01/2018
+ */
+static	void initialize_paging(void);	/* To set up demand paging	*/
+
+int32	stop(char *);
+
 /* Declarations of major kernel variables */
 
 struct	procent	proctab[NPROC];	/* Process table			*/
@@ -50,6 +58,12 @@ void	nulluser()
 	/* Initialize the system */
 		
 	sysinit();
+
+	/*
+	 * user: wang4113
+	 * data: 11/01/2018
+	 */
+	initialize_paging();	/* Initialize paging	*/
 
 	kprintf("\n\r%s\n\n\r", VERSION);
 	
@@ -144,6 +158,13 @@ static	void	sysinit()
 		prptr->prname[0] = NULLCH;
 		prptr->prstkbase = NULL;
 		prptr->prprio = 0;
+
+		/*
+		 * user: wang4113
+		 * data: 11/01/2018
+		 */
+		prptr -> page_directory = NULL;	/* Initialize the page directory of a process	*/
+		prptr -> hsize_in_pages = 0;		/* Initialize the heap size of a process	*/
 	}
 
 	/* Initialize the Null process entry */	
@@ -186,6 +207,48 @@ static	void	sysinit()
         bs_init_sem = semcreate(1);
 
 	return;
+}
+
+/*
+ * user: wang4113
+ * data: 11/01/2018
+ */
+
+static	void initialize_paging(void)
+{
+	uint32 	i;
+	struct	procent	*prptr;		/* Ptr to process table entry	*/
+
+	/* 1. Initialize all necessary data structures	*/
+	paging_init();
+
+	/* 2. Allocate and initialize a page directory for the null process	*/
+	prptr = &proctab[NULLPROC];
+	prptr -> page_directory = create_pd(NULLPROC);
+
+	if (prptr -> page_directory == (char *)(SYSERR)) {
+		stop("Initialize page directory for null process failed!");
+	}
+
+	prptr -> hsize_in_pages = 0;
+
+	/* 3. Create the page tables which map pages 0 through 4095 to the first 16 MB physical address range 	*/
+	/* 4. Create a page table for mapping the device memory starting at 0x90000000	*/
+
+	create_shared_pt();	/* Create shared page tables for 3 and 4	*/
+
+	/* Assign these page tables to page directory of null process	*/
+	for (i = 0; i < 4; i++)
+		*(prptr -> page_directory + i * 4) = (uint32)shared_page_table[i];
+
+	*(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4) = (uint32)shared_page_table[4];
+
+	/* 5. Set the PDBR register to the page directory of the null process	*/
+
+
+	/* 6. Install the page fault interrupt service routine 	*/
+
+	/* 7. Enable paging	*/
 }
 
 int32	stop(char *s)
