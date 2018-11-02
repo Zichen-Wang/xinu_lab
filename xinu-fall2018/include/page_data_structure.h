@@ -5,9 +5,6 @@
 
 /* page_data_structure.h */
 
-#define VIRTUAL_HEAP_BASE   2024        /* base frames for virtual heap	memory */
-#define PAGE_TABLE_BASE     1024        /* base frames for page directory or page table memory */
-#define DEVICE_FRAME_BASE   589824      /* base frames for device memory    */
 
 #define F_FREE          0
 #define F_USED_VIRT     1
@@ -24,6 +21,9 @@ struct frame_t {
 
 };
 
+#define VIRTUAL_HEAP_BASE   2024        /* base frames for virtual heap	memory */
+#define PAGE_TABLE_BASE     1024        /* base frames for page directory or page table memory */
+#define DEVICE_FRAME_BASE   589824      /* base frames for device memory    */
 
 #define FRAME_NUM_OF_PAGE_TABLE     1000    /* number of frames for page directory or page table */
 #define FRAME_NUM_OF_VIRTUAL_HEAP   2072    /* number of frames for virtual heap    */
