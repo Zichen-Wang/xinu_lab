@@ -21,7 +21,7 @@ void create_shared_pt(void)
     pt_t *pt_entry;
 
     for (t = 0; t < 5; t++) {
-        frame_num = findfframe(FRAME_DIRECTORY_TABLE);    /* Get a new frame for page table   */
+        frame_num = findfframe(PAGE_DIRECTORY_TABLE);    /* Get a new frame for page table   */
 
         if (frame_num == SYSERR) {     /* Error    */
             stop("Error to create a new shared page table!\n");

@@ -18,7 +18,7 @@ char * create_pt(pid32 pid)
     int frame_num;
     pt_t *pt_entry;
 
-    frame_num = findfframe(FRAME_DIRECTORY_TABLE);    /* Get a new frame for page table   */
+    frame_num = findfframe(PAGE_DIRECTORY_TABLE);    /* Get a new frame for page table   */
 
     if (frame_num == SYSERR) {     /* Error    */
         kprintf("Error to create a new page table!\n");
