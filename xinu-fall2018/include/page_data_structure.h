@@ -52,4 +52,4 @@ extern	char * create_pt(pid32);
 extern	void create_shared_pt(void);
 
 /* in file findfframe.c */
-extern  char * findfframe();
+extern  int findfframe(uint8);
