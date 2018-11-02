@@ -42,3 +42,10 @@
 #include <string.h>
 #include <paging.h>
 #include <page_server.h>
+
+/*
+ * user: wang4113
+ * data: 11/01/2018
+ */
+
+#include <page_data_structure.h>
