@@ -57,8 +57,14 @@ extern	void create_shared_pt(void);
 extern  int findfframe(uint8);
 
 /* in file hooks.c  */
-void hook_ptable_create(unsigned int);
-void hook_ptable_delete(unsigned int);
-void hook_pfault(char *);
-void hook_pswap_out(unsigned int, int);
-int get_faults(void);
+extern  void hook_ptable_create(unsigned int);
+extern  void hook_ptable_delete(unsigned int);
+extern  void hook_pfault(char *);
+extern  void hook_pswap_out(unsigned int, int);
+extern  int get_faults(void);
+
+/* in file enable_paging.S  */
+extern  void enable_paging(void);
+
+/* in file setCR3.S */
+extern  void setCR3(uint32);
