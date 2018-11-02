@@ -28,7 +28,7 @@ typedef struct {
 #define FRAME_NUM_OF_PAGE_TABLE     1000    /* number of frames for page directory or page table */
 #define FRAME_NUM_OF_VIRTUAL_HEAP   2072    /* number of frames for virtual heap    */
 
-#defien PAGE_DIRECTORY_ENTRIES 1024    /* number of entries for page directory */
+#define PAGE_DIRECTORY_ENTRIES 1024    /* number of entries for page directory */
 #define PAGE_TABLE_ENTRIES     1024    /* number of entries for page table */
 
 #define FRAME_DIRECTORY_TABLE   0           /* Frame type used in findfframe()  */
