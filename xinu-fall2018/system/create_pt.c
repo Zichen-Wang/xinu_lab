@@ -15,12 +15,12 @@
 char * create_pt(pid32 pid)
 {
     uint32 i;
-    uint32 frame_num;
+    int frame_num;
     pt_t *pt_entry;
 
-    frame_num = findfframe(FRAME_DIRECTORY_TABLE)    /* Get a new frame for page table   */
+    frame_num = findfframe(FRAME_DIRECTORY_TABLE);    /* Get a new frame for page table   */
 
-    if (frame_num == (uint32)(SYSERR)) {     /* Error    */
+    if (frame_num == SYSERR) {     /* Error    */
         kprintf("Error to create a new page table!\n");
         return (char *)(SYSERR);
     }

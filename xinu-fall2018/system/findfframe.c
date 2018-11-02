@@ -12,7 +12,7 @@
  */
 
 
-uint32 findfframe(uint8 type)
+int findfframe(uint8 type)
 /* type == FRAME_DIRECTORY_TABLE means find a free frame for page directory or page table
  * type == FRAME_VIRTUAL_HEAP means find a free frame for virtual heap
  */
@@ -37,7 +37,7 @@ uint32 findfframe(uint8 type)
             }
         }
 
-        return (pid32) SYSERR;
+        return SYSERR;
     }
 
 }
