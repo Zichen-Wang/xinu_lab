@@ -13,7 +13,7 @@
 #define F_USED_VIRT     1
 #define F_PD            2
 #define F_PT            3
-#define F_PT_SHARED     4
+#define F_SHARED_PT     4
 
 struct frame_t {
 
@@ -53,3 +53,10 @@ extern	void create_shared_pt(void);
 
 /* in file findfframe.c */
 extern  int findfframe(uint8);
+
+/* in file hooks.c  */
+void hook_ptable_create(unsigned int);
+void hook_ptable_delete(unsigned int);
+void hook_pfault(char *);
+void hook_pswap_out(unsigned int, int);
+int get_faults(void);
