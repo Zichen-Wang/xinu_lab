@@ -20,7 +20,7 @@ char * create_pd(pid32 pid)
 
     frame_num = findfframe(FRAME_DIRECTORY_TABLE);    /* Get a new frame for page directory   */
 
-    if (frame_num == (uint32)(SYSERR)) {     /* Error    */
+    if (frame_num == SYSERR) {     /* Error    */
         kprintf("Error to create a new page directory!\n");
         return (char *)(SYSERR);
     }
