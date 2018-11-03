@@ -218,7 +218,7 @@ static	void initialize_paging(void)
 {
 	uint32 	i;
 	struct	procent	*prptr;		/* Ptr to process table entry	*/
-	pd_t	*pd_entry;
+	pd_t	*pd_entry;			/* Ptr to access page directory entry	*/
 
 	/* 1. Initialize all necessary data structures	*/
 	paging_init();
