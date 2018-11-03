@@ -8,8 +8,6 @@
  * data: 11/01/2018
  */
 
-#include <page_data_structure.h>
-
 #include <memory.h>     /* make sure memory.h is defined before process.h   */
 
 #include <process.h>
@@ -52,4 +50,6 @@
 #include <string.h>
 #include <paging.h>
 #include <page_server.h>
+
+#include <page_data_structure.h>    /* data structure for paging   */
 
