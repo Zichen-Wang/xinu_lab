@@ -58,7 +58,7 @@ extern	void free_frames(pid32);
 extern  int findfframe(uint8);
 
 /* in file vcreate.c    */
-extern  pid32	vcreate(void *, uint32, uint16, pri16, char, uint32, ...);
+extern  pid32	vcreate(void *, uint32, uint16, pri16, char *, uint32, ...);
 
 /* in file hooks.c  */
 extern  void hook_ptable_create(unsigned int);
