@@ -78,3 +78,6 @@ extern  void pfisr(void);
 
 /* in file pfhandler.c  */
 extern  void pfhandler(void);
+
+/* in file myprogA.c    */
+extern  process myprogA(void);
