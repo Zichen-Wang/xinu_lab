@@ -10,14 +10,17 @@
  *------------------------------------------------------------------------
  */
 
+		.data
+pferrorno:                              # Define the global variable pferrorno
+        .long   0
+
 		.text
 		.globl	pfisr		            # Page fault interrupt dispatcher
-		.globl  pferrorno               # Define the global variable pferrorno
 pfisr:
         cli                             # Disable further interrupts
         pushl   %ebx                    # Save the temp register EBX
         movl    4(%esp), %ebx
-        movl    %ebx, $pferrorno        # Page fault error number; Store error code in a global variable
+        movl    %ebx, pferrorno        # Page fault error number; Store error code in a global variable
         pop     %ebx                    # Restore temp register EBX
 
         pushal                          # Save registers
