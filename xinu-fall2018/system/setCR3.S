@@ -20,9 +20,10 @@ setCR3:
         pushfl  /* Save EFLAGS  */
 
         cli     /* Interrupt disabled   */
-        movl    %cr3, %eax
-        movl    %eax, 8(%ebp)
-        movl    %eax, %cr3
+
+        movl    8(%ebp), %eax       /* Get base address of page directory   */
+        andl    $0xFFFFF000, %eax   /* Set the first 12 bit to zero */
+        movl    %eax, %cr3          /* Set CR3  */
 
         popfl   /* Restore EFLAGS   */
 
