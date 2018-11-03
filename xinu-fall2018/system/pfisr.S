@@ -11,11 +11,11 @@
  */
 
 		.text
-		.globl	pfisr		            # page fault interrupt dispatcher
-		.extern _pferrorno              # find the global variable pferrorno
+		.globl	pfisr		            # Page fault interrupt dispatcher
+		.globl  pferrorno               # Define the global variable pferrorno
 pfisr:
         cli                             # Disable further interrupts
-        movl    (%esp), $_pferrorno     # Store error code in a global variable
+        movl    (%esp), pferrorno       # Page fault error number; Store error code in a global variable
 
         pushal                          # Save registers
         call    pfhandler               # Call C function to handle the interrupt

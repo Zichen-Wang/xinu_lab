@@ -37,7 +37,7 @@ struct frame_t {
 /* in file paging_init.c    */
 extern  struct frame_t inverted_page_table[NFRAMES];
 extern  char * shared_page_table[5];
-extern  int pferrorno;
+
 
 /* in paging_init.c     */
 extern  void paging_init(void);
@@ -81,3 +81,6 @@ extern  void pfhandler(void);
 
 /* in file myprogA.c    */
 extern  process myprogA(void);
+
+/* in file pfisr.S  */
+extern  int pferrorno;
