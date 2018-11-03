@@ -125,7 +125,7 @@ pid32	create(
 		pd_entry -> pd_base		= ((uint32) shared_page_table[i]) / NBPG;
 	}
 
-	pd_entry = (pd_t *)(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4)
+	pd_entry = (pd_t *)(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4);
 
 	pd_entry -> pd_pres		= 1;
 	pd_entry -> pd_write	= 1;
