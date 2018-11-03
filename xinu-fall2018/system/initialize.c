@@ -164,8 +164,8 @@ static	void	sysinit()
 		 * data: 11/01/2018
 		 */
 		prptr -> page_directory = NULL;		/* Initialize the page directory of a process	*/
-		(prptr -> memblk).mnext = NULL;		/* Initialize the virtual list of a process	*/
-		(prptr -> memblk).mlength = 0;		/* Initialize the virtual list of a process	*/
+		(prptr -> vmemlist).mnext = NULL;		/* Initialize the virtual list of a process	*/
+		(prptr -> vmemlist).mlength = 0;		/* Initialize the virtual list of a process	*/
 	}
 
 	/* Initialize the Null process entry */	
