@@ -30,15 +30,16 @@ char * create_pt(pid32 pid)
     inverted_page_table[frame_num].pid = pid;
     inverted_page_table[frame_num].reference_count = 0;
 
-    pt_entry = (pt_t *)(NBPG * (PAGE_TABLE_BASE + frame_num));  /* Base address of page table   */
 
     hook_ptable_create(frame_num);
     kprintf("pid %d: page table address 0x%08X\n", pid, (uint32)(pt_entry));
 
     /* Initialize the page table    */
     for (i = 0; i < PAGE_TABLE_ENTRIES; i++) {
+        pt_entry = (pt_t *)(NBPG * (FRAME0 + frame_num) + i * 4);  /* address of page table entry  */
+
         pt_entry -> pt_pres     = 0;
-        pt_entry -> pt_write    = 1;
+        pt_entry -> pt_write    = 0;
         pt_entry -> pt_user	    = 0;
         pt_entry -> pt_pwt	    = 0;
         pt_entry -> pt_pcd	    = 0;
@@ -49,8 +50,7 @@ char * create_pt(pid32 pid)
         pt_entry -> pt_avail    = 0;
         pt_entry -> pt_base	    = 0;
 
-        pt_entry++;
     }
 
-    return (char *)(NBPG * (PAGE_TABLE_BASE + frame_num));
+    return (char *)(NBPG * (FRAME0 + frame_num));
 }

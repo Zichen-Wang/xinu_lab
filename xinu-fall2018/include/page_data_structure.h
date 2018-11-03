@@ -23,9 +23,7 @@ struct frame_t {
 
 };
 
-#define VIRTUAL_HEAP_BASE   2024        /* base frames for virtual heap	memory */
-#define PAGE_TABLE_BASE     1024        /* base frames for page directory or page table memory */
-#define DEVICE_FRAME_BASE   589824      /* base frames for device memory    */
+#define DEVICE_FRAME_BASE   589824      /* base frame for device memory    */
 
 #define NFRAMES_FOR_PAGE_TABLE     1000    /* number of frames for page directory or page table */
 #define NFRAMES_FOR_VIRTUAL_HEAP   2072    /* number of frames for virtual heap    */
@@ -49,6 +47,9 @@ extern	char * create_pd(pid32);
 
 /* in file create_pt.c	*/
 extern	char * create_pt(pid32);
+
+/* in file delete_pdt.c	*/
+extern	void delete_pdt(pid32);
 
 /* in file create_shared_pt.c	*/
 extern	void create_shared_pt(void);

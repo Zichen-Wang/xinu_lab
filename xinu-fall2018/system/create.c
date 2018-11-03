@@ -27,7 +27,12 @@ pid32	create(
 	uint32		*a;		/* Points to list of args	*/
 	uint32		*saddr;		/* Stack address		*/
 
-	pd_t	*pd_entry;		/* Ptr to access page directory entry	*/
+	/*
+	 * user: wang4113
+	 * data: 11/02/2018
+	 */
+
+	pd_t	*pd_entry;		/* Ptr to page directory entry	*/
 
 	mask = disable();
 	if (ssize < MINSTK)
