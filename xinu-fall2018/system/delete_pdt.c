@@ -20,6 +20,8 @@ void delete_pdt(pid32 pid)
     int     frame_pd_num, frame_pt_num, frame_virt_num;
     uint32  i, j;
 
+    prptr = &proctab[pid];
+
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
 
         pd_entry = (pd_t *)(prptr -> page_directory + i * 4);
