@@ -154,11 +154,11 @@ pid32	vcreate(
     memptr -> mnext = (struct memblk *)(NBPG * 4096);
     memptr -> mlength = NBPG * hsize_in_pages;
 
-    kprintf("before\n");
-    memptr = memptr -> mnext;           /* First page fault */
-    kprintf("after\n");
+    memptr = memptr -> mnext;
 
-    memptr -> mnext = NULL;
+    kprintf("before\n");
+    memptr -> mnext = NULL;         /* first page fault */
+    kprintf("after\n");
     memptr -> mlength = NBPG * hsize_in_pages;
 
 

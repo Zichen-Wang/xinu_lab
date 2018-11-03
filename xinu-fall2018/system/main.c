@@ -14,7 +14,6 @@ process	main(void)
 	/* DO NOT REMOVE OR COMMENT THIS CALL */
 	psinit();
 
-	kprintf("before vcreate\n");
 	resume(vcreate(myprogA, 100, 1024, 60, "myprogA", 0, NULL));
 
 	kprintf("\n...creating a shell\n");
