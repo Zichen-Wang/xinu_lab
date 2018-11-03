@@ -34,7 +34,6 @@ process myprogA(void)
     kprintf("Stack Limit: %d bytes\n", proctab[pid].prstklen);
     kprintf("Stack Pointer: [0x%08X]\n", (uint32)esp);
     kprintf("PID: %d\n", pid);
-    kprintf("PPID: %d\n", getppid());
     kprintf("\n\n");
 
 
