@@ -38,7 +38,7 @@ void delete_pdt(pid32 pid)
                     /* the true frame is present  */
                     if (pt_entry -> pt_pres == 1) {
 
-                        frame_virt_num = (pt_entry -> base) - FRAME0;
+                        frame_virt_num = (pt_entry -> pt_base) - FRAME0;
 
                         inverted_page_table[frame_virt_num].fstate = F_FREE;  /* Free that frame for virtual memory */
                     }
