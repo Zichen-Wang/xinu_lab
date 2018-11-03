@@ -32,7 +32,7 @@ void delete_pdt(pid32 pid)
             frame_pt_num = (pd_entry -> pd_base) - FRAME0;
 
             /* it is not a shared page table   */
-            kprintf("xx%dxx\n", inverted_page_table[frame_pt_num].fstate);
+            kprintf("xx%dxx\n", (pd_entry -> pd_base) - FRAME0);
             if (inverted_page_table[frame_pt_num].fstate != F_SHARED_PT) {
 
                 for (j = 0; j < PAGE_TABLE_ENTRIES; j++) {
