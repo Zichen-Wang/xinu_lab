@@ -89,7 +89,7 @@ int32	initevec()
  * set_evec  -  Set exception vector to point to an exception handler
  *------------------------------------------------------------------------
  */
-int32	set_evec(uint32 xnum, uint32  )
+int32	set_evec(uint32 xnum, uint32 handler)
 {
 	struct	idt	*pidt;
 

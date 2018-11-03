@@ -32,7 +32,6 @@ char * create_pt(pid32 pid)
 
 
     hook_ptable_create(frame_num);
-    kprintf("pid %d: page table address 0x%08X\n", pid, (uint32)(pt_entry));
 
     /* Initialize the page table    */
     for (i = 0; i < PAGE_TABLE_ENTRIES; i++) {
