@@ -15,7 +15,10 @@
 		.globl  pferrorno               # Define the global variable pferrorno
 pfisr:
         cli                             # Disable further interrupts
-        movl    (%esp), pferrorno       # Page fault error number; Store error code in a global variable
+        pushl   %ebx                    # Save the temp register EBX
+        movl    4(%esp), %ebx
+        movl    %ebx, pferrorno         # Page fault error number; Store error code in a global variable
+        pop     %ebx                    # Restore temp register EBX
 
         pushal                          # Save registers
         call    pfhandler               # Call C function to handle the interrupt
