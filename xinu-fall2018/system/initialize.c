@@ -163,8 +163,9 @@ static	void	sysinit()
 		 * user: wang4113
 		 * data: 11/01/2018
 		 */
-		prptr -> page_directory = NULL;	/* Initialize the page directory of a process	*/
-		prptr -> hsize_in_pages = 0;		/* Initialize the heap size of a process	*/
+		prptr -> page_directory = NULL;		/* Initialize the page directory of a process	*/
+		(prptr -> memblk).mnext = NULL;		/* Initialize the virtual list of a process	*/
+		(prptr -> memblk).mlength = 0;		/* Initialize the virtual list of a process	*/
 	}
 
 	/* Initialize the Null process entry */	
@@ -231,7 +232,6 @@ static	void initialize_paging(void)
 		stop("Initialize page directory for null process failed!");
 	}
 
-	prptr -> hsize_in_pages = 0;
 
 	/* 3. Create the page tables which map pages 0 through 4095 to the first 16 MB physical address range 	*/
 	/* 4. Create a page table for mapping the device memory starting at 0x90000000	*/

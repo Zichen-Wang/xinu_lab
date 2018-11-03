@@ -127,7 +127,7 @@ pid32	create(
 		pd_entry -> pd_global	= 0;
 		pd_entry -> pd_avail	= 0;
 
-		pd_entry -> pd_base		= ((uint32) shared_page_table[i]) / NBPG;
+		pd_entry -> pd_base		= ((uint32)shared_page_table[i]) / NBPG;
 	}
 
 	pd_entry = (pd_t *)(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4);
@@ -143,9 +143,10 @@ pid32	create(
 	pd_entry -> pd_global	= 0;
 	pd_entry -> pd_avail	= 0;
 
-	pd_entry -> pd_base		= ((uint32) shared_page_table[4] / NBPG);
+	pd_entry -> pd_base		= ((uint32)shared_page_table[4]) / NBPG;
 
-	prptr -> hsize_in_pages = 0;
+	(prptr -> memblk).mnext = NULL;		/* Initialize the virtual list */
+	(prptr -> memblk).mlength = 0;		/* Initialize the virtual list */
 
 	restore(mask);
 	return pid;
@@ -171,5 +172,5 @@ local	pid32	newpid(void)
 			nextpid++;
 		}
 	}
-	return (pid32) SYSERR;
+	return (pid32)(SYSERR);
 }

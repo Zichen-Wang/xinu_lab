@@ -12,6 +12,8 @@ struct frame_t inverted_page_table[NFRAMES];
 
 char * shared_page_table[5];
 
+int pferrorno;      /* page fault error number  */
+
 
 /*---------------------------------------------------------------------------
  *  paging_init  -  Define and initialize all necessary page data structures.

@@ -36,11 +36,14 @@ struct frame_t {
 
 /* in file paging_init.c    */
 extern  struct frame_t inverted_page_table[NFRAMES];
-
 extern  char * shared_page_table[5];
+extern  int pferrorno;
 
 /* in paging_init.c     */
 extern  void paging_init(void);
+
+/* in file create_shared_pt.c	*/
+extern	void create_shared_pt(void);
 
 /* in file create_pd.c	*/
 extern	char * create_pd(pid32);
@@ -48,14 +51,14 @@ extern	char * create_pd(pid32);
 /* in file create_pt.c	*/
 extern	char * create_pt(pid32);
 
-/* in file delete_pdt.c	*/
-extern	void delete_pdt(pid32);
-
-/* in file create_shared_pt.c	*/
-extern	void create_shared_pt(void);
+/* in file free_frames.c	*/
+extern	void free_frames(pid32);
 
 /* in file findfframe.c */
 extern  int findfframe(uint8);
+
+/* in file vcreate.c    */
+extern  pid32	vcreate(void, uint32, uint16, pri16, char, uint32, ...);
 
 /* in file hooks.c  */
 extern  void hook_ptable_create(unsigned int);
@@ -69,3 +72,9 @@ extern  void enable_paging(void);
 
 /* in file setCR3.S */
 extern  void setCR3(uint32);
+
+/* in file pfisr.S  */
+extern  void pfisr(void);
+
+/* in file pfhandler.c  */
+extern  void pfhandler(void);

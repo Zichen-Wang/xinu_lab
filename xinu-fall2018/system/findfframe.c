@@ -44,4 +44,23 @@ int findfframe(uint8 type)
         return SYSERR;
     }
 
+    else if (type == PAGE_VIRTUAL_HEAP) { /* find a frame for for virtual heap   */
+
+        for (i = 0; i < NFRAMES_FOR_VIRTUAL_HEAP; i++) {
+
+            if (next_frame_virt == NFRAMES) { /* Wrap around to beginning */
+                next_frame_virt = NFRAMES_FOR_PAGE_TABLE;
+            }
+
+            if (inverted_page_table[next_frame_virt].fstate == F_FREE) {
+                return next_frame_virt++;
+            }
+            else {
+                next_frame_virt++;
+            }
+        }
+
+        return SYSERR;
+    }
+
 }

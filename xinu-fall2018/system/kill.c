@@ -36,7 +36,7 @@ syscall	kill(
 	 * data: 11/02/2018
 	 */
 	/* Delete page directory and page table when a process ends	*/
-	delete_pdt(pid);
+	free_frames(pid);
 
 	switch (prptr->prstate) {
 	case PR_CURR:

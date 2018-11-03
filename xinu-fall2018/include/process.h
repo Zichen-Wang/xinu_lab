@@ -58,7 +58,7 @@ struct procent {		/* Entry in the process table		*/
 	 * data: 11/01/2018
 	 */
 	char	*page_directory;	/* Pointer to the page directory	*/
-	uint16	hsize_in_pages;		/* The size of the heap	*/
+	struct	memblk	vmemlist;	/* List of free virtual memory block	*/
 
 };
 

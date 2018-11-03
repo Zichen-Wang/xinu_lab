@@ -3,16 +3,16 @@
  * data: 11/02/2018
  */
 
-/* delete_pd.c - delete_pd */
+/* free_frames.c - free_frames */
 
 #include <xinu.h>
 
-/*----------------------------------------
- *  delete_pdt  -  Create a new page table
- *----------------------------------------
+/*-----------------------------------------------------------
+ *  free_frames  -  free frames occupied by a killed process
+ *-----------------------------------------------------------
  */
 
-void delete_pdt(pid32 pid)
+void free_frames(pid32 pid)
 {
     struct	procent	*prptr;     /* Ptr to process table entry	*/
     pd_t    *pd_entry;          /* Ptr to page directory entry	*/
@@ -32,7 +32,6 @@ void delete_pdt(pid32 pid)
             frame_pt_num = (pd_entry -> pd_base) - FRAME0;
 
             /* it is not a shared page table   */
-            kprintf("xx%dxx\n", i);
             if (inverted_page_table[frame_pt_num].fstate != F_SHARED_PT) {
 
                 for (j = 0; j < PAGE_TABLE_ENTRIES; j++) {
@@ -40,19 +39,23 @@ void delete_pdt(pid32 pid)
 
                     /* the true frame is present  */
                     if (pt_entry -> pt_pres == 1) {
-
+                        /* Find the frame number of the virtual page   */
                         frame_virt_num = (pt_entry -> pt_base) - FRAME0;
 
-                        inverted_page_table[frame_virt_num].fstate = F_FREE;  /* Free that frame for virtual memory */
+                        /* Free this frame for virtual memory */
+                        inverted_page_table[frame_virt_num].fstate = F_FREE;
                     }
                 }
 
+                /* Free this frame of page table */
                 inverted_page_table[frame_pt_num].fstate = F_FREE;
+
                 hook_ptable_delete(frame_pt_num);
             }
         }
     }
 
+    /* Find the frame number of this page directory   */
     frame_pd_num = (uint32)(prptr -> page_directory) / NBPG - FRAME0;
-    inverted_page_table[frame_pd_num].fstate = F_FREE;
+    inverted_page_table[frame_pd_num].fstate = F_FREE;  /* Free this frame  */
 }
