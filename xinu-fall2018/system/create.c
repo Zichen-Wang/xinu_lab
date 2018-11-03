@@ -145,8 +145,8 @@ pid32	create(
 
 	pd_entry -> pd_base		= ((uint32)shared_page_table[4]) / NBPG;
 
-	(prptr -> memblk).mnext = NULL;		/* Initialize the virtual list */
-	(prptr -> memblk).mlength = 0;		/* Initialize the virtual list */
+	(prptr -> vmemlist).mnext = NULL;		/* Initialize the virtual list */
+	(prptr -> vmemlist).mlength = 0;		/* Initialize the virtual list */
 
 	restore(mask);
 	return pid;
