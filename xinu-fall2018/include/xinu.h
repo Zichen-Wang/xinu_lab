@@ -2,12 +2,22 @@
 
 #include <kernel.h>
 #include <conf.h>
+
+/*
+ * user: wang4113
+ * data: 11/01/2018
+ */
+
+#include <page_data_structure.h>
+
+#include <memory.h>     /* make sure memory.h is defined before process.h   */
+
 #include <process.h>
 #include <queue.h>
 #include <resched.h>
 #include <mark.h>
 #include <semaphore.h>
-#include <memory.h>
+
 #include <bufpool.h>
 #include <clock.h>
 #include <ports.h>
@@ -43,9 +53,3 @@
 #include <paging.h>
 #include <page_server.h>
 
-/*
- * user: wang4113
- * data: 11/01/2018
- */
-
-#include <page_data_structure.h>
