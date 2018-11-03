@@ -106,10 +106,37 @@ pid32	create(
 	prptr -> page_directory = create_pd(pid);
 
 	/* Assign shared page tables to page directory of null process	*/
-	for (i = 0; i < 4; i++)
-		*(prptr -> page_directory + i * 4) = (uint32)shared_page_table[i];
+	for (i = 0; i < 4; i++) {
+		pd_entry = (pd_t *)(prptr->page_directory + i * 4);
 
-	*(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4) = (uint32)shared_page_table[4];
+		pd_entry -> pd_pres		= 1;
+		pd_entry -> pd_write	= 1;
+		pd_entry -> pd_user		= 0;
+		pd_entry -> pd_pwt		= 0;
+		pd_entry -> pd_pcd		= 0;
+		pd_entry -> pd_acc		= 0;
+		pd_entry -> pd_mbz		= 0;
+		pd_entry -> pd_fmb		= 0;
+		pd_entry -> pd_global	= 0;
+		pd_entry -> pd_avail	= 0;
+
+		pd_entry -> pd_base		= ((uint32) shared_page_table[i]) / NBPG;
+	}
+
+	pd_entry = (pd_t *)(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4)
+
+	pd_entry -> pd_pres		= 1;
+	pd_entry -> pd_write	= 1;
+	pd_entry -> pd_user		= 0;
+	pd_entry -> pd_pwt		= 0;
+	pd_entry -> pd_pcd		= 0;
+	pd_entry -> pd_acc		= 0;
+	pd_entry -> pd_mbz		= 0;
+	pd_entry -> pd_fmb		= 0;
+	pd_entry -> pd_global	= 0;
+	pd_entry -> pd_avail	= 0;
+
+	pd_entry -> pd_base		= ((uint32) shared_page_table[4] / NBPG);
 
 	prptr -> hsize_in_pages = 0;
 

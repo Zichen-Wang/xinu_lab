@@ -218,6 +218,7 @@ static	void initialize_paging(void)
 {
 	uint32 	i;
 	struct	procent	*prptr;		/* Ptr to process table entry	*/
+	pd_t	*pd_entry;
 
 	/* 1. Initialize all necessary data structures	*/
 	paging_init();
@@ -238,18 +239,38 @@ static	void initialize_paging(void)
 	create_shared_pt();	/* Create shared page tables for 3 and 4	*/
 
 	/* Assign shared page tables to page directory of null process	*/
-	for (i = 0; i < 4; i++)
-		*(uint32 *)(prptr -> page_directory + i * 4) = (uint32)shared_page_table[i];
+	for (i = 0; i < 4; i++) {
+		pd_entry = (pd_t *)(prptr->page_directory + i * 4);
 
-	*(uint32 *)(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4) = (uint32)shared_page_table[4];
+		pd_entry -> pd_pres		= 1;
+		pd_entry -> pd_write	= 1;
+		pd_entry -> pd_user		= 0;
+		pd_entry -> pd_pwt		= 0;
+		pd_entry -> pd_pcd		= 0;
+		pd_entry -> pd_acc		= 0;
+		pd_entry -> pd_mbz		= 0;
+		pd_entry -> pd_fmb		= 0;
+		pd_entry -> pd_global	= 0;
+		pd_entry -> pd_avail	= 0;
 
-	for (i = 0; i < 5; i++)
-		kprintf("0x%08X\n", *(uint32*)(prptr -> page_directory + i * 4));
+		pd_entry -> pd_base		= ((uint32) shared_page_table[i]) / NBPG;
+	}
 
-	/*
-	for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++)
-		kprintf("[0x%08X] 0x%08X\n", (uint32)(prptr -> page_directory + i * 4), *(prptr -> page_directory + i * 4));
-	*/
+	pd_entry = (pd_t *)(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4)
+
+	pd_entry -> pd_pres		= 1;
+	pd_entry -> pd_write	= 1;
+	pd_entry -> pd_user		= 0;
+	pd_entry -> pd_pwt		= 0;
+	pd_entry -> pd_pcd		= 0;
+	pd_entry -> pd_acc		= 0;
+	pd_entry -> pd_mbz		= 0;
+	pd_entry -> pd_fmb		= 0;
+	pd_entry -> pd_global	= 0;
+	pd_entry -> pd_avail	= 0;
+
+	pd_entry -> pd_base		= ((uint32) shared_page_table[4] / NBPG);
+
 	/* 5. Set the PDBR register to the page directory of the null process	*/
 	setCR3((uint32)(prptr -> page_directory));
 
