@@ -63,4 +63,6 @@ int findfframe(uint8 type)
         return SYSERR;
     }
 
+    return SYSERR;
+
 }
