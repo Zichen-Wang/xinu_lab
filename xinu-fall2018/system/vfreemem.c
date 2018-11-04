@@ -167,8 +167,8 @@ local void free_frames(uint32 start_addr, uint32 length)
             pt[j].pt_pres = 0;
 
             asm volatile ("invlpg   (%0)\n\t"
-            :
-            : "r" (pt[j].pt_base * NBPG));
+                        :
+                        : "r" (pt[j].pt_base * NBPG));
 
             /* The reference count of pe'th page table decreases one  */
             inverted_page_table[frame_pt_num].reference_count--;
@@ -187,5 +187,7 @@ local void free_frames(uint32 start_addr, uint32 length)
         }
 
     }
+    asm volatile ("movl %cr3, %eax\n\t"
+                  "movl %eax, %cr3\n\t");
 
 }
