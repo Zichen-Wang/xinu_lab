@@ -275,7 +275,7 @@ static	void initialize_paging(void)
 	setCR3((uint32)(prptr -> page_directory));
 
 	/* 6. Install the page fault interrupt service routine 	*/
-	//set_evec(PAGE_FAULT_NUM, )
+	set_evec(PAGE_FAULT_NUM, (uint32)(pfisr));
 
 	/* 7. Enable paging	*/
 	enable_paging();
