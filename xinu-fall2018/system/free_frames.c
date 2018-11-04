@@ -60,4 +60,6 @@ void free_frames(pid32 pid)
     /* Find the frame number of this page directory   */
     frame_pd_num = (uint32)(prptr -> page_directory) / NBPG - FRAME0;
     inverted_page_table[frame_pd_num].fstate = F_FREE;  /* Free this frame  */
+
+    hook_pdir_delete(frame_pd_num);
 }

@@ -67,8 +67,10 @@ extern	char	*vgetmem(uint32);
 extern	syscall vfreemem(char *, uint32);
 
 /* in file hooks.c  */
+extern  void hook_pdir_create(unsigned int);
 extern  void hook_ptable_create(unsigned int);
 extern  void hook_ptable_delete(unsigned int);
+extern  void hook_pdir_delete(unsigned int);
 extern  void hook_pfault(char *);
 extern  void hook_pswap_out(unsigned int, int);
 extern  int get_faults(void);

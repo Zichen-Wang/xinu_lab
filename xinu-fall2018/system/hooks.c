@@ -3,7 +3,7 @@
  * data: 11/01/2018
  */
 
-/* hooks.c - hook_ptable_create, hook_ptable_delete, hook_pfault, hook_pswap_out, get_faults */
+/* hooks.c - hook_pdir_create, hook_ptable_create, hook_pdir_delete, hook_ptable_delete, hook_pfault, hook_pswap_out, get_faults */
 
 #include <xinu.h>
 
@@ -16,10 +16,24 @@
 
 static int page_fault_count = 0;
 
+void hook_pdir_create(unsigned int pagenum)
+{
+#ifdef HOOK_DEBUG
+    kprintf("Created page directory %d\n\n", pagenum);
+#endif
+}
+
 void hook_ptable_create(unsigned int pagenum)
 {
 #ifdef HOOK_DEBUG
     kprintf("Created page table %d\n\n", pagenum);
+#endif
+}
+
+void hook_pdir_delete(unsigned int pagenum)
+{
+#ifdef HOOK_DEBUG
+    kprintf("Deleted page directory %d\n\n", pagenum);
 #endif
 }
 
