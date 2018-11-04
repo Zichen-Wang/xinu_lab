@@ -3,6 +3,8 @@
 #include <xinu.h>
 #include <stdio.h>
 
+#define HOOK_DEBUG
+
 process	main(void)
 {
 	uint32	i;
