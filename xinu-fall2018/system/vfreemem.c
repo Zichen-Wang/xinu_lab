@@ -131,6 +131,10 @@ local void free_frames(uint32 start_addr, uint32 length)
                     /* Free this frame */
                     inverted_page_table[frame_virt_num].fstate = F_FREE;
                     pt[j].pt_pres = 0;
+
+                    asm volatile ("invlpg   (%0)\n\t"
+                                :
+                                : "r" (pt[j].pt_base * NBPG));
                 }
             }
             /* Free this frame of page table */
@@ -161,7 +165,11 @@ local void free_frames(uint32 start_addr, uint32 length)
             /* Free this frame */
             inverted_page_table[frame_virt_num].fstate = F_FREE;
             pt[j].pt_pres = 0;
-            pt[j].pt_base = 0;
+
+            asm volatile ("invlpg   (%0)\n\t"
+            :
+            : "r" (pt[j].pt_base * NBPG));
+
             /* The reference count of pe'th page table decreases one  */
             inverted_page_table[frame_pt_num].reference_count--;
 
