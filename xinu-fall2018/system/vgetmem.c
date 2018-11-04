@@ -44,7 +44,7 @@ char  	*vgetmem(
         prptr -> is_mem_initialized = TRUE;
 
         curr -> mnext = NULL;                       /* first page fault */
-        curr -> mlength = NBPG * hsize_in_pages;
+        curr -> mlength = prev -> mlength;
 
     }
 

@@ -9,7 +9,7 @@ process myprogA(void)
 
     pid = getpid();
 
-    array = getmem(40);
+    array = (int *)(getmem(40));
     for (int i = 0; i < 10; i++)
         array[i] = pid;
 
