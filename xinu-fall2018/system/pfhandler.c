@@ -23,7 +23,6 @@ void	pfhandler()
 
     pt_t    *pt;        /* Ptr to p'th page table   */
 
-    pt_t    *pt_entry;  /* Ptr to entry of page table   */
     int     new_pt_addr, new_frame_num; /* New frame address    */
 
     a = get_faulted_addr();
