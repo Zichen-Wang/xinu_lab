@@ -8,7 +8,7 @@ process myprogA(void)
     pid32 pid;
 
     pid = getpid();
-    kprintf("PID: %d\n", pid);
+    kprintf("\n%d: 0x%08X\n", pid, proctab[pid].page_directory);
 
 
     return 0;
