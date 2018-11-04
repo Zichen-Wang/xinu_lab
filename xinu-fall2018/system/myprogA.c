@@ -11,10 +11,12 @@ process myprogA(void)
     pid = getpid();
 
     array = (int *)vgetmem(10000);
-    for (i = 0; i < 2500; i++)
+    for (i = 0; i < 2500; i++) {
         array[i] = i * pid;
+        kprintf("%d ", i);
+    }
 
-    kprintf("pid %d, 1348th %d\n", pid, array[1348]);
+    kprintf("\npid %d, 1348th %d\n", pid, array[1348]);
 
     vfreemem((char *)(array), 10000);
 
