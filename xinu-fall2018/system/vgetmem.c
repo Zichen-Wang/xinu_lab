@@ -42,7 +42,7 @@ char  	*vgetmem(
         curr -> mlength = NBPG * (prptr -> hsize);
 
     }
-    kprintf("%d\n", ((pt_t *)((prptr -> page_directory)[(uint32)(curr) >> 22].pd_base * NBPG))[(uint32)(curr) / NBPG & 0x000003FF].pt_pres);
+
     while (curr != NULL) {			/* Search free list	*/
 
         if (curr -> mlength == nbytes) {	/* Block is exact match	*/
