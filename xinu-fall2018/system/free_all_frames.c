@@ -3,16 +3,16 @@
  * data: 11/02/2018
  */
 
-/* free_frames.c - free_frames */
+/* free_all_frames.c - free_all_frames */
 
 #include <xinu.h>
 
-/*-----------------------------------------------------------
- *  free_frames  -  free frames occupied by a killed process
- *-----------------------------------------------------------
+/*------------------------------------------------------------------
+ *  free_all_frames  -  free all frames occupied by a killed process
+ *------------------------------------------------------------------
  */
 
-void free_frames(pid32 pid)
+void free_all_frames(pid32 pid)
 {
     struct	procent	*prptr;     /* Ptr to process table entry	*/
     pd_t    *pd;                /* Ptr to page directory	*/
@@ -22,7 +22,7 @@ void free_frames(pid32 pid)
 
     prptr = &proctab[pid];
 
-    pd = (pd_t *)(prptr -> page_directory);
+    pd = prptr -> page_directory;
 
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
 
@@ -37,19 +37,20 @@ void free_frames(pid32 pid)
                 pt = (pt_t *)(NBPG * pd[i].pd_base);
                 for (j = 0; j < PAGE_TABLE_ENTRIES; j++) {
 
-                    /* the true frame is present  */
-                    if (pt[i].pt_pres == 1) {
+                    /* the virtual page is present  */
+                    if (pt[j].pt_pres == 1) {
                         /* Find the frame number of the virtual page   */
-                        frame_virt_num = pt[i].pt_base - FRAME0;
+                        frame_virt_num = pt[j].pt_base - FRAME0;
 
-                        /* Free this frame for virtual memory */
+                        /* Free this frame */
                         inverted_page_table[frame_virt_num].fstate = F_FREE;
-                        pt[i].pt_pres = 0;
+                        pt[j].pt_pres = 0;
                     }
                 }
 
                 /* Free this frame of page table */
                 inverted_page_table[frame_pt_num].fstate = F_FREE;
+                inverted_page_table[frame_pt_num].reference_count = 0;
                 pd[i].pd_pres = 0;
 
                 hook_ptable_delete(frame_pt_num);
@@ -58,7 +59,7 @@ void free_frames(pid32 pid)
     }
 
     /* Find the frame number of this page directory   */
-    frame_pd_num = (uint32)(prptr -> page_directory) / NBPG - FRAME0;
+    frame_pd_num = (uint32)(pd) / NBPG - FRAME0;
     inverted_page_table[frame_pd_num].fstate = F_FREE;  /* Free this frame  */
 
     hook_pdir_delete(frame_pd_num);

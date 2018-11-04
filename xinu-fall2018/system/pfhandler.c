@@ -19,9 +19,9 @@ void	pfhandler()
 {
     uint32  a, p, q;    /* faulted address  */
     uint32  vp;         /* virtual pages    */
-    char    *pd;        /* current page directory   */
+    pd_t    *pd;        /* current page directory   */
 
-    pd_t    *pt;        /* Ptr to p'th page table   */
+    pt_t    *pt;        /* Ptr to p'th page table   */
 
     pt_t    *pt_entry;  /* Ptr to entry of page table   */
     int     new_pt_addr, new_frame_num; /* New frame address    */
@@ -29,7 +29,7 @@ void	pfhandler()
     a = get_faulted_addr();
     vp = a / NBPG;
 
-    pd = proctab[currpid].page_directory;
+    pd = (pd_t *)(proctab[currpid].page_directory);
 
     if (is_valid_addr(a, currpid) == FALSE) {
         kprintf("Invalid address 0x%08X\n", a);
@@ -41,28 +41,25 @@ void	pfhandler()
     p = a >> 22;
     q = (a / NBPG) & 0x000003FF;
 
-    pt = (pd_t *)(pd + p * 4);
-
-    if (pt -> pd_pres == 0) {   /* p'th page table does not exist   */
-        pt -> pd_pres   = 1;
-        pt -> pd_write  = 1;
-        pt -> pd_user   = 0;
-        pt -> pd_pwt    = 0;
-        pt -> pd_pcd    = 0;
-        pt -> pd_acc    = 0;
-        pt -> pd_mbz    = 0;
-        pt -> pd_fmb    = 0;
-        pt -> pd_global = 0;
-        pt -> pd_avail  = 0;
+    if (pd[p].pd_pres == 0) {   /* p'th page table does not exist   */
+        pd[p].pd_pres   = 1;
+        pd[p].pd_write  = 1;
+        pd[p].pd_user   = 0;
+        pd[p].pd_pwt    = 0;
+        pd[p].pd_pcd    = 0;
+        pd[p].pd_acc    = 0;
+        pd[p].pd_mbz    = 0;
+        pd[p].pd_fmb    = 0;
+        pd[p].pd_global = 0;
+        pd[p].pd_avail  = 0;
 
         new_pt_addr = (int)(create_pt(currpid));
         if (new_pt_addr == SYSERR) {    /* Cannot create a new frame for page table   */
             kill(currpid);
         }
-        pt -> pd_base   = new_pt_addr / NBPG;
+        pd[p].pd_base   = new_pt_addr / NBPG;
     }
 
-    inverted_page_table[pt -> pd_base - FRAME0].reference_count++;
 
     new_frame_num = findfframe(PAGE_VIRTUAL_HEAP);
 
@@ -77,20 +74,23 @@ void	pfhandler()
         kill(currpid);
     }
 
-    pt_entry = (pt_t *)(NBPG * (pt -> pd_base) + q * 4);
+    pt = (pt_t *)(NBPG * (pd[p].pd_base));
 
-    pt_entry -> pt_pres     = 1;
-    pt_entry -> pt_write    = 1;
-    pt_entry -> pt_user	    = 0;
-    pt_entry -> pt_pwt	    = 0;
-    pt_entry -> pt_pcd	    = 0;
-    pt_entry -> pt_acc	    = 0;
-    pt_entry -> pt_dirty    = 0;
-    pt_entry -> pt_mbz	    = 0;
-    pt_entry -> pt_global   = 0;
-    pt_entry -> pt_avail    = 0;
+    pt[q].pt_pres   = 1;
+    pt[q].pt_write  = 1;
+    pt[q].pt_user   = 0;
+    pt[q].pt_pwt    = 0;
+    pt[q].pt_pcd    = 0;
+    pt[q].pt_acc    = 0;
+    pt[q].pt_dirty  = 0;
+    pt[q].pt_mbz    = 0;
+    pt[q].pt_global = 0;
+    pt[q].pt_avail  = 0;
 
-    pt_entry -> pt_base	    = new_frame_num + FRAME0;
+    pt[q].pt_base   = new_frame_num + FRAME0;
+
+
+    inverted_page_table[pd[p].pd_base - FRAME0].reference_count++;
 
 
 

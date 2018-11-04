@@ -12,7 +12,7 @@
  *------------------------------------------------------------------------
  */
 
-char * create_pd(pid32 pid)
+pd_t * create_pd(pid32 pid)
 {
     uint32  i;
     int     frame_num;
@@ -22,7 +22,7 @@ char * create_pd(pid32 pid)
 
     if (frame_num == SYSERR) {     /* Error    */
         kprintf("Error to create a new page directory!\n");
-        return (char *)(SYSERR);
+        return (pd_t *)(SYSERR);
     }
 
 
@@ -34,10 +34,10 @@ char * create_pd(pid32 pid)
 
 
     /* Initialize the page directory    */
-    pd = (pd_t *)(NBPG * (FRAME0 + frame_num));     /* base address of page directory   */
+    pd = (pd_t *)(NBPG * (frame_num + FRAME0));     /* base address of page directory   */
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
         pd[i].pd_pres     = 0;
-        pd[i].pd_write    = 0;
+        pd[i].pd_write    = 1;
         pd[i].pd_user     = 0;
         pd[i].pd_pwt      = 0;
         pd[i].pd_pcd      = 0;
@@ -50,6 +50,6 @@ char * create_pd(pid32 pid)
 
     }
 
-    return (char *)(pd);
+    return pd;
 
 };

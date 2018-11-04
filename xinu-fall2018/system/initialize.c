@@ -230,7 +230,7 @@ static	void initialize_paging(void)
 	prptr = &proctab[NULLPROC];
 	prptr -> page_directory = create_pd(NULLPROC);
 
-	if (prptr -> page_directory == (char *)(SYSERR)) {
+	if (prptr -> page_directory == (pd_t *)(SYSERR)) {
 		stop("Initialize page directory for null process failed!");
 	}
 
@@ -243,7 +243,7 @@ static	void initialize_paging(void)
 	create_shared_pt();	/* Create shared page tables for 3 and 4	*/
 
 	/* Assign shared page tables to page directory of null process	*/
-	pd = (pd_t *)(prptr -> page_directory);	/* base address of page directory  */
+	pd = prptr -> page_directory;	/* base address of page directory  */
 	for (i = 0; i < 4; i++) {
         pd[i].pd_pres     = 1;
         pd[i].pd_write    = 1;

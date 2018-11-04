@@ -12,7 +12,7 @@
  *----------------------------------------
  */
 
-char * create_pt(pid32 pid)
+pt_t * create_pt(pid32 pid)
 {
     uint32  i;
     int     frame_num;
@@ -22,7 +22,7 @@ char * create_pt(pid32 pid)
 
     if (frame_num == SYSERR) {     /* Error    */
         kprintf("Error to create a new page table!\n");
-        return (char *)(SYSERR);
+        return (pt_t *)(SYSERR);
     }
 
     /* Set the inverted_page_table entry    */
@@ -34,10 +34,10 @@ char * create_pt(pid32 pid)
     hook_ptable_create(frame_num);
 
     /* Initialize the page table    */
-    pt = (pt_t *)(NBPG * (FRAME0 + frame_num)); /* base address of page table  */
+    pt = (pt_t *)(NBPG * (frame_num + FRAME0)); /* base address of page table  */
     for (i = 0; i < PAGE_TABLE_ENTRIES; i++) {
         pt[i].pt_pres   = 0;
-        pt[i].pt_write  = 0;
+        pt[i].pt_write  = 1;
         pt[i].pt_user   = 0;
         pt[i].pt_pwt    = 0;
         pt[i].pt_pcd    = 0;
@@ -49,5 +49,5 @@ char * create_pt(pid32 pid)
         pt[i].pt_base   = 0;
     }
 
-    return (char *)(pt);
+    return pt;
 }

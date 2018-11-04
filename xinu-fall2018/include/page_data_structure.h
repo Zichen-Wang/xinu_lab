@@ -36,7 +36,7 @@ struct frame_t {
 
 /* in file paging_init.c    */
 extern  struct frame_t inverted_page_table[NFRAMES];
-extern  char * shared_page_table[5];
+extern  pt_t * shared_page_table[5];
 
 
 /* in paging_init.c     */
@@ -46,13 +46,13 @@ extern  void paging_init(void);
 extern	void create_shared_pt(void);
 
 /* in file create_pd.c	*/
-extern	char * create_pd(pid32);
+extern	pd_t * create_pd(pid32);
 
 /* in file create_pt.c	*/
-extern	char * create_pt(pid32);
+extern	pt_t * create_pt(pid32);
 
-/* in file free_frames.c	*/
-extern	void free_frames(pid32);
+/* in file free_all_frames.c	*/
+extern	void free_all_frames(pid32);
 
 /* in file findfframe.c */
 extern  int findfframe(uint8);

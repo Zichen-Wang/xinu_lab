@@ -53,7 +53,7 @@ void create_shared_pt(void)
                 pt[i].pt_base = DEVICE_PD * PAGE_TABLE_ENTRIES + i;
 
         }
-        shared_page_table[t] = (char *)(pt);
+        shared_page_table[t] = pt;
     }
 
 }

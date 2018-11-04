@@ -35,8 +35,8 @@ syscall	kill(
 	 * user: wang4113
 	 * data: 11/02/2018
 	 */
-	/* Delete page directory and page table when a process ends	*/
-	free_frames(pid);
+	/* Delete page directory, page table and frames when a process ends	*/
+	free_all_frames(pid);
 
 	switch (prptr->prstate) {
 	case PR_CURR:

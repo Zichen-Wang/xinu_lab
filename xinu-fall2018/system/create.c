@@ -112,7 +112,7 @@ pid32	create(
 	/* Create a new page directory */
 	prptr -> page_directory = create_pd(pid);
 
-	if (prptr -> page_directory == (char *)(SYSERR)) {
+	if (prptr -> page_directory == (pd_t *)(SYSERR)) {
 		kprintf("Initialize page directory for the new process failed!");
 		prptr -> prstate = PR_FREE;
 		restore(mask);
@@ -122,7 +122,7 @@ pid32	create(
 	prptr -> hsize = 0;
 
 	/* Assign shared page tables to page directory of null process	*/
-	pd = (pd_t *)(prptr -> page_directory);	/* base address of page directory  */
+	pd = prptr -> page_directory;	/* base address of page directory  */
 	for (i = 0; i < 4; i++) {
 		pd[i].pd_pres     = 1;
 		pd[i].pd_write    = 1;
