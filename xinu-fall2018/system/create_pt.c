@@ -14,9 +14,9 @@
 
 char * create_pt(pid32 pid)
 {
-    uint32 i;
-    int frame_num;
-    pt_t *pt_entry;
+    uint32  i;
+    int     frame_num;
+    pt_t    *pt;
 
     frame_num = findfframe(PAGE_DIRECTORY_TABLE);    /* Get a new frame for page table   */
 
@@ -34,22 +34,20 @@ char * create_pt(pid32 pid)
     hook_ptable_create(frame_num);
 
     /* Initialize the page table    */
+    pt = (pt_t *)(NBPG * (FRAME0 + frame_num)); /* base address of page table  */
     for (i = 0; i < PAGE_TABLE_ENTRIES; i++) {
-        pt_entry = (pt_t *)(NBPG * (FRAME0 + frame_num) + i * 4);  /* address of page table entry  */
-
-        pt_entry -> pt_pres     = 0;
-        pt_entry -> pt_write    = 0;
-        pt_entry -> pt_user	    = 0;
-        pt_entry -> pt_pwt	    = 0;
-        pt_entry -> pt_pcd	    = 0;
-        pt_entry -> pt_acc	    = 0;
-        pt_entry -> pt_dirty    = 0;
-        pt_entry -> pt_mbz	    = 0;
-        pt_entry -> pt_global   = 0;
-        pt_entry -> pt_avail    = 0;
-        pt_entry -> pt_base	    = 0;
-
+        pt[i].pt_pres   = 0;
+        pt[i].pt_write  = 0;
+        pt[i].pt_user   = 0;
+        pt[i].pt_pwt    = 0;
+        pt[i].pt_pcd    = 0;
+        pt[i].pt_acc    = 0;
+        pt[i].pt_dirty  = 0;
+        pt[i].pt_mbz    = 0;
+        pt[i].pt_global = 0;
+        pt[i].pt_avail  = 0;
+        pt[i].pt_base   = 0;
     }
 
-    return (char *)(NBPG * (FRAME0 + frame_num));
+    return (char *)(pt);
 }

@@ -33,7 +33,7 @@ pid32	vcreate(
     uint32		*a;		/* Points to list of args	*/
     uint32		*saddr;		/* Stack address		*/
 
-    pd_t	*pd_entry;		/* Ptr to page directory entry	*/
+    pd_t	*pd;
     struct	memblk	*memptr;	/* Ptr to memory block		*/
 
     mask = disable();
@@ -115,38 +115,34 @@ pid32	vcreate(
     prptr -> page_directory = create_pd(pid);
 
     /* Assign shared page tables to page directory of null process	*/
+    pd = (pd_t *)(prptr -> page_directory);	/* base address of page directory  */
     for (i = 0; i < 4; i++) {
-        pd_entry = (pd_t *)(prptr->page_directory + i * 4);
-
-        pd_entry -> pd_pres		= 1;
-        pd_entry -> pd_write	= 1;
-        pd_entry -> pd_user		= 0;
-        pd_entry -> pd_pwt		= 0;
-        pd_entry -> pd_pcd		= 0;
-        pd_entry -> pd_acc		= 0;
-        pd_entry -> pd_mbz		= 0;
-        pd_entry -> pd_fmb		= 0;
-        pd_entry -> pd_global	= 0;
-        pd_entry -> pd_avail	= 0;
-
-        pd_entry -> pd_base		= ((uint32)shared_page_table[i]) / NBPG;
+        pd[i].pd_pres     = 1;
+        pd[i].pd_write    = 1;
+        pd[i].pd_user     = 0;
+        pd[i].pd_pwt      = 0;
+        pd[i].pd_pcd      = 0;
+        pd[i].pd_acc      = 0;
+        pd[i].pd_mbz      = 0;
+        pd[i].pd_fmb      = 0;
+        pd[i].pd_global   = 0;
+        pd[i].pd_avail    = 0;
+        pd[i].pd_base     = 0;
+        pd[i].pd_base     = ((uint32) shared_page_table[i]) / NBPG;
     }
 
-    /* Assign shared page tables to page directory of null process	*/
-    pd_entry = (pd_t *)(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4);
 
-    pd_entry -> pd_pres		= 1;
-    pd_entry -> pd_write	= 1;
-    pd_entry -> pd_user		= 0;
-    pd_entry -> pd_pwt		= 0;
-    pd_entry -> pd_pcd		= 0;
-    pd_entry -> pd_acc		= 0;
-    pd_entry -> pd_mbz		= 0;
-    pd_entry -> pd_fmb		= 0;
-    pd_entry -> pd_global	= 0;
-    pd_entry -> pd_avail	= 0;
-
-    pd_entry -> pd_base		= ((uint32)shared_page_table[4]) / NBPG;
+    pd[DEVICE_PD].pd_pres    = 1;
+    pd[DEVICE_PD].pd_write   = 1;
+    pd[DEVICE_PD].pd_user    = 0;
+    pd[DEVICE_PD].pd_pwt	  = 0;
+    pd[DEVICE_PD].pd_pcd	  = 0;
+    pd[DEVICE_PD].pd_acc	  = 0;
+    pd[DEVICE_PD].pd_mbz	  = 0;
+    pd[DEVICE_PD].pd_fmb	  = 0;
+    pd[DEVICE_PD].pd_global  = 0;
+    pd[DEVICE_PD].pd_avail   = 0;
+    pd[DEVICE_PD].pd_base    = ((uint32) shared_page_table[4] / NBPG);
 
 
     memptr = &(prptr -> vmemlist);

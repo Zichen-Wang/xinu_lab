@@ -32,7 +32,7 @@ pid32	create(
 	 * data: 11/02/2018
 	 */
 
-	pd_t	*pd_entry;		/* Ptr to page directory entry	*/
+	pd_t	*pd;
 
 	mask = disable();
 	if (ssize < MINSTK)
@@ -113,37 +113,33 @@ pid32	create(
 	prptr -> page_directory = create_pd(pid);
 
 	/* Assign shared page tables to page directory of null process	*/
+	pd = (pd_t *)(prptr -> page_directory);	/* base address of page directory  */
 	for (i = 0; i < 4; i++) {
-		pd_entry = (pd_t *)(prptr->page_directory + i * 4);
-
-		pd_entry -> pd_pres		= 1;
-		pd_entry -> pd_write	= 1;
-		pd_entry -> pd_user		= 0;
-		pd_entry -> pd_pwt		= 0;
-		pd_entry -> pd_pcd		= 0;
-		pd_entry -> pd_acc		= 0;
-		pd_entry -> pd_mbz		= 0;
-		pd_entry -> pd_fmb		= 0;
-		pd_entry -> pd_global	= 0;
-		pd_entry -> pd_avail	= 0;
-
-		pd_entry -> pd_base		= ((uint32)shared_page_table[i]) / NBPG;
+		pd[i].pd_pres     = 1;
+		pd[i].pd_write    = 1;
+		pd[i].pd_user     = 0;
+		pd[i].pd_pwt      = 0;
+		pd[i].pd_pcd      = 0;
+		pd[i].pd_acc      = 0;
+		pd[i].pd_mbz      = 0;
+		pd[i].pd_fmb      = 0;
+		pd[i].pd_global   = 0;
+		pd[i].pd_avail    = 0;
+		pd[i].pd_base     = 0;
+		pd[i].pd_base     = ((uint32) shared_page_table[i]) / NBPG;
 	}
 
-	pd_entry = (pd_t *)(prptr -> page_directory + DEVICE_FRAME_BASE / PAGE_TABLE_ENTRIES * 4);
-
-	pd_entry -> pd_pres		= 1;
-	pd_entry -> pd_write	= 1;
-	pd_entry -> pd_user		= 0;
-	pd_entry -> pd_pwt		= 0;
-	pd_entry -> pd_pcd		= 0;
-	pd_entry -> pd_acc		= 0;
-	pd_entry -> pd_mbz		= 0;
-	pd_entry -> pd_fmb		= 0;
-	pd_entry -> pd_global	= 0;
-	pd_entry -> pd_avail	= 0;
-
-	pd_entry -> pd_base		= ((uint32)shared_page_table[4]) / NBPG;
+	pd[DEVICE_PD_BASE].pd_pres    = 1;
+	pd[DEVICE_PD_BASE].pd_write   = 1;
+	pd[DEVICE_PD_BASE].pd_user    = 0;
+	pd[DEVICE_PD_BASE].pd_pwt	  = 0;
+	pd[DEVICE_PD_BASE].pd_pcd	  = 0;
+	pd[DEVICE_PD_BASE].pd_acc	  = 0;
+	pd[DEVICE_PD_BASE].pd_mbz	  = 0;
+	pd[DEVICE_PD_BASE].pd_fmb	  = 0;
+	pd[DEVICE_PD_BASE].pd_global  = 0;
+	pd[DEVICE_PD_BASE].pd_avail   = 0;
+	pd[DEVICE_PD_BASE].pd_base    = ((uint32) shared_page_table[4] / NBPG);
 
 	(prptr -> vmemlist).mnext = NULL;		/* Initialize the virtual list */
 	(prptr -> vmemlist).mlength = 0;		/* Initialize the virtual list */

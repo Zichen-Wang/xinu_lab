@@ -18,7 +18,7 @@ void create_shared_pt(void)
 {
     uint32 t, i;
     int frame_num;
-    pt_t *pt_entry;
+    pt_t *pt;
 
     for (t = 0; t < 5; t++) {
         frame_num = findfframe(PAGE_DIRECTORY_TABLE);    /* Get a new frame for page table   */
@@ -34,27 +34,26 @@ void create_shared_pt(void)
         hook_ptable_create(frame_num);
 
         /* Initialize the page table    */
+        pt = (pt_t *)(NBPG * (FRAME0 + frame_num)); /* base address of page table  */
         for (i = 0; i < PAGE_TABLE_ENTRIES; i++) {
-            pt_entry = (pt_t *)(NBPG * (FRAME0 + frame_num) + i * 4);  /* address of page table entry  */
-
-            pt_entry -> pt_pres     = 1;
-            pt_entry -> pt_write    = 1;
-            pt_entry -> pt_user	    = 0;
-            pt_entry -> pt_pwt	    = 0;
-            pt_entry -> pt_pcd	    = 0;
-            pt_entry -> pt_acc	    = 0;
-            pt_entry -> pt_dirty    = 0;
-            pt_entry -> pt_mbz	    = 0;
-            pt_entry -> pt_global   = 0;
-            pt_entry -> pt_avail    = 0;
+            pt[i].pt_pres   = 1;
+            pt[i].pt_write  = 1;
+            pt[i].pt_user   = 0;
+            pt[i].pt_pwt    = 0;
+            pt[i].pt_pcd    = 0;
+            pt[i].pt_acc    = 0;
+            pt[i].pt_dirty  = 0;
+            pt[i].pt_mbz    = 0;
+            pt[i].pt_global = 0;
+            pt[i].pt_avail  = 0;
 
             if (t < 4)
-                pt_entry -> pt_base = t * PAGE_TABLE_ENTRIES + i;
+                pt[i].pt_base = t * PAGE_TABLE_ENTRIES + i;
             else
-                pt_entry -> pt_base = DEVICE_FRAME_BASE + i;
+                pt[i].pt_base = DEVICE_PD * PAGE_TABLE_ENTRIES + i;
 
         }
-        shared_page_table[t] = (char *)(NBPG * (FRAME0 + frame_num));
+        shared_page_table[t] = (char *)(pt);
     }
 
 }

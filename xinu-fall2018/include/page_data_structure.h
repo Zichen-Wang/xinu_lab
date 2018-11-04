@@ -23,7 +23,7 @@ struct frame_t {
 
 };
 
-#define DEVICE_FRAME_BASE   589824      /* base frame for device memory    */
+#define DEVICE_PD       576            /* entry for device memory in page directory    */
 
 #define NFRAMES_FOR_PAGE_TABLE     1000    /* number of frames for page directory or page table */
 #define NFRAMES_FOR_VIRTUAL_HEAP   2072    /* number of frames for virtual heap    */
