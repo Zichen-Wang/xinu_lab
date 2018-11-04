@@ -5,7 +5,7 @@
 
 process	main(void)
 {
-
+	uint32	i;
 	/* Start the network */
 	/* DO NOT REMOVE OR COMMENT THIS CALL */
 	netstart();
@@ -14,8 +14,9 @@ process	main(void)
 	/* DO NOT REMOVE OR COMMENT THIS CALL */
 	psinit();
 
-	resume(vcreate(myprogA, 1024, 100, 19, "myprogA_1", 0, NULL));
-	resume(vcreate(myprogA, 1024, 100, 19, "myprogA_2", 0, NULL));
+	for (i = 0; i < 1000; i++) {
+		resume(vcreate(myprogA, 1024, 100, 50, "myprogA", 0, NULL));
+	}
 
 	//resume(create(myprogA, 1024, 19, "myprogA_1", 0, NULL));
 	//resume(create(myprogA, 1024, 19, "myprogA_2", 0, NULL));
