@@ -9,7 +9,7 @@ process myprogA(void)
 
     pid = getpid();
 
-    array = (int *)(getmem(40));
+    array = (int *)(vgetmem(40));
     kprintf("%d->[0x%08X]\n", pid, array);
     for (int i = 0; i < 10; i++)
         array[i] = pid;
