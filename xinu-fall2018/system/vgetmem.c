@@ -39,7 +39,7 @@ char  	*vgetmem(
         prptr -> vmem_init = FALSE;
 
         curr -> mnext = NULL;                       /* first page fault */
-        curr -> mlength = prev -> mlength;
+        curr -> mlength = NBPG * (prptr -> hsize);
 
     }
 
@@ -55,6 +55,7 @@ char  	*vgetmem(
         else if (curr -> mlength > nbytes) { /* Split big block	*/
             leftover = (struct memblk *)((uint32) curr +
                                          nbytes);
+            kprintf("%d\n", curr);
             prev -> mnext = leftover;
             leftover -> mnext = curr -> mnext;
             leftover -> mlength = curr -> mlength - nbytes;

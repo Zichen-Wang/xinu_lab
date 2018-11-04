@@ -142,12 +142,13 @@ local void free_frames(uint32 start_addr, uint32 length)
         }
     }
 
-    /* The 0 to qe's pages in pe'th page table should be freed  */
+    /* The 0 to (qe - 1)'s pages in pe'th page table should be freed  */
 
     pt = (pt_t *)(NBPG * pd[pe].pd_base);
     frame_pt_num = pd[pe].pd_base - FRAME0;
 
     qs = 0;
+
     qe = (end_addr / NBPG) & 0x000003FF;
 
     for (j = qs; j < qe; j++) {

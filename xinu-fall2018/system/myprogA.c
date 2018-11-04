@@ -10,7 +10,7 @@ process myprogA(void)
 
     pid = getpid();
 
-    for (t = 0; t < 1000; t++) {
+    for (t = 0; t < 1; t++) {
         array = (int *)vgetmem(10000);
         for (i = 0; i < 2500; i++) {
             array[i] = t * i;
