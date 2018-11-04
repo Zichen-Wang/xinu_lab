@@ -52,7 +52,7 @@ char  	*vgetmem(
 
         if (curr -> mlength == nbytes) {	/* Block is exact match	*/
             prev -> mnext = curr -> mnext;
-            memlist.mlength -= nbytes;
+            (prptr -> vmemlist).mlength -= nbytes;
             restore(mask);
             return (char *)(curr);
 
@@ -63,7 +63,7 @@ char  	*vgetmem(
             prev -> mnext = leftover;
             leftover -> mnext = curr -> mnext;
             leftover -> mlength = curr -> mlength - nbytes;
-            memlist.mlength -= nbytes;
+            (prptr -> vmemlist).mlength -= nbytes;
             restore(mask);
             return (char *)(curr);
         }

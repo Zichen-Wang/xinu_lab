@@ -151,11 +151,11 @@ pid32	vcreate(
     memptr -> mlength = NBPG * hsize_in_pages;
     kprintf("new pid %d\n", pid);
     /* We cannot initialize the first block, since we are now in the context of parent  */
-    /*
+
     memptr = memptr -> mnext;
     memptr -> mnext = NULL;
     memptr -> mlength = NBPG * hsize_in_pages;
-    */
+
     /* We should delay this initialization until the first vgetmem()    */
     prptr -> is_mem_initialized = FALSE;
 
