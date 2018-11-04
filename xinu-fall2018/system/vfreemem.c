@@ -7,7 +7,6 @@
 
 #include <xinu.h>
 
-local void free_frames(uint32, uint32);
 
 /*----------------------------------------------------------------------------------------
  *  vfreemem  -  Free a virtual memory block, returning the block to the free virtual list
