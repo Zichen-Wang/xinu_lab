@@ -61,7 +61,7 @@ struct procent {		/* Entry in the process table		*/
 	uint32	hsize;				/* heap size in pages	*/
 	struct	memblk	vmemlist;	/* List of free virtual memory block	*/
 
-	bool8	is_mem_initialized;	/* Is the first memory block initialized?	*/
+	bool8	vmem_init;			/* Should the first memory block be initialized?	*/
 
 };
 
