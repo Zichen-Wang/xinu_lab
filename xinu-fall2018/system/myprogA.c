@@ -21,8 +21,6 @@ process myprogA(void)
     kprintf("\n\n");
 
 
-    sleepms(3000);  /* 6: myprogA() sleeps for 3 seconds   */
-
 
     /* 6: Print stack base, stack size, stack limit, stack pointer, PID, and parent PID.   */
 
