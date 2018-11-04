@@ -10,7 +10,7 @@
 
 struct frame_t inverted_page_table[NFRAMES];
 
-char * shared_page_table[5];
+pt_t * shared_page_table[5];
 
 
 /*---------------------------------------------------------------------------
