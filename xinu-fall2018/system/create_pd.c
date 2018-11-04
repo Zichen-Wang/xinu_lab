@@ -25,6 +25,8 @@ char * create_pd(pid32 pid)
         return (char *)(SYSERR);
     }
 
+    kprintf("%d\n", frame_num);
+
     /* Set the inverted_page_table entry    */
     inverted_page_table[frame_num].fstate = F_PD;
     inverted_page_table[frame_num].pid = pid;
