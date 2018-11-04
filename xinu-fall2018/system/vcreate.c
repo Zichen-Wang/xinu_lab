@@ -131,7 +131,6 @@ pid32	vcreate(
         pd[i].pd_base     = ((uint32) shared_page_table[i]) / NBPG;
     }
 
-
     pd[DEVICE_PD].pd_pres    = 1;
     pd[DEVICE_PD].pd_write   = 1;
     pd[DEVICE_PD].pd_user    = 0;
@@ -144,12 +143,12 @@ pid32	vcreate(
     pd[DEVICE_PD].pd_avail   = 0;
     pd[DEVICE_PD].pd_base    = ((uint32) shared_page_table[4] / NBPG);
 
-    /*
+
     memptr = &(prptr -> vmemlist);
 
     memptr -> mnext = (struct memblk *)(NBPG * 4096);
     memptr -> mlength = NBPG * hsize_in_pages;
-    */
+
     /* We cannot initialize the first block, since we are now in the context of parent  */
     /*
     memptr = memptr -> mnext;
