@@ -55,7 +55,7 @@ char  	*vgetmem(
         else if (curr -> mlength > nbytes) { /* Split big block	*/
             leftover = (struct memblk *)((uint32) curr +
                                          nbytes);
-            kprintf("%d\n", (uint32)curr);
+            kprintf("0x%08X\n", (uint32)curr);
             prev -> mnext = leftover;
             leftover -> mnext = curr -> mnext;
             leftover -> mlength = curr -> mlength - nbytes;

@@ -161,7 +161,7 @@ local void free_frames(uint32 start_addr, uint32 length)
             /* Free this frame */
             inverted_page_table[frame_virt_num].fstate = F_FREE;
             pt[j].pt_pres = 0;
-
+            pt[j].pt_base = 0;
             /* The reference count of pe'th page table decreases one  */
             inverted_page_table[frame_pt_num].reference_count--;
 
