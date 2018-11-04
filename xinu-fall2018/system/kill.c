@@ -37,7 +37,6 @@ syscall	kill(
 	 */
 	/* Delete page directory and page table when a process ends	*/
 	free_frames(pid);
-	kprintf("killed pid %d\n", pid);
 
 	switch (prptr->prstate) {
 	case PR_CURR:

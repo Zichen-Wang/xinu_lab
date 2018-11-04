@@ -149,7 +149,7 @@ pid32	vcreate(
 
     memptr -> mnext = (struct memblk *)(NBPG * 4096);
     memptr -> mlength = NBPG * hsize_in_pages;
-
+    kprintf("new pid %d\n", pid);
     /* We cannot initialize the first block, since we are now in the context of parent  */
     /*
     memptr = memptr -> mnext;
