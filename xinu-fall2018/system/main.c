@@ -14,9 +14,9 @@ process	main(void)
 	/* DO NOT REMOVE OR COMMENT THIS CALL */
 	psinit();
 
-	resume(vcreate(myprogA, 100, 1024, 50, "myprogA_1", 0, NULL));
-	resume(vcreate(myprogA, 100, 1024, 50, "myprogA_2", 0, NULL));
-	resume(vcreate(myprogA, 100, 1024, 50, "myprogA_3", 0, NULL));
+	resume(vcreate(myprogA, 100, 1024, 19, "myprogA_1", 0, NULL));
+	resume(vcreate(myprogA, 100, 1024, 19, "myprogA_2", 0, NULL));
+	resume(vcreate(myprogA, 100, 1024, 19, "myprogA_3", 0, NULL));
 	sleepms(100);
 
 	kprintf("\n...creating a shell\n");
