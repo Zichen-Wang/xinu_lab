@@ -60,6 +60,9 @@ extern  int findfframe(uint8);
 /* in file vcreate.c    */
 extern  pid32	vcreate(void *, uint32, uint16, pri16, char *, uint32, ...);
 
+/* in file vgetmem.c    */
+extern	char	*vgetmem(uint32);
+
 /* in file hooks.c  */
 extern  void hook_ptable_create(unsigned int);
 extern  void hook_ptable_delete(unsigned int);
