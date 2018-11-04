@@ -114,12 +114,15 @@ local   uint32  get_faulted_addr(void)
 
 
 /*------------------------------------------------------------------------
- * is_valid_addr - Check if a is a valid address
+ * is_valid_addr - Check if 'a' is a valid address
  *------------------------------------------------------------------------
  */
 
 local   bool8   is_valid_addr(uint32 a, pid32 pid)
 {
+
+    struct  memblk *memptr; /* Ptr to memory block  */
+
     if (NBPG * 4096 + proctab[pid].vmemlist.mlength >= a)
         return TRUE;
 

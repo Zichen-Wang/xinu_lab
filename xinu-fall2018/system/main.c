@@ -5,7 +5,6 @@
 
 process	main(void)
 {
-	uint32	i;
 	/* Start the network */
 	/* DO NOT REMOVE OR COMMENT THIS CALL */
 	netstart();
