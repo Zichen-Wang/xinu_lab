@@ -10,12 +10,7 @@ process myprogA(void)
     pid = getpid();
 
     array = (int *)(getmem(40));
-    for (int i = 0; i < 10; i++)
-        array[i] = pid;
-
-    for (int i = 0; i < 10; i++)
-        kprintf("\npid %d: %d\n", pid, array[i]);
-
+    printf("\npid %d: addr 0x%08X\n", pid, array);
 
     return 0;
 }
