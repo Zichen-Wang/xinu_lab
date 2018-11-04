@@ -132,11 +132,11 @@ pid32	create(
 	pd[DEVICE_PD].pd_pres    = 1;
 	pd[DEVICE_PD].pd_write   = 1;
 	pd[DEVICE_PD].pd_user    = 0;
-	pd[DEVICE_PD].pd_pwt	  = 0;
-	pd[DEVICE_PD].pd_pcd	  = 0;
-	pd[DEVICE_PD].pd_acc	  = 0;
-	pd[DEVICE_PD].pd_mbz	  = 0;
-	pd[DEVICE_PD].pd_fmb	  = 0;
+	pd[DEVICE_PD].pd_pwt	 = 0;
+	pd[DEVICE_PD].pd_pcd	 = 0;
+	pd[DEVICE_PD].pd_acc	 = 0;
+	pd[DEVICE_PD].pd_mbz	 = 0;
+	pd[DEVICE_PD].pd_fmb	 = 0;
 	pd[DEVICE_PD].pd_global  = 0;
 	pd[DEVICE_PD].pd_avail   = 0;
 	pd[DEVICE_PD].pd_base    = ((uint32) shared_page_table[4] / NBPG);
