@@ -28,7 +28,7 @@ void free_frames(pid32 pid)
         /* the page table is present */
         if (pd[i].pd_pres == 1) {
             /* Find the frame number of this page table   */
-            frame_pt_num = (pd[i].pd_base) - FRAME0;
+            frame_pt_num = pd[i].pd_base - FRAME0;
 
             /* it is not a shared page table   */
             if (inverted_page_table[frame_pt_num].fstate != F_SHARED_PT) {
@@ -39,7 +39,7 @@ void free_frames(pid32 pid)
                     /* the true frame is present  */
                     if (pt[i].pt_pres == 1) {
                         /* Find the frame number of the virtual page   */
-                        frame_virt_num = (pt[i].pt_base) - FRAME0;
+                        frame_virt_num = pt[i].pt_base - FRAME0;
 
                         /* Free this frame for virtual memory */
                         inverted_page_table[frame_virt_num].fstate = F_FREE;
