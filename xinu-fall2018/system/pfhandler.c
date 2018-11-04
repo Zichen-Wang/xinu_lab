@@ -65,6 +65,14 @@ void	pfhandler()
     inverted_page_table[pt -> pd_base - FRAME0].reference_count++;
 
     new_frame_num = findfframe(PAGE_VIRTUAL_HEAP);
+
+
+    /* Update the inverted_page_table for this new frame    */
+    inverted_page_table[new_frame_num].fstate = F_USED_VIRT;
+    inverted_page_table[new_frame_num].pid = currpid;
+    inverted_page_table[new_frame_num].virt_page_num = vp;
+
+
     if (new_frame_num == SYSERR) {    /* Cannot create a new frame for virtual page   */
         kill(currpid);
     }

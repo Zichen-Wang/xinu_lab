@@ -60,6 +60,8 @@ struct procent {		/* Entry in the process table		*/
 	char	*page_directory;	/* Pointer to the page directory	*/
 	struct	memblk	vmemlist;	/* List of free virtual memory block	*/
 
+	bool8	is_mem_initialized;	/* Is the first memory block initialized?	*/
+
 };
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/

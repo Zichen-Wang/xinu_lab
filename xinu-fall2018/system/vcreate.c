@@ -154,12 +154,14 @@ pid32	vcreate(
     memptr -> mnext = (struct memblk *)(NBPG * 4096);
     memptr -> mlength = NBPG * hsize_in_pages;
 
+    /* We cannot initialize the first block, since we are now in the context of parent  */
+    /*
     memptr = memptr -> mnext;
-
-    kprintf("before\n");
-    memptr -> mnext = NULL;         /* first page fault */
-    kprintf("after\n");
+    memptr -> mnext = NULL;
     memptr -> mlength = NBPG * hsize_in_pages;
+    */
+    /* We should delay this initialization until the first vgetmem()    */
+    prptr -> is_mem_initialized = FALSE;
 
 
 
