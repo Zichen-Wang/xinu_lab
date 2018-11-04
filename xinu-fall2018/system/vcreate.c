@@ -114,6 +114,15 @@ pid32	vcreate(
     /* Create a new page directory */
     prptr -> page_directory = create_pd(pid);
 
+    if (prptr -> page_directory == (char *)(SYSERR)) {
+        kprintf("Initialize page directory for the new process failed!");
+        prptr -> prstate = PR_FREE;
+        restore(mask);
+        return SYSERR;
+    }
+
+    prptr -> hsize = hsize_in_pages;
+
     /* Assign shared page tables to page directory of null process	*/
     pd = (pd_t *)(prptr -> page_directory);	/* base address of page directory  */
     for (i = 0; i < 4; i++) {
@@ -146,17 +155,18 @@ pid32	vcreate(
 
     memptr = &(prptr -> vmemlist);
 
-    memptr -> mnext = (struct memblk *)(NBPG * 4096);
+    memptr -> mnext = (struct memblk *)(NBPG * (FRAME0 + NFRAMES));
     memptr -> mlength = NBPG * hsize_in_pages;
 
     /* We cannot initialize the first block, since we are now in the context of parent  */
+    /* Initializing it now will cause page fault in the context of parent   */
     /*
     memptr = memptr -> mnext;
     memptr -> mnext = NULL;
     memptr -> mlength = NBPG * hsize_in_pages;
     */
     /* We should delay this initialization until the first vgetmem()    */
-    prptr -> is_mem_initialized = FALSE;
+    prptr -> vmem_init = TRUE;
 
 
 

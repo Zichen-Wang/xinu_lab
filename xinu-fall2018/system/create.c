@@ -112,6 +112,15 @@ pid32	create(
 	/* Create a new page directory */
 	prptr -> page_directory = create_pd(pid);
 
+	if (prptr -> page_directory == (char *)(SYSERR)) {
+		kprintf("Initialize page directory for the new process failed!");
+		prptr -> prstate = PR_FREE;
+		restore(mask);
+		return SYSERR;
+	}
+
+	prptr -> hsize = 0;
+
 	/* Assign shared page tables to page directory of null process	*/
 	pd = (pd_t *)(prptr -> page_directory);	/* base address of page directory  */
 	for (i = 0; i < 4; i++) {
@@ -141,8 +150,10 @@ pid32	create(
 	pd[DEVICE_PD].pd_avail   = 0;
 	pd[DEVICE_PD].pd_base    = ((uint32) shared_page_table[4] / NBPG);
 
-	(prptr -> vmemlist).mnext = NULL;		/* Initialize the virtual list */
-	(prptr -> vmemlist).mlength = 0;		/* Initialize the virtual list */
+	(prptr -> vmemlist).mnext = NULL;		/* Initialize the virtual memory list */
+	(prptr -> vmemlist).mlength = 0;		/* Initialize the virtual memory list */
+
+	prptr -> vmem_init = FALSE;				/* We do not need to initialize first virtual memory block	*/
 
 	restore(mask);
 	return pid;

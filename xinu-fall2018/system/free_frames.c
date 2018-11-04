@@ -23,6 +23,7 @@ void free_frames(pid32 pid)
     prptr = &proctab[pid];
 
     pd = (pd_t *)(prptr -> page_directory);
+
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
 
         /* the page table is present */

@@ -18,8 +18,7 @@ char  	*vgetmem(
 {
     intmask	mask;			/* Saved interrupt mask		*/
     struct	memblk	*prev, *curr, *leftover;
-
-    struct  procent *prptr;
+    struct  procent *prptr; /* Ptr to process table entry   */
 
     mask = disable();
 
@@ -35,13 +34,9 @@ char  	*vgetmem(
     prev = &(prptr -> vmemlist);
     curr = (prptr -> vmemlist).mnext;
 
-    if (curr == NULL) {     /* The process is not created by vcreate()  */
-        restore(mask);
-        return (char *)SYSERR;
-    }
 
-    if (prptr -> is_mem_initialized == FALSE) {     /* The virtual memory is not initialized */
-        prptr -> is_mem_initialized = TRUE;
+    if (prptr -> vmem_init == TRUE) {     /* The virtual memory should be initialized */
+        prptr -> vmem_init = FALSE;
 
         curr -> mnext = NULL;                       /* first page fault */
         curr -> mlength = prev -> mlength;

@@ -58,6 +58,7 @@ struct procent {		/* Entry in the process table		*/
 	 * data: 11/01/2018
 	 */
 	char	*page_directory;	/* Pointer to the page directory	*/
+	uint32	hsize;				/* heap size in pages	*/
 	struct	memblk	vmemlist;	/* List of free virtual memory block	*/
 
 	bool8	is_mem_initialized;	/* Is the first memory block initialized?	*/
