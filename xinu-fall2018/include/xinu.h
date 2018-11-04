@@ -9,6 +9,7 @@
  */
 
 #include <memory.h>     /* make sure memory.h is defined before process.h   */
+#include <paging.h>     /* make sure paging.h is defined before process.h   */
 
 #include <process.h>
 #include <queue.h>
@@ -48,7 +49,6 @@
 #include <multiboot.h>
 #include <stdio.h>
 #include <string.h>
-#include <paging.h>
 #include <page_server.h>
 
 #include <page_data_structure.h>    /* data structure for paging   */
