@@ -10,7 +10,7 @@ process myprogA(void)
     pid = getpid();
 
     array = (int *)(getmem(40));
-    printf("\npid %d: addr 0x%08X\n", pid, array);
+    printf("\n%d: [0x%08X]\n", pid, array);
 
     return 0;
 }
