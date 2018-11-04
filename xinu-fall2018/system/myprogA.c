@@ -5,7 +5,6 @@
 process myprogA(void)
 {
     pid32   pid;
-    uint32  cr3;
     int *array;
 
     pid = getpid();
