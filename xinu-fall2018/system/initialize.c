@@ -231,7 +231,7 @@ static	void initialize_paging(void)
 	prptr -> page_directory = create_pd(NULLPROC);
 
 	if (prptr -> page_directory == (pd_t *)(SYSERR)) {
-		stop("Initialize page directory for null process failed!");
+		stop("Initialization of page directory for null process failed!");
 	}
 
 	prptr -> hsize = 0;

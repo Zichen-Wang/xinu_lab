@@ -8,19 +8,26 @@
 #define PAGE_FAULT_NUM  14
 
 #define F_FREE          0
-#define F_USED_VIRT     1
+#define F_VIRT_HEAP     1
 #define F_PD            2
 #define F_PT            3
 #define F_SHARED_PT     4
 
-struct frame_t {
+typedef struct {
 
-    uint16  fstate;      /* Define the status of a frame */
+    uint16  fstate;     /* Define the status of a frame */
     pid32   pid;        /* Which process is using this frame?    */
 
     unsigned int virt_page_num	: 20;   /* the virtual address of this frame    */
     int reference_count;
 
+} frame_t;
+
+
+struct  bs_mapping_entry {    /*  The mapping of backing store to a process    */
+    pid32   pid;
+    uint32  start_vaddr;
+    uint32  npages;
 };
 
 #define DEVICE_PD       576            /* entry for device memory in page directory    */
@@ -33,6 +40,9 @@ struct frame_t {
 
 #define PAGE_DIRECTORY_TABLE   0           /* Frame type used in findfframe()  */
 #define PAGE_VIRTUAL_HEAP      1           /* Frame type used in findfframe()  */
+
+
+#define FIFO    0      /* page replacement policy  */
 
 /* in file paging_init.c    */
 extern  struct frame_t inverted_page_table[NFRAMES];
@@ -92,3 +102,6 @@ extern  process myprogA(void);
 
 /* in file pfisr.S  */
 extern  int pferrorno;
+
+/* in file pgrpolicy.c  */
+extern  syscall pgrpolicy(uint16);

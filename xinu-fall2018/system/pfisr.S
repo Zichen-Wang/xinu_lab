@@ -21,7 +21,7 @@ pfisr:
         pushl   %ebx                    # Save the temp register EBX
         movl    4(%esp), %ebx
         movl    %ebx, pferrorno         # Page fault error number; Store error code in a global variable
-        pop     %ebx                    # Restore temp register EBX
+        popl    %ebx                    # Restore temp register EBX
 
         pushal                          # Save registers
         call    pfhandler               # Call C function to handle the interrupt

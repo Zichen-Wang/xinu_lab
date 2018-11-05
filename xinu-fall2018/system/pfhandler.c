@@ -62,16 +62,16 @@ void	pfhandler()
 
     new_frame_num = findfframe(PAGE_VIRTUAL_HEAP);
 
+    if (new_frame_num == SYSERR) {    /* Cannot create a new frame for virtual page   */
+        kill(currpid);
+    }
 
     /* Update the inverted_page_table for this new frame    */
-    inverted_page_table[new_frame_num].fstate = F_USED_VIRT;
+    inverted_page_table[new_frame_num].fstate = F_VIRT_HEAP;
     inverted_page_table[new_frame_num].pid = currpid;
     inverted_page_table[new_frame_num].virt_page_num = vp;
 
 
-    if (new_frame_num == SYSERR) {    /* Cannot create a new frame for virtual page   */
-        kill(currpid);
-    }
 
     pt = (pt_t *)(NBPG * (pd[p].pd_base));
 
@@ -120,7 +120,7 @@ local   uint32  get_faulted_addr(void)
 
 local   bool8   is_valid_addr(uint32 a, pid32 pid)
 {
-    if (NBPG * 4096 + proctab[pid].vmemlist.mlength >= a)
+    if (a < NBPG * (4096 + proctab[pid].hsize))
         return TRUE;
 
     return FALSE;

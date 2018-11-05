@@ -34,6 +34,9 @@ pid32	vcreate(
     uint32		*saddr;		/* Stack address		*/
 
     pd_t	*pd;
+
+    uint32  num_empty_backing_store_entries;
+
     struct	memblk	*memptr;	/* Ptr to memory block		*/
 
     mask = disable();
@@ -46,6 +49,43 @@ pid32	vcreate(
         restore(mask);
         return SYSERR;
     }
+
+    /*
+     * user: wang4113
+     * data: 11/04/2018
+     */
+
+    /* Create a new page directory */
+    pd = create_pd(pid);
+
+    if (pd == (pd_t *)(SYSERR)) {
+        kprintf("Initialization of page directory for the new process failed!\n");
+        restore(mask);
+        return SYSERR;
+    }
+
+    /* Count the number of empty backing store entries  */
+    num_empty_backing_store = 0;
+
+    for (i = 0; i < MAX_BS_ENTRIES; i++) {
+        if (bstab[i].isallocated == FALSE) {
+            num_empty_backing_store++;
+        }
+    }
+
+    /* Check if the demand heap size is larger than the number of backing store blocks  */
+    if (hsize_in_pages > num_empty_backing_store * MAX_PAGES_PER_BS) {
+        kprintf("Cannot allocate backing store!\n");
+        restore(mask);
+        return SYSERR;
+    }
+
+    /* To be continued to allocate backing store    */
+
+
+
+
+    /* Allocate backing store   */
 
     prcount++;
     prptr = &proctab[pid];
@@ -111,20 +151,12 @@ pid32	vcreate(
      * data: 11/02/2018
      */
 
-    /* Create a new page directory */
-    prptr -> page_directory = create_pd(pid);
-
-    if (prptr -> page_directory == (pd_t *)(SYSERR)) {
-        kprintf("Initialize page directory for the new process failed!");
-        prptr -> prstate = PR_FREE;
-        restore(mask);
-        return SYSERR;
-    }
-
-    prptr -> hsize = hsize_in_pages;
 
     /* Assign shared page tables to page directory of null process	*/
-    pd = prptr -> page_directory;	/* base address of page directory  */
+
+    prptr -> page_directory = pd;
+    prptr -> hsize = hsize_in_pages;
+
     for (i = 0; i < 4; i++) {
         pd[i].pd_pres     = 1;
         pd[i].pd_write    = 1;
