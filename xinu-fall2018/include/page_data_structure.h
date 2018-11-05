@@ -42,8 +42,6 @@ struct  bs_mapping_entry {    /*  The mapping of backing store to a process    *
 #define PAGE_VIRTUAL_HEAP      1           /* Frame type used in findfframe()  */
 
 
-#define FIFO    0      /* page replacement policy  */
-
 /* in file paging_init.c    */
 extern  struct frame_entry inverted_page_table[NFRAMES];
 extern  pt_t * shared_page_table[5];
