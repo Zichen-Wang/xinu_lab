@@ -35,7 +35,7 @@ pid32	vcreate(
 
     pd_t	*pd;
 
-    uint32  num_empty_backing_store_entries;
+    uint32  num_empty_backing_store;
 
     struct	memblk	*memptr;	/* Ptr to memory block		*/
 
