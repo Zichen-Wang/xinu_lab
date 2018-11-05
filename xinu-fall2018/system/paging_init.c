@@ -8,7 +8,7 @@
 #include <xinu.h>
 
 
-frame_t inverted_page_table[NFRAMES];
+struct frame_entry inverted_page_table[NFRAMES];
 
 pt_t * shared_page_table[5];
 

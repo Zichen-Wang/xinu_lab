@@ -13,7 +13,7 @@
 #define F_PT            3
 #define F_SHARED_PT     4
 
-typedef struct {
+struct frame_entry {
 
     uint16  fstate;     /* Define the status of a frame */
     pid32   pid;        /* Which process is using this frame?    */
@@ -21,7 +21,7 @@ typedef struct {
     unsigned int virt_page_num	: 20;   /* the virtual address of this frame    */
     int reference_count;
 
-} frame_t;
+};
 
 
 struct  bs_mapping_entry {    /*  The mapping of backing store to a process    */
@@ -45,7 +45,7 @@ struct  bs_mapping_entry {    /*  The mapping of backing store to a process    *
 #define FIFO    0      /* page replacement policy  */
 
 /* in file paging_init.c    */
-extern  frame_t inverted_page_table[NFRAMES];
+extern  struct frame_entry inverted_page_table[NFRAMES];
 extern  pt_t * shared_page_table[5];
 
 
