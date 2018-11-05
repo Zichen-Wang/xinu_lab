@@ -14,7 +14,7 @@ pt_t * shared_page_table[5];
 
 struct bs_mapping_entry bs_mapping_table[MAX_BS_ENTRIES];
 
-int spolicy;
+uint16 spolicy;
 
 
 /*---------------------------------------------------------------------------
