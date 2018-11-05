@@ -45,7 +45,7 @@ struct  bs_mapping_entry {    /*  The mapping of backing store to a process    *
 #define FIFO    0      /* page replacement policy  */
 
 /* in file paging_init.c    */
-extern  struct frame_t inverted_page_table[NFRAMES];
+extern  frame_t inverted_page_table[NFRAMES];
 extern  pt_t * shared_page_table[5];
 
 
