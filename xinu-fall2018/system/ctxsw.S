@@ -21,6 +21,10 @@ ctxsw:
 		movl	12(%ebp),%eax	/* Get location from which to	*/
 					/*   restore new process's SP	*/
 
+		/*
+         * user: wang4113
+         * data: 11/06/2018
+         */
 		movl    16(%ebp), %ecx  /* Get new process's page directory */
 		movl    %ecx, %cr3      /* Set PDBR register for new process    */
 

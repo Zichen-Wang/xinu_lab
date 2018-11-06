@@ -13,7 +13,7 @@ process myprogA(void)
     for (t = 0; t < 2; t++) {
         array = (int *)vgetmem(10000);
         for (i = 0; i < 2500; i++) {
-            array[i] = t * i;
+            array[i] = (t + 1) * pid * i;
         }
 
         kprintf("pid %d, 1348th %d\n", pid, array[1348]);

@@ -91,6 +91,8 @@ void	pfhandler()
 
     inverted_page_table[pd[p].pd_base - FRAME0].reference_count++;
 
+    /* To be continued to read this page from backing store  */
+
 
 
 
