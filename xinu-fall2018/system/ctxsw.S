@@ -2,10 +2,13 @@
 
 		.text
 		.globl	ctxsw
-
-/*------------------------------------------------------------------------
- * ctxsw -  X86 context switch; the call is ctxsw(&old_sp, &new_sp)
- *------------------------------------------------------------------------
+/*
+ * user: wang4113
+ * data: 11/06/2018
+ */
+/*-------------------------------------------------------------------------
+ * ctxsw -  X86 context switch; the call is ctxsw(&old_sp, &new_sp, new_pd)
+ *-------------------------------------------------------------------------
  */
 ctxsw:
 		pushl	%ebp		/* Push ebp onto stack		*/
@@ -26,12 +29,17 @@ ctxsw:
          * data: 11/06/2018
          */
 		movl    16(%ebp), %ecx  /* Get new process's page directory */
-		movl    %ecx, %cr3      /* Set PDBR register for new process    */
 
 		/* The next instruction switches from the old process's	*/
 		/*   stack to the new process's stack.			*/
 
 		movl	(%eax),%esp	/* Pop up new process's SP	*/
+
+		/*
+         * user: wang4113
+         * data: 11/06/2018
+         */
+		movl    %ecx, %cr3      /* Set PDBR register for new process    */
 
 		/* Restore new seg. registers here, if multiple allowed */
 
