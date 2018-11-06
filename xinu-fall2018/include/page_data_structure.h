@@ -86,9 +86,6 @@ extern  int get_faults(void);
 /* in file enable_paging.S  */
 extern  void enable_paging(void);
 
-/* in file setCR3.S */
-extern  void setCR3(uint32);
-
 /* in file pfisr.S  */
 extern  void pfisr(void);
 

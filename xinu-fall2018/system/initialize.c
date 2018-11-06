@@ -279,7 +279,10 @@ static	void initialize_paging(void)
 	prptr -> vmem_init = FALSE;				/* We do not need to initialize first virtual memory block	*/
 
 	/* 5. Set the PDBR register to the page directory of the null process	*/
-	setCR3((uint32)(prptr -> page_directory));
+
+	asm volatile ("movl %0, %%cr3"
+				: /* No output register	*/
+	            : "r" (pd));	/* Input register %0: pd	*/
 
 	/* 6. Install the page fault interrupt service routine 	*/
 	set_evec(PAGE_FAULT_NUM, (uint32)(pfisr));

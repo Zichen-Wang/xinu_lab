@@ -21,6 +21,8 @@ ctxsw:
 		movl	12(%ebp),%eax	/* Get location from which to	*/
 					/*   restore new process's SP	*/
 
+		movl    16(%ebp), %cr3  /* Set PDBR register for new process    */
+
 		/* The next instruction switches from the old process's	*/
 		/*   stack to the new process's stack.			*/
 
