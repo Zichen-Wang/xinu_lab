@@ -58,7 +58,7 @@ extern	pid32	create(void *, uint32, pri16, char *, uint32, ...);
 
 /* in file ctxsw.S */
 
-extern	void	ctxsw(void *, void *);
+extern	void	ctxsw(void *, void *, uint32);
 
 /* in file deallocate_bs.c */
 extern	bsd_t	deallocate_bs(bsd_t);
