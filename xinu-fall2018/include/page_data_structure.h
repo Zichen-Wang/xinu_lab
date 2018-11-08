@@ -8,9 +8,9 @@
 #define PAGE_FAULT_NUM  14
 
 #define F_FREE          0
-#define F_VIRT_HEAP     1
-#define F_PD            2
-#define F_PT            3
+#define F_USED_PAGE     1
+#define F_USED_PD       2
+#define F_USED_PT       3
 #define F_SHARED_PT     4
 
 struct frame_entry {
@@ -23,12 +23,6 @@ struct frame_entry {
 
 };
 
-
-struct  bs_mapping_entry {    /*  The mapping of backing store to a process    */
-    pid32   pid;
-    uint32  start_vaddr;
-    uint32  npages;
-};
 
 #define DEVICE_PD       576            /* entry for device memory in page directory    */
 
@@ -92,11 +86,9 @@ extern  void pfisr(void);
 /* in file pfhandler.c  */
 extern  void pfhandler(void);
 
-/* in file myprogA.c    */
-extern  process myprogA(void);
+/* in file test_vm.c    */
+extern  process test_vm(void);
 
 /* in file pfisr.S  */
 extern  int pferrorno;
 
-/* in file pgrpolicy.c  */
-extern  syscall pgrpolicy(uint16);

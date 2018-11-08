@@ -1,8 +1,8 @@
-/*  myprogA.c - myprogA */
+/*  test_vm.c - test_vm */
 
 #include <xinu.h>
 
-process myprogA(void)
+process test_vm(void)
 {
     pid32   pid;
     int *array;

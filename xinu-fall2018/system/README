@@ -1,0 +1,38 @@
+New files:
+
+in 'system/'
+0.  README                  // This file
+1.  create_pd.c             // Create a page directory for a process
+2.  create_pt.c             // Create a page table for a process
+3.  create_shared_pt.c      // Create a shared page table for all processes; call this in the initialize_paging() of initialize.c
+4.  enable_paging.S         // Set PG = 1 to enable paging; call this in in the initialize_paging()
+5.  findfframe.c            // Find a new free frame
+6.  free_all_frames.c       // Free all virtual pages, all page tables and page directory when a process is killed
+7.  hooks.c                 // Some print functinos for test
+8.  paging_init.c           // Initialize paging data structure; call this in the initialize_paging()
+9.  pfhandler.c             // Page fault handler wrote in C
+10. pfisr.S                 // Page fault interrupt service routine
+11. vcreate.c               // Create a process which will use private virtual heap
+12. vgetmem.c               // Get memory from private virtual heap
+13. vfreemem.c              // Free memory from private virtual heap
+14. test_vm.c               // Test of virtual heap memory
+
+in 'include/'
+1. page_data_structure.h    // Header file; define some data structures for pages and frames
+
+
+
+
+Modified Files:
+
+in 'system/'
+1.  create.c                // Set page directory and the shared page tables on that directory
+2.  initialize.c            // Initialize paging
+3.  main.c                  // For testing use
+4.  kill.c                  // Need to free all frames related to the killed process
+5.  ctxsw.S                 // Need to update CR3 register
+6.  resched.c               // Add a new parameter which is ptnew -> paga_directory to ctxsw()
+
+in 'include/'
+1.  xinu.h                  // Add page_data_structure.h and adjust the order of some header files
+2.  process.h               // Add new variables (virtual heap memory related) into page table

@@ -59,7 +59,7 @@ void	pfhandler()
         pd[p].pd_base   = new_pt_addr / NBPG;
     }
 
-
+    /* Find a new free frame */
     new_frame_num = findfframe(PAGE_VIRTUAL_HEAP);
 
     if (new_frame_num == SYSERR) {    /* Cannot create a new frame for virtual page   */
@@ -67,7 +67,7 @@ void	pfhandler()
     }
 
     /* Update the inverted_page_table for this new frame    */
-    inverted_page_table[new_frame_num].fstate = F_VIRT_HEAP;
+    inverted_page_table[new_frame_num].fstate = F_USED_PAGE;
     inverted_page_table[new_frame_num].pid = currpid;
     inverted_page_table[new_frame_num].virt_page_num = vp;
 
@@ -88,10 +88,9 @@ void	pfhandler()
 
     pt[q].pt_base   = new_frame_num + FRAME0;
 
-
     inverted_page_table[pd[p].pd_base - FRAME0].reference_count++;
 
-    /* To be continued to read this page from backing store  */
+    /* To be continued to read this page from backing store if it is not read in the first time */
 
 
 
@@ -116,13 +115,15 @@ local   uint32  get_faulted_addr(void)
 
 
 /*------------------------------------------------------------------------
- * is_valid_addr - Check if 'a' is a valid address
+ * is_valid_addr - Check if a given address is a valid address
  *------------------------------------------------------------------------
  */
 
 local   bool8   is_valid_addr(uint32 a, pid32 pid)
 {
-    if (a < NBPG * (4096 + proctab[pid].hsize))
+    /* We could never encounter an address which has already been in the shared table   */
+    /* Just check if the virtual address is in the virtual heap address and does not exceed the size limit  */
+    if (NBPG * 4096 <= a && a < NBPG * (4096 + proctab[pid].hsize))
         return TRUE;
 
     return FALSE;

@@ -26,7 +26,7 @@ pt_t * create_pt(pid32 pid)
     }
 
     /* Set the inverted_page_table entry    */
-    inverted_page_table[frame_num].fstate = F_PT;
+    inverted_page_table[frame_num].fstate = F_USED_PT;
     inverted_page_table[frame_num].pid = pid;
     inverted_page_table[frame_num].reference_count = 0;
 

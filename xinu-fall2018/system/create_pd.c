@@ -27,7 +27,7 @@ pd_t * create_pd(pid32 pid)
 
 
     /* Set the inverted_page_table entry    */
-    inverted_page_table[frame_num].fstate = F_PD;
+    inverted_page_table[frame_num].fstate = F_USED_PD;
     inverted_page_table[frame_num].pid = pid;
 
     hook_pdir_create(frame_num);

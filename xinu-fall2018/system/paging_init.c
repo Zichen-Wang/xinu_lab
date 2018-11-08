@@ -12,10 +12,6 @@ struct frame_entry inverted_page_table[NFRAMES];
 
 pt_t * shared_page_table[5];
 
-struct bs_mapping_entry bs_mapping_table[MAX_BS_ENTRIES];
-
-uint16 spolicy;
-
 
 /*---------------------------------------------------------------------------
  *  paging_init  -  Define and initialize all necessary page data structures.
@@ -37,7 +33,5 @@ void paging_init(void)
     for (i = 0; i < 5; i++) {
         shared_page_table[i] = NULL;
     }
-
-    pgrpolicy(0);       /* Set page replacement policy to FIFO  */
 
 }
