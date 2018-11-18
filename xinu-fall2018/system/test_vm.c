@@ -15,7 +15,7 @@ process test_vm(char c)
     for (i = 0; i < 5000; i++)
         array[i] = c;
 
-    kprintf("Process %d: array base address is [0x%0X]\n", pid, array);
+    kprintf("Process %d: array base address is [[0x%0X]]\n", pid, array);
     kprintf("%c\n", array[100]);
 
     return 0;
