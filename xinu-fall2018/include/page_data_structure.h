@@ -86,8 +86,11 @@ extern  void pfisr(void);
 /* in file pfhandler.c  */
 extern  void pfhandler(void);
 
-/* in file test_vm.c    */
+/* in file test_app.c    */
 extern  process test_app(char c);
+
+/* in file test_vm.c    */
+extern  process test_vm(char c);
 
 /* in file pfisr.S  */
 extern  int pferrorno;

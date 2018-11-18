@@ -1,8 +1,8 @@
-/*  test_app.c - test_app */
+/*  test_vm.c - test_vm */
 
 #include <xinu.h>
 
-process test_app(char c)
+process test_vm(char c)
 {
     pid32   pid;
     char *array;
