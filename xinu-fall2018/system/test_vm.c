@@ -18,5 +18,7 @@ process test_vm(char c)
     kprintf("Process %d: array base address is [[0x%0X]]\n", pid, array);
     kprintf("%c\n", array[100]);
 
+    vfreemem(array, 5000);
+
     return 0;
 }

@@ -92,6 +92,9 @@ extern  process test_app(char c);
 /* in file test_vm.c    */
 extern  process test_vm(char c);
 
+/* in file test_vm_2.c    */
+extern  process test_vm_2(int, int);
+
 /* in file pfisr.S  */
 extern  int pferrorno;
 

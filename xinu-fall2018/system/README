@@ -78,7 +78,7 @@ in 'system/'
 12. vgetmem.c               // Get memory from private virtual heap.
 13. vfreemem.c              // Free memory from private virtual heap.
 14. test_app.c              // Test of app without virtual heap memory.
-15. test_app.c              // Test of app with virtual heap memory.
+15. test_vm.c               // Test of app with virtual heap memory.
 
 in 'include/'
 1. page_data_structure.h    // Header file; define some data structures for pages and frames.
