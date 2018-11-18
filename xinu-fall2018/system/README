@@ -2,7 +2,7 @@ Implemented functionality:
 
 1. Creating a page directory for each process; creating page tables on demand.
 2. Creating shared page tables when initializing whole system.
-3. Find a new frame when creating PD and PT, or page fault happens; if no more free frames, just return SYSERR (no backing store).
+3. Find a new frame when creating PD and PT, or page fault occurs; if no more free frames, just return SYSERR (no backing store).
 4. When a process ends, free up all frames of its page directory and page tables; NOT free up shared page tables.
 5. Set up a page fault handler to find a new frame for a virtual page
 6. Get free virtual memory via vgetmem().

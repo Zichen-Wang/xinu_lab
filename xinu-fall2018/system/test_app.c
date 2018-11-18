@@ -16,7 +16,7 @@ process test_app(char c)
         array[i] = c;
 
     kprintf("Process %d: array base address is [0x%0X]\n", pid, array);
-    kprintf("%d\n", array[100]);
+    kprintf("%c\n", array[100]);
 
     return 0;
 }
