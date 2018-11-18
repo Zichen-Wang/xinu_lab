@@ -10,7 +10,7 @@ process test_vm(char c)
 
     pid = getpid();
 
-    array = getmem(5000);
+    array = vgetmem(5000);
 
     for (i = 0; i < 5000; i++)
         array[i] = c;
