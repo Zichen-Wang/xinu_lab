@@ -178,7 +178,7 @@ pid32	vcreate(
     memptr -> mlength = NBPG * hsize_in_pages;
     */
     /* We should delay this initialization until the first vgetmem()    */
-    prptr -> vmem_init = TRUE;
+    prptr -> vmem_init = FALSE;
 
 
 

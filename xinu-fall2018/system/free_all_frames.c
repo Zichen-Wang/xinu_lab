@@ -26,18 +26,18 @@ void free_all_frames(pid32 pid)
 
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
 
-        /* the page table is present */
+        /* If the page table is present */
         if (pd[i].pd_pres == 1) {
             /* Find the frame number of this page table   */
             frame_pt_num = pd[i].pd_base - FRAME0;
 
-            /* it is not a shared page table   */
+            /* If it is not a shared page table   */
             if (inverted_page_table[frame_pt_num].fstate != F_SHARED_PT) {
 
                 pt = (pt_t *)(NBPG * pd[i].pd_base);
                 for (j = 0; j < PAGE_TABLE_ENTRIES; j++) {
 
-                    /* the virtual page is present  */
+                    /* If the virtual page is present  */
                     if (pt[j].pt_pres == 1) {
                         /* Find the frame number of the virtual page   */
                         frame_virt_num = pt[j].pt_base - FRAME0;

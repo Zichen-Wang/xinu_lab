@@ -92,9 +92,6 @@ void	pfhandler()
 
     /* To be continued to read this page from backing store if it is not read in the first time */
 
-
-
-
 }
 
 /*------------------------------------------------------------------------
