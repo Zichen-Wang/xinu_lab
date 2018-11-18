@@ -11,7 +11,7 @@
 #define F_USED_PAGE     1
 #define F_USED_PD       2
 #define F_USED_PT       3
-#define d     4
+#define F_SHARED_PT     4
 
 struct frame_entry {
 
@@ -87,7 +87,7 @@ extern  void pfisr(void);
 extern  void pfhandler(void);
 
 /* in file test_vm.c    */
-extern  process test_app(void);
+extern  process test_app(char c);
 
 /* in file pfisr.S  */
 extern  int pferrorno;

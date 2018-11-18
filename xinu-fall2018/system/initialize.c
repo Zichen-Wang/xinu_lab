@@ -288,7 +288,7 @@ static	void initialize_paging(void)
 	set_evec(PAGE_FAULT_NUM, (uint32)(pfisr));
 
 	/* 7. Enable paging	*/
-	enable_paging();
+	//enable_paging();
 }
 
 int32	stop(char *s)
