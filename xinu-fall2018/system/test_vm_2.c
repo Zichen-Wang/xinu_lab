@@ -4,11 +4,10 @@
 
 process test_vm_2(int s, int d)
 {
-    pid32   pid;
     int *array;
     uint32  i;
 
-    array = vgetmem(1000 * 4);
+    array = (int *)vgetmem(1000 * 4);
     array[0] = s;
     for (i = 1; i < 1000; i++)
         array[i] = array[i - 1] + d;
@@ -17,7 +16,7 @@ process test_vm_2(int s, int d)
 
     vfreemem(array, 1000 * 4);
 
-    array = vgetmem(10000 * 4);
+    array = (int *)vgetmem(10000 * 4);
     array[0] = s;
 
     for (i = 1; i < 10000; i++)
