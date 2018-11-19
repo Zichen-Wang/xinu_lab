@@ -21,6 +21,9 @@ process	main(void)
 	resume(vcreate(test_vm, 1024, 100, 19, "test_vm", 1, 'b'));
 	resume(vcreate(test_vm, 1024, 100, 19, "test_vm", 1, 'c'));
 
+	resume(vcreate(test_vm_2, 1024, 100, 19, "test_vm_2", 2, 1, 2));
+	resume(vcreate(test_vm_2, 1024, 100, 19, "test_vm_2", 2, 23, 17));
+
 	sleepms(100);
 
 	kprintf("\n...creating a shell\n");
