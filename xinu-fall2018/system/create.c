@@ -34,6 +34,15 @@ pid32	create(
 
 	pd_t	*pd;
 
+	/* Create a new page directory */
+	pd = create_pd(pid);
+
+	if (pd == (pd_t *)(SYSERR)) {
+		kprintf("Initialization of page directory for the new process failed!\n");
+		restore(mask);
+		return SYSERR;
+	}
+
 	mask = disable();
 	if (ssize < MINSTK)
 		ssize = MINSTK;
@@ -105,20 +114,14 @@ pid32	create(
 	*pushsp = (unsigned long) (prptr->prstkptr = (char *)saddr);
 
 	/*
-	 * user: wang4113
-	 * data: 11/02/2018
-	 */
+     * user: wang4113
+     * data: 11/02/2018
+     */
 
-	/* Create a new page directory */
-	prptr -> page_directory = create_pd(pid);
 
-	if (prptr -> page_directory == (pd_t *)(SYSERR)) {
-		kprintf("Initialize page directory for the new process failed!");
-		prptr -> prstate = PR_FREE;
-		restore(mask);
-		return SYSERR;
-	}
+	/* Assign shared page tables to page directory of the new process	*/
 
+	prptr -> page_directory = pd;
 	prptr -> hsize = 0;
 
 	/* Assign shared page tables to page directory of null process	*/
@@ -153,7 +156,7 @@ pid32	create(
 	(prptr -> vmemlist).mnext = NULL;		/* Initialize the virtual memory list */
 	(prptr -> vmemlist).mlength = 0;		/* Initialize the virtual memory list */
 
-	prptr -> vmem_init = FALSE;				/* We do not need to initialize first virtual memory block	*/
+	prptr -> vmem_init = TRUE;				/* We do not need to initialize first virtual memory block	*/
 
 	restore(mask);
 	return pid;

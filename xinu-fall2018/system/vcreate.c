@@ -64,9 +64,6 @@ pid32	vcreate(
     }
 
 
-    /* To be continued to allocate backing store if needed   */
-
-
     prcount++;
     prptr = &proctab[pid];
 
