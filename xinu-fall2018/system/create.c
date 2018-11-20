@@ -27,21 +27,10 @@ pid32	create(
 	uint32		*a;		/* Points to list of args	*/
 	uint32		*saddr;		/* Stack address		*/
 
-	/*
-	 * user: wang4113
-	 * data: 11/02/2018
-	 */
-
 	pd_t	*pd;
 
-	/* Create a new page directory */
-	pd = create_pd(pid);
 
-	if (pd == (pd_t *)(SYSERR)) {
-		kprintf("Initialization of page directory for the new process failed!\n");
-		restore(mask);
-		return SYSERR;
-	}
+
 
 	mask = disable();
 	if (ssize < MINSTK)
@@ -50,6 +39,21 @@ pid32	create(
 	if (((saddr = (uint32 *)getstk(ssize)) ==
 	    (uint32 *)SYSERR ) ||
 	    (pid=newpid()) == SYSERR || priority < 1 ) {
+		restore(mask);
+		return SYSERR;
+	}
+
+	/*
+	 * user: wang4113
+	 * data: 11/02/2018
+	 */
+
+
+	/* Create a new page directory */
+	pd = create_pd(pid);
+
+	if (pd == (pd_t *)(SYSERR)) {
+		kprintf("Initialization of page directory for the new process failed!\n");
 		restore(mask);
 		return SYSERR;
 	}
