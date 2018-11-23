@@ -28,8 +28,8 @@ syscall	vfreemem(
 
     prptr = &proctab[currpid];
 
-    if ((nbytes == 0) || ((uint32) blkaddr < (uint32) (NBPG * (FRAME0 + NFRAMES)))
-        || ((uint32) blkaddr > (uint32) (NBPG * (FRAME0 + NFRAMES + prptr -> hsize)))) {
+    if ((nbytes == 0) || ((uint32) blkaddr < (uint32) (NBPG * VHEAP_ST))
+        || ((uint32) blkaddr > (uint32) (NBPG * (VHEAP_ST + prptr -> hsize)))) {
         restore(mask);
         return SYSERR;
     }

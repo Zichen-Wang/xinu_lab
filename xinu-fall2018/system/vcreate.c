@@ -164,7 +164,7 @@ pid32	vcreate(
 
     memptr = &(prptr -> vmemlist);
 
-    memptr -> mnext = (struct memblk *)(NBPG * (FRAME0 + NFRAMES));
+    memptr -> mnext = (struct memblk *)(NBPG * VHEAP_ST);
     memptr -> mlength = NBPG * hsize_in_pages;
 
     /* We cannot initialize the first block, since we are now in the context of parent  */

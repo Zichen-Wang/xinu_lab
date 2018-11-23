@@ -23,11 +23,12 @@ struct frame_entry {
 
 };
 
+#define VHEAP_ST        4096            /* start page of virtual heap */
 
 #define DEVICE_PD       576            /* entry for device memory in page directory    */
 
-#define NFRAMES_FOR_PAGE_TABLE     1000    /* number of frames for page directory or page table */
-#define NFRAMES_FOR_VIRTUAL_HEAP   2072    /* number of frames for virtual heap    */
+#define NFRAMES_FOR_PAGE_TABLE     1000 /* number of frames for page directory or page table */
+#define NFRAMES_FOR_VIRTUAL_HEAP   (NFRAMES - NFRAMES_FOR_PAGE_TABLE)    /* number of frames for virtual heap    */
 
 #define PAGE_DIRECTORY_ENTRIES 1024    /* number of entries for page directory */
 #define PAGE_TABLE_ENTRIES     1024    /* number of entries for page table */
