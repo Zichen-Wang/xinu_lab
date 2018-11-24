@@ -101,13 +101,12 @@ void	pfhandler()
     }
 
     /* Copy the page o of store s to f  */
-    /*
+    kprintf("backing store!!!!!!%d %d [0x%08X]!!!!!!\n", s, o, NBPG * f);
     if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
         kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
         kill(currpid);
         resched();
     }
-     */
 
 
     /* Update pt to mark the appropriate entry as present, and set other relevant fields */
