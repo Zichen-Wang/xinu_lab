@@ -20,6 +20,7 @@ void *memset(void *s, int c, int n)
 
     for (i = 0; i < n; i++)
     {
+        kprintf("%d\n", i);
         *cp = (unsigned char)c;
         cp++;
     }
