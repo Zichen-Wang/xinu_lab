@@ -98,17 +98,9 @@ void	pfhandler()
     }
 
     /* Copy the page o of store s to f  */
-    if (open_bs(s) != s) {
-        kprintf("Process %d: Cannot open the backing store %d!\n", currpid, s);
-        kill(currpid);
-    }
     kprintf("backing store!!!!!!%d %d [0x%08X]!!!!!!\n", s, o, NBPG * f);
-    if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
+    if (write_bs((char *)(NBPG * f), s, o) == SYSERR) {
         kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
-        kill(currpid);
-    }
-    if (close_bs(s) != s) {
-        kprintf("Process %d: Cannot close the backing store %d!\n", currpid, s);
         kill(currpid);
     }
 
