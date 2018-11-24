@@ -17,8 +17,8 @@ void free_all_frames(pid32 pid)
     struct	procent	*prptr;     /* Ptr to process table entry	*/
     pd_t    *pd;                /* Ptr to page directory	*/
     pt_t    *pt;                /* Ptr to page table	*/
-    int     frame_pd_num, frame_pt_num, frame_virt_num;
-    uint32  i, j;
+    int     frame_pd_num, frame_pt_num;
+    uint32  i;
     uint32  vp, a, p, q;
 
     int32   frameq_curr;
