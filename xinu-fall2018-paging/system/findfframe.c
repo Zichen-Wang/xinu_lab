@@ -91,7 +91,7 @@ int findfframe(uint8 type)
             q = (a / NBPG) & 0x000003FF;
             pid = inverted_page_table[old_frameq_head].pid;
             pd = proctab[pid].page_directory;
-            pt = (pt_t *)(NBPG * pd[p].base);
+            pt = (pt_t *)(NBPG * pd[p].pd_base);
 
 
             if (pid == currpid) {   /* If the page being evicted belongs to the current process  */
@@ -109,14 +109,14 @@ int findfframe(uint8 type)
                 /* Using the backing store map, find the store and page offset within the store for pid and a   */
                 s = proctab[pid].bs_map_id;
                 o = vp - backing_store_map[s].virt_base_num;
-                if (s == -1 || o >= backing_store_map[s].npage) {   /* If the lookup fails  */
+                if (s == -1 || o >= backing_store_map[s].npages) {   /* If the lookup fails  */
                     kprintf("Backing store lookup failed for address [0x%08X]!\n", a);
                     kprintf("Process %d is being killed!\n", pid);
                     kill(pid);
                 }
 
                 /* Write the page back to the backing store     */
-                if (write_bs(NBPG * (old_frameq_head + FRAME0), s, o) == SYSERR) {
+                if (write_bs((char *)(NBPG * (old_frameq_head + FRAME0)), s, o) == SYSERR) {
                     kprintf("Cannot write dirty page to the backing store %d!\n", s);
                     kprintf("Process %d is being killed!\n", pid);
                     kill(pid);
