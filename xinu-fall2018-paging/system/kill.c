@@ -43,6 +43,7 @@ syscall	kill(
 	 * data: 11/23/2018
 	 */
 	/* Deallocate backing store	*/
+    backing_store_map[prptr -> bs_map_id].bs_state = BS_FREE;
 	if (deallocate_bs(prptr -> bs_map_id) != prptr -> bs_map_id) {
 		kprintf("Cannot deallocate the backing store!\n");
 	}

@@ -72,7 +72,7 @@ void	pfhandler()
 
     /* Obtain a free frame f */
     new_frame_num = findfframe(PAGE_VIRTUAL_HEAP);
-    f = new_frame_num + FRAME;
+    f = new_frame_num + FRAME0;
 
     if (new_frame_num == SYSERR) {    /* Cannot create a new frame for virtual page   */
         kprintf("Cannot create a new frame for virtual page!\n");
@@ -83,6 +83,19 @@ void	pfhandler()
     inverted_page_table[new_frame_num].fstate = F_USED_PAGE;
     inverted_page_table[new_frame_num].pid = currpid;
     inverted_page_table[new_frame_num].virt_page_num = vp;
+
+    if (pgrpolicy == 0) {   /* Page replacement policy is FIFO  */
+        /* Insert this frame into frame queue tail   */
+        if (frameq_tail == -1) { /* The current frame queue is empty   */
+            frameq_head = frameq_tail = new_frame_num;
+        }
+        else {
+            inverted_page_table[frameq_tail].fnext = new_frame_num;
+            inverted_page_table[new_frame_num].fprev = frameq_tail;
+            frameq_tail = new_frame_num;
+            inverted_page_table[new_frame_num].fnext = -1;
+        }
+    }
 
     /* Update pt to mark the appropriate entry as present, and set other relevant fields
      * before copying data from backing store */
@@ -108,6 +121,7 @@ void	pfhandler()
         kprintf("Cannot read a page from backing store\n");
         kill(currpid);
     }
+
 
 
 }

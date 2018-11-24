@@ -19,11 +19,42 @@ void free_all_frames(pid32 pid)
     pt_t    *pt;                /* Ptr to page table	*/
     int     frame_pd_num, frame_pt_num, frame_virt_num;
     uint32  i, j;
+    uint32  vp, a, p, q;
+
+    int32   frameq_curr;
 
     prptr = &proctab[pid];
-
     pd = prptr -> page_directory;
 
+    if (pgrpolicy == 0) {   /* The page replacement policy is FIFO */
+        /* modify the frame queue    */
+        frameq_curr = frameq_head;
+        while (frameq_curr != -1) {
+            if (pid == inverted_page_table[frameq_curr].pid) {
+                if (inverted_page_table[frameq_curr].fprev != -1) {
+                    inverted_page_table[inverted_page_table[frameq_curr].fprev].fnext = inverted_page_table[frameq_curr].fnext;
+                }
+                if (inverted_page_table[frameq_curr].fnext != -1) {
+                    inverted_page_table[inverted_page_table[frameq_curr].fnext].fprev = inverted_page_table[frameq_curr].fprev;
+                }
+                /* Free this frame */
+                vp = inverted_page_table[frameq_curr].virt_page_num;
+                a = vp * NBPG;
+                p = a >> 22;
+                q = (a / NBPG) & 0x000003FF;
+                pt = (pt_t *)(NBPG * pd[p].pd_base);
+                pt[q].pt_pres = 0;
+
+                inverted_page_table[frameq_curr].fstate = F_FREE;
+                inverted_page_table[frameq_curr].fprev = -1;
+                inverted_page_table[frameq_curr].fnext = -1;
+
+            }
+            frameq_curr = inverted_page_table[frameq_curr].fnext;
+        }
+    }
+
+    /* Clear page tables and page directory  */
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
 
         /* If the page table is present */
@@ -33,20 +64,6 @@ void free_all_frames(pid32 pid)
 
             /* If it is not a shared page table   */
             if (inverted_page_table[frame_pt_num].fstate != F_SHARED_PT) {
-
-                pt = (pt_t *)(NBPG * pd[i].pd_base);
-                for (j = 0; j < PAGE_TABLE_ENTRIES; j++) {
-
-                    /* If the virtual page is present  */
-                    if (pt[j].pt_pres == 1) {
-                        /* Find the frame number of the virtual page   */
-                        frame_virt_num = pt[j].pt_base - FRAME0;
-
-                        /* Free this frame */
-                        inverted_page_table[frame_virt_num].fstate = F_FREE;
-                        pt[j].pt_pres = 0;
-                    }
-                }
 
                 /* Free this frame of page table */
                 inverted_page_table[frame_pt_num].fstate = F_FREE;

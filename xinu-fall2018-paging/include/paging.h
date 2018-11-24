@@ -52,3 +52,5 @@ typedef struct {
 
 #define MAX_ID		7		/* You get 8 mappings, 0 - 7 */
 #define MIN_ID          0
+
+extern  uint16 pgrpolicy;

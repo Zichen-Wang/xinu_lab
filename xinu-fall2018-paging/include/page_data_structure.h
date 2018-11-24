@@ -24,6 +24,8 @@ struct frame_entry {
     unsigned int virt_page_num : 20;   /* the virtual page number of this frame    */
     int reference_count;
 
+    int32   fprev, fnext;
+
 };
 
 struct bs_map_entry {
@@ -109,4 +111,7 @@ extern  process test_vm_2(int, int);
 
 /* in file pfisr.S  */
 extern  int pferrorno;
+
+/* in file set_pgrpolicy.c  */
+extern  syscall set_pgrpolicy(uint16);
 
