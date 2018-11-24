@@ -116,7 +116,7 @@ int findfframe(uint8 type)
                 }
 
                 /* Write the page back to the backing store     */
-                if (write_bs(NBPG * (old_frameq_head + FRAMES0), s, o) == SYSERR) {
+                if (write_bs(NBPG * (old_frameq_head + FRAME0), s, o) == SYSERR) {
                     kprintf("Cannot write dirty page to the backing store %d!\n", s);
                     kprintf("Process %d is being killed!\n", pid);
                     kill(pid);
@@ -127,14 +127,14 @@ int findfframe(uint8 type)
             pt[q].pres = 0;     /* Mark the appropriate entry of pt as not present.    */
 
             /* Decrement the reference count of the frame occupied by pt */
-            inverted_page_table[pd[p].base - FRAMES0].reference_count--;
+            inverted_page_table[pd[p].pd_base - FRAME0].reference_count--;
 
             /* If the reference count has reached zero  */
-            if (inverted_page_table[pd[p].base - FRAMES0].reference_count == 0) {
-                pd[p].pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
+            if (inverted_page_table[pd[p].pd_base - FRAME0].reference_count == 0) {
+                pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
 
                 /* Free the frame holding that page table   */
-                inverted_page_table[pd[p].base - FRAMES0].fstate = F_FREE;
+                inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
 
             }
 
