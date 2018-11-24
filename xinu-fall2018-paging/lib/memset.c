@@ -13,12 +13,11 @@
  * @param n number of times to place character
  * @return the pointer to memory
  */
-#include <xinu.h>
 void *memset(void *s, int c, int n)
 {
     register int i;
     char *cp = (char *)s;
-    kprintf("0x%08X %d %d\n", s, c, n);
+
     for (i = 0; i < n; i++)
     {
         *cp = (unsigned char)c;
