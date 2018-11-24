@@ -35,6 +35,7 @@ void	pfhandler()
     if (is_valid_addr(a, currpid) == FALSE) {
         kprintf("Process %d: Invalid address 0x%08X\n", currpid, a);
         kill(currpid);
+        resched();
     }
 
     hook_pfault((char *)(a));
@@ -58,6 +59,7 @@ void	pfhandler()
         if (new_pt_addr == SYSERR) {    /* Cannot create a new frame for page table   */
             kprintf("Process %d: Cannot create a new frame for page table!\n", currpid);
             kill(currpid);
+            resched();
         }
         pd[p].pd_base   = new_pt_addr / NBPG;
     }
@@ -77,6 +79,7 @@ void	pfhandler()
     if (new_frame_num == SYSERR) {    /* Cannot create a new frame for virtual page   */
         kprintf("Process %d: Cannot create a new frame for virtual page!\n", currpid);
         kill(currpid);
+        resched();
     }
 
     /* Update the inverted_page_table for this new frame    */
@@ -84,7 +87,7 @@ void	pfhandler()
     inverted_page_table[new_frame_num].pid = currpid;
     inverted_page_table[new_frame_num].virt_page_num = vp;
 
-    if (pgrpolicy == 1) {   /* Page replacement policy is FIFO  */
+    if (pgrpolicy == 0) {   /* Page replacement policy is FIFO  */
         /* Insert this frame into frame queue tail   */
         if (frameq_tail == -1) { /* The current frame queue is empty   */
             frameq_head = frameq_tail = new_frame_num;
@@ -120,6 +123,7 @@ void	pfhandler()
     if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
         kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
         kill(currpid);
+        resched();
     }
 
 
