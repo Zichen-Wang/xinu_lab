@@ -99,7 +99,7 @@ void	pfhandler()
 
     /* Copy the page o of store s to f  */
     kprintf("backing store!!!!!!%d %d [0x%08X]!!!!!!\n", s, o, NBPG * f);
-    if (read_bs((char *)(NBPG * f), 0, 0) == SYSERR) {
+    if (read_bs((char *)(NBPG * f), s, 0) == SYSERR) {
         kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
         kill(currpid);
     }
