@@ -37,8 +37,8 @@ syscall read_bs (char *dst, bsd_t bs_id, int page)
         rd_blk = (bs_id * RD_PAGES_PER_BS + page)*8;
 
         for(i=0; i< 8; i++){
-                memset(buf, NULLCH, RD_BLKSIZ);
             kprintf("0x%08X backing store %d\n", dst+i*RD_BLKSIZ, i);
+                memset(buf, NULLCH, RD_BLKSIZ);
                 if(read(RDISK, buf, rd_blk+i) == SYSERR){
                         panic("Could not read from backing store \r\n");
                 }
