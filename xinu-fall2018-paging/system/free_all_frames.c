@@ -21,34 +21,35 @@ void free_all_frames(pid32 pid)
     uint32  i;
     uint32  vp, a, p, q;
 
-    int32   frameq_curr;
+    int32   frameq_prev, frameq_curr;
 
     prptr = &proctab[pid];
     pd = prptr -> page_directory;
 
     if (prptr -> hsize > 0 && pgrpolicy == 0) {   /* The page replacement policy is FIFO */
         /* modify the frame queue    */
+        frameq_prev = -1;
         frameq_curr = frameq_head;
         while (frameq_curr != -1) {
             if (pid == inverted_page_table[frameq_curr].pid) {
-                if (inverted_page_table[frameq_curr].fprev != -1) {
-                    inverted_page_table[inverted_page_table[frameq_curr].fprev].fnext = inverted_page_table[frameq_curr].fnext;
+                if (frameq_prev != -1) {
+                    inverted_page_table[frameq_prev].fnext = inverted_page_table[frameq_curr].fnext;
                 }
-                if (inverted_page_table[frameq_curr].fnext != -1) {
-                    inverted_page_table[inverted_page_table[frameq_curr].fnext].fprev = inverted_page_table[frameq_curr].fprev;
-                }
+
                 /* Free this frame */
                 vp = inverted_page_table[frameq_curr].virt_page_num;
                 a = vp * NBPG;
                 p = a >> 22;
-                q = (a / NBPG) & 0x000003FF;
+                q = (a >> 12) & 0x03FF;
                 pt = (pt_t *)(NBPG * pd[p].pd_base);
                 pt[q].pt_pres = 0;
 
                 inverted_page_table[frameq_curr].fstate = F_FREE;
-                inverted_page_table[frameq_curr].fprev = -1;
                 inverted_page_table[frameq_curr].fnext = -1;
 
+            }
+            else {
+                frameq_prev = frameq_curr;
             }
             frameq_curr = inverted_page_table[frameq_curr].fnext;
         }

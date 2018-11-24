@@ -25,7 +25,7 @@ int findfframe(uint8 type)
     /* Position in array [NFRAMES_FOR_PAGE_TABLE, NFRAMES - 1] for virtual memory	*/
     static  uint32 next_frame_virt = NFRAMES_FOR_PAGE_TABLE;
 
-    uint32  old_frameq_head;
+    uint32  saved_frameq_head;
     uint32  vp;     /* Virtual page number of the page to be replaced */
     uint32  a;      /* The first virtual address on page vp */
     uint32  p, q;   /* p is the high 10 bits of a; q is entry number in page table  */
@@ -82,7 +82,7 @@ int findfframe(uint8 type)
             vp = inverted_page_table[frameq_head].virt_page_num;
             a = vp * NBPG;
             p = a >> 22;
-            q = (a / NBPG) & 0x000003FF;
+            q = (a >> 12) & 0x03FF;
             pid = inverted_page_table[frameq_head].pid;
             pd = proctab[pid].page_directory;
             pt = (pt_t *)(NBPG * pd[p].pd_base);
@@ -93,7 +93,8 @@ int findfframe(uint8 type)
                 /*  Invalidate the TLB entry for the page vp    */
                 asm volatile ("invlpg (%0)"
                             : /* No output register */
-                            : "r" (a));
+                            : "r" (a)
+                            : "memory");
 
             }
 
@@ -132,14 +133,14 @@ int findfframe(uint8 type)
 
             }
 
-            old_frameq_head = frameq_head;   /* Save the head frame of the frame queue  */
+            saved_frameq_head = frameq_head;   /* Save the head frame of the frame queue  */
             frameq_head = inverted_page_table[frameq_head].fnext;
 
             if (frameq_head == -1) {     /* The new queue is empty   */
                 frameq_tail = -1;
             }
 
-            return old_frameq_head;
+            return saved_frameq_head;
         }
 
         return SYSERR;

@@ -30,7 +30,6 @@ pt_t * create_pt(pid32 pid)
     inverted_page_table[frame_num].pid = pid;
     inverted_page_table[frame_num].reference_count = 0;
 
-    inverted_page_table[frame_num].fprev = -1;
     inverted_page_table[frame_num].fnext = -1;
 
 

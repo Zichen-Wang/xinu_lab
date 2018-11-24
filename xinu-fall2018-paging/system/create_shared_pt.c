@@ -31,7 +31,6 @@ void create_shared_pt(void)
         inverted_page_table[frame_num].fstate = F_SHARED_PT;
         inverted_page_table[frame_num].reference_count = PAGE_TABLE_ENTRIES;
 
-        inverted_page_table[frame_num].fprev = -1;
         inverted_page_table[frame_num].fnext = -1;
 
         hook_ptable_create(frame_num);

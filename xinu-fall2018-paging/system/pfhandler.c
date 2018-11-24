@@ -40,7 +40,7 @@ void	pfhandler()
     hook_pfault((char *)(a));
 
     p = a >> 22;
-    q = (a / NBPG) & 0x000003FF;
+    q = (a >> 12) & 0x03FF;
 
     if (pd[p].pd_pres == 0) {   /* p'th page table does not exist   */
         pd[p].pd_pres   = 1;
@@ -91,18 +91,13 @@ void	pfhandler()
         }
         else {
             inverted_page_table[frameq_tail].fnext = new_frame_num;
-            inverted_page_table[new_frame_num].fprev = frameq_tail;
             frameq_tail = new_frame_num;
             inverted_page_table[new_frame_num].fnext = -1;
         }
     }
 
     /* Copy the page o of store s to f  */
-    if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
-        kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
-        kill(currpid);
-    }
-
+    read_bs((char *)(NBPG * f), s, o);
 
     /* Update pt to mark the appropriate entry as present, and set other relevant fields */
 

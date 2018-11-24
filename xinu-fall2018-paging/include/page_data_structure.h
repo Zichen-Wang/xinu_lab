@@ -24,7 +24,7 @@ struct frame_entry {
     unsigned int virt_page_num : 20;   /* the virtual page number of this frame    */
     int reference_count;
 
-    int32   fprev, fnext;
+    int32   fnext;
 
 };
 
