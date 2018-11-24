@@ -72,8 +72,6 @@ int findfframe(uint8 type)
             }
         }
 
-        kprintf("I am here!!!!\n");
-
         /* Needs page replacement   */
         if (pgrpolicy == 0) {   /* The page replacement policy is FIFO */
             if (frameq_head == -1) {     /* The current frame queue is empty (Would never happen)    */
