@@ -19,7 +19,7 @@ syscall read_bs (char *dst, bsd_t bs_id, int page)
 	  return SYSERR;
 	}
         wait(bs_sem);
-
+    kprintf("I am here 0x%08X!\n", dst);
 	if (bstab[bs_id].isopen == FALSE
                         || bstab[bs_id].npages <= page){
                 kprintf("read_bs failed for bs_id %d and page number %d\r\n",
