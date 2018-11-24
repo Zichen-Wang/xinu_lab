@@ -25,21 +25,21 @@ process	main(void)
 	resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 1, 2));
 	resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 23, 17));
 
-	sleepms(100000);
+	sleepms(1000);
 
-	/*
+
 	kprintf("\n...creating a shell\n");
 	recvclr();
 	resume(create(shell, 8192, 50, "shell", 1, CONSOLE));
 	*/
 	/* Wait for shell to exit and recreate it */
-	/*
+
 	while (TRUE) {
 		receive();
 		sleepms(200);
 		kprintf("\n\nMain process recreating shell\n\n");
 		resume(create(shell, 4096, 20, "shell", 1, CONSOLE));
 	}
-	*/
+
 	return OK;
 }
