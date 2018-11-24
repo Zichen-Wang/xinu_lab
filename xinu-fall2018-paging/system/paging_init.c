@@ -9,9 +9,8 @@
 
 
 struct frame_entry inverted_page_table[NFRAMES];
-
 pt_t * shared_page_table[5];
-
+struct bs_map_entry backing_store_map[MAX_BS_ENTRIES];
 
 /*---------------------------------------------------------------------------
  *  paging_init  -  Define and initialize all necessary page data structures.
@@ -24,14 +23,15 @@ void paging_init(void)
 
     /* Initialize frames */
     for (i = 0; i < NFRAMES; i++) {
-
         inverted_page_table[i].fstate = F_FREE;
-        inverted_page_table[i].reference_count = 0;
-
     }
 
     for (i = 0; i < 5; i++) {
         shared_page_table[i] = NULL;
+    }
+
+    for (i = 0; i < MAX_BS_ENTRIES; i++) {
+        backing_store_map[i].bs_state = BS_FREE;
     }
 
 }

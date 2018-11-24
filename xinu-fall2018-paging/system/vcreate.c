@@ -33,7 +33,8 @@ pid32	vcreate(
     uint32		*a;		/* Points to list of args	*/
     uint32		*saddr;		/* Stack address		*/
 
-    pd_t	*pd;
+    pd_t	    *pd;
+    bsd_t       bs_map_id;
 
 
     struct	memblk	*memptr;	/* Ptr to memory block		*/
@@ -63,6 +64,19 @@ pid32	vcreate(
         return SYSERR;
     }
 
+    /*
+     * user: wang4113
+     * data: 11/23/2018
+     */
+
+    /* Create a backing store map for new process   */
+    bs_map_id = allocate_bs(hsize_in_pages);
+
+    if (bs_map_id == -1) {
+        kprintf("Cannot allocate a free backing store for the new process!\n");
+        restore(mask);
+        return SYSERR;
+    }
 
     prcount++;
     prptr = &proctab[pid];
@@ -177,6 +191,13 @@ pid32	vcreate(
     /* We should delay this initialization until the first vgetmem()    */
     prptr -> vmem_init = FALSE;
 
+    /* Initialize this new backing store    */
+    backing_store_map[bs_map_id].bs_state = BS_USED;
+    backing_store_map[bs_map_id].pid = pid;
+    backing_store_map[bs_map_id].virt_base_num = VHEAP_ST;  /* Each process has the same base number    */
+    backing_store_map[bs_map_id].npages = hsize_in_pages;
+
+    prptr -> bs_map_id = bs_map_id;
 
 
     restore(mask);

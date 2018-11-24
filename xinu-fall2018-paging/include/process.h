@@ -63,6 +63,8 @@ struct procent {		/* Entry in the process table		*/
 
 	bool8	vmem_init;			/* Should the first memory block be initialized?	*/
 
+	bsd_t	bs_map_id;			/* Backing store map ID	*/
+
 };
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/

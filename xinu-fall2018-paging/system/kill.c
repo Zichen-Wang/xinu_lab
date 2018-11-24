@@ -38,6 +38,15 @@ syscall	kill(
 	/* Delete page directory, page table and frames when a process ends	*/
 	free_all_frames(pid);
 
+	/*
+	 * user: wang4113
+	 * data: 11/23/2018
+	 */
+	/* Deallocate backing store	*/
+	if (deallocate_bs(prptr -> bs_map_id) != prptr -> bs_map_id) {
+		kprintf("Cannot deallocate the backing store!\n");
+	}
+
 	switch (prptr->prstate) {
 	case PR_CURR:
 		prptr->prstate = PR_FREE;	/* Suicide */

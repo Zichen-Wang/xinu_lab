@@ -13,14 +13,24 @@
 #define F_USED_PT       3
 #define F_SHARED_PT     4
 
+#define BS_FREE         0
+#define BS_USED         1
+
 struct frame_entry {
 
     uint16  fstate;     /* Define the status of a frame */
     pid32   pid;        /* Which process is using this frame?    */
 
-    unsigned int virt_page_num	: 20;   /* the virtual address of this frame    */
+    unsigned int virt_page_num : 20;   /* the virtual page number of this frame    */
     int reference_count;
 
+};
+
+struct bs_map_entry {
+    uint16  bs_state;   /* Define the status of a backing store */
+    pid32   pid;        /* Which process is using this frame?    */
+    unsigned int virt_base_num : 20;   /* the virtual base page number   */
+    uint32  npages;      /* Number of pages  */
 };
 
 #define VHEAP_ST        4096            /* start page of virtual heap */
@@ -38,8 +48,9 @@ struct frame_entry {
 
 
 /* in file paging_init.c    */
-extern  struct frame_entry inverted_page_table[NFRAMES];
+extern  struct frame_entry  inverted_page_table[NFRAMES];
 extern  pt_t * shared_page_table[5];
+extern  struct bs_map_entry backing_store_map[MAX_BS_ENTRIES];
 
 
 /* in paging_init.c     */

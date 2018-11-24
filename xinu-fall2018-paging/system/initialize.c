@@ -276,7 +276,7 @@ static	void initialize_paging(void)
 	(prptr -> vmemlist).mnext = NULL;		/* Initialize the virtual memory list */
 	(prptr -> vmemlist).mlength = 0;		/* Initialize the virtual memory list */
 
-	prptr -> vmem_init = FALSE;				/* We do not need to initialize first virtual memory block	*/
+	prptr -> vmem_init = TRUE;				/* We do not need to initialize first virtual memory block	*/
 
 	/* 5. Set the PDBR register to the page directory of the null process	*/
 
