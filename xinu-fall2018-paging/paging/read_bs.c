@@ -35,7 +35,7 @@ syscall read_bs (char *dst, bsd_t bs_id, int page)
          * FIXME : Check id read on RDISK takes blocks from 0 ... 
          */
         rd_blk = (bs_id * RD_PAGES_PER_BS + page)*8;
-        /*
+
         for(i=0; i< 8; i++){
                 memset(buf, NULLCH, RD_BLKSIZ);
                 if(read(RDISK, buf, rd_blk+i) == SYSERR){
@@ -44,7 +44,8 @@ syscall read_bs (char *dst, bsd_t bs_id, int page)
                 else{
                         memcpy((char *)(dst+i*RD_BLKSIZ), (char *)buf, RD_BLKSIZ);
                 }
+                kprintf("0x%08X backing store %d\n", dst+i*RD_BLKSIZ, i);
         }
-        */
+
 	return OK;
 }
