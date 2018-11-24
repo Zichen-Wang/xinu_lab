@@ -12,15 +12,16 @@ process	main(void)
 	/* Initialize the page server */
 	/* DO NOT REMOVE OR COMMENT THIS CALL */
 	psinit();
-
+	/*
 	resume(create(test_app, 1024, 19, "test_app", 1, 'a'));
 	resume(create(test_app, 1024, 19, "test_app", 1, 'b'));
 	resume(create(test_app, 1024, 19, "test_app", 1, 'c'));
-	/*
-	resume(vcreate(test_vm, 1024, 100, 19, "test_vm", 1, 'a'));
-	resume(vcreate(test_vm, 1024, 100, 19, "test_vm", 1, 'b'));
-	resume(vcreate(test_vm, 1024, 100, 19, "test_vm", 1, 'c'));
+	*/
 
+	resume(vcreate(test_vm, 1024, 100, 19, "test_vm", 1, 'a'));
+	//resume(vcreate(test_vm, 1024, 100, 19, "test_vm", 1, 'b'));
+	//resume(vcreate(test_vm, 1024, 100, 19, "test_vm", 1, 'c'));
+	/*
 	resume(vcreate(test_vm_2, 1024, 100, 19, "test_vm_2", 2, 1, 2));
 	resume(vcreate(test_vm_2, 1024, 100, 19, "test_vm_2", 2, 23, 17));
 	*/
