@@ -14,16 +14,16 @@ process	main(void)
 	psinit();
 
 	resume(create(test_app, 8192, 19, "test_app", 1, 'a'));
-	resume(create(test_app, 8192, 19, "test_app", 1, 'b'));
-	resume(create(test_app, 8192, 19, "test_app", 1, 'c'));
+	//resume(create(test_app, 8192, 19, "test_app", 1, 'b'));
+	//resume(create(test_app, 8192, 19, "test_app", 1, 'c'));
 
-
+	/*
 	resume(vcreate(test_vm, 8192, 100, 19, "test_vm", 1, 'a'));
 	resume(vcreate(test_vm, 8192, 100, 19, "test_vm", 1, 'b'));
 	resume(vcreate(test_vm, 8192, 100, 19, "test_vm", 1, 'c'));
-
-	resume(vcreate(test_vm_2, 16384, 100, 19, "test_vm_2", 2, 1, 2));
-	resume(vcreate(test_vm_2, 16384, 100, 19, "test_vm_2", 2, 23, 17));
+	*/
+	resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 1, 2));
+	//resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 23, 17));
 
 	sleepms(1000);
 

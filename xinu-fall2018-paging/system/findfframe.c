@@ -107,9 +107,6 @@ int findfframe(uint8 type)
                     kprintf("Backing store lookup failed for address [0x%08X]!\n", a);
                     kprintf("Process %d is being killed!\n", pid);
                     kill(pid);
-                    if (pid == currpid) {
-                        resched();
-                    }
                 }
 
                 /* Write the page back to the backing store     */
@@ -117,9 +114,6 @@ int findfframe(uint8 type)
                     kprintf("Cannot write dirty page to the backing store %d!\n", s);
                     kprintf("Process %d is being killed!\n", pid);
                     kill(pid);
-                    if (pid == currpid) {
-                        resched();
-                    }
                 }
 
             }
