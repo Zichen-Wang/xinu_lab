@@ -38,13 +38,13 @@ syscall read_bs (char *dst, bsd_t bs_id, int page)
 
         for(i=0; i< 8; i++){
                 memset(buf, NULLCH, RD_BLKSIZ);
+            kprintf("0x%08X backing store %d\n", dst+i*RD_BLKSIZ, i);
                 if(read(RDISK, buf, rd_blk+i) == SYSERR){
                         panic("Could not read from backing store \r\n");
                 }
                 else{
                         memcpy((char *)(dst+i*RD_BLKSIZ), (char *)buf, RD_BLKSIZ);
                 }
-                kprintf("0x%08X backing store %d\n", dst+i*RD_BLKSIZ, i);
         }
 
 	return OK;
