@@ -100,9 +100,16 @@ void	pfhandler()
         }
     }
 
-    /* Update pt to mark the appropriate entry as present, and set other relevant fields
-     * before copying data from backing store */
+    /* Copy the page o of store s to f  */
+    kprintf("backing store!!!!!!%d %d!!!!!!\n", s, o);
+    if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
+        kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
+        kill(currpid);
+        resched();
+    }
 
+
+    /* Update pt to mark the appropriate entry as present, and set other relevant fields */
 
     pt = (pt_t *)(NBPG * (pd[p].pd_base));
 
@@ -119,13 +126,6 @@ void	pfhandler()
 
     pt[q].pt_base   = f;
 
-    /* Copy the page o of store s to f  */
-    /*if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
-        kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
-        kill(currpid);
-        resched();
-    }
-    */
 
 
 }
