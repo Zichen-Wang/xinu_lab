@@ -21,7 +21,9 @@ void	pfhandler()
     uint32  vp;         /* virtual pages    */
     pd_t    *pd;        /* current page directory   */
 
-    pt_t    *pt;        /* Ptr to p'th page table   */
+    pt_t    *pt;        /* ptr to p'th page table   */
+    uint32  f;          /* free frame   */
+    uint32  s, o;       /* backing store s, and offset o    */
 
     int     new_pt_addr, new_frame_num; /* New frame address    */
 
@@ -31,8 +33,9 @@ void	pfhandler()
     pd = (pd_t *)(proctab[currpid].page_directory);
 
     if (is_valid_addr(a, currpid) == FALSE) {
-        kprintf("Invalid address 0x%08X\n", a);
+        kprintf("Process %d: Invalid address 0x%08X\n", currpid, a);
         kill(currpid);
+        resched();
     }
 
     hook_pfault((char *)(a));
@@ -54,16 +57,29 @@ void	pfhandler()
 
         new_pt_addr = (int)(create_pt(currpid));
         if (new_pt_addr == SYSERR) {    /* Cannot create a new frame for page table   */
+            kprintf("Process %d: Cannot create a new frame for page table!\n", currpid);
             kill(currpid);
+            resched();
         }
         pd[p].pd_base   = new_pt_addr / NBPG;
     }
 
-    /* Find a new free frame */
+
+    /* Using the backing store map, find the store s and page offset o which correspond to vp   */
+    s = proctab[currpid].bs_map_id;
+    o = vp - backing_store_map[s].virt_base_num;
+
+    /* In the inverted page table, increment the reference count of the frame which holds pt.   */
+    inverted_page_table[pd[p].pd_base - FRAME0].reference_count++;
+
+    /* Obtain a free frame f */
     new_frame_num = findfframe(PAGE_VIRTUAL_HEAP);
+    f = new_frame_num + FRAME0;
 
     if (new_frame_num == SYSERR) {    /* Cannot create a new frame for virtual page   */
+        kprintf("Process %d: Cannot create a new frame for virtual page!\n", currpid);
         kill(currpid);
+        resched();
     }
 
     /* Update the inverted_page_table for this new frame    */
@@ -71,6 +87,21 @@ void	pfhandler()
     inverted_page_table[new_frame_num].pid = currpid;
     inverted_page_table[new_frame_num].virt_page_num = vp;
 
+    if (pgrpolicy == 0) {   /* Page replacement policy is FIFO  */
+        /* Insert this frame into frame queue tail   */
+        if (frameq_tail == -1) { /* The current frame queue is empty   */
+            frameq_head = frameq_tail = new_frame_num;
+        }
+        else {
+            inverted_page_table[frameq_tail].fnext = new_frame_num;
+            inverted_page_table[new_frame_num].fprev = frameq_tail;
+            frameq_tail = new_frame_num;
+            inverted_page_table[new_frame_num].fnext = -1;
+        }
+    }
+
+    /* Update pt to mark the appropriate entry as present, and set other relevant fields
+     * before copying data from backing store */
 
 
     pt = (pt_t *)(NBPG * (pd[p].pd_base));
@@ -86,11 +117,16 @@ void	pfhandler()
     pt[q].pt_global = 0;
     pt[q].pt_avail  = 0;
 
-    pt[q].pt_base   = new_frame_num + FRAME0;
+    pt[q].pt_base   = f;
 
-    inverted_page_table[pd[p].pd_base - FRAME0].reference_count++;
+    /* Copy the page o of store s to f  */
+    /*if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
+        kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
+        kill(currpid);
+        resched();
+    }
+    */
 
-    /* To be continued to read this page from backing store if it is not read in the first time */
 
 }
 
@@ -104,7 +140,7 @@ local   uint32  get_faulted_addr(void)
     uint32  cr2;
 
     asm volatile ("movl %%cr2, %0\n\t"
-    : "=r" (cr2) );
+                : "=r" (cr2) );
 
     return cr2;
 }
@@ -118,10 +154,10 @@ local   uint32  get_faulted_addr(void)
 
 local   bool8   is_valid_addr(uint32 a, pid32 pid)
 {
-/* We could never encounter an address which has already been in the shared table   */
-/* Just check if the virtual address is in the virtual heap address and does not exceed the size limit  */
-if (NBPG * 4096 <= a && a < NBPG * (4096 + proctab[pid].hsize))
-return TRUE;
+    /* We could never encounter an address which has already been in the shared table   */
+    /* Just check if the virtual address is in the virtual heap address and does not exceed the size limit  */
+    if (NBPG * VHEAP_ST <= a && a < NBPG * (VHEAP_ST + proctab[pid].hsize))
+        return TRUE;
 
-return FALSE;
+    return FALSE;
 }
