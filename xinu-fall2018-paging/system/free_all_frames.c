@@ -26,7 +26,7 @@ void free_all_frames(pid32 pid)
     prptr = &proctab[pid];
     pd = prptr -> page_directory;
 
-    if (pgrpolicy == 0) {   /* The page replacement policy is FIFO */
+    if (pgrpolicy == 1) {   /* The page replacement policy is FIFO */
         /* modify the frame queue    */
         frameq_curr = frameq_head;
         while (frameq_curr != -1) {

@@ -77,19 +77,13 @@ int findfframe(uint8 type)
             if (frameq_head == -1) {     /* The current frame queue is empty (Would never happen)    */
                 return SYSERR;
             }
-            old_frameq_head = frameq_head;   /* Save the head frame of the frame queue  */
-            frameq_head = inverted_page_table[frameq_head].fnext;
 
-            if (frameq_head == -1) {     /* The new queue is empty   */
-                frameq_tail = -1;
-            }
-
-            inverted_page_table[old_frameq_head].fstate = F_FREE;
-            vp = inverted_page_table[old_frameq_head].virt_page_num;
+            inverted_page_table[frameq_head].fstate = F_FREE;
+            vp = inverted_page_table[frameq_head].virt_page_num;
             a = vp * NBPG;
             p = a >> 22;
             q = (a / NBPG) & 0x000003FF;
-            pid = inverted_page_table[old_frameq_head].pid;
+            pid = inverted_page_table[frameq_head].pid;
             pd = proctab[pid].page_directory;
             pt = (pt_t *)(NBPG * pd[p].pd_base);
 
@@ -116,7 +110,7 @@ int findfframe(uint8 type)
                 }
 
                 /* Write the page back to the backing store     */
-                if (write_bs((char *)(NBPG * (old_frameq_head + FRAME0)), s, o) == SYSERR) {
+                if (write_bs((char *)(NBPG * (frameq_head + FRAME0)), s, o) == SYSERR) {
                     kprintf("Cannot write dirty page to the backing store %d!\n", s);
                     kprintf("Process %d is being killed!\n", pid);
                     kill(pid);
@@ -136,6 +130,13 @@ int findfframe(uint8 type)
                 /* Free the frame holding that page table   */
                 inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
 
+            }
+
+            old_frameq_head = frameq_head;   /* Save the head frame of the frame queue  */
+            frameq_head = inverted_page_table[frameq_head].fnext;
+
+            if (frameq_head == -1) {     /* The new queue is empty   */
+                frameq_tail = -1;
             }
 
             return old_frameq_head;
