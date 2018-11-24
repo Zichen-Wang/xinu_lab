@@ -13,6 +13,7 @@
  * @param n number of times to place character
  * @return the pointer to memory
  */
+#include <xinu.h>
 void *memset(void *s, int c, int n)
 {
     register int i;
