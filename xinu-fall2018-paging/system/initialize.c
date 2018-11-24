@@ -111,7 +111,7 @@ void	nulluser()
 	/*  something to run when no other process is ready to execute)	*/
 
 	while (TRUE) {
-		kprintf("!\n");
+		kprintf("!");
 		;		/* Do nothing */
 	}
 
