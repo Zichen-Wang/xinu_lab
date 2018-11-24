@@ -124,7 +124,7 @@ int findfframe(uint8 type)
 
             }
 
-            pt[q].pres = 0;     /* Mark the appropriate entry of pt as not present.    */
+            pt[q].pt_pres = 0;     /* Mark the appropriate entry of pt as not present.    */
 
             /* Decrement the reference count of the frame occupied by pt */
             inverted_page_table[pd[p].pd_base - FRAME0].reference_count--;
