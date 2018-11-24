@@ -18,7 +18,6 @@ syscall read_bs (char *dst, bsd_t bs_id, int page)
                                 page);
 	  return SYSERR;
 	}
-        kprintf("I am here 0x%08X\n", dst);
         wait(bs_sem);
 
 	if (bstab[bs_id].isopen == FALSE
