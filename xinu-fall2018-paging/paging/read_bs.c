@@ -18,8 +18,9 @@ syscall read_bs (char *dst, bsd_t bs_id, int page)
                                 page);
 	  return SYSERR;
 	}
+
         wait(bs_sem);
-    kprintf("I am here 0x%08X!\n", dst);
+
 	if (bstab[bs_id].isopen == FALSE
                         || bstab[bs_id].npages <= page){
                 kprintf("read_bs failed for bs_id %d and page number %d\r\n",
@@ -34,7 +35,7 @@ syscall read_bs (char *dst, bsd_t bs_id, int page)
          * FIXME : Check id read on RDISK takes blocks from 0 ... 
          */
         rd_blk = (bs_id * RD_PAGES_PER_BS + page)*8;
-
+        /*
         for(i=0; i< 8; i++){
                 memset(buf, NULLCH, RD_BLKSIZ);
                 if(read(RDISK, buf, rd_blk+i) == SYSERR){
@@ -44,6 +45,6 @@ syscall read_bs (char *dst, bsd_t bs_id, int page)
                         memcpy((char *)(dst+i*RD_BLKSIZ), (char *)buf, RD_BLKSIZ);
                 }
         }
-
+        */
 	return OK;
 }
