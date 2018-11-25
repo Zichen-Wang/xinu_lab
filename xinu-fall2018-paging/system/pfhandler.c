@@ -88,7 +88,6 @@ void	pfhandler()
         /* Insert this frame into frame queue tail   */
         if (frameq_tail == -1) { /* The current frame queue is empty   */
             frameq_head = frameq_tail = new_frame_num;
-            kprintf("frameq_head %d\n", frameq_head);
         }
         else {
             inverted_page_table[frameq_tail].fnext = new_frame_num;
