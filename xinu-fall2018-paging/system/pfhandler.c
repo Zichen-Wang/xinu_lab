@@ -120,7 +120,7 @@ void	pfhandler()
     pt[q].pt_dirty  = 0;
     pt[q].pt_mbz    = 0;
     pt[q].pt_global = 0;
-    //pt[q].pt_avail  = 0;
+    pt[q].pt_avail  = 0;
 
     pt[q].pt_base   = f;
 
