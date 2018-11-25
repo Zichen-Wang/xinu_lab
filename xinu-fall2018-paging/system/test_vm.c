@@ -8,8 +8,14 @@ process test_vm(char c)
     int *array;
     uint32  i;
 
-    //*(int *)(0x01001008) = 10;
-    kprintf("before %d\n", *(int *)(0x01001008));
+    kprintf("before %d\n", *(int *)(2024 * 4096 + 8));
+    *(int *)(2024 * 4096 + 8) = 9;
+    asm("cli");
+    *(int *)(0x01001008) = 10;
+    asm("sti");
+    kprintf("pid: %d, frame num %d\n", currpid, ((pt_t *)((proctab[currpid].page_directory[4]).pd_base * NBPG))[1].pt_base);
+    kprintf("after %d\n", *(int *)(2024 * 4096 + 8));
+    kprintf("after %d\n", *(int *)(0x01001008));
     kprintf("fault number %d\n", get_faults());
     pid = getpid();
 

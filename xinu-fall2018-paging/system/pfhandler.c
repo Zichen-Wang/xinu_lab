@@ -124,6 +124,8 @@ void	pfhandler()
 
     pt[q].pt_base   = f;
 
+    kprintf("pid: %d, frame num in pf %d\n", currpid, ((pt_t *)((proctab[currpid].page_directory[p]).pd_base * NBPG))[q].pt_base);
+
 }
 
 /*------------------------------------------------------------------------
