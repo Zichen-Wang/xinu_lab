@@ -80,6 +80,7 @@ int findfframe(uint8 type)
 
             inverted_page_table[frameq_head].fstate = F_FREE;
             vp = inverted_page_table[frameq_head].virt_page_num;
+            kprintf("vpvpvp %d\n", vp);
             a = vp * NBPG;
             p = a >> 22;
             q = (a >> 12) & 0x03FF;
