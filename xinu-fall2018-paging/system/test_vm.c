@@ -12,8 +12,8 @@ process test_vm(char c)
 
     array = vgetmem(10000);
 
-    for (i = 4096; i < 10000; i++) {
-        array[i] = c;
+    for (i = 4096; i < 5000; i++) {
+        array[i] = 10;
         kprintf("%d %d\n", i, array[i]);
     }
 
