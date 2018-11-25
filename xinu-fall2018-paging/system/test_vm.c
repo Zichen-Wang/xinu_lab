@@ -10,18 +10,18 @@ process test_vm(char c)
 
     pid = getpid();
 
-    array = vgetmem(10*4096);
+    array = vgetmem(40000);
 
-    for (i = 0; i < 10*4096; i++) {
+    for (i = 0; i < 40000; i++) {
         array[i] = c;
     }
 
     kprintf("Process %d: array base address is [[0x%08X]]\n", pid, array);
-    for (i = 0; i < 10*4096; i += 4096)
-        kprintf("PID %d page %d: %d\n", pid, i / 4096, array[i + 1]);
+    for (i = 0; i < 40000; i += 4096)
+        kprintf("PID %d page %d: %d\n", pid, i / 4096, array[i]);
     kprintf("\n");
 
-    vfreemem(array, 10*4096);
+    vfreemem(array, 40000);
 
     return 0;
 }
