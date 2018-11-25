@@ -13,6 +13,8 @@ syscall  set_pgrpolicy (uint16 spolicy)
 
     pgrpolicy = spolicy;
 
+    frameq_head = frameq_tail = -1;
+
     restore(mask);
     return OK;
 }
