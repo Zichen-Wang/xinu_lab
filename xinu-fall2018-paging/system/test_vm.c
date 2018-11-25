@@ -14,7 +14,8 @@ process test_vm(char c)
 
 
     *(int *)(0x01001008) = 10;
-    kprintf("FUCK1 %d\n", *(int *)(0x01001008));
+    get_faults();
+
 
     for (i = 1026; i >= 1024; i--) {
         array[i] = 10;
