@@ -39,7 +39,7 @@ pd_t * create_pd(pid32 pid)
     pd = (pd_t *)(NBPG * (frame_num + FRAME0));     /* base address of page directory   */
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
         pd[i].pd_pres     = 0;
-        pd[i].pd_write    = 1;
+        pd[i].pd_write    = 0;
         pd[i].pd_user     = 0;
         pd[i].pd_pwt      = 0;
         pd[i].pd_pcd      = 0;

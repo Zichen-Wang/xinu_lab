@@ -16,7 +16,8 @@
 enable_paging:
 
         cli     /* Interrupt disabled   */
-        movl    $0x80000000, %eax   /* Set PG = 1    */
+        movl    %cr0, %eax
+        orl     $0x80000000, %eax   /* Set PG = 1    */
         movl    %eax, %cr0
         sti     /* Interrupt enabled    */
 

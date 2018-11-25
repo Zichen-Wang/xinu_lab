@@ -11,11 +11,9 @@ process test_vm(char c)
     kprintf("before %d\n", *(int *)(2024 * 4096 + 8));
     kprintf("before pid: %d, frame num %d\n", currpid, proctab[currpid].page_directory[4].pd_base);
     *(int *)(2024 * 4096 + 8) = 9;
-    asm("cli");
     kprintf("before %d\n", *(int *)(0x01001008));
-    kprintf("after pid: %d, frame num %d\n", currpid, proctab[currpid].page_directory[4].pd_base);
-    //*(int *)(0x01001008) = 10;
-    asm("sti");
+    //kprintf("after pid: %d, frame num %d\n", currpid, proctab[currpid].page_directory[4].pd_base);
+    *(int *)(0x01001008) = 10;
     kprintf("after pid: %d, frame num %d\n", currpid, proctab[currpid].page_directory[4].pd_base);
     kprintf("after %d\n", *(int *)(2024 * 4096 + 8));
     kprintf("fault number %d\n", get_faults());
