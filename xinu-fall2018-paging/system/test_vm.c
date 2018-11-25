@@ -8,13 +8,15 @@ process test_vm(char c)
     int *array;
     uint32  i;
 
+    //*(int *)(0x01001008) = 10;
+    kprintf("before %d\n", *(int *)(0x01001008));
+    kprintf("fault number %d\n", get_faults());
     pid = getpid();
+
 
     array = (int *)vgetmem(10000);
 
 
-    *(int *)(0x01001008) = 10;
-    get_faults();
 
 
     for (i = 1026; i >= 1024; i--) {
