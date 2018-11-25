@@ -135,9 +135,7 @@ int findfframe(uint8 type)
             }
 
             saved_frameq_head = frameq_head;   /* Save the head frame of the frame queue  */
-            kprintf("before replace head %d: \n", frameq_head);
             frameq_head = inverted_page_table[frameq_head].fnext;
-            kprintf("after replace head %d: \n", frameq_head);
 
             if (frameq_head == -1) {     /* The new queue is empty   */
                 frameq_tail = -1;

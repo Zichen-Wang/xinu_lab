@@ -88,12 +88,14 @@ void	pfhandler()
         /* Insert this frame into frame queue tail   */
         if (frameq_tail == -1) { /* The current frame queue is empty   */
             frameq_head = frameq_tail = new_frame_num;
+            inverted_page_table[new_frame_num].fnext = -1;
         }
         else {
             inverted_page_table[frameq_tail].fnext = new_frame_num;
             frameq_tail = new_frame_num;
             inverted_page_table[new_frame_num].fnext = -1;
         }
+        kprintf("frameq_head next %d\n", inverted_page_table[1000].fnext);
     }
 
     pt = (pt_t *)(NBPG * (pd[p].pd_base));
