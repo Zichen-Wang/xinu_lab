@@ -124,7 +124,7 @@ void	pfhandler()
 
     pt[q].pt_base   = f;
 
-    kprintf("pid: %d, frame num in pf %d\n", currpid, pt[q].pt_base);
+    kprintf("pid: %d, frame num in pf %d\n", currpid, pd[p].pd_base);
 
 }
 
