@@ -43,6 +43,7 @@ void free_all_frames(pid32 pid)
                 q = (a >> 12) & 0x03FF;
                 pt = (pt_t *)(NBPG * pd[p].pd_base);
                 pt[q].pt_pres = 0;
+                pt[q].pt_avail = 0;
 
                 inverted_page_table[frameq_curr].fstate = F_FREE;
                 inverted_page_table[frameq_curr].fnext = -1;

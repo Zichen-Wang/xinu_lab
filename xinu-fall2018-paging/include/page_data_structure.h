@@ -101,10 +101,10 @@ extern  void pfisr(void);
 extern  void pfhandler(void);
 
 /* in file test_app.c    */
-extern  process test_app(char c);
+extern  process test_app(char);
 
 /* in file test_vm.c    */
-extern  process test_vm(char c);
+extern  process test_vm(char);
 
 /* in file test_vm_2.c    */
 extern  process test_vm_2(int, int);

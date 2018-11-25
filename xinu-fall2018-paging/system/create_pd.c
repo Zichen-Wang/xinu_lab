@@ -49,7 +49,6 @@ pd_t * create_pd(pid32 pid)
         pd[i].pd_global   = 0;
         pd[i].pd_avail    = 0;
         pd[i].pd_base     = 0;
-
     }
 
     return pd;

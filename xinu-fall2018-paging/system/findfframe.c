@@ -120,16 +120,17 @@ int findfframe(uint8 type)
             }
 
             pt[q].pt_pres = 0;     /* Mark the appropriate entry of pt as not present.    */
+            pt[q].pt_avail = 1;    /* Mark the entry of pt as eviction  */
 
             /* Decrement the reference count of the frame occupied by pt */
             inverted_page_table[pd[p].pd_base - FRAME0].reference_count--;
 
             /* If the reference count has reached zero  */
             if (inverted_page_table[pd[p].pd_base - FRAME0].reference_count == 0) {
-                pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
+                //pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
 
                 /* Free the frame holding that page table   */
-                inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
+                //inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
 
             }
 
