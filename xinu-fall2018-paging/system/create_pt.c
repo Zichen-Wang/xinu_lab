@@ -33,7 +33,7 @@ pt_t * create_pt(pid32 pid)
     inverted_page_table[frame_num].fnext = -1;
 
 
-    hook_ptable_create(frame_num);
+    hook_ptable_create(frame_num + FRAME0);
 
     /* Initialize the page table    */
     pt = (pt_t *)(NBPG * (frame_num + FRAME0)); /* base address of page table  */

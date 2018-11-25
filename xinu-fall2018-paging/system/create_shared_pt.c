@@ -33,7 +33,7 @@ void create_shared_pt(void)
 
         inverted_page_table[frame_num].fnext = -1;
 
-        hook_ptable_create(frame_num);
+        hook_ptable_create(frame_num + FRAME0);
 
         /* Initialize the page table    */
         pt = (pt_t *)(NBPG * (FRAME0 + frame_num)); /* base address of page table  */

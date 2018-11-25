@@ -13,12 +13,15 @@ process test_vm(char c)
     *(int *)(2024 * 4096 + 8) = 9;
     //kprintf("before %d\n", *(int *)(0x01001008));
     //kprintf("after pid: %d, frame num %d\n", currpid, proctab[currpid].page_directory[4].pd_base);
+    //asm volatile("cli");
     *(int *)(0x01001008) = 10;
+    //asm volatile("sti");
     kprintf("after pid: %d, frame num %d\n", currpid, proctab[currpid].page_directory[4].pd_base);
     kprintf("after [2024 * 4096 + 8] = %d\n", *(int *)(2024 * 4096 + 8));
     kprintf("after [0x01001008] = %d\n", *(int *)(0x01001008));
-    *(int *)(0x01001008) = 10;
+    //asm volatile("cli");
     *(int *)(0x01000000) = 1;
+    //asm volatile("sti");
     kprintf("after after [0x01001008] = %d\n", *(int *)(0x01001008));
     kprintf("after after [2025 * 4096] = %d\n", *(int *)(2025 * 4096));
     kprintf("fault number %d\n", get_faults());

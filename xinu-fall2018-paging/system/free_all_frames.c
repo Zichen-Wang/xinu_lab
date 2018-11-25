@@ -72,7 +72,7 @@ void free_all_frames(pid32 pid)
                 inverted_page_table[frame_pt_num].reference_count = 0;
                 pd[i].pd_pres = 0;
 
-                hook_ptable_delete(frame_pt_num);
+                hook_ptable_delete(pd[i].pd_base);
             }
         }
     }
@@ -81,5 +81,5 @@ void free_all_frames(pid32 pid)
     frame_pd_num = (uint32)(pd) / NBPG - FRAME0;
     inverted_page_table[frame_pd_num].fstate = F_FREE;  /* Free this frame  */
 
-    hook_pdir_delete(frame_pd_num);
+    hook_pdir_delete((uint32)(pd) / NBPG);
 }
