@@ -41,6 +41,9 @@ char  	*vgetmem(
         *(int *)(0x01001008) = 10;
         kprintf("FUCK1 %d\n", *(int *)(0x01001008));
 
+        *(int *)(0x01000004) = 100;
+        kprintf("FUCK2 %d\n", *(int *)(0x01000004));
+
         curr -> mnext = NULL;                       /* first page fault */
         curr -> mlength = NBPG * (prptr -> hsize);
 
