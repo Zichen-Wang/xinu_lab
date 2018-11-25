@@ -105,7 +105,7 @@ void	pfhandler()
 //        if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
 //            kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
 //            kill(currpid);
-        }
+//        }
     }
 
 
