@@ -102,9 +102,9 @@ void	pfhandler()
     if (pt[q].pt_avail == 1) {   /* This virtual page was evicted before */
         /* Copy the page o of store s to f  */
         kprintf("I am here!!!!\n");
-        if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
-            kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
-            kill(currpid);
+//        if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
+//            kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
+//            kill(currpid);
         }
     }
 
