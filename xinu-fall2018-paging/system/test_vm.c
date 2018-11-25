@@ -5,7 +5,7 @@
 process test_vm(char c)
 {
     pid32   pid;
-    char *array;
+    int *array;
     uint32  i;
 
     pid = getpid();
