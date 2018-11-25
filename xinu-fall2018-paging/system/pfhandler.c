@@ -96,8 +96,11 @@ void	pfhandler()
         }
     }
 
+    pt = (pt_t *)(NBPG * (pd[p].pd_base));
+
     if (pt[q].pt_avail == 1) {   /* This virtual page was evicted before */
         /* Copy the page o of store s to f  */
+        kprintf("I am here!!!!\n");
         if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
             kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
             kill(currpid);
@@ -106,8 +109,6 @@ void	pfhandler()
 
 
     /* Update pt to mark the appropriate entry as present, and set other relevant fields */
-
-    pt = (pt_t *)(NBPG * (pd[p].pd_base));
 
     pt[q].pt_pres   = 1;
     pt[q].pt_write  = 1;
@@ -118,7 +119,7 @@ void	pfhandler()
     pt[q].pt_dirty  = 0;
     pt[q].pt_mbz    = 0;
     pt[q].pt_global = 0;
-    pt[q].pt_avail  = 0;
+    //pt[q].pt_avail  = 0;
 
     pt[q].pt_base   = f;
 
