@@ -159,7 +159,7 @@ pid32	vcreate(
         pd[i].pd_fmb      = 0;
         pd[i].pd_global   = 0;
         pd[i].pd_avail    = 0;
-        pd[i].pd_base     = 0;
+
         pd[i].pd_base     = ((uint32) shared_page_table[i]) / NBPG;
     }
 
@@ -173,6 +173,7 @@ pid32	vcreate(
     pd[DEVICE_PD].pd_fmb	 = 0;
     pd[DEVICE_PD].pd_global  = 0;
     pd[DEVICE_PD].pd_avail   = 0;
+
     pd[DEVICE_PD].pd_base    = ((uint32) shared_page_table[4] / NBPG);
 
 
