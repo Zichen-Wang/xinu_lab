@@ -12,7 +12,7 @@ process test_vm(char c)
 
     array = vgetmem(10000);
 
-    for (i = 4096; i < 5000; i++) {
+    for (i = 4098; i >= 4096; i--) {
         array[i] = 10;
         kprintf("%d %d\n", i, array[i]);
     }
