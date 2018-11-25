@@ -38,8 +38,8 @@ char  	*vgetmem(
     if (prptr -> vmem_init == FALSE) {     /* The virtual memory should be initialized */
         prptr -> vmem_init = TRUE;
 
-        curr -> mnext = NULL;                       /* first page fault */
         curr -> mlength = NBPG * (prptr -> hsize);
+        curr -> mnext = NULL;                       /* first page fault */
 
     }
 

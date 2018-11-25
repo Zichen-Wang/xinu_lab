@@ -13,8 +13,6 @@ process test_vm(char c)
     array = vgetmem(40000);
 
     for (i = 0; i < 40000; i++) {
-        if (i % 4096 == 0)
-            kprintf("%d %d\n", i, array[i]);
         array[i] = c;
         if (i % 4096 == 0)
             kprintf("%d %d\n", i, array[i]);
