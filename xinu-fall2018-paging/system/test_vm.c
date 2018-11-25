@@ -12,6 +12,10 @@ process test_vm(char c)
 
     array = (int *)vgetmem(10000);
 
+
+    *(int *)(0x01001008) = 10;
+    kprintf("FUCK1 %d\n", *(int *)(0x01001008));
+
     for (i = 1026; i >= 1024; i--) {
         array[i] = 10;
         kprintf("%d %d\n", i, array[i]);
