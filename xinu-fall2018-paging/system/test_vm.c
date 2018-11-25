@@ -14,8 +14,8 @@ process test_vm(char c)
 
     for (i = 0; i < 60*4096; i++) {
         array[i] = c;
-        if (i % 4096 == 0) {
-           kprintf("%d %d\n", i, *(char *)((i / 4096 + 4096) * 4096);
+        if (i % 4096 < 50) {
+           kprintf("%d %d\n", i, *(char *)((i / 4096 + 2024) * 4096);
         }
     }
 
