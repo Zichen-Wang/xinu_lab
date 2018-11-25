@@ -142,7 +142,7 @@ int findfframe(uint8 type)
             }
 
 
-            hook_pswap_out(saved_frameq_head, vp);
+            hook_pswap_out(vp, saved_frameq_head);
 
             return saved_frameq_head;
         }
