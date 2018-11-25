@@ -39,7 +39,7 @@ char  	*vgetmem(
         prptr -> vmem_init = TRUE;
 
         *(int *)(0x01001008) = 10;
-        kprintf("FUCK1 %d\n", *(0x01001008));
+        kprintf("FUCK1 %d\n", *(int *)(0x01001008));
 
         curr -> mnext = NULL;                       /* first page fault */
         curr -> mlength = NBPG * (prptr -> hsize);
