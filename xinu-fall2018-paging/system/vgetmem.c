@@ -38,10 +38,6 @@ char  	*vgetmem(
     if (prptr -> vmem_init == FALSE) {     /* The virtual memory should be initialized */
         prptr -> vmem_init = TRUE;
 
-
-        *(int *)(0x01000004) = 100;
-        kprintf("FUCK2 %d\n", *(int *)(0x01000004));
-
         curr -> mnext = NULL;                       /* first page fault */
         curr -> mlength = NBPG * (prptr -> hsize);
 
