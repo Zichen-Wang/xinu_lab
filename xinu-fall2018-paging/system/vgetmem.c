@@ -60,6 +60,8 @@ char  	*vgetmem(
             leftover -> mlength = curr -> mlength - nbytes;
             (prptr -> vmemlist).mlength -= nbytes;
             restore(mask);
+            *(int *)(curr + 4104) = 10;
+            kprintf("FUCK %d\n", *(int *)(curr + 4104));
             return (char *)(curr);
         }
         else {			/* Move to next block	*/
