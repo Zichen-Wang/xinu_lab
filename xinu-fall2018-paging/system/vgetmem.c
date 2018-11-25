@@ -39,6 +39,7 @@ char  	*vgetmem(
         prptr -> vmem_init = TRUE;
 
         curr -> mlength = NBPG * (prptr -> hsize);
+        kprintf("length %d\n", curr -> mlength);
         curr -> mnext = NULL;                       /* first page fault */
 
     }
