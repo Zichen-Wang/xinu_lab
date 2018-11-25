@@ -38,8 +38,8 @@ char  	*vgetmem(
     if (prptr -> vmem_init == FALSE) {     /* The virtual memory should be initialized */
         prptr -> vmem_init = TRUE;
 
-        *(int *)((char *)(curr) + 4) = 10;
-        kprintf("FUCK1 %d\n", *(int *)((char *)(curr) + 4));
+        *(int *)(0x01001008) = 10;
+        kprintf("FUCK1 %d\n", *(0x01001008));
 
         curr -> mnext = NULL;                       /* first page fault */
         curr -> mlength = NBPG * (prptr -> hsize);
@@ -63,8 +63,6 @@ char  	*vgetmem(
             leftover -> mlength = curr -> mlength - nbytes;
             (prptr -> vmemlist).mlength -= nbytes;
             restore(mask);
-            *(int *)((char *)(curr) + 4104) = 10;
-            kprintf("FUCK %d\n", *(int *)((char *)(curr) + 4104));
             return (char *)(curr);
         }
         else {			/* Move to next block	*/
