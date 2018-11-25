@@ -98,3 +98,5 @@ in 'system/'
 in 'include/'
 1.  xinu.h                  // Add page_data_structure.h and adjust the order of some header files.
 2.  process.h               // Add new variables (virtual heap memory related) into page table.
+3.  prototypes.h            // Change the declaration of ctxsw().
+4.  paging.h                // Add pgrpolicy.
