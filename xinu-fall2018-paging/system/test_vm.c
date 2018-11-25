@@ -13,7 +13,7 @@ process test_vm(char c)
     array = vgetmem(40000);
 
     for (i = 0; i < 10000; i++) {
-        array[i] = c;
+        array[i] = (int)(c);
     }
 
     kprintf("Process %d: array base address is [[0x%08X]]\n", pid, array);
