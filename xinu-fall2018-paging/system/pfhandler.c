@@ -95,7 +95,6 @@ void	pfhandler()
             frameq_tail = new_frame_num;
             inverted_page_table[new_frame_num].fnext = -1;
         }
-        kprintf("frameq_head next %d\n", inverted_page_table[1000].fnext);
     }
 
     pt = (pt_t *)(NBPG * (pd[p].pd_base));

@@ -78,12 +78,19 @@ int findfframe(uint8 type)
                 return SYSERR;
             }
 
-            inverted_page_table[frameq_head].fstate = F_FREE;
-            vp = inverted_page_table[frameq_head].virt_page_num;
+            saved_frameq_head = frameq_head;   /* Save the head frame of the frame queue  */
+            frameq_head = inverted_page_table[frameq_head].fnext;
+
+            if (frameq_head == -1) {     /* The new queue is empty   */
+                frameq_tail = -1;
+            }
+
+            inverted_page_table[saved_frameq_head].fstate = F_FREE;
+            vp = inverted_page_table[saved_frameq_head].virt_page_num;
             a = vp * NBPG;
             p = a >> 22;
             q = (a >> 12) & 0x03FF;
-            pid = inverted_page_table[frameq_head].pid;
+            pid = inverted_page_table[saved_frameq_head].pid;
             pd = proctab[pid].page_directory;
             pt = (pt_t *)(NBPG * pd[p].pd_base);
 
@@ -111,7 +118,7 @@ int findfframe(uint8 type)
                 }
 
                 /* Write the page back to the backing store     */
-                if (write_bs((char *)(NBPG * (frameq_head + FRAME0)), s, o) == SYSERR) {
+                if (write_bs((char *)(NBPG * (saved_frameq_head + FRAME0)), s, o) == SYSERR) {
                     kprintf("Cannot write dirty page to the backing store %d!\n", s);
                     kprintf("Process %d is being killed!\n", pid);
                     kill(pid);
@@ -134,12 +141,6 @@ int findfframe(uint8 type)
 
             }
 
-            saved_frameq_head = frameq_head;   /* Save the head frame of the frame queue  */
-            frameq_head = inverted_page_table[frameq_head].fnext;
-
-            if (frameq_head == -1) {     /* The new queue is empty   */
-                frameq_tail = -1;
-            }
 
             hook_pswap_out(saved_frameq_head, vp);
 
