@@ -18,7 +18,7 @@ process test_vm(char c)
 
     kprintf("Process %d: array base address is [[0x%08X]]\n", pid, array);
     for (i = 0; i < 10*4096; i += 4096)
-        kprintf("PID %d page %d: %d\n", pid, i / 4096, array[i]);
+        kprintf("PID %d page %d: %d\n", pid, i / 4096, array[i + 1]);
     kprintf("\n");
 
     vfreemem(array, 10*4096);
