@@ -43,11 +43,11 @@ process test_vm(char c)
 
     for (i = 0; i < 60 * 4096; i++) {
         array[i] = c;
-        array[i] = c;
+        //array[i] = c;
     }
 
     for (i = 0; i < 60 * 4096; i += 4096) {
-        kprintf("PID %d, page %d: %d", pid, i / 4096, array[i]);
+        kprintf("PID %d, page %d: %c\n", pid, i / 4096, array[i]);
     }
 
 
