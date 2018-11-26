@@ -11,6 +11,7 @@ process test_vm(char c)
     asm volatile ("cli");
     kprintf("bbbbbbbbbbbbbbbbbb\n");
     asm volatile ("sti");
+    sleepms(10);
     kprintf("after pid: %d, page directory num %d\n", currpid, (uint32)(proctab[5].page_directory));
     /*
     kprintf("before [2024 * 4096 + 8] = %d\n", *(int *)(2024 * 4096 + 8));
