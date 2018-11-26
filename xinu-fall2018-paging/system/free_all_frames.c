@@ -21,7 +21,7 @@ void free_all_frames(pid32 pid)
     uint32  i;
     uint32  vp, a, p, q;
 
-    int32   frameq_prev, frameq_curr;
+    int32   frameq_prev, frameq_curr, next;
 
     prptr = &proctab[pid];
     pd = prptr -> page_directory;
@@ -32,8 +32,15 @@ void free_all_frames(pid32 pid)
         frameq_curr = frameq_head;
         while (frameq_curr != -1) {
             if (pid == inverted_page_table[frameq_curr].pid) {
-                if (frameq_prev != -1) {
-                    inverted_page_table[frameq_prev].fnext = inverted_page_table[frameq_curr].fnext;
+                /* This frame should be freed    */
+
+                next = inverted_page_table[frameq_curr].fnext;
+
+                if (frameq_prev != -1) {    /* The current frame is not head    */
+                    inverted_page_table[frameq_prev].fnext = next;
+                }
+                else {  /* The current frame is head    */
+                    frameq_head = next;         /* Set the new head */
                 }
 
                 /* Free this frame */
@@ -44,17 +51,25 @@ void free_all_frames(pid32 pid)
                 pt = (pt_t *)(NBPG * pd[p].pd_base);
                 pt[q].pt_pres = 0;
                 pt[q].pt_avail = 0;
-                kprintf("[PID %d: releasing frame %d]\n", pid, frameq_curr);
+
+                kprintf("[PID %d: freeing frame %d]\n", pid, frameq_curr);
                 inverted_page_table[frameq_curr].fstate = F_FREE;
                 inverted_page_table[frameq_curr].fnext = -1;
+
+                /* Do not need move the previous pointer */
+                frameq_curr = next; /* Move the current pointer */
 
             }
             else {
                 frameq_prev = frameq_curr;
+                frameq_curr = inverted_page_table[frameq_curr].fnext;
             }
-            frameq_curr = inverted_page_table[frameq_curr].fnext;
         }
+        if (frameq_head == -1)  /* The queue is empty   */
+            frameq_tail = -1;
     }
+
+    kprintf("Killed process %d, head: %d tail %d\n", pid, frameq_head, frameq_tail);
 
     /* Clear page tables and page directory  */
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
