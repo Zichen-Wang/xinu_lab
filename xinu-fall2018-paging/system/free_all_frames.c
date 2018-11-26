@@ -52,7 +52,7 @@ void free_all_frames(pid32 pid)
                 pt[q].pt_pres = 0;
                 pt[q].pt_avail = 0;
 
-                kprintf("[PID %d: freeing frame %d]\n", pid, frameq_curr);
+                kprintf("[PID %d: freeing frame %d]\n", pid, frameq_curr + FRAME0);
                 inverted_page_table[frameq_curr].fstate = F_FREE;
                 inverted_page_table[frameq_curr].fnext = -1;
 
