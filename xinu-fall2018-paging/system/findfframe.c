@@ -118,6 +118,8 @@ int findfframe(uint8 type)
                 }
 
                 /* Write the page back to the backing store     */
+                kprintf("Process ID %d is writing [0x%08X] to s: %d, o: %d\n",
+                        NBPG * (saved_frameq_head + FRAME0), currpid, s, o);
                 if (write_bs((char *)(NBPG * (saved_frameq_head + FRAME0)), s, o) == SYSERR) {
                     kprintf("Cannot write dirty page to the backing store %d!\n", s);
                     kprintf("Process %d is being killed!\n", pid);
