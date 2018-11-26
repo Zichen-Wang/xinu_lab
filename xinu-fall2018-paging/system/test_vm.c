@@ -5,7 +5,7 @@
 process test_vm(char c)
 {
     pid32   pid;
-    int *array;
+    char *array;
     uint32  i;
     /*
     kprintf("before [2024 * 4096 + 8] = %d\n", *(int *)(2024 * 4096 + 8));
