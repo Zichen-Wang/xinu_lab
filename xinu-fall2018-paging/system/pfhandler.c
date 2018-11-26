@@ -124,7 +124,6 @@ void	pfhandler()
 
     pt[q].pt_base   = f;
 
-    kprintf("pid: %d, page directory in pf %d\n", currpid, (uint32)(proctab[5].page_directory) / NBPG);
 
 }
 
