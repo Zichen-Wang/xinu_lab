@@ -26,21 +26,21 @@ void hook_pdir_create(unsigned int pagenum)
 void hook_ptable_create(unsigned int pagenum)
 {
 #ifdef HOOK_DEBUG
-    kprintf("Created page table %d\n\n", pagenum);
+    kprintf("\nCreated page table %d\n", pagenum);
 #endif
 }
 
 void hook_pdir_delete(unsigned int pagenum)
 {
 #ifdef HOOK_DEBUG
-    kprintf("Deleted page directory %d\n\n", pagenum);
+    kprintf("\nDeleted page directory %d\n", pagenum);
 #endif
 }
 
 void hook_ptable_delete(unsigned int pagenum)
 {
 #ifdef HOOK_DEBUG
-    kprintf("Deleted page table %d\n\n", pagenum);
+    kprintf("\nDeleted page table %d\n", pagenum);
 #endif
 }
 
@@ -48,14 +48,14 @@ void hook_pfault(char *addr)
 {
     page_fault_count++;
 #ifdef HOOK_DEBUG
-    kprintf("Page fault for address 0x%08X\n\n", addr);
+    kprintf("\nPage fault for address 0x%08X\n", addr);
 #endif
 }
 
 void hook_pswap_out(unsigned int pagenum, int framenum)
 {
 #ifdef HOOK_DEBUG
-    kprintf("Replacing frame number %d, virtual page %d\n\n", framenum, pagenum);
+    kprintf("\nReplacing frame number %d, virtual page %d\n", framenum, pagenum);
 #endif
 }
 
