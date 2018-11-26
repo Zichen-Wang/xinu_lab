@@ -285,7 +285,7 @@ static	void initialize_paging(void)
 	            : "r" (pd));	/* Input register %0: pd	*/
 
 	/* 6. Install the page fault interrupt service routine 	*/
-	//set_evec(PAGE_FAULT_NUM, (uint32)(pfisr));
+	set_evec(PAGE_FAULT_NUM, (uint32)(pfisr));
 
 	/* 7. Enable paging	*/
 	enable_paging();
