@@ -44,9 +44,7 @@ void free_all_frames(pid32 pid)
                 pt = (pt_t *)(NBPG * pd[p].pd_base);
                 pt[q].pt_pres = 0;
                 pt[q].pt_avail = 0;
-                if (pid == 6) {
-                    kprintf("release frame %d\n", frameq_curr);
-                }
+                kprintf("[PID %d: releasing frame %d]\n", pid, frameq_curr);
                 inverted_page_table[frameq_curr].fstate = F_FREE;
                 inverted_page_table[frameq_curr].fnext = -1;
 
