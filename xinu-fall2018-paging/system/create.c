@@ -129,7 +129,7 @@ pid32	create(
 	prptr -> hsize = 0;
 
 	/* Assign shared page tables to page directory of null process	*/
-	pd = prptr -> page_directory;	/* base address of page directory  */
+
 	for (i = 0; i < 4; i++) {
 		pd[i].pd_pres     = 1;
 		pd[i].pd_write    = 1;

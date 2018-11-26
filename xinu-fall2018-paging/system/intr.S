@@ -105,7 +105,8 @@ _Xint0:
 	movl	%esp, %eax
 	pushl	%eax
 	pushl	$0
-	jmp	Xtrap
+	call    test_vm
+	#jmp	Xtrap
 
 	.globl  _Xint1			/* Debug exception		*/
 _Xint1:
