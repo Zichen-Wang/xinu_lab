@@ -67,9 +67,11 @@ void free_all_frames(pid32 pid)
         }
         if (frameq_head == -1)  /* The queue is empty   */
             frameq_tail = -1;
+
+
+        kprintf("Killed process %d, head: %d tail %d\n", pid, frameq_head, frameq_tail);
     }
 
-    kprintf("Killed process %d, head: %d tail %d\n", pid, frameq_head, frameq_tail);
 
     /* Clear page tables and page directory  */
     for (i = 0; i < PAGE_DIRECTORY_ENTRIES; i++) {
