@@ -36,22 +36,22 @@ process test_vm(char c)
 
     pid = getpid();
 
-    array = vgetmem(60 * 4096);
+    array = vgetmem(30 * 4096);
 
 
 
 
-    for (i = 0; i < 60 * 4096; i++) {
+    for (i = 0; i < 30 * 4096; i++) {
         array[i] = c;
-        //array[i] = c;
+        array[i] = c;
     }
 
-    for (i = 0; i < 60 * 4096; i += 4096) {
+    for (i = 0; i < 30 * 4096; i += 4096) {
         kprintf("PID %d, page %d: %c\n", pid, i / 4096, array[i]);
     }
 
 
-    vfreemem(array, 60 * 4096);
+    vfreemem(array, 30 * 4096);
 
     return 0;
 }
