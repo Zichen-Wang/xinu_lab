@@ -239,23 +239,13 @@ _Xint13:
 
 	.globl  _Xint14			/* Page fault			*/
 _Xint14:
-	//pushl	%ebp
-	//movl	%esp,%ebp
-	//pushal
-	//movl	%esp, %eax
-	//pushl	%eax
-	//pushl	$14
-	//jmp	Xtrap
-
-	pushfl                          # Save EFLAGS
-    cli                             # Disable further interrupts
-    pushal                          # Save registers
-    call    pfhandler               # Call C function to handle the interrupt
-    popal                           # Restore registers
-
-    popfl                           # Restore EFLAGS
-    addl    $4, %esp                # Remove error code from stack
-    iret                            # Return from interrupt
+	pushl	%ebp
+	movl	%esp,%ebp
+	pushal
+	movl	%esp, %eax
+	pushl	%eax
+	pushl	$14
+	jmp	Xtrap
 
 	.globl  _Xint15			/* (reserved)			*/
 _Xint15:
