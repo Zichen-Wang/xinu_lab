@@ -7,12 +7,6 @@ process test_vm(char c)
     pid32   pid;
     int *array;
     uint32  i;
-    kprintf("before pid: %d, page directory num %d\n", currpid, (uint32)(proctab[5].page_directory));
-    asm volatile ("cli");
-    kprintf("bbbbbbbbbbbbbbbbbb\n");
-    asm volatile ("sti");
-    sleepms(10);
-    kprintf("after pid: %d, page directory num %d\n", currpid, (uint32)(proctab[5].page_directory));
     /*
     kprintf("before [2024 * 4096 + 8] = %d\n", *(int *)(2024 * 4096 + 8));
     kprintf("before pid: %d, page directory num %d\n", currpid, (uint32)(proctab[5].page_directory) / NBPG);
@@ -39,21 +33,25 @@ process test_vm(char c)
     kprintf("after after [2025 * 4096] = %d\n", *(int *)(2025 * 4096));
     kprintf("fault number %d\n", get_faults());
     */
-    /*
+
     pid = getpid();
 
-    array = (int *)vgetmem(10000);
+    array = vgetmem(60 * 4096);
 
 
 
 
-    for (i = 2049; i >= 2048; i--) {
-        array[i] = 10;
-        kprintf("%d %d\n", i, array[i]);
+    for (i = 0; i < 60 * 4096; i++) {
+        array[i] = c;
+        array[i] = c;
+    }
+
+    for (i = 0; i < 60 * 4096; i += 4096) {
+        kprintf("PID %d, page %d: %d", pid, i / 4096, array[i]);
     }
 
 
-    vfreemem(array, 10000);
-    */
+    vfreemem(array, 60 * 4096);
+
     return 0;
 }
