@@ -43,7 +43,7 @@ process test_vm(char c)
 
     for (i = 0; i < 30 * 4096; i++) {
         array[i] = c;
-        array[i] = c;
+        //array[i] = c;
     }
 
     for (i = 0; i < 30 * 4096; i += 4096) {
