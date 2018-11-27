@@ -69,7 +69,7 @@ void free_all_frames(pid32 pid)
             frameq_tail = -1;
 
 
-        kprintf("Killed process %d, head: %d tail %d\n", pid, frameq_head, frameq_tail);
+        kprintf("Killed process %d, head: %d tail %d\n", pid, frameq_head + FRAME0, frameq_tail + FRAME0);
     }
 
 

@@ -105,6 +105,8 @@ int findfframe(uint8 type)
 
             }
 
+            hook_pswap_out(vp, saved_frameq_head + FRAME0);
+
             /* If the dirty bit for page vp was set in its page table   */
             if (pt[q].pt_dirty == 1) {
 
@@ -144,8 +146,6 @@ int findfframe(uint8 type)
 
             }
 
-
-            hook_pswap_out(vp, saved_frameq_head);
 
             return saved_frameq_head;
         }
