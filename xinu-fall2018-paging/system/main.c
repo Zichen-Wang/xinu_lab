@@ -25,9 +25,12 @@ process	main(void)
 	//resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 1, 2));
 	//resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 23, 17));
 
+	for (i = 2024; i < 2024 + 30; i++) {
+		kprintf("frame %d: %d\n", i, *(int *)(i * 4096));
+	}
+
 	sleepms(5000);
 
-	kprintf("[%d]\n", *(char *)(2025 * 4096 + 8));
 
 	kprintf("\n...creating a shell\n");
 	recvclr();

@@ -98,5 +98,4 @@ void free_all_frames(pid32 pid)
     frame_pd_num = (uint32)(pd) / NBPG - FRAME0;
     inverted_page_table[frame_pd_num].fstate = F_FREE;  /* Free this frame  */
 
-    hook_pdir_delete((uint32)(pd) / NBPG);
 }

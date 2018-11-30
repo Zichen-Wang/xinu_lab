@@ -14,6 +14,7 @@
 		.globl	pfisr		            # Page fault interrupt dispatcher
 pfisr:
         cli                             # Disable further interrupts
+
         pushal                          # Save registers
         call    pfhandler               # Call C function to handle the interrupt
         popal                           # Restore registers

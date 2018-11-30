@@ -14,6 +14,8 @@ struct  bs_map_entry backing_store_map[MAX_BS_ENTRIES];
 
 uint16  pgrpolicy;
 
+uint32  page_fault_count;
+
 int32   frameq_head, frameq_tail;
 
 /*---------------------------------------------------------------------------
@@ -42,4 +44,6 @@ void paging_init(void)
 
     /* set the page replacement policy  */
     set_pgrpolicy(0);   /* The argument spolicy being 0 sets policy to FIFO */
+
+    page_fault_count = 0;
 }

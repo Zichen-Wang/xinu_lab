@@ -53,4 +53,10 @@ typedef struct {
 #define MAX_ID		7		/* You get 8 mappings, 0 - 7 */
 #define MIN_ID          0
 
+/*
+ * user: wang4113
+ * data: 11/28/2018
+ */
+
+/* in file paging_init.c    */
 extern  uint16 pgrpolicy;

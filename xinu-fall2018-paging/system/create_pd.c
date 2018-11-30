@@ -32,7 +32,6 @@ pd_t * create_pd(pid32 pid)
 
     inverted_page_table[frame_num].fnext = -1;
 
-    hook_pdir_create(frame_num + FRAME0);
 
 
     /* Initialize the page directory    */
