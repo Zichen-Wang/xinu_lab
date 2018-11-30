@@ -28,8 +28,8 @@ process	main(void)
 
 	sleepms(5000);
 
-	for (i = 2024; i < 2024 + 30; i++) {
-		kprintf("frame %d: %d\n", i, *(int *)(i * 4096 + 4));
+	for (i = 2024; i < 2030; i++) {
+		kprintf("frame %d: %d\n", i, *(char *)(i * 4096));
 	}
 
 

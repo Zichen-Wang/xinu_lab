@@ -46,8 +46,8 @@ process test_vm(char c)
         //array[i] = c;
     }
 
-    for (i = 0; i < 30 * 4096; i += 4096) {
-        //kprintf("PID %d, page %d: %c\n", pid, i / 4096, array[i]);
+    for (i = 2024; i < 2030; i++) {
+        kprintf("frame %d: %d\n", i, *(char *)(i * 4096));
     }
 
 
