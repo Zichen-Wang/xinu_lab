@@ -31,7 +31,7 @@ void	pfhandler()
     a = get_faulted_addr();
     vp = a / NBPG;
 
-    //hook_pfault((char *)(a));
+    hook_pfault((char *)(a));
     page_fault_count++;     /* Add the number of page fault */
 
     pd = (pd_t *)(proctab[currpid].page_directory);

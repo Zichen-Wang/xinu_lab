@@ -29,7 +29,7 @@ process	main(void)
 	sleepms(5000);
 
 	for (i = 2024; i < 2024 + 30; i++) {
-		kprintf("frame %d: %d\n", i, *(int *)(i * 4096));
+		kprintf("frame %d: %d\n", i, *(int *)(i * 4096 + 4));
 	}
 
 
