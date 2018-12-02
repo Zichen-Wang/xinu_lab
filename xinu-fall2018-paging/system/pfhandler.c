@@ -27,6 +27,9 @@ void	pfhandler()
 
     int     new_pt_addr, new_frame_num; /* New frame address    */
 
+    int     mask;
+
+    mask = disable();
 
     a = get_faulted_addr();
     vp = a / NBPG;
@@ -126,6 +129,8 @@ void	pfhandler()
     pt[q].pt_avail  = 0;
 
     pt[q].pt_base   = f;
+
+    restore(mask);
 
 }
 
