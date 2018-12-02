@@ -15,10 +15,14 @@
 pfisr:
 
         pushal                          # Save registers
+        movl %cr2, %ebx # Cannot push cr registers directly to the stack
+        pushl %ebx
+        movl %cr3, %ebx
+        pushl %ebx
         cli                             # Disable further interrupts
         call    pfhandler               # Call C function to handle the interrupt
-        sti
-        popal                           # Restore registers
-
-        addl    $4, %esp                # Remove error code from stack
+        sti			    # Restore interrupt status
+        addl $8, %esp   # Discard parameters
+        popal			# Restore registers
+        addl $4, %esp   # Discard error code
         iret                            # Return from interrupt

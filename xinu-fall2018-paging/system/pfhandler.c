@@ -15,11 +15,11 @@ local   bool8   is_valid_addr(uint32, pid32);
  *------------------------------------------------------------------------
  */
 
-void	pfhandler()
+void	pfhandler(pd_t *pd, uint32 a)
 {
-    uint32  a, p, q;    /* faulted address  */
+    uint32  p, q;    /* faulted address  */
     uint32  vp;         /* virtual pages    */
-    pd_t    *pd;        /* current page directory   */
+    //pd_t    *pd;        /* current page directory   */
 
     pt_t    *pt;        /* ptr to p'th page table   */
     uint32  f;          /* free frame   */

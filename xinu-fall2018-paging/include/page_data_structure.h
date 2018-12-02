@@ -98,7 +98,9 @@ extern  void enable_paging(void);
 extern  void pfisr(void);
 
 /* in file pfhandler.c  */
-extern  void pfhandler(void);
+//extern  void pfhandler(void);
+
+extern  void pfhandler(pd_t, uint32);:
 
 /* in file test_app.c    */
 extern  process test_app(char);
