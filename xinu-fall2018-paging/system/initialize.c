@@ -288,7 +288,10 @@ static	void initialize_paging(void)
 	set_evec(PAGE_FAULT_NUM, (uint32)(pfisr));
 
 	/* 7. Enable paging	*/
-	enable_paging();
+	//enable_paging();
+	asm volatile("movl %cr0, %eax\n\t"
+				 "orl $0x80000000, %eax\n\t"
+				 "movl %eax, %cr0\n\t"); // Set PG (paging), enable paging
 }
 
 int32	stop(char *s)

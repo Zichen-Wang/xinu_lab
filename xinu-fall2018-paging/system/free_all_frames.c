@@ -68,8 +68,10 @@ void free_all_frames(pid32 pid)
         if (frameq_head == -1)  /* The queue is empty   */
             frameq_tail = -1;
 
-
-        kprintf("Process %d ends normally, head: %d tail %d\n", pid, frameq_head + FRAME0, frameq_tail + FRAME0);
+        if (frameq_head != -1)
+            kprintf("Process %d ends normally, head: %d tail %d\n", pid, frameq_head + FRAME0, frameq_tail + FRAME0);
+        else
+            kprintf("Process %d ends normally, queue is empty\n", pid);
     }
 
 
