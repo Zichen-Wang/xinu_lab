@@ -15,9 +15,7 @@
 pfisr:
 
         pushal                          # Save registers
-        movl %cr2, %ebx # Cannot push cr registers directly to the stack
         pushl %ebx
-        movl %cr3, %ebx
         pushl %ebx
         cli                             # Disable further interrupts
         call    pfhandler               # Call C function to handle the interrupt
