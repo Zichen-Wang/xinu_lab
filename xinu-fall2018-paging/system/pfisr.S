@@ -14,10 +14,10 @@
 		.globl	pfisr		            # Page fault interrupt dispatcher
 pfisr:
 
-        pushal                          # Save registers
+        #pushal                          # Save registers
         cli                             # Disable further interrupts
         call    pfhandler               # Call C function to handle the interrupt
         sti			    # Restore interrupt status
-        popal			# Restore registers
+        #popal			# Restore registers
         addl $4, %esp   # Discard error code
         iret                            # Return from interrupt
