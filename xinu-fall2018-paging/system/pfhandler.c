@@ -36,12 +36,10 @@ void	pfhandler()
 
     pd = (pd_t *)(proctab[currpid].page_directory);
 
-    /*
     if (is_valid_addr(a, currpid) == FALSE) {
         kprintf("Process %d: Invalid address 0x%08X\n", currpid, a);
         kill(currpid);
     }
-     */
 
 
     p = a >> 22;
@@ -60,10 +58,10 @@ void	pfhandler()
         pd[p].pd_avail  = 0;
 
         new_pt_addr = (int)(create_pt(currpid));
-        //if (new_pt_addr == SYSERR) {    /* Cannot create a new frame for page table   */
-        //    kprintf("Process %d: Cannot create a new frame for page table!\n", currpid);
-        //    kill(currpid);
-        //}
+        if (new_pt_addr == SYSERR) {    /* Cannot create a new frame for page table   */
+            kprintf("Process %d: Cannot create a new frame for page table!\n", currpid);
+            kill(currpid);
+        }
         pd[p].pd_base   = new_pt_addr / NBPG;
     }
 
@@ -79,10 +77,10 @@ void	pfhandler()
     new_frame_num = findfframe(PAGE_VIRTUAL_HEAP);
     f = new_frame_num + FRAME0;
 
-    //if (new_frame_num == SYSERR) {    /* Cannot create a new frame for virtual page   */
-    //    kprintf("Process %d: Cannot create a new frame for virtual page!\n", currpid);
-    //    kill(currpid);
-    //}
+    if (new_frame_num == SYSERR) {    /* Cannot create a new frame for virtual page   */
+        kprintf("Process %d: Cannot create a new frame for virtual page!\n", currpid);
+        kill(currpid);
+    }
 
     /* Update the inverted_page_table for this new frame    */
     inverted_page_table[new_frame_num].fstate = F_USED_PAGE;
