@@ -46,6 +46,10 @@ process test_vm(char c)
         //array[i] = c;
     }
 
+    for (i = 0; i < 30 * 4096; i += 4096) {
+        kprintf("%d\n", array[i]);
+    }
+
     for (i = 2024; i < 2030; i++) {
         kprintf("frame %d: %d\n", i, *(char *)(i * 4096));
     }

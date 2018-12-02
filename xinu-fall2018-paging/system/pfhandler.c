@@ -15,7 +15,7 @@ local   bool8   is_valid_addr(uint32, pid32);
  *------------------------------------------------------------------------
  */
 
-uint32	pfhandler()
+void	pfhandler()
 {
     uint32  a, p, q;    /* faulted address  */
     uint32  vp;         /* virtual pages    */
@@ -102,14 +102,14 @@ uint32	pfhandler()
 
     pt = (pt_t *)(NBPG * (pd[p].pd_base));
 
-    if (pt[q].pt_avail == 1) {   /* This virtual page was evicted before */
+    //if (pt[q].pt_avail == 1) {   /* This virtual page was evicted before */
         /* Copy the page o of store s to f  */
-        kprintf("Process ID %d is reading frame %d from s: %d, o: %d\n", currpid, f, s, o);
-        if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
-            kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
-            kill(currpid);
-        }
-    }
+    //    kprintf("Process ID %d is reading frame %d from s: %d, o: %d\n", currpid, f, s, o);
+    //    if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
+    //        kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
+    //        kill(currpid);
+    //    }
+    //}
 
 
     /* Update pt to mark the appropriate entry as present, and set other relevant fields */
@@ -123,11 +123,9 @@ uint32	pfhandler()
     pt[q].pt_dirty  = 0;
     pt[q].pt_mbz    = 0;
     pt[q].pt_global = 0;
-    //pt[q].pt_avail  = 0;
+    pt[q].pt_avail  = 0;
 
     pt[q].pt_base   = f;
-
-    return f;
 
 }
 

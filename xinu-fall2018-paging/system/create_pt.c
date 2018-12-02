@@ -39,7 +39,7 @@ pt_t * create_pt(pid32 pid)
     pt = (pt_t *)(NBPG * (frame_num + FRAME0)); /* base address of page table  */
     for (i = 0; i < PAGE_TABLE_ENTRIES; i++) {
         pt[i].pt_pres   = 0;
-        pt[i].pt_write  = 0;
+        pt[i].pt_write  = 1;
         pt[i].pt_user   = 0;
         pt[i].pt_pwt    = 0;
         pt[i].pt_pcd    = 0;
