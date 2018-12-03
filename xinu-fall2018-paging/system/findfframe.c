@@ -140,7 +140,7 @@ int findfframe(uint8 type)
 
             /* If the reference count has reached zero  */
             if (inverted_page_table[pd[p].pd_base - FRAME0].reference_count == 0) {
-                /* We cannot destroy this page table, since we have to use it to save whether a page is evicted.
+                /* We cannot destroy this page table, since we have to use it to save whether a page is evicted. */
                 //pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
 
                 /* Free the frame holding that page table   */
@@ -215,7 +215,7 @@ int findfframe(uint8 type)
                                 currpid, frame_clock_pt + FRAME0, s, o);
                         #endif
 
-                        if (write_bs((char *)(NBPG * (saved_frameq_head + FRAME0)), s, o) == SYSERR) {
+                        if (write_bs((char *)(NBPG * (frame_clock_pt + FRAME0)), s, o) == SYSERR) {
                             kprintf("Cannot write dirty page to the backing store %d!\n", s);
                             kprintf("Process %d is being killed!\n", pid);
                             kill(pid);
@@ -231,7 +231,7 @@ int findfframe(uint8 type)
 
                     /* If the reference count has reached zero  */
                     if (inverted_page_table[pd[p].pd_base - FRAME0].reference_count == 0) {
-                        /* We cannot destroy this page table, since we have to use it to save whether a page is evicted.
+                        /* We cannot destroy this page table, since we have to use it to save whether a page is evicted. */
                         //pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
 
                         /* Free the frame holding that page table   */
