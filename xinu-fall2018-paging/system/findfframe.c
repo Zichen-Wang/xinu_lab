@@ -240,14 +240,14 @@ int findfframe(uint8 type)
                 frame_clock_pt++;
 
                 if (frame_clock_pt == NFRAMES)
-                    frame_clock_pt = NFRAMES_FOR_VIRTUAL_HEAP;
+                    frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
             }
 
             saved_frame_clock_pt = frame_clock_pt;
 
             frame_clock_pt++;
             if (frame_clock_pt == NFRAMES)
-                frame_clock_pt = NFRAMES_FOR_VIRTUAL_HEAP;
+                frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
 
             return saved_frame_clock_pt;
         }

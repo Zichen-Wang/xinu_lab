@@ -111,7 +111,7 @@ void free_all_frames(pid32 pid)
             if (i == NFRAMES_FOR_VIRTUAL_HEAP)  /* The frame list is empty  */
                 frame_clock_pt = -1;
 
-            if (frameq_head != -1)
+            if (frame_clock_pt != -1)
                 kprintf("Process %d ends normally, pointer is at %d th frame.\n", pid, frame_clock_pt);
             else
                 kprintf("Process %d ends normally, frame list is empty.\n", pid);
