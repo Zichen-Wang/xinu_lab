@@ -46,6 +46,12 @@ process test_vm(char c)
         //array[i] = c;
     }
 
+    for (i = 0; i < 30 * 4096; i++) {
+        if (i < 30 * 4096) {
+            array[i] = 'b';
+        }
+    }
+
     for (i = 0; i < 60 * 4096; i += 4096) {
         kprintf("%d\n", array[i]);
     }
