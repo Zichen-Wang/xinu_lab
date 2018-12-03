@@ -45,7 +45,7 @@ void paging_init(void)
     }
 
     /* set the page replacement policy  */
-    pgrpolicy(0);   /* The argument spolicy being 0 sets policy to FIFO */
-
+    //pgrpolicy(0);   /* The argument spolicy being 0 sets policy to FIFO */
+    pgrpolicy(1);
     page_fault_count = 0;
 }
