@@ -109,8 +109,8 @@ extern  process test_vm(char);
 /* in file test_vm_2.c    */
 extern  process test_vm_2(int, int);
 
-/* in file set_pgrpolicy.c  */
-extern  syscall set_pgrpolicy(uint16);
+/* in file pgrpolicy.c  */
+extern  syscall pgrpolicy(uint16);
 
 /* in file paging_init.c    */
 extern  uint32  page_fault_count;

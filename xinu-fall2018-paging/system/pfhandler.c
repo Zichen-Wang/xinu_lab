@@ -102,14 +102,14 @@ void	pfhandler()
 
     pt = (pt_t *)(NBPG * (pd[p].pd_base));
 
-    //if (pt[q].pt_avail == 1) {   /* This virtual page was evicted before */
-        /* Copy the page o of store s to f  */
-    //    kprintf("Process ID %d is reading frame %d from s: %d, o: %d\n", currpid, f, s, o);
-    //    if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
-    //        kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
-    //        kill(currpid);
-    //    }
-    //}
+    if (pt[q].pt_avail == 1) {   /* This virtual page was evicted before */
+      /* Copy the page o of store s to f  */
+        kprintf("Process ID %d is reading frame %d from s: %d, o: %d\n", currpid, f, s, o);
+        if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
+            kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
+            kill(currpid);
+        }
+    }
 
 
     /* Update pt to mark the appropriate entry as present, and set other relevant fields */
