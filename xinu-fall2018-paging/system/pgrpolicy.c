@@ -16,7 +16,7 @@ syscall  pgrpolicy (uint16 spolicy)
     if (spolicy == 0) {     /* The page replacement policy is FIFO */
         frameq_head = frameq_tail = -1;
     }
-    else if (spolicy == 1) {    /* /* The page replacement policy is CLOCK */
+    else if (spolicy == 1) {    /* The page replacement policy is CLOCK */
         frame_clock_pt = -1;
     }
 

@@ -180,7 +180,7 @@ int findfframe(uint8 type)
                 }
                 else {
                     inverted_page_table[frame_clock_pt].fstate = F_FREE;
-                    pid = inverted_page_table[saved_frameq_head].pid;
+                    pid = inverted_page_table[frame_clock_pt].pid;
 
                     if (pid == currpid) {   /* If the page being evicted belongs to the current process  */
 
