@@ -71,12 +71,10 @@ void free_all_frames(pid32 pid)
             if (frameq_head == -1)  /* The queue is empty   */
                 frameq_tail = -1;
 
-            #ifdef HOOK_DEBUG
             if (frameq_head != -1)
                 kprintf("Process %d ends normally, head: %d tail %d.\n", pid, frameq_head + FRAME0, frameq_tail + FRAME0);
             else
                 kprintf("Process %d ends normally, queue is empty.\n", pid);
-            #endif
         }
 
         else if (mypolicy == 1) {   /* The page replacement policy is CLOCK */
@@ -113,12 +111,10 @@ void free_all_frames(pid32 pid)
             if (i == NFRAMES_FOR_VIRTUAL_HEAP)  /* The frame list is empty  */
                 frame_clock_pt = -1;
 
-            #ifdef HOOK_DEBUG
             if (frameq_head != -1)
                 kprintf("Process %d ends normally, pointer is at %d th frame.\n", pid, frame_clock_pt);
             else
                 kprintf("Process %d ends normally, frame list is empty.\n", pid);
-            #endif
         }
     }
 
