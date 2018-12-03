@@ -25,6 +25,7 @@ struct frame_entry {
     int reference_count;
 
     int32   fnext;
+    bool8   dirty;
 
 };
 

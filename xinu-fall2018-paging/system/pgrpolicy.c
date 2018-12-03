@@ -11,9 +11,14 @@ syscall  pgrpolicy (uint16 spolicy)
     intmask	mask;			/* Saved interrupt mask		*/
     mask = disable();
 
-    pgrpolicy = spolicy;
+    mypolicy = spolicy;
 
-    frameq_head = frameq_tail = -1;
+    if (spolicy == 0) {     /* The page replacement policy is FIFO */
+        frameq_head = frameq_tail = -1;
+    }
+    else if (spolicy == 1) {    /* /* The page replacement policy is CLOCK */
+        frame_clock_pt = -1;
+    }
 
     restore(mask);
     return OK;

@@ -12,10 +12,13 @@ struct  frame_entry inverted_page_table[NFRAMES];
 pt_t    *shared_page_table[5];
 struct  bs_map_entry backing_store_map[MAX_BS_ENTRIES];
 
+uint16  mypolicy;
 
 uint32  page_fault_count;
 
 int32   frameq_head, frameq_tail;
+
+int32   frame_clock_pt;
 
 /*---------------------------------------------------------------------------
  *  paging_init  -  Define and initialize all necessary page data structures.

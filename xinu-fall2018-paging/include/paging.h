@@ -59,4 +59,4 @@ typedef struct {
  */
 
 /* in file paging_init.c    */
-uint16 pgrpolicy;
+extern uint16 mypolicy;

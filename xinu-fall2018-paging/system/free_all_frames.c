@@ -26,52 +26,102 @@ void free_all_frames(pid32 pid)
     prptr = &proctab[pid];
     pd = prptr -> page_directory;
 
-    if (prptr -> hsize > 0 && pgrpolicy == 0) {   /* The page replacement policy is FIFO */
-        /* modify the frame queue    */
-        frameq_prev = -1;
-        frameq_curr = frameq_head;
-        while (frameq_curr != -1) {
-            if (pid == inverted_page_table[frameq_curr].pid) {
-                /* This frame should be freed    */
+    if (prptr -> hsize > 0) {
+        if (mypolicy == 0) {   /* The page replacement policy is FIFO */
+            /* modify the frame queue    */
+            frameq_prev = -1;
+            frameq_curr = frameq_head;
+            while (frameq_curr != -1) {
+                if (pid == inverted_page_table[frameq_curr].pid) {
+                    /* This frame should be freed    */
 
-                next = inverted_page_table[frameq_curr].fnext;
+                    next = inverted_page_table[frameq_curr].fnext;
 
-                if (frameq_prev != -1) {    /* The current frame is not head    */
-                    inverted_page_table[frameq_prev].fnext = next;
+                    if (frameq_prev != -1) {    /* The current frame is not head    */
+                        inverted_page_table[frameq_prev].fnext = next;
+                    }
+                    else {  /* The current frame is head    */
+                        frameq_head = next;         /* Set the new head */
+                    }
+
+                    /* Free this frame */
+                    vp = inverted_page_table[frameq_curr].virt_page_num;
+                    a = vp * NBPG;
+                    p = a >> 22;
+                    q = (a >> 12) & 0x03FF;
+                    pt = (pt_t *)(NBPG * pd[p].pd_base);
+                    pt[q].pt_pres = 0;
+                    pt[q].pt_avail = 0;
+
+                    #ifdef HOOK_DEBUG
+                    kprintf("[PID %d: freeing frame %d]\n", pid, frameq_curr + FRAME0);
+                    #endif
+
+                    inverted_page_table[frameq_curr].fstate = F_FREE;
+                    inverted_page_table[frameq_curr].fnext = -1;
+
+                    /* Do not need move the previous pointer */
+                    frameq_curr = next; /* Move the current pointer */
+
                 }
-                else {  /* The current frame is head    */
-                    frameq_head = next;         /* Set the new head */
+                else {
+                    frameq_prev = frameq_curr;
+                    frameq_curr = inverted_page_table[frameq_curr].fnext;
                 }
-
-                /* Free this frame */
-                vp = inverted_page_table[frameq_curr].virt_page_num;
-                a = vp * NBPG;
-                p = a >> 22;
-                q = (a >> 12) & 0x03FF;
-                pt = (pt_t *)(NBPG * pd[p].pd_base);
-                pt[q].pt_pres = 0;
-                pt[q].pt_avail = 0;
-
-                kprintf("[PID %d: freeing frame %d]\n", pid, frameq_curr + FRAME0);
-                inverted_page_table[frameq_curr].fstate = F_FREE;
-                inverted_page_table[frameq_curr].fnext = -1;
-
-                /* Do not need move the previous pointer */
-                frameq_curr = next; /* Move the current pointer */
-
             }
-            else {
-                frameq_prev = frameq_curr;
-                frameq_curr = inverted_page_table[frameq_curr].fnext;
-            }
+            if (frameq_head == -1)  /* The queue is empty   */
+                frameq_tail = -1;
+
+            #ifdef HOOK_DEBUG
+            if (frameq_head != -1)
+                kprintf("Process %d ends normally, head: %d tail %d.\n", pid, frameq_head + FRAME0, frameq_tail + FRAME0);
+            else
+                kprintf("Process %d ends normally, queue is empty.\n", pid);
+            #endif
         }
-        if (frameq_head == -1)  /* The queue is empty   */
-            frameq_tail = -1;
 
-        if (frameq_head != -1)
-            kprintf("Process %d ends normally, head: %d tail %d\n", pid, frameq_head + FRAME0, frameq_tail + FRAME0);
-        else
-            kprintf("Process %d ends normally, queue is empty\n", pid);
+        else if (mypolicy == 1) {   /* The page replacement policy is CLOCK */
+            for (i = NFRAMES_FOR_PAGE_TABLE; i < NFRAMES; i++) {
+                if (inverted_page_table[i].fstate == F_USED_PAGE && pid == inverted_page_table[i].pid) {
+                    /* Free this frame */
+                    vp = inverted_page_table[i].virt_page_num;
+                    a = vp * NBPG;
+                    p = a >> 22;
+                    q = (a >> 12) & 0x03FF;
+                    pt = (pt_t *)(NBPG * pd[p].pd_base);
+                    pt[q].pt_pres = 0;
+                    pt[q].pt_avail = 0;
+
+                    #ifdef HOOK_DEBUG
+                    kprintf("[PID %d: freeing frame %d]\n", pid, i + FRAME0);
+                    #endif
+
+                    inverted_page_table[i].fstate = F_FREE;
+                    inverted_page_table[i].fnext = -1;
+                }
+            }
+
+            for (i = 0; i < NFRAMES_FOR_VIRTUAL_HEAP; i++) {
+                if (inverted_page_table[frame_clock_pt].fstate == F_FREE) {
+                    frame_clock_pt++;
+                }
+                else {
+                    break;
+                }
+                if (frame_clock_pt == NFRAMES)
+                    frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
+            }
+
+            if (i == NFRAMES_FOR_VIRTUAL_HEAP)  /* The frame list is empty  */
+                frame_clock_pt = -1;
+
+            #ifdef HOOK_DEBUG
+            if (frameq_head != -1)
+                kprintf("Process %d ends normally, pointer is at %d th frame.\n", pid, frame_clock_pt);
+            else
+                kprintf("Process %d ends normally, frame list is empty.\n", pid);
+            #endif
+        }
     }
 
 
