@@ -53,9 +53,8 @@ void free_all_frames(pid32 pid)
                     pt[q].pt_pres = 0;
                     pt[q].pt_avail = 0;
 
-                    #ifdef HOOK_DEBUG
                     kprintf("[PID %d: freeing frame %d]\n", pid, frameq_curr + FRAME0);
-                    #endif
+
 
                     inverted_page_table[frameq_curr].fstate = F_FREE;
                     inverted_page_table[frameq_curr].fnext = -1;
@@ -92,9 +91,8 @@ void free_all_frames(pid32 pid)
                     pt[q].pt_pres = 0;
                     pt[q].pt_avail = 0;
 
-                    #ifdef HOOK_DEBUG
                     kprintf("[PID %d: freeing frame %d]\n", pid, i + FRAME0);
-                    #endif
+
 
                     inverted_page_table[i].fstate = F_FREE;
                     inverted_page_table[i].fnext = -1;
