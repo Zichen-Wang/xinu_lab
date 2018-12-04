@@ -140,6 +140,7 @@ int findfframe(uint8 type)
             }
 
 
+            while (1) {
                 vp = inverted_page_table[frame_clock_pt].virt_page_num;
                 a = vp * NBPG;
                 p = a >> 22;
@@ -148,46 +149,63 @@ int findfframe(uint8 type)
                 pd = proctab[pid].page_directory;
                 pt = (pt_t *)(NBPG * pd[p].pd_base);
 
-                    inverted_page_table[frame_clock_pt].fstate = F_FREE;
-                    pid = inverted_page_table[frame_clock_pt].pid;
+                if (pt[q].pt_dirty == 1) {
+                    inverted_page_table[frame_clock_pt].dirty = 1;
+                    pt[q].pt_dirty = 0;
+                }
+                else if (pt[q].pt_acc == 1) {
+                    pt[q].pt_acc = 0;
+                }
+                else {
+                    break;
+                }
 
-                    if (pid == currpid) {   /* If the page being evicted belongs to the current process  */
+                frame_clock_pt++;
 
-                        /*  Invalidate the TLB entry for the page vp    */
-                        asm volatile ("invlpg (%0)"
-                        : /* No output register */
-                        : "r" (a)
-                        : "memory");
-
-                    }
-
-                    hook_pswap_out(vp, frame_clock_pt + FRAME0);
-
-                    /* If the dirty bit for page vp was set in its page table   */
-                    if (pt[q].pt_dirty == 1) {
-
-                        pt[q].pt_dirty = 0;
-                        write_back(frame_clock_pt, vp, pid);
-
-                    }
-
-                    pt[q].pt_pres = 0;     /* Mark the appropriate entry of pt as not present.    */
-
-                    /* Decrement the reference count of the frame occupied by pt */
-                    inverted_page_table[pd[p].pd_base - FRAME0].reference_count--;
-
-                    /* If the reference count has reached zero  */
-                    if (inverted_page_table[pd[p].pd_base - FRAME0].reference_count == 0) {
-                        pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
-                        /* Free the frame holding that page table   */
-                        inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
-                    }
+                if (frame_clock_pt == NFRAMES)
+                    frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
+                kprintf("frame pt: %d\n", frame_clock_pt);
+            }
 
             saved_frame_clock_pt = frame_clock_pt;
-
             frame_clock_pt++;
             if (frame_clock_pt == NFRAMES)
                 frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
+
+            inverted_page_table[frame_clock_pt].fstate = F_FREE;
+            pid = inverted_page_table[frame_clock_pt].pid;
+
+            if (pid == currpid) {   /* If the page being evicted belongs to the current process  */
+
+                /*  Invalidate the TLB entry for the page vp    */
+                asm volatile ("invlpg (%0)"
+                : /* No output register */
+                : "r" (a)
+                : "memory");
+
+            }
+
+            hook_pswap_out(vp, frame_clock_pt + FRAME0);
+
+            /* If the dirty bit for page vp was set in its page table   */
+            if (inverted_page_table[frame_clock_pt].dirty == 1) {
+
+                inverted_page_table[frame_clock_pt].dirty = 0;
+                write_back(frame_clock_pt, vp, pid);
+
+            }
+
+            pt[q].pt_pres = 0;     /* Mark the appropriate entry of pt as not present.    */
+
+            /* Decrement the reference count of the frame occupied by pt */
+            inverted_page_table[pd[p].pd_base - FRAME0].reference_count--;
+
+            /* If the reference count has reached zero  */
+            if (inverted_page_table[pd[p].pd_base - FRAME0].reference_count == 0) {
+                pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
+                /* Free the frame holding that page table   */
+                inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
+            }
 
             return saved_frame_clock_pt;
         }
