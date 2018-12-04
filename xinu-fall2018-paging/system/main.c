@@ -5,6 +5,7 @@
 
 process	main(void)
 {
+	int status;
 	/* Start the network */
 	/* DO NOT REMOVE OR COMMENT THIS CALL */
 	netstart();
@@ -26,7 +27,14 @@ process	main(void)
 	//resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 23, 17));
 
 	recvclr();
-	receive();
+	status = receive();
+
+	if (status == -1) {
+		kprintf("\nFAILED\n");
+	}
+	else {
+		kprintf("\nPASSED\n");
+	}
 
 
 	kprintf("faults number: %d\n", get_faults());
