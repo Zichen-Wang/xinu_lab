@@ -40,7 +40,7 @@ syscall	kill(
 
 	/* Delete page directory, page table and frames when a process ends	*/
 	free_all_frames(pid);
-
+	/*
 	for (i = 0; i < MAX_BS_ENTRIES; i++) {
 		if (backing_store_map[i].pid == pid) {
 
@@ -52,6 +52,7 @@ syscall	kill(
 			}
 		}
 	}
+	*/
 
 	switch (prptr->prstate) {
 	case PR_CURR:
