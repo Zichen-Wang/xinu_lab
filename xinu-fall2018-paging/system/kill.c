@@ -47,7 +47,7 @@ syscall	kill(
 			backing_store_map[i].bs_state = BS_FREE;
 			backing_store_map[i].pid = -1;
 
-			if (deallocate(i) == SYSERR) {
+			if (deallocate_bs(i) == SYSERR) {
 				kprintf("Cannot deallocate backing store %d\n", i);
 			}
 		}
