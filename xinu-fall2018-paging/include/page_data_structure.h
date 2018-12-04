@@ -117,3 +117,5 @@ extern  syscall pgrpolicy(uint16);
 /* in file paging_init.c    */
 extern  uint32  page_fault_count;
 
+/* in file find_bs_map.c    */
+extern  int find_bs_map(uint32, pid32);

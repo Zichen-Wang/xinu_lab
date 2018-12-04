@@ -41,12 +41,16 @@ syscall	kill(
 	/* Delete page directory, page table and frames when a process ends	*/
 	free_all_frames(pid);
 
-	if (prptr -> bs_map_id != -1) {     /* Current process has virtual heap */
-        /* Deallocate backing store	*/
-        backing_store_map[prptr -> bs_map_id].bs_state = BS_FREE;
-        if (deallocate_bs(prptr -> bs_map_id) != prptr -> bs_map_id) {
-            kprintf("Cannot deallocate the backing store!\n");
-        }
+	for (i = 0; i < MAX_BS_ENTRIES; i++) {
+		if (backing_store_map[i].pid == pid) {
+
+			backing_store_map[i].bs_state = BS_FREE;
+			backing_store_map[i].pid = -1;
+
+			if (deallocate(i) == SYSERR) {
+				kprintf("Cannot deallocate backing store %d\n", i);
+			}
+		}
 	}
 
 	switch (prptr->prstate) {

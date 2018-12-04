@@ -12,8 +12,7 @@ Implemented functionality:
 
 Not implemented functionality:
 
-1. backing store.
-2. Check a virtual address is `exactly' valid.
+1. Check a virtual address is `exactly' valid.
    We can only check whether a virtual address is in the virtual heap and does not exceed `hsize_in_pages'.
    Since we use a list to maintain free virtual heap, we cannot judge whether an address is used without page fault.
 
@@ -28,12 +27,13 @@ Logic for some important functions:
     (4) Find the entry of this address in the page table; find a new frame, and fill that entry.
     (5) Return.
 
-2. Get a free frame:
+2. Find a free frame:
     (1) Since frames [1024, 2023] are for page directory and page table, and [2024, 4095] are for virtual heap,
         we need to distinguish it when finding a new frame.
     (2) Maintain two static pointers for find `pd, pt' or virtual heap respectively.
         Find a new free frame in `inverted_page_table' defined in paging_init(), just like the procedure of finding a new PID.
-    (3) If a free frame found, return the frame number. Otherwise, return SYSERR (because of no backing store).
+    (3) If a free frame found, return the frame number.
+        Otherwise, run a page replacement algorithm (FIFO or CLOCK) to evict a frame.
 
 3. Create a page directory:
     (1) Find a new frame for page directory.
@@ -79,6 +79,7 @@ in 'system/'
 13. vfreemem.c              // Free memory from private virtual heap.
 14. test_app.c              // Test of app without virtual heap memory.
 15. test_vm.c               // Test of app with virtual heap memory.
+16. find_bs_map.c           // Find the backing store s for a process with a given virtual page
 
 in 'include/'
 1. page_data_structure.h    // Header file; define some data structures for pages and frames.
@@ -99,4 +100,4 @@ in 'include/'
 1.  xinu.h                  // Add page_data_structure.h and adjust the order of some header files.
 2.  process.h               // Add new variables (virtual heap memory related) into page table.
 3.  prototypes.h            // Change the declaration of ctxsw().
-4.  paging.h                // Add pgrpolicy.
+4.  paging.h                // Add mypolicy.

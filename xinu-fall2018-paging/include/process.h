@@ -41,6 +41,7 @@
 /* Definition of the process table (multiple of 32 bits) */
 
 struct procent {		/* Entry in the process table		*/
+
 	uint16	prstate;	/* Process state: PR_CURR, etc.		*/
 	pri16	prprio;		/* Process priority			*/
 	char	*prstkptr;	/* Saved stack pointer			*/
@@ -62,8 +63,6 @@ struct procent {		/* Entry in the process table		*/
 	struct	memblk	vmemlist;	/* List of free virtual memory block	*/
 
 	bool8	vmem_init;			/* Should the first memory block be initialized?	*/
-
-	bsd_t	bs_map_id;			/* Backing store map ID	*/
 
 };
 

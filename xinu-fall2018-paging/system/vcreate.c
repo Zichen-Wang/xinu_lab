@@ -34,7 +34,10 @@ pid32	vcreate(
     uint32		*saddr;		/* Stack address		*/
 
     pd_t	    *pd;
+    uint32      bs_counter;
+
     bsd_t       bs_map_id;
+    uint16      allo_hsize, allo_offset;
 
 
     struct	memblk	*memptr;	/* Ptr to memory block		*/
@@ -66,14 +69,19 @@ pid32	vcreate(
 
     /*
      * user: wang4113
-     * data: 11/23/2018
+     * data: 12/03/2018
      */
 
-    /* Create a backing store map for new process   */
-    bs_map_id = allocate_bs(hsize_in_pages);
+    /* Check whether we have enough backing stores  */
+    bs_counter = 0;
+    for (i = 0; i < MAX_BS_ENTRIES; i++) {
+        if (backing_store_map[i].bs_state == BS_FREE) {
+            bs_counter++;
+        }
+    }
 
-    if (bs_map_id == -1) {
-        kprintf("Cannot allocate a free backing store for the new process!\n");
+    if (hsize_in_pages > bs_counter * 200) {
+        kprintf("Not enough backing stores!\n");
         restore(mask);
         return SYSERR;
     }
@@ -192,13 +200,40 @@ pid32	vcreate(
     /* We should delay this initialization until the first vgetmem()    */
     prptr -> vmem_init = FALSE;
 
-    /* Initialize this new backing store    */
-    backing_store_map[bs_map_id].bs_state = BS_USED;
-    backing_store_map[bs_map_id].pid = pid;
-    backing_store_map[bs_map_id].virt_base_num = VHEAP_ST;  /* Each process has the same base number    */
-    backing_store_map[bs_map_id].npages = hsize_in_pages;
+    /*
+     * user: wang4113
+     * data: 12/03/2018
+     */
 
-    prptr -> bs_map_id = bs_map_id;
+    /* Allocate backing stores  */
+    allo_offset = VHEAP_ST;         /* The offset when allocating backing stores    */
+    while (hsize_in_pages > 0) {    /* The remaining unallocated pages  */
+
+        if (hsize_in_pages <= MAX_PAGES_PER_BS) {
+            allo_hsize = hsize_in_pages;
+        }
+        else {
+            allo_hsize = MAX_PAGES_PER_BS;
+        }
+
+        hsize_in_pages -= allo_hsize;
+
+        bs_map_id = allocate_bs(allo_hsize);    /* Allocate a backing store */
+
+        if (bs_map_id == SYSERR) {
+            kprintf("Cannot allocate a free backing store!\n");
+            kill(pid);
+            return SYSERR;
+        }
+
+        /* Initialize the backing store map */
+        backing_store_map[bs_map_id].bs_state = BS_USED;
+        backing_store_map[bs_map_id].pid = pid;
+        backing_store_map[bs_map_id].virt_base_num = allo_offset;
+        backing_store_map[bs_map_id].npages = allo_hsize;
+
+        allo_offset += allo_hsize;      /* Update the offset    */
+    }
 
 
     restore(mask);

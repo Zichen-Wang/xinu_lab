@@ -162,7 +162,6 @@ pid32	create(
 
 	prptr -> vmem_init = TRUE;				/* We do not need to initialize first virtual memory block	*/
 
-	prptr -> bs_map_id = -1;
 
 	restore(mask);
 	return pid;

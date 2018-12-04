@@ -42,10 +42,12 @@ void paging_init(void)
     /* Initialize backing store map */
     for (i = 0; i < MAX_BS_ENTRIES; i++) {
         backing_store_map[i].bs_state = BS_FREE;
+        backing_store_map[i].pid = -1;
     }
 
     /* set the page replacement policy  */
-    //pgrpolicy(0);   /* The argument spolicy being 0 sets policy to FIFO */
-    pgrpolicy(1);
+    pgrpolicy(0);   /* The argument spolicy being 0 sets policy to FIFO */
+    //pgrpolicy(1); /* The argument spolicy being 1 sets policy to CLOCK */
+
     page_fault_count = 0;
 }

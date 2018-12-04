@@ -6,7 +6,7 @@ process test_vm(char c)
 {
     pid32   pid;
     char *array;
-    uint32  i;
+    uint32  i, j;
     /*
     kprintf("before [2024 * 4096 + 8] = %d\n", *(int *)(2024 * 4096 + 8));
     kprintf("before pid: %d, page directory num %d\n", currpid, (uint32)(proctab[5].page_directory) / NBPG);
@@ -41,15 +41,13 @@ process test_vm(char c)
 
 
 
-    for (i = 0; i < 60 * 4096; i++) {
+    for (i = 0; i < 49 * 4096; i++) {
         array[i] = c;
         //array[i] = c;
     }
 
-    for (i = 0; i < 30 * 4096; i++) {
-        if (i < 30 * 4096) {
-            array[i] = 'b';
-        }
+    for (i = 30 * 4096; i < 60 * 4096; i++) {
+        j = array[i];
     }
 
     for (i = 0; i < 60 * 4096; i += 4096) {

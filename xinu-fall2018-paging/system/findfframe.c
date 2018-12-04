@@ -11,6 +11,7 @@
  *-------------------------------------
  */
 
+local void write_back(uint32, uint32, pid32);
 
 int findfframe(uint8 type)
 /*
@@ -110,40 +111,21 @@ int findfframe(uint8 type)
             /* If the dirty bit for page vp was set in its page table   */
             if (pt[q].pt_dirty == 1) {
 
-                /* Using the backing store map, find the store and page offset within the store for pid and a   */
-                s = proctab[pid].bs_map_id;
-                o = vp - backing_store_map[s].virt_base_num;
-                if (s == -1 || o >= backing_store_map[s].npages) {   /* If the lookup fails  */
-                    kprintf("Backing store lookup failed for address [0x%08X]!\n", a);
-                    kprintf("Process %d is being killed!\n", pid);
-                    kill(pid);
-                }
-
-                /* Write the page back to the backing store     */
-                kprintf("Process ID %d is writing frame %d to s: %d, o: %d\n",
-                                currpid, saved_frameq_head + FRAME0, s, o);
-                if (write_bs((char *)(NBPG * (saved_frameq_head + FRAME0)), s, o) == SYSERR) {
-                    kprintf("Cannot write dirty page to the backing store %d!\n", s);
-                    kprintf("Process %d is being killed!\n", pid);
-                    kill(pid);
-                }
+                pt[q].pt_dirty = 0;
+                write_back(saved_frameq_head, vp, pid);
 
             }
 
             pt[q].pt_pres = 0;     /* Mark the appropriate entry of pt as not present.    */
-            pt[q].pt_avail = 1;    /* Mark the entry of pt as eviction  */
 
             /* Decrement the reference count of the frame occupied by pt */
             inverted_page_table[pd[p].pd_base - FRAME0].reference_count--;
 
             /* If the reference count has reached zero  */
             if (inverted_page_table[pd[p].pd_base - FRAME0].reference_count == 0) {
-                /* We cannot destroy this page table, since we have to use it to save whether a page is evicted. */
-                //pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
-
+                pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
                 /* Free the frame holding that page table   */
-                //inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
-
+                inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
             }
 
 
@@ -196,43 +178,20 @@ int findfframe(uint8 type)
                     if (inverted_page_table[frame_clock_pt].dirty == 1) {
 
                         inverted_page_table[frame_clock_pt].dirty = 0;
-
-                        /* Using the backing store map, find the store and page offset within the store for pid and a   */
-                        s = proctab[pid].bs_map_id;
-                        o = vp - backing_store_map[s].virt_base_num;
-                        if (s == -1 || o >= backing_store_map[s].npages) {   /* If the lookup fails  */
-                            kprintf("Backing store lookup failed for address [0x%08X]!\n", a);
-                            kprintf("Process %d is being killed!\n", pid);
-                            kill(pid);
-                        }
-
-                        /* Write the page back to the backing store     */
-
-                        kprintf("Process ID %d is writing frame %d to s: %d, o: %d\n",
-                                currpid, frame_clock_pt + FRAME0, s, o);
-
-                        if (write_bs((char *)(NBPG * (frame_clock_pt + FRAME0)), s, o) == SYSERR) {
-                            kprintf("Cannot write dirty page to the backing store %d!\n", s);
-                            kprintf("Process %d is being killed!\n", pid);
-                            kill(pid);
-                        }
+                        write_back(frame_clock_pt, vp, pid);
 
                     }
 
                     pt[q].pt_pres = 0;     /* Mark the appropriate entry of pt as not present.    */
-                    pt[q].pt_avail = 1;    /* Mark the entry of pt as eviction  */
 
                     /* Decrement the reference count of the frame occupied by pt */
                     inverted_page_table[pd[p].pd_base - FRAME0].reference_count--;
 
                     /* If the reference count has reached zero  */
                     if (inverted_page_table[pd[p].pd_base - FRAME0].reference_count == 0) {
-                        /* We cannot destroy this page table, since we have to use it to save whether a page is evicted. */
-                        //pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
-
+                        pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
                         /* Free the frame holding that page table   */
-                        //inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
-
+                        inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
                     }
                     break;
                 }
@@ -257,4 +216,23 @@ int findfframe(uint8 type)
 
     return SYSERR;
 
+}
+
+local void write_back(uint32 frame_no, uint32 vp, pid32 pid)
+{
+    /* Using the backing store map, find the store and page offset within the store for pid and a   */
+    s = find_bs_map(vp, pid);
+    o = vp - backing_store_map[s].virt_base_num;
+    if (s == SYSERR || o >= backing_store_map[s].npages) {   /* If the lookup fails  */
+        kprintf("Backing store lookup failed for address [0x%08X]!\n", a);
+    }
+
+    /* Write the page back to the backing store     */
+
+    kprintf("Process ID %d is writing frame %d of pid %d to s: %d, o: %d\n",
+            currpid, frame_no + FRAME0, pid, s, o);
+
+    if (write_bs((char *)(NBPG * (frame_no + FRAME0)), s, o) == SYSERR) {
+        kprintf("Cannot write dirty page to the backing store %d!\n", s);
+    }
 }

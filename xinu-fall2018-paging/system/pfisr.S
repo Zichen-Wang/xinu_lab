@@ -15,12 +15,16 @@
 pfisr:
 
         pushal                          # Save registers
-        pushl %ebx
-        pushl %ebx
+
+        pushl %ebx                      # Push fake arguments to avoid system low-level issues
+        pushl %ebx                      # Push fake arguments to avoid system low-level issues
+
         cli                             # Disable further interrupts
         call    pfhandler               # Call C function to handle the interrupt
-        sti			    # Restore interrupt status
-        addl $8, %esp   # Discard parameters
-        popal			# Restore registers
-        addl $4, %esp   # Discard error code
+        sti			                    # Restore interrupt status
+
+        addl $8, %esp                   # Discard parameters
+        popal			                # Restore registers
+        addl $4, %esp                   # Discard error code
+
         iret                            # Return from interrupt
