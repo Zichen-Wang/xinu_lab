@@ -42,12 +42,12 @@ process test_vm(char c)
 
 
     for (i = 0; i < 40 * 4096; i++) {
-        array[i] = (i * 32 + c) % 13;
-        //array[i] = c;
+        //array[i] = (i * 32 + c) % 13;
+        array[i] = c;
     }
 
     /*
-    for (i = 30 * 4096; i < 60 * 4096; i++) {
+    for (i = 30 * 4096; i < 40 * 4096; i++) {
         j = array[i];
     }
     */
