@@ -13,18 +13,17 @@
 		.text
 		.globl	pfisr		            # Page fault interrupt dispatcher
 pfisr:
-
+        cli                             # Disable further interrupts
         pushal                          # Save registers
 
         pushl %ebx                      # Push fake arguments to avoid system low-level issues
         pushl %ebx                      # Push fake arguments to avoid system low-level issues
 
-        cli                             # Disable further interrupts
         call    pfhandler               # Call C function to handle the interrupt
         sti			                    # Restore interrupt status
 
         addl $8, %esp                   # Discard parameters
         popal			                # Restore registers
-        addl $4, %esp                   # Discard error code
+        addl $4, %esp                   # Discard eprror code
 
         iret                            # Return from interrupt
