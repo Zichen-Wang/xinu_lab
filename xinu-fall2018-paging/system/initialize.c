@@ -63,7 +63,7 @@ void	nulluser()
 	 * user: wang4113
 	 * data: 11/01/2018
 	 */
-	//initialize_paging();	/* Initialize paging	*/
+	initialize_paging();	/* Initialize paging	*/
 
 	kprintf("\n\r%s\n\n\r", VERSION);
 	
@@ -167,7 +167,7 @@ static	void	sysinit()
 		prptr -> hsize = 0;						/* Initialize the virtual heap size of a process	*/
 		(prptr -> vmemlist).mnext = NULL;		/* Initialize the virtual memory list of a process	*/
 		(prptr -> vmemlist).mlength = 0;		/* Initialize the virtual memory list of a process	*/
-		prptr -> vmem_init = FALSE;
+		prptr -> vmem_init = TRUE;
 	}
 
 	/* Initialize the Null process entry */	

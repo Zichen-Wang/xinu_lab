@@ -207,7 +207,33 @@ pid32	vcreate(
 
     /* Allocate backing stores  */
     allo_offset = VHEAP_ST;         /* The offset when allocating backing stores    */
+    while (hsize_in_pages > 0) {    /* The remaining unallocated pages  */
 
+        if (hsize_in_pages <= MAX_PAGES_PER_BS) {
+            allo_hsize = hsize_in_pages;
+        }
+        else {
+            allo_hsize = MAX_PAGES_PER_BS;
+        }
+
+        hsize_in_pages -= allo_hsize;
+
+        bs_map_id = allocate_bs(allo_hsize);    /* Allocate a backing store */
+
+        if (bs_map_id == SYSERR) {
+            kprintf("Cannot allocate a free backing store!\n");
+            kill(pid);
+            return SYSERR;
+        }
+
+        /* Initialize the backing store map */
+        backing_store_map[bs_map_id].bs_state = BS_USED;
+        backing_store_map[bs_map_id].pid = pid;
+        backing_store_map[bs_map_id].virt_base_num = allo_offset;
+        backing_store_map[bs_map_id].npages = allo_hsize;
+
+        allo_offset += allo_hsize;      /* Update the offset    */
+    }
 
 
     restore(mask);
