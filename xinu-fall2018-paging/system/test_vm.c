@@ -53,7 +53,8 @@ process test_vm(char c)
     */
 
     for (i = 0; i < 40 * 4096; i += 4096) {
-        kprintf("%d: %d\n", i, array[i]);
+        //kprintf("%d: %d\n", i, array[i]);
+        j = array[i];
     }
 
 
