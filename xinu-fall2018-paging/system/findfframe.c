@@ -32,9 +32,6 @@ int findfframe(uint8 type)
     uint32  p, q;   /* p is the high 10 bits of a; q is entry number in page table  */
     pid32   pid;    /* pid be the process ID of the process owning vp.  */
 
-    bsd_t   s;
-    uint32  o;
-
     pd_t    *pd;
     pt_t    *pt;
 
@@ -220,6 +217,8 @@ int findfframe(uint8 type)
 
 local void write_back(uint32 frame_no, uint32 vp, pid32 pid)
 {
+    bsd_t   s;
+    uint32  o;
     /* Using the backing store map, find the store and page offset within the store for pid and a   */
     s = find_bs_map(vp, pid);
     o = vp - backing_store_map[s].virt_base_num;
