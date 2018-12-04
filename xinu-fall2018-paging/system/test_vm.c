@@ -6,7 +6,7 @@ process test_vm(char c)
 {
     pid32   pid;
     char *array;
-    uint32  i;
+    uint32  i, j;
     /*
     kprintf("before [2024 * 4096 + 8] = %d\n", *(int *)(2024 * 4096 + 8));
     kprintf("before pid: %d, page directory num %d\n", currpid, (uint32)(proctab[5].page_directory) / NBPG);
