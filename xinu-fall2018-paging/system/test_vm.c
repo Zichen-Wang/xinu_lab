@@ -36,13 +36,13 @@ process test_vm(char c)
 
     pid = getpid();
 
-    array = vgetmem(60 * 4096);
+    array = vgetmem(300 * 4096);
 
 
 
 
-    for (i = 0; i < 60 * 4096; i++) {
-        array[i] = c;
+    for (i = 0; i < 300 * 4096; i++) {
+        array[i] = i;
         //array[i] = c;
     }
 
@@ -52,7 +52,7 @@ process test_vm(char c)
     }
     */
 
-    for (i = 0; i < 60 * 4096; i += 4096) {
+    for (i = 0; i < 300 * 4096; i += 4096) {
         kprintf("%d: %d\n", i, array[i]);
     }
 
@@ -61,7 +61,7 @@ process test_vm(char c)
     }
 
 
-    vfreemem(array, 60 * 4096);
+    vfreemem(array, 300 * 4096);
 
     return 0;
 }
