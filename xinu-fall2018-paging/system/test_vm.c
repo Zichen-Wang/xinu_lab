@@ -34,31 +34,24 @@ process test_vm(char c)
     kprintf("fault number %d\n", get_faults());
     */
 
-    pid = getpid();
-
-    array = vgetmem(40 * 4096);
+    array = vgetmem(300 * 4096);
 
 
-
-
-    for (i = 0; i < 40 * 4096; i++) {
+    for (i = 0; i < 300 * 4096; i += 100) {
         //array[i] = (i * 32 + c) % 13;
         array[i] = c;
     }
 
-    /*
-    for (i = 30 * 4096; i < 40 * 4096; i++) {
-        j = array[i];
-    }
-    */
-
-    for (i = 0; i < 40 * 4096; i += 4096) {
+    for (i = 0; i < 300 * 4096; i += 100) {
         //kprintf("%d: %d\n", i, array[i]);
-        j = array[i];
+        if (array[i] != c) {
+            vfreemem(array, 300 * 4096);
+
+        }
     }
 
 
-    vfreemem(array, 40 * 4096);
+    vfreemem(array, 300 * 4096);
 
     return 0;
 }

@@ -58,5 +58,4 @@ typedef struct {
  * data: 11/28/2018
  */
 
-/* in file paging_init.c    */
 uint16 pgrpolicy;
