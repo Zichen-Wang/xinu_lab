@@ -3,16 +3,14 @@
  * data: 11/01/2018
  */
 
-/* paging_init.c - paging_init */
 
 #include <xinu.h>
 
+/* paging_init.c - paging_init */
 
 struct  frame_entry inverted_page_table[NFRAMES];
 pt_t    *shared_page_table[5];
 struct  bs_map_entry backing_store_map[MAX_BS_ENTRIES];
-
-uint16  mypolicy;
 
 uint32  page_fault_count;
 
@@ -46,8 +44,8 @@ void paging_init(void)
     }
 
     /* set the page replacement policy  */
-    pgrpolicy(0);   /* The argument spolicy being 0 sets policy to FIFO */
-    //pgrpolicy(1); /* The argument spolicy being 1 sets policy to CLOCK */
+    srpolicy(0);   /* The argument spolicy being 0 sets policy to FIFO */
+    //srpolicy(1); /* The argument spolicy being 1 sets policy to CLOCK */
 
     page_fault_count = 0;
 }

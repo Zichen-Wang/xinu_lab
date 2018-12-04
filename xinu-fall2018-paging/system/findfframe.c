@@ -71,7 +71,7 @@ int findfframe(uint8 type)
         }
 
         /* Needs page replacement   */
-        if (mypolicy == 0) {   /* The page replacement policy is FIFO */
+        if (pgrpolicy == 0) {   /* The page replacement policy is FIFO */
             if (frameq_head == -1) {     /* The current frame queue is empty (Would never happen)    */
                 return SYSERR;
             }
@@ -134,7 +134,7 @@ int findfframe(uint8 type)
          * data: 12/02/2018
          */
 
-        else if (mypolicy == 1) {
+        else if (pgrpolicy == 1) {
             if (frame_clock_pt == -1) { /* Would never happen   */
                 return SYSERR;
             }

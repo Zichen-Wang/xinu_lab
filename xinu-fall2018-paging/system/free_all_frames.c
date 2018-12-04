@@ -27,7 +27,7 @@ void free_all_frames(pid32 pid)
     pd = prptr -> page_directory;
 
     if (prptr -> hsize > 0) {
-        if (mypolicy == 0) {   /* The page replacement policy is FIFO */
+        if (pgrpolicy == 0) {   /* The page replacement policy is FIFO */
             /* modify the frame queue    */
             frameq_prev = -1;
             frameq_curr = frameq_head;
@@ -77,7 +77,7 @@ void free_all_frames(pid32 pid)
                 kprintf("Process %d ends normally, queue is empty.\n", pid);
         }
 
-        else if (mypolicy == 1) {   /* The page replacement policy is CLOCK */
+        else if (pgrpolicy == 1) {   /* The page replacement policy is CLOCK */
             for (i = NFRAMES_FOR_PAGE_TABLE; i < NFRAMES; i++) {
                 if (inverted_page_table[i].fstate == F_USED_PAGE && pid == inverted_page_table[i].pid) {
                     /* Free this frame */

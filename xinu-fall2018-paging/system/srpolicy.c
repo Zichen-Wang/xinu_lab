@@ -3,15 +3,15 @@
  * data: 11/23/2018
  */
 
-/* pgrpolicy.c - set the page replacement policy */
+/* srpolicy.c - set the page replacement policy */
 #include <xinu.h>
 
-syscall  pgrpolicy (uint16 spolicy)
+syscall  srpolicy (uint16 spolicy)
 {
     intmask	mask;			/* Saved interrupt mask		*/
     mask = disable();
 
-    mypolicy = spolicy;
+    pgrpolicy = spolicy;
 
     if (spolicy == 0) {     /* The page replacement policy is FIFO */
         frameq_head = frameq_tail = -1;
