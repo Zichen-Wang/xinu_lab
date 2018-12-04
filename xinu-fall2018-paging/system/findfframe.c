@@ -182,7 +182,6 @@ int findfframe(uint8 type)
                         /* Free the frame holding that page table   */
                         inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
                     }
-                }
 
             saved_frame_clock_pt = frame_clock_pt;
 
