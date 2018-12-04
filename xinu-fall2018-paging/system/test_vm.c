@@ -36,12 +36,12 @@ process test_vm(char c)
 
     pid = getpid();
 
-    array = vgetmem(30 * 4096);
+    array = vgetmem(60 * 4096);
 
 
 
 
-    for (i = 0; i < 30 * 4096; i++) {
+    for (i = 0; i < 60 * 4096; i++) {
         array[i] = (i * 32 + c) % 13;
         //array[i] = c;
     }
