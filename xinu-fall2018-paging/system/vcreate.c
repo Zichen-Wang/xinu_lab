@@ -232,7 +232,10 @@ pid32	vcreate(
         backing_store_map[bs_map_id].virt_base_num = allo_offset;
         backing_store_map[bs_map_id].npages = allo_hsize;
 
+        kprintf("Allocate bs %d with base %d, npages %d\n", bs_map_id, allo_offset, allo_hsize);
+
         allo_offset += allo_hsize;      /* Update the offset    */
+
     }
 
 
