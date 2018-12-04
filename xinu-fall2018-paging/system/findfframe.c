@@ -140,7 +140,6 @@ int findfframe(uint8 type)
             }
 
 
-            while (1) {
                 vp = inverted_page_table[frame_clock_pt].virt_page_num;
                 a = vp * NBPG;
                 p = a >> 22;
@@ -149,14 +148,6 @@ int findfframe(uint8 type)
                 pd = proctab[pid].page_directory;
                 pt = (pt_t *)(NBPG * pd[p].pd_base);
 
-                if (pt[q].pt_dirty == 1) {
-                    inverted_page_table[frame_clock_pt].dirty = 1;
-                    pt[q].pt_dirty = 0;
-                }
-                else if (pt[q].pt_acc == 1) {
-                    pt[q].pt_acc = 0;
-                }
-                else {
                     inverted_page_table[frame_clock_pt].fstate = F_FREE;
                     pid = inverted_page_table[frame_clock_pt].pid;
 
@@ -173,9 +164,9 @@ int findfframe(uint8 type)
                     hook_pswap_out(vp, frame_clock_pt + FRAME0);
 
                     /* If the dirty bit for page vp was set in its page table   */
-                    if (inverted_page_table[frame_clock_pt].dirty == 1) {
+                    if (pt[q].pt_dirty == 1) {
 
-                        inverted_page_table[frame_clock_pt].dirty = 0;
+                        pt[q].pt_dirty = 0;
                         write_back(frame_clock_pt, vp, pid);
 
                     }
@@ -191,15 +182,7 @@ int findfframe(uint8 type)
                         /* Free the frame holding that page table   */
                         inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
                     }
-                    break;
                 }
-
-                frame_clock_pt++;
-
-                if (frame_clock_pt == NFRAMES)
-                    frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
-                kprintf("frame pt: %d\n", frame_clock_pt);
-            }
 
             saved_frame_clock_pt = frame_clock_pt;
 
