@@ -223,7 +223,7 @@ local void write_back(uint32 frame_no, uint32 vp, pid32 pid)
     s = find_bs_map(vp, pid);
     o = vp - backing_store_map[s].virt_base_num;
     if (s == SYSERR || o >= backing_store_map[s].npages) {   /* If the lookup fails  */
-        kprintf("Backing store lookup failed for address [0x%08X]!\n", a);
+        kprintf("Backing store lookup failed for virtual page!\n", vp);
     }
 
     /* Write the page back to the backing store     */
