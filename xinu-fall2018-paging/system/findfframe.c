@@ -164,16 +164,17 @@ int findfframe(uint8 type)
 
                 if (frame_clock_pt == NFRAMES)
                     frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
-                kprintf("frame pt: %d\n", frame_clock_pt);
+                kprintf("frame pt: %d\n", frame_clock_pt + FRAME0);
             }
 
             saved_frame_clock_pt = frame_clock_pt;
             frame_clock_pt++;
+
             if (frame_clock_pt == NFRAMES)
                 frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
 
-            inverted_page_table[frame_clock_pt].fstate = F_FREE;
-            pid = inverted_page_table[frame_clock_pt].pid;
+            inverted_page_table[saved_frame_clock_pt].fstate = F_FREE;
+            pid = inverted_page_table[saved_frame_clock_pt].pid;
 
             if (pid == currpid) {   /* If the page being evicted belongs to the current process  */
 
@@ -185,13 +186,13 @@ int findfframe(uint8 type)
 
             }
 
-            hook_pswap_out(vp, frame_clock_pt + FRAME0);
+            hook_pswap_out(vp, saved_frame_clock_pt + FRAME0);
 
             /* If the dirty bit for page vp was set in its page table   */
-            if (inverted_page_table[frame_clock_pt].dirty == 1) {
+            if (inverted_page_table[saved_frame_clock_pt].dirty == 1) {
 
-                inverted_page_table[frame_clock_pt].dirty = 0;
-                write_back(frame_clock_pt, vp, pid);
+                inverted_page_table[saved_frame_clock_pt].dirty = 0;
+                write_back(saved_frame_clock_pt, vp, pid);
 
             }
 
