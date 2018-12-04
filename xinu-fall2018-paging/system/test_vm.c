@@ -36,12 +36,12 @@ process test_vm(char c)
 
     pid = getpid();
 
-    array = vgetmem(300 * 4096);
+    array = vgetmem(30 * 4096);
 
 
 
 
-    for (i = 0; i < 300 * 4096; i++) {
+    for (i = 0; i < 30 * 4096; i++) {
         array[i] = i * 32 % 13;
         //array[i] = c;
     }
@@ -52,12 +52,8 @@ process test_vm(char c)
     }
     */
 
-    for (i = 0; i < 300 * 4096; i += 4096) {
+    for (i = 0; i < 30 * 4096; i += 4096) {
         kprintf("%d: %d\n", i, array[i]);
-    }
-
-    for (i = 2024; i < 2030; i++) {
-        kprintf("frame %d: %d\n", i, *(char *)(i * 4096));
     }
 
 
