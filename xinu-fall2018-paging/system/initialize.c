@@ -63,7 +63,7 @@ void	nulluser()
 	 * user: wang4113
 	 * data: 11/01/2018
 	 */
-	initialize_paging();	/* Initialize paging	*/
+	//initialize_paging();	/* Initialize paging	*/
 
 	kprintf("\n\r%s\n\n\r", VERSION);
 	
