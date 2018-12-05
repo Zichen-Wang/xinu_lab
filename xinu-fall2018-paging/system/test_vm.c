@@ -33,7 +33,7 @@ process test_vm(char c)
     kprintf("after after [2025 * 4096] = %d\n", *(int *)(2025 * 4096));
     kprintf("fault number %d\n", get_faults());
     */
-
+    pid = getpid();
     array = vgetmem(60 * 4096);
 
 
@@ -46,8 +46,8 @@ process test_vm(char c)
         //if (i % 4096 == 0)
         //    kprintf("%d: %d\n", i, array[i]);
         if (array[i] != c) {
-            vfreemem(array, 60 * 4096);
-            kprintf("\n%d %d!=%d FAILED\n", i, array[i], c);
+            kprintf("\npid:%d %d %d!=%d FAILED\n", pid, i, array[i], c);
+            //vfreemem(array, 60 * 4096);
             return 0;
         }
     }

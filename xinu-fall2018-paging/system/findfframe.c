@@ -142,7 +142,7 @@ int findfframe(uint8 type)
 
             while (1) {
 
-                //kprintf("frame pt: %d\n", frame_last_stopped + FRAME0);
+                kprintf("frame pt: %d\n", frame_last_stopped + FRAME0);
 
                 vp = inverted_page_table[frame_last_stopped].virt_page_num;
                 a = vp * NBPG;
@@ -235,10 +235,10 @@ local void write_back(uint32 frame_no, uint32 vp, pid32 pid)
 
     /* Write the page back to the backing store     */
 
-    /*
+
     kprintf("Process ID %d is writing frame %d of pid %d to s: %d, o: %d\n",
             currpid, frame_no + FRAME0, pid, s, o);
-    */
+
     if (write_bs((char *)(NBPG * (frame_no + FRAME0)), s, o) == SYSERR) {
         kprintf("Cannot write dirty page to the backing store %d!\n", s);
     }
