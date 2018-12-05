@@ -100,7 +100,7 @@ extern  void enable_paging(void);
 extern  void pfisr(void);
 
 /* in file pfhandler.c  */
-extern  void pfhandler(int, int, uint32);
+extern  void pfhandler(uint32);
 
 /* in file test_app.c    */
 extern  process test_app(char);
