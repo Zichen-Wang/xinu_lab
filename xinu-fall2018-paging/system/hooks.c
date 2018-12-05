@@ -7,7 +7,7 @@
 
 #include <xinu.h>
 
-#define HOOK_DEBUG
+//#define HOOK_DEBUG
 
 /*--------------------------------------------------------------------------------
  *  hook_ptable_create  -  This hook should be called when creating a page table
