@@ -39,6 +39,7 @@ process test_vm_2(int s, int d)
     }
 
     vfreemem((char *)(array), 10000 * 4);
+    kprintf("\nPASSED\n");
 
     return 0;
 }
