@@ -12,7 +12,7 @@ process test_vm_2(int s, int d)
     for (i = 1; i < 1000; i++)
         array[i] = array[i - 1] + d;
 
-    kprintf("----%d----\n", array[123]);
+    //kprintf("----%d----\n", array[123]);
     if (array[123] != s + d * 123) {
         vfreemem((char *)(array), 1000 * 4);
         kprintf("\nFAILED\n");
@@ -32,7 +32,7 @@ process test_vm_2(int s, int d)
         }
     }
 
-    kprintf("----%d----\n", array[123]);
+    //kprintf("----%d----\n", array[123]);
     if (array[123] != j) {
         vfreemem((char *)(array), 10000 * 4);
         kprintf("\nFAILED\n");
