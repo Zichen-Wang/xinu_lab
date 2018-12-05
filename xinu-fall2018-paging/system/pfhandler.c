@@ -15,7 +15,7 @@ local   bool8   is_valid_addr(uint32, pid32);
  *------------------------------------------------------------------------
  */
 
-void	pfhandler(int fake_arg1, int fake_arg2, int pferror_code)
+void	pfhandler(int fake_arg1, int fake_arg2, uint32 pferror_code)
 {
     uint32  a, p, q;    /* faulted address  */
     uint32  vp;         /* virtual pages    */
