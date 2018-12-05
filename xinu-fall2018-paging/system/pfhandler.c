@@ -83,7 +83,7 @@ void	pfhandler()
     inverted_page_table[new_frame_num].pid = currpid;
     inverted_page_table[new_frame_num].virt_page_num = vp;
 
-    if (pgrpolicy == 0) {   /* Page replacement policy is FIFO  */
+    if (spolicy == 0) {   /* Page replacement policy is FIFO  */
         /* Insert this frame into frame queue tail   */
         if (frameq_tail == -1) { /* The current frame queue is empty   */
             frameq_head = frameq_tail = new_frame_num;
@@ -95,7 +95,7 @@ void	pfhandler()
             inverted_page_table[new_frame_num].fnext = -1;
         }
     }
-    else if (pgrpolicy == 1) {
+    else if (spolicy == 1) {
         if (frame_clock_pt == -1) {       /* The current frame list is empty   */
             frame_clock_pt = new_frame_num;
         }
