@@ -39,16 +39,17 @@ int console_init(void)
 
 syscall kputc(byte c)	/* Character to write	*/
 {
-	int irmask;
+	int mask, irmask;
 	struct	dentry	*devptr;
 	volatile struct uart_csreg *regptr;
 
-	irmask = regptr->ier;       /* Save UART interrupt state.   */
-	regptr->ier = 0;            /* Disable UART interrupts.     */
+	mask = disable();
 
 	devptr = (struct dentry *) &devtab[CONSOLE];
 	regptr = (struct uart_csreg *)devptr->dvcsr;
 
+	irmask = regptr->ier;       /* Save UART interrupt state.   */
+	regptr->ier = 0;            /* Disable UART interrupts.     */
 
 	/* Repeatedly poll the device until it becomes nonbusy */
 	while ((regptr->lsr & UART_LSR_THRE) == 0) {
@@ -67,6 +68,7 @@ syscall kputc(byte c)	/* Character to write	*/
 		regptr->buffer = '\r';
 	}
 	regptr->ier = irmask;       /* Restore UART interrupts.     */
+	restore(mask);
 	return OK;
 }
 
