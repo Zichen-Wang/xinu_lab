@@ -109,7 +109,7 @@ void	pfhandler()
     s = find_bs_map(vp, currpid);
     o = vp - backing_store_map[s].virt_base_num;
 
-    //kprintf("Process ID %d is reading frame %d from s: %d, o: %d\n", currpid, f, s, o);
+    kprintf("Process ID %d is reading frame %d from s: %d, o: %d\n", currpid, f, s, o);
     if (read_bs((char *)(NBPG * f), s, o) == SYSERR) {
         kprintf("Process %d: Cannot read a page from backing store!\n", currpid);
     }
