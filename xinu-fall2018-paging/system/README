@@ -79,7 +79,7 @@ in 'system/'
 13. vfreemem.c              // Free memory from private virtual heap.
 14. test_app.c              // Test of app without virtual heap memory.
 15. test_vm.c               // Test of app with virtual heap memory.
-16. srpolicy.c              // Set page replacement policy.
+16. pgrpolicy.c             // Set page replacement policy.
 17. find_bs_map.c           // Find the backing store s for a process with a given virtual page
 
 in 'include/'
@@ -101,4 +101,4 @@ in 'include/'
 1.  xinu.h                  // Add page_data_structure.h and adjust the order of some header files.
 2.  process.h               // Add new variables (virtual heap memory related) into page table.
 3.  prototypes.h            // Change the declaration of ctxsw().
-4.  paging.h                // Add mypolicy.
+4.  paging.h                // Add `spolicy'.

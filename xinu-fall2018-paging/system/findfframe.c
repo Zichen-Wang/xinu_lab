@@ -141,6 +141,7 @@ int findfframe(uint8 type)
 
 
             while (1) {
+                kprintf("frame pt: %d\n", frame_last_stopped + FRAME0);
                 vp = inverted_page_table[frame_last_stopped].virt_page_num;
                 a = vp * NBPG;
                 p = a >> 22;
@@ -165,10 +166,10 @@ int findfframe(uint8 type)
 
                 if (frame_last_stopped == NFRAMES)
                     frame_last_stopped = NFRAMES_FOR_PAGE_TABLE;
-                kprintf("frame pt: %d\n", frame_last_stopped + FRAME0);
             }
 
             saved_frame_last_stopped = frame_last_stopped;
+
             frame_last_stopped++;
 
             if (frame_last_stopped == NFRAMES)
