@@ -27,11 +27,12 @@ void	pfhandler()
 
     int     new_pt_addr, new_frame_num; /* New frame address    */
 
-    a = get_faulted_addr();
-    vp = a / NBPG;
-
-    hook_pfault((char *)(a));
     page_fault_count++;     /* Add the number of page fault */
+
+    a = get_faulted_addr();
+    hook_pfault((char *)(a));
+
+    vp = a / NBPG;
 
     pd = (pd_t *)(proctab[currpid].page_directory);
 

@@ -19,11 +19,11 @@ process	main(void)
 
 
 	resume(vcreate(test_vm, 8192, 100, 19, "test_vm", 1, 'a'));
-	resume(vcreate(test_vm, 8192, 100, 19, "test_vm", 1, 'b'));
+	//resume(vcreate(test_vm, 8192, 100, 19, "test_vm", 1, 'b'));
 	//resume(vcreate(test_vm, 8192, 50, 19, "test_vm", 1, 'c'));
 
 	//resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 1, 2));
-	//resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 23, 17));
+	resume(vcreate(test_vm_2, 8192, 100, 19, "test_vm_2", 2, 23, 17));
 
 	sleepms(10000);
 
