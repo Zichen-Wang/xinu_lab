@@ -121,10 +121,12 @@ void	pfhandler(uint32 pferror_code)
     if (pferror_code & 0x2) {
         pt[q].pt_acc   = 1;
         pt[q].pt_dirty = 1;
+        kprintf("write!!\n");
     }
     else {
         pt[q].pt_acc   = 1;
         pt[q].pt_dirty = 0;
+        kprintf("read!!\n");
     }
     pt[q].pt_mbz    = 0;
     pt[q].pt_global = 0;

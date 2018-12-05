@@ -22,8 +22,8 @@ pfisr:
         call    pfhandler               # Call C function to handle the interrupt
         sti			                    # Restore interrupt status
 
-        addl    $8, %esp                   # Discard parameters
+        addl    $8, %esp                # Discard arguments
         popal			                # Restore registers
-        addl    $4, %esp                   # Discard eprror code
+        addl    $4, %esp                # Discard page fault error code
 
         iret                            # Return from interrupt
