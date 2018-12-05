@@ -43,8 +43,8 @@ process test_vm(char c)
     }
 
     for (i = 0; i < 60 * 4096; i++) {
-        if (i % 4096 == 0)
-            kprintf("%d: %d\n", i, array[i]);
+        //if (i % 4096 == 0)
+        //    kprintf("%d: %d\n", i, array[i]);
         if (array[i] != (i * 32 + c) % 13) {
             vfreemem(array, 60 * 4096);
             kprintf("\nFAILED\n");
