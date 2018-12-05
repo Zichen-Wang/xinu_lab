@@ -142,7 +142,7 @@ int findfframe(uint8 type)
 
             while (1) {
 
-                kprintf("frame pt: %d\n", frame_last_stopped + FRAME0);
+                //kprintf("frame pt: %d\n", frame_last_stopped + FRAME0);
 
                 vp = inverted_page_table[frame_last_stopped].virt_page_num;
                 a = vp * NBPG;
