@@ -27,7 +27,6 @@ void	pfhandler()
 
     int     new_pt_addr, new_frame_num; /* New frame address    */
 
-    page_fault_count++;
     a = get_faulted_addr();
     vp = a / NBPG;
 
