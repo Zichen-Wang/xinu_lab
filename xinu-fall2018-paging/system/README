@@ -96,7 +96,6 @@ in 'system/'
 4.  kill.c                  // Need to free all frames related to the killed process.
 5.  ctxsw.S                 // Need to update CR3 register.
 6.  resched.c               // Add a new parameter which is ptnew -> paga_directory to ctxsw().
-7.  kprintf.c               // Disabled interrupt in function kputc().
 
 in 'include/'
 1.  xinu.h                  // Add page_data_structure.h and adjust the order of some header files.
