@@ -129,7 +129,7 @@ void	pfhandler(uint32 pferror_code)
     }
     else {
         pt[q].pt_acc   = 1;
-        pt[q].pt_dirty = 0;
+        pt[q].pt_dirty = 1;
     }
     pt[q].pt_mbz    = 0;
     pt[q].pt_global = 0;
