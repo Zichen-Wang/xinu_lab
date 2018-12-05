@@ -118,14 +118,8 @@ void	pfhandler(uint32 pferror_code)
     pt[q].pt_pwt    = 0;
     pt[q].pt_pcd    = 0;
 
-    if (pferror_code & 0x2) {
-        pt[q].pt_acc   = 1;
-        pt[q].pt_dirty = 1;
-    }
-    else {
-        pt[q].pt_acc   = 1;
-        pt[q].pt_dirty = 1;
-    }
+        pt[q].pt_acc   = 0;
+        pt[q].pt_dirty = 0;
     pt[q].pt_mbz    = 0;
     pt[q].pt_global = 0;
     pt[q].pt_avail  = 0;

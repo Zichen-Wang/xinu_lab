@@ -105,13 +105,6 @@ int findfframe(uint8 type)
 
             hook_pswap_out(vp, saved_frameq_head + FRAME0);
 
-            /* If the dirty bit for page vp was set in its page table   */
-            if (pt[q].pt_dirty == 1) {
-
-                pt[q].pt_dirty = 0;
-                write_back(saved_frameq_head, vp, pid);
-
-            }
 
             pt[q].pt_pres = 0;     /* Mark the appropriate entry of pt as not present.    */
 
@@ -125,6 +118,13 @@ int findfframe(uint8 type)
                 inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
             }
 
+            /* If the dirty bit for page vp was set in its page table   */
+            if (pt[q].pt_dirty == 1) {
+
+                pt[q].pt_dirty = 0;
+                write_back(saved_frameq_head, vp, pid);
+
+            }
 
             return saved_frameq_head;
         }
@@ -192,14 +192,6 @@ int findfframe(uint8 type)
 
             hook_pswap_out(vp, saved_frame_last_stopped + FRAME0);
 
-            /* If the dirty bit for page vp was set in its page table   */
-            if (inverted_page_table[saved_frame_last_stopped].dirty == 1) {
-
-                inverted_page_table[saved_frame_last_stopped].dirty = 0;
-                write_back(saved_frame_last_stopped, vp, pid);
-
-            }
-
             pt[q].pt_pres = 0;     /* Mark the appropriate entry of pt as not present.    */
 
             /* Decrement the reference count of the frame occupied by pt */
@@ -210,6 +202,14 @@ int findfframe(uint8 type)
                 pd[p].pd_pres = 0;     /* Mark the appropriate entry in pd as "not present."  */
                 /* Free the frame holding that page table   */
                 inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
+            }
+
+            /* If the dirty bit for page vp was set in its page table   */
+            if (inverted_page_table[saved_frame_last_stopped].dirty == 1) {
+
+                inverted_page_table[saved_frame_last_stopped].dirty = 0;
+                write_back(saved_frame_last_stopped, vp, pid);
+
             }
 
             return saved_frame_last_stopped;
