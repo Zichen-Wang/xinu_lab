@@ -46,14 +46,14 @@ process test_vm(char c)
         //kprintf("%d: %d\n", i, array[i]);
         if (array[i] != (i * 32 + c) % 13) {
             vfreemem(array, 60 * 4096);
-            //kprintf("\nFAILED\n");
+            kprintf("\nFAILED\n");
             return 0;
         }
     }
 
     vfreemem(array, 60 * 4096);
 
-    //kprintf("\nPASSED\n");
+    kprintf("\nPASSED\n");
 
 
     return 0;

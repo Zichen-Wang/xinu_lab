@@ -14,7 +14,7 @@ process test_vm_2(int s, int d)
 
     if (array[123] != s + d * 123) {
         vfreemem((char *)(array), 1000 * 4);
-        //kprintf("\nFAILED\n");
+        kprintf("\nFAILED\n");
         return 0;
     }
 
@@ -34,12 +34,12 @@ process test_vm_2(int s, int d)
 
     if (array[123] != j) {
         vfreemem((char *)(array), 10000 * 4);
-        //kprintf("\nFAILED\n");
+        kprintf("\nFAILED\n");
         return 0;
     }
 
     vfreemem((char *)(array), 10000 * 4);
-    //kprintf("\nPASSED\n");
+    kprintf("\nPASSED\n");
 
     return 0;
 }
