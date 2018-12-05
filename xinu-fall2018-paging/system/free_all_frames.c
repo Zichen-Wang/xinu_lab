@@ -91,7 +91,7 @@ void free_all_frames(pid32 pid)
                     pt[q].pt_pres = 0;
                     pt[q].pt_avail = 0;
 
-                    kprintf("[PID %d: freeing frame %d]\n", pid, i + FRAME0);
+                    //kprintf("[PID %d: freeing frame %d]\n", pid, i + FRAME0);
 
 
                     inverted_page_table[i].fstate = F_FREE;
@@ -113,12 +113,12 @@ void free_all_frames(pid32 pid)
             if (i == NFRAMES_FOR_VIRTUAL_HEAP)  /* The frame list is empty  */
                 frame_last_stopped = -1;
 
-
+            /*
             if (frame_last_stopped != -1)
                 kprintf("Process %d ends normally, pointer is at %d th frame.\n", pid, frame_last_stopped + FRAME0);
             else
                 kprintf("Process %d ends normally, frame list is empty.\n", pid);
-
+            */
         }
     }
 
