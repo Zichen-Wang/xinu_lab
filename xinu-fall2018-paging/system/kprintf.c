@@ -99,13 +99,10 @@ extern	void	_doprnt(char *, va_list ap, int (*)(int));
  */
 syscall kprintf(char *fmt, ...)
 {
-	int mask;
 	va_list ap;
-	mask = disable();
 
 	va_start(ap, fmt);
 	_doprnt(fmt, ap, (int (*)(int))kputc);
 	va_end(ap);
-	restore(mask);
 	return OK;
 }
