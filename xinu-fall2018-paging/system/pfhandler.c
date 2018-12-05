@@ -96,8 +96,8 @@ void	pfhandler()
         }
     }
     else if (spolicy == 1) {
-        if (frame_clock_pt == -1) {       /* The current frame list is empty   */
-            frame_clock_pt = new_frame_num;
+        if (frame_last_stopped == -1) {       /* The current frame list is empty   */
+            frame_last_stopped = new_frame_num;
         }
     }
 

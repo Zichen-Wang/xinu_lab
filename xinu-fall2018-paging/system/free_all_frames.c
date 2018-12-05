@@ -98,21 +98,21 @@ void free_all_frames(pid32 pid)
             }
 
             for (i = 0; i < NFRAMES_FOR_VIRTUAL_HEAP; i++) {
-                if (inverted_page_table[frame_clock_pt].fstate == F_FREE) {
-                    frame_clock_pt++;
+                if (inverted_page_table[frame_last_stopped].fstate == F_FREE) {
+                    frame_last_stopped++;
                 }
                 else {
                     break;
                 }
-                if (frame_clock_pt == NFRAMES)
-                    frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
+                if (frame_last_stopped == NFRAMES)
+                    frame_last_stopped = NFRAMES_FOR_PAGE_TABLE;
             }
 
             if (i == NFRAMES_FOR_VIRTUAL_HEAP)  /* The frame list is empty  */
-                frame_clock_pt = -1;
+                frame_last_stopped = -1;
 
-            if (frame_clock_pt != -1)
-                kprintf("Process %d ends normally, pointer is at %d th frame.\n", pid, frame_clock_pt + FRAME0);
+            if (frame_last_stopped != -1)
+                kprintf("Process %d ends normally, pointer is at %d th frame.\n", pid, frame_last_stopped + FRAME0);
             else
                 kprintf("Process %d ends normally, frame list is empty.\n", pid);
         }

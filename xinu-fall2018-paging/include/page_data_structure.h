@@ -55,7 +55,7 @@ extern  struct frame_entry  inverted_page_table[NFRAMES];
 extern  pt_t * shared_page_table[5];
 extern  struct bs_map_entry backing_store_map[MAX_BS_ENTRIES];
 extern  int32   frameq_head, frameq_tail;
-extern  int32   frame_clock_pt;
+extern  int32   frame_last_stopped;
 
 /* in paging_init.c     */
 extern  void paging_init(void);

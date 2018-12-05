@@ -21,7 +21,6 @@ void hook_ptable_create(unsigned int pagenum)
 #endif
 }
 
-
 void hook_ptable_delete(unsigned int pagenum)
 {
 #ifdef HOOK_DEBUG

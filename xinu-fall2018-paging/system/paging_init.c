@@ -16,7 +16,7 @@ uint32  page_fault_count;
 
 int32   frameq_head, frameq_tail;
 
-int32   frame_clock_pt;
+int32   frame_last_stopped;
 
 /*---------------------------------------------------------------------------
  *  paging_init  -  Define and initialize all necessary page data structures.
@@ -44,8 +44,8 @@ void paging_init(void)
     }
 
     /* set the page replacement policy  */
-    pgrpolicy(0);   /* The argument spolicy being 0 sets policy to FIFO */
-    //pgrpolicy(1); /* The argument spolicy being 1 sets policy to CLOCK */
+    //pgrpolicy(0);   /* The argument spolicy being 0 sets policy to FIFO */
+    pgrpolicy(1); /* The argument spolicy being 1 sets policy to CLOCK */
 
     page_fault_count = 0;
 }

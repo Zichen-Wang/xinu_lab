@@ -26,7 +26,7 @@ int findfframe(uint8 type)
     /* Position in array [NFRAMES_FOR_PAGE_TABLE, NFRAMES - 1] for virtual memory	*/
     static  uint32 next_frame_virt = NFRAMES_FOR_PAGE_TABLE;
 
-    uint32  saved_frameq_head, saved_frame_clock_pt;
+    uint32  saved_frameq_head, saved_frame_last_stopped;
     uint32  vp;     /* Virtual page number of the page to be replaced */
     uint32  a;      /* The first virtual address on page vp */
     uint32  p, q;   /* p is the high 10 bits of a; q is entry number in page table  */
@@ -135,22 +135,23 @@ int findfframe(uint8 type)
          */
 
         else if (spolicy == 1) {
-            if (frame_clock_pt == -1) { /* Would never happen   */
+            if (frame_last_stopped == -1) { /* Would never happen   */
                 return SYSERR;
             }
 
 
             while (1) {
-                vp = inverted_page_table[frame_clock_pt].virt_page_num;
+                vp = inverted_page_table[frame_last_stopped].virt_page_num;
                 a = vp * NBPG;
                 p = a >> 22;
                 q = (a >> 12) & 0x03FF;
-                pid = inverted_page_table[frame_clock_pt].pid;
+                pid = inverted_page_table[frame_last_stopped].pid;
                 pd = proctab[pid].page_directory;
                 pt = (pt_t *)(NBPG * pd[p].pd_base);
 
                 if (pt[q].pt_dirty == 1) {
-                    inverted_page_table[frame_clock_pt].dirty = 1;
+                    inverted_page_table[frame_last_stopped].dirty = 1;
+                    pt[q].pt_acc = 1;
                     pt[q].pt_dirty = 0;
                 }
                 else if (pt[q].pt_acc == 1) {
@@ -160,21 +161,21 @@ int findfframe(uint8 type)
                     break;
                 }
 
-                frame_clock_pt++;
+                frame_last_stopped++;
 
-                if (frame_clock_pt == NFRAMES)
-                    frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
-                kprintf("frame pt: %d\n", frame_clock_pt + FRAME0);
+                if (frame_last_stopped == NFRAMES)
+                    frame_last_stopped = NFRAMES_FOR_PAGE_TABLE;
+                kprintf("frame pt: %d\n", frame_last_stopped + FRAME0);
             }
 
-            saved_frame_clock_pt = frame_clock_pt;
-            frame_clock_pt++;
+            saved_frame_last_stopped = frame_last_stopped;
+            frame_last_stopped++;
 
-            if (frame_clock_pt == NFRAMES)
-                frame_clock_pt = NFRAMES_FOR_PAGE_TABLE;
+            if (frame_last_stopped == NFRAMES)
+                frame_last_stopped = NFRAMES_FOR_PAGE_TABLE;
 
-            inverted_page_table[saved_frame_clock_pt].fstate = F_FREE;
-            pid = inverted_page_table[saved_frame_clock_pt].pid;
+            inverted_page_table[saved_frame_last_stopped].fstate = F_FREE;
+            pid = inverted_page_table[saved_frame_last_stopped].pid;
 
             if (pid == currpid) {   /* If the page being evicted belongs to the current process  */
 
@@ -186,13 +187,13 @@ int findfframe(uint8 type)
 
             }
 
-            hook_pswap_out(vp, saved_frame_clock_pt + FRAME0);
+            hook_pswap_out(vp, saved_frame_last_stopped + FRAME0);
 
             /* If the dirty bit for page vp was set in its page table   */
-            if (inverted_page_table[saved_frame_clock_pt].dirty == 1) {
+            if (inverted_page_table[saved_frame_last_stopped].dirty == 1) {
 
-                inverted_page_table[saved_frame_clock_pt].dirty = 0;
-                write_back(saved_frame_clock_pt, vp, pid);
+                inverted_page_table[saved_frame_last_stopped].dirty = 0;
+                write_back(saved_frame_last_stopped, vp, pid);
 
             }
 
@@ -208,7 +209,7 @@ int findfframe(uint8 type)
                 inverted_page_table[pd[p].pd_base - FRAME0].fstate = F_FREE;
             }
 
-            return saved_frame_clock_pt;
+            return saved_frame_last_stopped;
         }
 
         return SYSERR;

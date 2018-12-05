@@ -17,7 +17,7 @@ syscall  pgrpolicy (uint16 mypolicy)
         frameq_head = frameq_tail = -1;
     }
     else if (mypolicy == 1) {    /* The page replacement policy is CLOCK */
-        frame_clock_pt = -1;
+        frame_last_stopped = -1;
     }
 
     restore(mask);
